@@ -97,3 +97,23 @@ export async function editMemberById(member) {
             console.error(error);
         }
 };
+
+export async function getMemberAddressesById(Member_Id) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/member/getMemberAddressesById`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({Member_Id}),
+        });
+        if (response.ok) {
+            return await response.json();
+        } else {
+            const errorData = await response.json();
+            console.error(errorData);
+        }
+        } catch (error) {
+            console.error(error);
+        }
+};
