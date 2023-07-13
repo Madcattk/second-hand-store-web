@@ -10,7 +10,7 @@ export const Order = () => {
             <div className='xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 flex_center flex-col gap-3 px-5 py-3 border border-brown mb-5'>
                 <div className='w-full flex flex-col md:flex-row md:items-end justify-between font-light'>
                     <span>ORDER NO: 12342222</span>
-                    <span className='text-sm'>Date: 2023-02-03</span>
+                    <span className='text-sm'>Date: 2023-02-07</span>
                     <span>Status</span>
                 </div>
                 <div className='w-full py-1 flex flex-col md:flex-row items-start justify-between font-light text-sm border-b border-b-gray border-t border-t-gray'>
