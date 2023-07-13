@@ -24,20 +24,14 @@ const page = () => {
     if(!(form?.email && form?.password)) {return }
     form.status = form?.status === 'true' ? true : form?.status === true ? true : false;
 
-    if(form?.status){
-        //admin
-    } else {
+    if(!form?.status){
       const res = await loginMember(form?.email, form?.password);
-      if(res?.message === 'success'){
-        if (res?.message === 'success') {   
-          let authData = res?.data?.[0] || null
-          saveToLocalStorage('auth', authData);
-        }
-        
+      if(res?.message === 'success' && res?.data?.[0]){
+        let authData = res?.data?.[0] || null
+        saveToLocalStorage('auth', authData);
+        router.push('/member/account');  
       }
     }
-
-    router.push('/member/account');
   }
 
   return (
