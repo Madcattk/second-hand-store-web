@@ -9,10 +9,9 @@ import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
-import { editMemberById } from '@app/api/getAPI/member';
+import { deleteMemberAddressesById, editMemberById } from '@app/api/getAPI/member';
 import { saveToLocalStorage } from '@lib/localStorage';
 import { DateFormat } from '@components/formats';
-// import { deleteMemberAddressById } from '@app/apis/member-addresses';
 
 
 const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress }) => {
@@ -54,12 +53,13 @@ const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress 
         }
     } 
 
-    const onDelete = async (id) => {
-        const res = await deleteMemberAddressById(id)
+    const onDelete = async (address) => {
+        const res = await deleteMemberAddressesById(address.Member_Id, address.Member_Address);
         if(res?.message === 'success'){
             toast.success("🤍 Deleted address", {
                 autoClose: 2000,
             });
+            onLoad();
         }
         else{
             toast.error("❗️Couldn't delete address", {
@@ -89,15 +89,15 @@ const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress 
             </div>
             <div className='flex flex-col w-full md:pl-10 gap-3 mb-3'>
             <ButtonText onClick={() => setMenu(3)} placeholder='ADD NEW ADDRESS' classBox='w-full'/>
-                {form?.addresses?.map((item,index) => (
+                {form?.Member_Address?.map((item,index) => (
                     <div className='p-3 border border-brown w-full font-light' key={"Customer-Address"+index}>
                         <div className='w-full flex gap-3 justify-end'>
                             <FontAwesomeIcon onClick={() => {setAdd(false); setAddress(item); setMenu(3);}} icon={faPenToSquare} className='cursor-pointer'/>
-                            <FontAwesomeIcon onClick={() => onDelete(item?._id || '')} icon={faTrashCan} className='cursor-pointer'/>
+                            <FontAwesomeIcon onClick={() => onDelete({Member_Id: item?.Member_Id, Member_Address: item.Fullname + "%" + item.Address + "%" + item.District + "%" + item.Province + "%" + item.Zipcode + "%" + item.Phone + "%"} || '')} icon={faTrashCan} className='cursor-pointer'/>
                         </div>
-                        <div>{item?.fullname || ''}</div>
-                        <div>{item?.address || ''} {item?.district || ''} {item?.province || ''} {item?.zipcode || ''}</div>
-                        <div>Phone: {item?.phone || ''}</div>
+                        <div>{item?.Fullname || ''}</div>
+                        <div>{item?.Address || ''} {item?.District || ''} {item?.Province || ''} {item?.Zipcode || ''}</div>
+                        <div>Phone: {item?.Phone || ''}</div>
                     </div>
                 ))}
             </div>

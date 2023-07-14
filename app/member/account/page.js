@@ -6,20 +6,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import CustomerOrderList from '@components/pages/CustomerOrderList';
 import CustomerProfileModal from '@components/pages/CustomerProfileModal';
-// import AddressModal from '@components/pages/AddressModal';
+import AddressModal from '@components/pages/AddressModal';
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage';
 import { useRouter } from 'next/navigation';
+import { getMemberAddressesById } from '@app/api/getAPI/member';
 
 const page = () => {
     const router = useRouter();
-    let auth = getFromLocalStorage('auth')
     const [menu, setMenu] = useState(1);
     const [form, setForm] = useState({})
     const [add, setAdd] = useState(true)
     const [address, setAddress] = useState({})
 
     useEffect(() => {
-        setForm(auth)
+        onLoad()
     },[])
 
     const onLogOut = () => {
@@ -27,8 +27,27 @@ const page = () => {
         router.push('/login')
     }
 
-    const onLoad = () => {
-        setForm(getFromLocalStorage('auth'))
+    const onLoad = async () => {
+        const auth = getFromLocalStorage('auth')
+        const res = await getMemberAddressesById(auth?.Member_Id || '')
+        if(res?.message === 'success'){
+            let address = [];
+            res?.data?.forEach((item, index) => {
+                let add = item?.Member_Address.split('%');
+                address.push({
+                    Member_Id: item?.Member_Id || '',
+                    Fullname: add[0] || '',
+                    Address: add[1] || '',
+                    District: add[2] || '',
+                    Province: add[3] || '',
+                    Zipcode: add[4] || '',
+                    Phone: add[5] || '',
+                    Member_Address: item?.Member_Address || ''
+                })
+            })
+            auth.Member_Address = address;
+        }
+        setForm(auth);
     }
     
     return (
@@ -62,7 +81,7 @@ const page = () => {
                 {menu === 1 && <CustomerOrderList/>}                    
                 {(menu === 0 || menu === 3) && <CustomerProfileModal menu={menu} setMenu={setMenu} data={form} setAdd={setAdd} setAddress={setAddress} onLoad={onLoad}/>}                    
             </div>
-            {/* {menu === 3 && <AddressModal menu={menu} setMenu={setMenu} add={add} setAdd={setAdd} data={form?._id} address={address} setAddress={setAddress} onLoad={onLoad}/>}   */}
+            {menu === 3 && <AddressModal menu={menu} setMenu={setMenu} add={add} setAdd={setAdd} data={form?.Member_Id} address={address} setAddress={setAddress} onLoad={onLoad}/>}  
         </div>
     )
 }

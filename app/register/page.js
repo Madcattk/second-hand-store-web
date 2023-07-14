@@ -66,7 +66,7 @@ const page = () => {
             <InputBox onChange={(Member_Email) => onChange({ Member_Email })} value={form?.Member_Email || ''} placeholder='Email' classBox='w-full border-r border-brown'/>
             <InputBox onChange={(Member_Password) => onChange({ Member_Password })} value={form?.Member_Password || ''} placeholder='Password' classBox='w-full'/>
           </div>
-          <InputBox onChange={(Member_Phone) => onChange({ Member_Phone })} value={form?.Member_Phone || ''} placeholder='Phone Number' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
+          <InputBox number={true} onChange={(Member_Phone) => onChange({ Member_Phone })} value={form?.Member_Phone || ''} placeholder='Phone Number' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
           <ButtonText onClick={() => onSave()} placeholder='REGISTER' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72 pb-2 pt-14'/>
           <span onClick={() => router.push('/login')} className='font-extralight cursor-pointer hover:underline text-sm'>Already have an account?</span>
       </>

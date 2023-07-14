@@ -117,3 +117,63 @@ export async function getMemberAddressesById(Member_Id) {
             console.error(error);
         }
 };
+
+export async function deleteMemberAddressesById(Member_Id, Member_Address) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/member/deleteMemberAddressById`, {
+            method: 'DELETE',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({Member_Id, Member_Address}),
+        });
+        if (response.ok) {
+            return await response.json();
+        } else {
+            const errorData = await response.json();
+            console.error(errorData);
+        }
+        } catch (error) {
+            console.error(error);
+        }
+};
+
+export async function addMemberAddressById(memberAddress) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/member/addMemberAddressById`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(memberAddress),
+        });
+        if (response.ok) {
+            return await response.json();
+        } else {
+            const errorData = await response.json();
+            console.error(errorData);
+        }
+        } catch (error) {
+            console.error(error);
+        }
+};
+
+export async function editMemberAddressById(memberAddress) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/member/editMemberAddressById`, {
+            method: 'PUT',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(memberAddress),
+        });
+        if (response.ok) {
+            return await response.json();
+        } else {
+            const errorData = await response.json();
+            console.error(errorData);
+        }
+        } catch (error) {
+            console.error(error);
+        }
+};
