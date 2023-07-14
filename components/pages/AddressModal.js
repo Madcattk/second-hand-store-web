@@ -13,7 +13,11 @@ const AddressModal = ({ menu, setMenu, add, address, setAdd, setAddress, data, o
   const onChange = (update) => setForm({ ...form, ...update })
   
   const onSave = async () => {
-    if(!(form?.Fullname && form?.Address && form?.District && form?.Province && form?.Zipcode && form?.Phone)) {return }
+    if(!(form?.Fullname && form?.Address && form?.District && form?.Province && form?.Zipcode && form?.Phone)) {
+      return toast.error("❗️Please fill out all the fields", {
+        autoClose: 2000,
+      });
+    }
 
     let addr = (form?.Fullname || '') + '%' + (form?.Address || '') + '%' + (form?.District || '') + '%' + (form?.Province || '') + '%' + (form?.Zipcode || '') + '%' + (form?.Phone || '') + '%'
     
