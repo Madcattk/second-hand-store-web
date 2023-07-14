@@ -74,9 +74,9 @@ export const InputFile = ({ value = "", onChange, classBox = "", placeholder = "
     return (
         <div className={`${classBox} flex_center my-3 py-3 border-dashed border-2 border-brown`}>
             <div className="flex flex-col items-center justify-center gap-3 min-h-[235px]">
-                {value !== null && 
+                {value && 
                     <Image
-                    src={value || '/assets/images/avatars/upload.jpeg'}
+                    src={value || ''}
                     alt="Image"
                     width={150}
                     height={180}
