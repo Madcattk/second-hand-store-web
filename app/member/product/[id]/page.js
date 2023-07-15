@@ -1,12 +1,23 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
+import { useParams } from 'next/navigation' 
 import { ButtonText, TransparentButtonText } from '@components/inputs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
+import { getProductById } from '@app/api/getAPI/product'
 
 const page = () => {
+    const { id } = useParams();
+
+    useEffect(() => {
+        onLoad()
+    },[])
+
+    const onLoad = () => {
+        
+    }
     return (      
         <div className='w-full flex justify-center'>
             <div className='flex flex-col items-start md:flex-row md:justify-center gap-12'>
