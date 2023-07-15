@@ -18,8 +18,6 @@ const page = () => {
     const [form, setForm] = useState({})
     const [meta, setMeta] = useState({Promotion: null, Delevery_Address: null})
 
-    // console.log(form);
-
     useEffect(() => {
         onLoadAuth()
     }, []);
@@ -60,6 +58,11 @@ const page = () => {
             res?.data?.forEach((item) => {
                 if(item?.Product_Status === 'Available'){
                     total += item?.Product_Price
+                } else {
+                    auth.Product_Id = auth?.Product_Id?.filter((productId) => productId !== item.Product_Id);
+                    saveToLocalStorage('auth', auth);
+                    onLoadAuth();
+                    onLoad();
                 }
             });
             const address = await getMemberAddressesById(auth?.Member_Id);
