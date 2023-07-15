@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import React from 'react'
 import Image from 'next/image'
 import { ButtonText, InputBox, InputFile, InputSelect } from '@components/inputs'
-import { getProductById } from '@app/api/getAPI/product'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage'
 import { useRouter } from 'next/navigation'
 import { getCartByProductId } from '@app/api/getAPI/product'
@@ -17,10 +18,10 @@ const page = () => {
     const [form, setForm] = useState({})
     const [meta, setMeta] = useState({Promotion: null, Delevery_Address: null})
 
-    console.log(form);
+    // console.log(form);
 
     useEffect(() => {
-        setAuth(getFromLocalStorage('auth'));
+        onLoadAuth()
     }, []);
 
     useEffect(() => {
@@ -32,7 +33,11 @@ const page = () => {
             const promotion = meta?.Promotion?.find((item) => item.Promotion_Id === parseInt(form?.Promotion));
                 setForm({ ...form, Promotion_Data:promotion });
             }
-        }, [form?.Promotion, meta?.Promotion]);
+    }, [form?.Promotion, meta?.Promotion]);
+
+    const onLoadAuth = () =>{
+        setAuth(getFromLocalStorage('auth'));
+    }
 
     const handleAddressSelection = (event) => {
         setNewDeliveryAddress(false);
@@ -48,7 +53,7 @@ const page = () => {
         });
     };
     const onLoad = async () => {
-        if(!auth?.Product_Id) {return }
+        if(!auth?.Product_Id?.length > 0) {return }
         const res = await getCartByProductId(auth?.Product_Id || []);
         if(res?.message === 'success' && res?.data){
             let total = 0;
@@ -93,12 +98,21 @@ const page = () => {
         }
     }
 
+    const onDeleteProduct = (id) => {
+        if (auth?.Product_Id?.length > 0) {
+            auth.Product_Id = auth.Product_Id.filter((productId) => productId !== id.Product_Id);
+            saveToLocalStorage('auth', auth);
+            onLoadAuth();
+            onLoad();
+        }
+    }
+
     const onChange = (update) => setForm({ ...form, ...update })
 
     return (
         <div className='flex flex-col items-center w-full mb-10'>
             <div className='xl:w-[1120px] min-h-[600px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 border border-brown grid lg:grid-cols-3 grid-cols-1'>
-                {auth?.Product_Id ?
+                {(auth?.Product_Id && auth?.Product_Id?.length > 0) ?
                 <>
                     <div className='lg:col-span-2 col-span-1 p-10 flex flex-col gap-3 md:border-r border-brown'>
                         <div className='text-3xl'>Summary</div>
@@ -111,6 +125,7 @@ const page = () => {
                                 return <React.Fragment key={"Customer-Order"+index}>
                                     <div className='w-full grid grid-cols-1 md:grid-cols-3'>
                                         <div className='md:col-span-2 flex gap-2'>
+                                        <FontAwesomeIcon onClick={() => onDeleteProduct(item)} icon={faXmark} className='cursor-pointer'/>
                                             <div>
                                                 <Image src={form?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100} className='w-[80px] h-[100px]'/>
                                             </div>
@@ -129,7 +144,7 @@ const page = () => {
 
                         { meta?.Promotion?.length > 0 && 
                             <>
-                                <InputSelect onChange={(Promotion) => onChange({ Promotion })} options={meta?.Promotion} value={form?.Promotion || ''} placeholder={'Please, select your discount'} classBox='w-full font-extrabold'/>
+                                <InputSelect onChange={(Promotion) => onChange({ Promotion })} options={meta?.Promotion} value={form?.Promotion || ''} placeholder={'Get your discount here'} classBox='w-full font-extrabold'/>
                                 <div className='w-full r font-semibold'>
                                     {form?.Promotion_Data?.Promotion_Name || 'Select discount'} ฿{((parseFloat(form?.Sale_Total_Price) * (form?.Promotion_Data?.Promotion_Discount / 100)) || 0).toFixed(2) || '0.00'} Baht
                                 </div>
