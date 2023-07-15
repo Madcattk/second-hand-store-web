@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import React from 'react'
 import Image from 'next/image'
-import { ButtonText, InputBox, InputFile } from '@components/inputs'
+import { ButtonText, InputBox, InputFile, InputSelect } from '@components/inputs'
 import { getProductById } from '@app/api/getAPI/product'
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage'
 import { useRouter } from 'next/navigation'
@@ -14,10 +14,19 @@ const page = () => {
     const router = useRouter();
     const [auth, setAuth] = useState(getFromLocalStorage('auth'))
     const [form, setForm] = useState({})
+    const [meta, setMeta] = useState({Promotion: null, Delevery_Address: null})
 
+    console.log(form);
     useEffect(() => {
         onLoad()
     },[])
+
+    useEffect(() => {
+        if (form?.Promotion) {
+            const promotion = meta?.Promotion?.find((item) => item.Promotion_Id === parseInt(form?.Promotion));
+                setForm({ ...form, Promotion_Data:promotion });
+            }
+        }, [form?.Promotion, meta?.Promotion]);
 
     const onLoad = async () => {
         const res = await getCartByProductId(auth?.Product_Id || []);
@@ -34,7 +43,14 @@ const page = () => {
             })
             const promotion = await getPromotionByConditions(total);
             if(promotion?.message === 'success' && promotion?.data){
-                console.log(promotion?.data);
+                let _p = promotion?.data?.map(({ Promotion_Id, Promotion_Name, ...otherProperties }) => ({
+                    id: Promotion_Id,
+                    name: Promotion_Name,
+                    Promotion_Id,
+                    Promotion_Name,
+                    ...otherProperties,
+                }));
+                setMeta({...meta, Promotion: _p})
             }
         }
     }
@@ -56,7 +72,7 @@ const page = () => {
                                 <div className='w-full grid grid-cols-1 md:grid-cols-3'>
                                     <div className='md:col-span-2 flex gap-2'>
                                         <div>
-                                            <Image src="/assets/images/products/JeanVest.jpg" alt="Product" width={80} height={100} className='w-[80px] h-[100px]'/>
+                                            <Image src={form?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100} className='w-[80px] h-[100px]'/>
                                         </div>
                                         <div className='flex flex-col font-light'>
                                             <span>{item?.Product_Name || ''}</span>
@@ -70,9 +86,17 @@ const page = () => {
                             </React.Fragment>
                         })}
                     </div>
-                    <div className='w-full r'>Discount 30% ฿ 624.00 Baht</div>
+
+                    { meta?.Promotion?.length > 0 && 
+                        <>
+                            <InputSelect onChange={(Promotion) => onChange({ Promotion })} options={meta?.Promotion} value={form?.Promotion || ''} placeholder={'Please, select your discount'} classBox='w-full font-extrabold'/>
+                            <div className='w-full r font-semibold'>
+                                {form?.Promotion_Data?.Promotion_Name || 'Select discount'} ฿{((parseFloat(form?.Sale_Total_Price) * (form?.Promotion_Data?.Promotion_Discount / 100)) || 0).toFixed(2) || '0.00'} Baht
+                            </div>
+                        </>
+                    }
                     <div className='w-full border-b border-gray'></div>
-                    <div className='w-full r'>Subtotal ฿1234.00 Baht</div>
+                    <div className='w-full r font-semibold'>Subtotal ฿{(parseFloat(form?.Sale_Total_Price)-((parseFloat(form?.Sale_Total_Price) * (form?.Promotion_Data?.Promotion_Discount / 100))) || parseFloat(form?.Sale_Total_Price)).toFixed(2) || '0.00'} Baht</div>
                     <div className='w-full border-b border-gray'></div>
                 </div>
                 <div className='p-10 col-span-1 flex flex-col gap-3'>

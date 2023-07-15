@@ -35,7 +35,7 @@ const ShopAll = () => {
                         {item.Product_Status === 'Available' ?
                             <>
                                 <a>{item?.Product_Name || ''}</a>
-                                <div>฿ {item?.Product_Price?.toFixed(2)} Baht</div>
+                                <div>฿{item?.Product_Price?.toFixed(2)} Baht</div>
                             </>
                         :
                             <>
