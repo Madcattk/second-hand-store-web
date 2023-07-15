@@ -20,11 +20,6 @@ const NavMember = ({ children }) => {
         setAuth(getFromLocalStorage('auth'))
     };
 
-    const onLogOut = () => {
-        saveToLocalStorage('auth', null)
-        onLoad()
-    }
-
     return (
         <>
             <div className="flex_center h-16 text-brown text-base font-light">
@@ -50,7 +45,7 @@ const NavMember = ({ children }) => {
                     <button className="menu-hover"><FontAwesomeIcon icon={faBars} /></button>
                     <div className="absolute left-0 pt-2 bg-white z-10 invisible group-hover:visible">
                         <a href="#" className="block px-1 py-2 cursor-pointer hover:bg-hover"><FontAwesomeIcon icon={faSearch} /></a>
-                        <a onClick={() => router.push(`/member/cart/${111}`)} className="block px-1 py-2 cursor-pointer hover:bg-hover"><FontAwesomeIcon icon={faShoppingCart} /></a>
+                        <a onClick={() => router.push(`/member/cart`)} className="block px-1 py-2 cursor-pointer hover:bg-hover"><FontAwesomeIcon icon={faShoppingCart} /></a>
                         <a onClick={() => router.push('/login')} className="block px-1 py-2 cursor-pointer hover:bg-hover"><FontAwesomeIcon icon={faUser} /></a>
                     </div>
                 </div>
@@ -65,7 +60,7 @@ const NavMember = ({ children }) => {
                         <FontAwesomeIcon icon={faUser} />
                     </a>
                     <a className="block px-6 py-2 cursor-pointer">
-                        <FontAwesomeIcon onClick={() => router.push(`/member/cart/${111}`)} icon={faShoppingCart} />
+                        <FontAwesomeIcon onClick={() => router.push(`/member/cart`)} icon={faShoppingCart} />
                     </a>
                 </div>
             </div>

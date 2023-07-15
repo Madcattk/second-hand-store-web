@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { useParams } from 'next/navigation' 
+import { useParams, useRouter } from 'next/navigation' 
 import { ButtonText, TransparentButtonText } from '@components/inputs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
@@ -13,14 +13,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
 
 const page = () => {
-    const auth = getFromLocalStorage('auth')
     const { id } = useParams();
+    const router = useRouter();
+    const [auth, setAuth] = useState(null)
     const [form, setForm] = useState({})
-    console.log(auth);
 
     useEffect(() => {
+        onLoadAuth()
         onLoad()
     },[])
+
+    const onLoadAuth = () => {
+        setAuth(getFromLocalStorage('auth')); 
+    }
 
     const onLoad = async () => {
         const res = await getProductById(id);
@@ -29,10 +34,10 @@ const page = () => {
         }
     }
 
-    const onAdd= () => {
-        if(auth?.Product){
-            if (!auth.Product.includes(form?.Product_Id)) {
-                auth.Product.push(form?.Product_Id);
+    const onAdd= (buy) => {
+        if(auth?.Product_Id){
+            if (!auth.Product_Id.includes(form?.Product_Id)) {
+                auth.Product_Id.push(form?.Product_Id);
                 toast.success("🤍 Added to cart", {
                     autoClose: 2000,
                 });
@@ -43,15 +48,17 @@ const page = () => {
                 });
             }
         }else{
-            auth.Product = [form?.Product_Id];
-            auth.Product.push(form?.Product_Id);
+            auth.Product_Id = [form?.Product_Id];
             toast.success("🤍 Added to cart", {
                 autoClose: 2000,
             });
         }
 
-        saveToLocalStorage('auth', auth)
+        saveToLocalStorage('auth', auth);
+        onLoadAuth();
+        if(buy) router.push('/member/cart')
     }
+
     return (      
         <div className='w-full flex justify-center'>
             <div className='flex flex-col items-start md:flex-row md:justify-center gap-12'>
@@ -80,8 +87,8 @@ const page = () => {
                     </div>
                     {form?.Product_Status === 'Available' ?
                     <>
-                        <TransparentButtonText onClick={() => onBuy()} placeholder='BUY NOW' classBox='md:w-[400px] w-[300px]'/>
-                        <ButtonText onClick={() => onAdd()} placeholder='ADD TO CART' classBox='md:w-[400px] w-[300px]'/>
+                        <TransparentButtonText onClick={() => onAdd(true)} placeholder='BUY NOW' classBox='md:w-[400px] w-[300px]'/>
+                        <ButtonText onClick={() => onAdd(false)} placeholder='ADD TO CART' classBox='md:w-[400px] w-[300px]'/>
                         <div className='md:w-[400px] w-[300px] font-light text-sm'>
                             {form?.Product_Description || ''}
                         </div>

@@ -1,13 +1,46 @@
 "use client"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import React from 'react'
 import Image from 'next/image'
 import { ButtonText, InputBox, InputFile } from '@components/inputs'
+import { getProductById } from '@app/api/getAPI/product'
+import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage'
+import { useRouter } from 'next/navigation'
+import { getCartByProductId } from '@app/api/getAPI/product'
+import { getPromotionByConditions } from '@app/api/getAPI/promotion'
 
 const page = () => {
-    const [form, setForm] = useState({})
     const [newDeliveryAddress, setNewDeliveryAddress] = useState(false)
+    const router = useRouter();
+    const [auth, setAuth] = useState(getFromLocalStorage('auth'))
+    const [form, setForm] = useState({})
+
+    useEffect(() => {
+        onLoad()
+    },[])
+
+    const onLoad = async () => {
+        const res = await getCartByProductId(auth?.Product_Id || []);
+        if(res?.message === 'success' && res?.data){
+            let total = 0;
+            res?.data?.forEach((item) => {
+                if(item?.Product_Status === 'Available'){
+                    total += item?.Product_Price
+                }
+            });
+            setForm({
+                Product: res?.data,
+                Sale_Total_Price: total
+            })
+            const promotion = await getPromotionByConditions(total);
+            if(promotion?.message === 'success' && promotion?.data){
+                console.log(promotion?.data);
+            }
+        }
+    }
+
     const onChange = (update) => setForm({ ...form, ...update })
+
     return (
         <div className='flex flex-col items-center w-full mb-10'>
             <div className='xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 border border-brown grid lg:grid-cols-3 grid-cols-1'>
@@ -18,24 +51,24 @@ const page = () => {
                         <span>PRICE</span>
                     </div>
                     <div className='border-y border-brown py-2 w-full max-h-[400px] overflow-auto'>
-                        {[1,1,1,1,1,1].map((item, index, array) => (
-                            <React.Fragment key={"Customer-Order"+index}>
+                        {form?.Product?.map((item, index, array) => {
+                            return <React.Fragment key={"Customer-Order"+index}>
                                 <div className='w-full grid grid-cols-1 md:grid-cols-3'>
                                     <div className='md:col-span-2 flex gap-2'>
                                         <div>
-                                            <Image src="/assets/images/products/JeanVest.jpg" alt="Product" width={80} height={100}/>
+                                            <Image src="/assets/images/products/JeanVest.jpg" alt="Product" width={80} height={100} className='w-[80px] h-[100px]'/>
                                         </div>
                                         <div className='flex flex-col font-light'>
-                                            <span>Purple Bag</span>
-                                            <span className='text-xs'>Size: S</span>
-                                            <span className='text-xs'>Detail: fggfggfgfg fgfgfgfgfgfg</span>
+                                            <span>{item?.Product_Name || ''}</span>
+                                            <span className='text-xs'>Size: {item?.Size_Name || '-'}</span>
+                                            <span className='text-xs'>Detail: {item?.Product_Size_Detail || '-'}</span>
                                         </div>
                                     </div>
-                                    <div className='md:col-start-3 r font-light'>฿1900.00 Baht</div>
+                                    <div className='md:col-start-3 r font-light'>฿{item?.Product_Price?.toFixed(2) || ''} Baht</div>
                                 </div>  
                                 {index !== array.length - 1 && <div className='md:col-start-3 border-b border-gray my-2'></div>}
                             </React.Fragment>
-                        ))}
+                        })}
                     </div>
                     <div className='w-full r'>Discount 30% ฿ 624.00 Baht</div>
                     <div className='w-full border-b border-gray'></div>
