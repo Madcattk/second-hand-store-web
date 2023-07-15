@@ -24,7 +24,7 @@ const ShopAll = () => {
                 <div onClick={() => router.push(`/member/product/${item?.Product_Id}`)} className='cursor-pointer md:col-span-3 col-span-2 w-full flex flex-col items-center' key={"Product"+index}>
                     <div className='w-full flex justify-center'>
                         <Image
-                            src={ item?.Image || "/assets/images/avatars/no-image.png"}
+                            src={ item?.Product_Image || "/assets/images/avatars/no-image.png"}
                             alt="Product"
                             width={280}
                             height={0}
@@ -35,7 +35,7 @@ const ShopAll = () => {
                         {item.Product_Status === 'Available' ?
                             <>
                                 <a>{item?.Product_Name || ''}</a>
-                                <div>฿ {item?.Product_Price.toFixed(2)} Baht</div>
+                                <div>฿ {item?.Product_Price?.toFixed(2)} Baht</div>
                             </>
                         :
                             <>

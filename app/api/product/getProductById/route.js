@@ -5,7 +5,13 @@ export async function POST(request) {
     const { Product_Id } = await request.json();
     try {       
         const conn = await dbConnection();
-        const query = `SELECT * FROM Product WHERE Product_Id = ${Product_Id} `;
+        const query = `
+            SELECT p.*, s.Size_Name, pt.Product_Type_Name
+            FROM Product p
+            JOIN Size s ON p.Size_Id = s.Size_Id
+            JOIN Product_Type pt ON p.Product_Type_Id = pt.Product_Type_Id
+            WHERE p.Product_Id = ${Product_Id} ;
+        `;
         const values = [];
         const [result] = await conn.execute(query, values);
         const data = result;
