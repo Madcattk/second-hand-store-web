@@ -1,17 +1,30 @@
 "use client";
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
+import { getAllProducts } from '@app/api/getAPI/product';
 
 const ShopAll = () => {
     const router = useRouter();
+    const [form, setForm] = useState([])
+    
+    useEffect(() => {
+        onLoad()
+    },[])
+
+    const onLoad = async () => {
+        const res = await getAllProducts();
+        if(res?.message === 'success' && res?.data){
+            setForm(res?.data)
+        }
+    }
     return (
         <>
-            {[1,1,1,1,1,1]?.map((item, index)=>(
-                <div onClick={() => router.push(`/member/product/${11}`)} className='cursor-pointer md:col-span-3 col-span-2 w-full flex flex-col items-center' key={"Product"+index}>
+            {form?.map((item, index)=>(
+                <div onClick={() => router.push(`/member/product/${item?.Product_Id}`)} className='cursor-pointer md:col-span-3 col-span-2 w-full flex flex-col items-center' key={"Product"+index}>
                     <div className='w-full flex justify-center'>
                         <Image
-                            src="/assets/images/products/JeanVest.jpg"
+                            src={ item?.Image || "/assets/images/avatars/no-image.png"}
                             alt="Product"
                             width={280}
                             height={0}
@@ -19,8 +32,17 @@ const ShopAll = () => {
                         />
                     </div>   
                     <div className='p-2 flex_center flex-col font-light'>
-                        <a>Jean Vest</a>
-                        <div>฿ 250.00 Baht</div>
+                        {item.Product_Status === 'Available' ?
+                            <>
+                                <a>{item?.Product_Name || ''}</a>
+                                <div>฿ {item?.Product_Price.toFixed(2)} Baht</div>
+                            </>
+                        :
+                            <>
+                                <a>{item?.Product_Name || ''}</a>
+                                <div>{item?.Product_Status}</div>
+                            </>
+                        }
                     </div> 
                 </div>
             ))}
