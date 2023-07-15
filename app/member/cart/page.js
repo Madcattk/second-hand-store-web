@@ -79,7 +79,7 @@ const page = () => {
                     Address: addr
                 })
             }
-            const promotion = await getPromotionByConditions(total);
+            const promotion = await getPromotionByConditions({"Sale_Total_Price": total, "Member_Id": auth?.Member_Id});
             if(promotion?.message === 'success' && promotion?.data){
                 let _p = promotion?.data?.map(({ Promotion_Id, Promotion_Name, ...otherProperties }) => ({
                     id: Promotion_Id,
@@ -166,7 +166,7 @@ const page = () => {
                                 </div>
                             </div>
                         }
-                        <InputFile onChange={(order_slip) => onChange({ order_slip })} value={''} placeholder='Profile Picture' classBox='w-full'/>
+                        <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} placeholder='Profile Picture' classBox='w-full'/>
                         <label htmlFor="order_slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
                         <ButtonText onClick={() => setMenu(3)} placeholder='CHECK OUT' classBox='w-full'/>
                     </div>

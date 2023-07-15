@@ -1,11 +1,11 @@
-export async function getPromotionByConditions(Sale_Total_Price) {
+export async function getPromotionByConditions(promotion) {
     try {
         const response = await fetch(`http://localhost:3000/api/promotion/getPromotionByConditions`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify({Sale_Total_Price}),
+            body: JSON.stringify(promotion),
         });
         if (response.ok) {
             return await response.json();
