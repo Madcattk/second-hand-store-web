@@ -4,18 +4,25 @@ import React from 'react'
 import Image from 'next/image'
 import { ButtonText, InputBox, InputFile, InputSelect } from '@components/inputs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons'; 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '@/styles/toastStyles.css';
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage'
 import { useRouter } from 'next/navigation'
 import { getCartByProductId } from '@app/api/getAPI/product'
 import { getPromotionByConditions } from '@app/api/getAPI/promotion'
 import { getMemberAddressesById } from '@app/api/getAPI/member'
+import { addSaleByMemberId } from '@app/api/getAPI/sale'
+import { MetaSaleStatus } from '@components/Meta'
+import { DateFormat } from '@components/formats'
 
 const page = () => {
     const [newDeliveryAddress, setNewDeliveryAddress] = useState(false)
     const router = useRouter();
     const [auth, setAuth] = useState(null)
     const [form, setForm] = useState({})
+    const [payment, setPayment] = useState({})
     const [meta, setMeta] = useState({Promotion: null, Delevery_Address: null})
 
     useEffect(() => {
@@ -110,11 +117,54 @@ const page = () => {
         }
     }
 
+    const onSave = async () => {
+        let sale = null;
+        let address = null;
+        if(form?.Selected_Address){
+            address = form.Selected_Address.Member_Address;
+        }else if(form?.New_Fullname || form?.New_Address || form?.New_District || form?.New_Province || form?.New_Zipcode || form?.New_Phone){
+            if(!(form?.New_Fullname && form?.New_Address && form?.New_District && form?.New_Province && form?.New_Zipcode && form?.New_Phone)){
+                return toast.error("🤍 Please fill out all new delivery address fields.", {
+                    autoClose: 2000,
+                });
+            }
+            address = form?.New_Fullname + "%" + form?.New_Address + "%" + form?.New_District + "%" + form?.New_Province + "%" + form?.New_Zipcode + "%" + form?.New_Phone + "%";
+        }
+        else{
+            return toast.error("🤍 Please select your delivery address.", {
+                autoClose: 2000,
+            });
+        }
+        
+        sale = {
+            Delivery_Address: address,
+            Sale_Date: DateFormat(new Date),
+            Sale_Status: form?.Payment_Slip ? MetaSaleStatus?.[1]?.id : MetaSaleStatus?.[0]?.id,
+            Sale_Tracking_Number: null,
+            Member_Id: auth?.Member_Id || null,
+            Sale_Total_Price: form?.Sale_Total_Price || 0,
+            Discounted_Total_Price: form?.Promotion_Data?.Promotion_Id ?  (parseFloat(form?.Sale_Total_Price)-(parseFloat(form?.Sale_Total_Price) * (form?.Promotion_Data?.Promotion_Discount / 100))) : null,
+            Promotion_Id: form?.Promotion_Data?.Promotion_Id || null
+        }
+
+        const res = await addSaleByMemberId(sale)
+        if(res?.message === 'success'){
+            toast.success("🤍 Successfully purchased.", {
+                autoClose: 2000,
+            });
+        }
+        else{
+            toast.error("❗️Something's wrong with your order.", {
+                autoClose: 2000,
+            });
+        }
+    }
+
     const onChange = (update) => setForm({ ...form, ...update })
 
     return (
         <div className='flex flex-col items-center w-full mb-10'>
-            <div className='xl:w-[1120px] min-h-[600px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 border border-brown grid lg:grid-cols-3 grid-cols-1'>
+            <div className='min-h-[600px] xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 border border-brown grid lg:grid-cols-3 grid-cols-1'>
                 {(auth?.Product_Id && auth?.Product_Id?.length > 0) ?
                 <>
                     <div className='lg:col-span-2 col-span-1 p-10 flex flex-col gap-3 md:border-r border-brown'>
@@ -123,7 +173,7 @@ const page = () => {
                             <span>PRODUCT</span>
                             <span>PRICE</span>
                         </div>
-                        <div className={`border-y border-brown py-2 w-full min-h-[530px] overflow-auto`}>
+                        <div className={`${newDeliveryAddress ? 'min-h-[680px]' : 'min-h-[530px]'} border-y border-brown py-2 w-full overflow-auto`}>
                             {form?.Product?.map((item, index, array) => {
                                 return <React.Fragment key={"Customer-Order"+index}>
                                     <div className='w-full grid grid-cols-1 md:grid-cols-3'>
@@ -186,7 +236,7 @@ const page = () => {
                         }
                         <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} placeholder='Profile Picture' classBox='w-full'/>
                         <label htmlFor="order_slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
-                        <ButtonText onClick={() => setMenu(3)} placeholder='CHECK OUT' classBox='w-full'/>
+                        <ButtonText onClick={() => onSave()} placeholder='CHECK OUT' classBox='w-full'/>
                     </div>
                 </>
                 :
