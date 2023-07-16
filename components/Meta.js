@@ -1,5 +1,6 @@
 export const MetAuth = [{id: false, name: 'Customer'}, {id: true, name: 'Admin'}];
 export const MetaSex = [{id: 'Male', name: 'Male'}, {id: 'Female', name: 'Female'}, {id: 'Other', name: 'Other'}];
+export const MetaProductSex = [{id: 'Male', name: 'Male'}, {id: 'Female', name: 'Female'}, {id: 'Unisex', name: 'Unisex'}];
 export const MetaSaleStatus = [
     {id: 'Waiting To Pay', name: 'Waiting To Pay'}, 
     {id: 'Waiting', name: 'Waiting'}, 

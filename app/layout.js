@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import { store } from '@redux/store';
 import { Provider } from 'react-redux'
 
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 
 // export const metadata = {
 //   title: 'Create Next App',
@@ -16,7 +16,7 @@ const inter = Inter({ subsets: ['latin'] })
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <Provider store={store}>
           <NavMember>
             {children}
