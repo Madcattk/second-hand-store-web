@@ -35,9 +35,9 @@ const CustomerOrderList = () => {
                     Phone: add[5] || '',
                     Member_Address: item?.Delivery_Address || ''
                 }
+                const updatedData = { ...res.data[index], Address: address };
+                res.data[index] = updatedData;
             })
-            const updatedData = { ...res.data[0], Address: address };
-            res.data[0] = updatedData;
             setForm(res?.data || []);
         }
     }
