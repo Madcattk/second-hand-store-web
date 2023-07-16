@@ -10,7 +10,6 @@ const page = () => {
     const { id } = useParams();
     const [auth, setAuth] = useState(null);
     const [form, setForm] = useState(null);
-    console.log(form);
 
     useEffect(() => {
         setAuth(getFromLocalStorage('auth'))
@@ -42,7 +41,11 @@ const page = () => {
     }
     return (
         <div className='flex_center'>
-            <Order form={form}/>
+            {form?.Sale_Status === 'Received' ?
+                <Review form={form} />
+            :
+                <Order form={form} />
+            }
         </div>
     )
 }

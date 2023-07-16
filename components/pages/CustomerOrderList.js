@@ -56,9 +56,9 @@ const CustomerOrderList = () => {
                         <div>{item?.Address?.Address || ''} {item?.Address?.District || ''} {item?.Address?.Province || ''} {item?.Address?.Zipcode || ''}</div>
                         <div>Phone: {item?.Address?.Phone || ''}</div>
                         </div>
-                        <div>Tracking Nuber: {item?.Sale_Tracking_Number || '-'}</div>
+                        <div>Tracking Number: {item?.Sale_Tracking_Number || '-'}</div>
                     </div>
-                    <div className='w-full r'>Subtotal ฿{item?.Discounted_Total_Price || item?.Sale_Total_Price} Baht</div>
+                    <div className='w-full r'>Subtotal ฿{item?.Discounted_Total_Price?.toFixed(2) || item?.Sale_Total_Price?.toFixed(2)} Baht</div>
                 </div>
             ))}
         </>
