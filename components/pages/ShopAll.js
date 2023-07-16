@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
-import { getAllProducts } from '@app/api/getAPI/product';
+import { getAllProducts, getProductsBySearch } from '@app/api/getAPI/product';
 import { MetaProductStatus } from '@components/Meta';
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -16,11 +16,23 @@ const ShopAll = () => {
     },[])
 
     useEffect(() => {
-        console.log(searchValue);
+        if(searchValue?.searchInput || searchValue?.searchType || searchValue?.searchSex){
+            onSearch();
+        }
+        else {
+            onLoad();
+        }
     },[searchValue])
 
     const onLoad = async () => {
         const res = await getAllProducts();
+        if(res?.message === 'success' && res?.data){
+            setForm(res?.data)
+        }
+    }
+
+    const onSearch = async () => {
+        const res = await getProductsBySearch(searchValue);
         if(res?.message === 'success' && res?.data){
             setForm(res?.data)
         }
