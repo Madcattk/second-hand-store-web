@@ -68,6 +68,23 @@ export const Order = ({ form, onChange, onLoad }) => {
         onLoad();
     }
 
+    const onReceive = async () =>{
+        const sale = await updateSaleStatusById({
+            "Sale_Id": form?.Sale_Id, 
+            "Sale_Status": MetaSaleStatus?.[6]?.id
+        })
+        if(sale?.message === 'success'){
+            toast.success("🌟 Enjoying your purchase? We'd love to hear your rating!", {
+                autoClose: 3000,
+            });
+        }else{
+            toast.success("❗️ Couldn't update status.", {
+                autoClose: 2000,
+            });
+        }
+        onLoad()
+    }
+
     return (
         <div className='w-full flex_center'>
             <div className='xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 flex_center flex-col gap-3 px-5 py-3 border border-brown mb-5'>
@@ -122,6 +139,10 @@ export const Order = ({ form, onChange, onLoad }) => {
                         <label htmlFor="Payment_Slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
                         <div className='w-full flex justify-end'><ButtonText onClick={() => onUpLoadSlip()} placeholder='UPLOAD' classBox='w-72'/></div>
                     </>
+                }
+                {
+                    form?.Sale_Status === MetaSaleStatus?.[5]?.id &&
+                    <div className='w-full flex justify-end'><ButtonText onClick={() => onReceive()} placeholder='RECEIVE PRODUCT' classBox='w-72'/></div>
                 }
             </div>
         </div>
