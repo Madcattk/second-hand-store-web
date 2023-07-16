@@ -9,3 +9,7 @@ export const MetaSaleStatus = [
     {id: 'Shipped', name: 'Shipped'},
     {id: 'Received', name: 'Received'},
 ];
+export const MetaProductStatus = [
+    {id: 'Available', name: 'Available'}, 
+    {id: 'Unavailable', name: 'Unavailable'}, 
+];

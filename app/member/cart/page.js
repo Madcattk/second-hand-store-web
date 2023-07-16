@@ -14,7 +14,7 @@ import { getCartByProductId, updateProductStatusAndSaleId } from '@app/api/getAP
 import { getPromotionByConditions } from '@app/api/getAPI/promotion'
 import { getMemberAddressesById } from '@app/api/getAPI/member'
 import { addSaleByMemberId } from '@app/api/getAPI/sale'
-import { MetaSaleStatus } from '@components/Meta'
+import { MetaProductStatus, MetaSaleStatus } from '@components/Meta'
 import { DateFormat } from '@components/formats'
 import { Result } from 'postcss'
 import { addPayment } from '@app/api/getAPI/payment'
@@ -151,21 +151,27 @@ const page = () => {
 
         const res = await addSaleByMemberId(sale)
         if(res?.message === 'success'){
-            toast.success("🤍 We've received your order.", {
-                autoClose: 2000,
-            });
-
             const product = await updateProductStatusAndSaleId({
                 "Product_Id": auth?.Product_Id || [], 
-                "Product_Status": 'Unavailable',
+                "Product_Status": MetaProductStatus?.[1]?.id,
                 "Sale_Id": res?.data?.insertId || null, 
             });
+            if(product?.message === 'success'){
+                toast.success("🤍 We've received your order.", {
+                    autoClose: 2000,
+                });
+            }
 
             if(form?.Payment_Slip){
                 const payment = await addPayment({
                     "Sale_Id": res?.data?.insertId || null, 
                     "Payment_Slip": form?.Payment_Slip
                 })
+                if(payment?.message === 'success'){
+                    toast.success("🤍 We've received your Slip.", {
+                        autoClose: 2000,
+                    });
+                }
             }
             auth.Product_Id = null;
             saveToLocalStorage('auth', auth);

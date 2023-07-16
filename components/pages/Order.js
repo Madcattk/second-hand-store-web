@@ -1,11 +1,46 @@
 "use client";
 import React from 'react'
 import { useRouter } from 'next/navigation';
-import Image from 'next/image'
+import Image from 'next/image' 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '@/styles/toastStyles.css';
 import { InputFile, ButtonText } from '@components/inputs';
 import { DateFormat } from '@components/formats';
+import { addPayment } from '@app/api/getAPI/payment';
+import { MetaProductStatus, MetaSaleStatus } from '@components/Meta';
+import { updateSaleStatusById } from '@app/api/getAPI/sale';
 
-export const Order = ({ form }) => {
+export const Order = ({ form, onChange, onLoad }) => {
+
+    const onUpLoadSlip = async () => {
+        const res = await addPayment({
+            "Sale_Id": form?.Sale_Id, 
+            "Payment_Slip": form?.Payment_Slip
+        })
+
+        if(res?.message === 'success'){
+            const sale = await updateSaleStatusById({
+                "Sale_Id": form?.Sale_Id, 
+                "Sale_Status": MetaSaleStatus?.[1]?.id
+            })
+            if(sale?.message === 'success'){
+                toast.success("🤍 Uploaded slip.", {
+                    autoClose: 2000,
+                });
+            }else{
+                toast.success("❗️ Couldn't update status.", {
+                    autoClose: 2000,
+                });
+            }
+        }else{
+            toast.success("❗️ Couldn't upload your slip.", {
+                autoClose: 2000,
+            });
+        }
+        onLoad();
+    }
+
     return (
         <div className='w-full flex_center'>
             <div className='xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 flex_center flex-col gap-3 px-5 py-3 border border-brown mb-5'>
@@ -56,9 +91,9 @@ export const Order = ({ form }) => {
                 {form?.Payment?.length <= 0 &&
                     <>
                         <div className='w-full border-b border-gray'></div>
-                        <InputFile onChange={(order_slip) => onChange({ order_slip })} value={''} placeholder='Profile Picture' classBox='w-full'/>
-                        <label htmlFor="order_slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
-                        <div className='w-full flex justify-end'><ButtonText onClick={() => onSave()} placeholder='UPLOAD' classBox='w-72'/></div>
+                        <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} placeholder='Profile Picture' classBox='w-full'/>
+                        <label htmlFor="Payment_Slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
+                        <div className='w-full flex justify-end'><ButtonText onClick={() => onUpLoadSlip()} placeholder='UPLOAD' classBox='w-72'/></div>
                     </>
                 }
             </div>
@@ -66,7 +101,7 @@ export const Order = ({ form }) => {
     )
 }
 
-export const Review = ({ form }) => {
+export const Review = ({ form, onChange, onLoad }) => {
     return (
         <div className='w-full flex_center'>
             <div className='xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 flex_center flex-col gap-3 px-5 py-3 border border-brown mb-5'>

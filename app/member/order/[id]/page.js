@@ -39,12 +39,15 @@ const page = () => {
             setForm(res?.data || []);
         }
     }
+
+    const onChange = (update) => setForm({ ...form, ...update })
+
     return (
         <div className='flex_center'>
             {form?.Sale_Status === 'Received' ?
-                <Review form={form} />
+                <Review form={form} onChange={onChange} onLoad={onLoad} />
             :
-                <Order form={form} />
+                <Order form={form} onChange={onChange} onLoad={onLoad} />
             }
         </div>
     )
