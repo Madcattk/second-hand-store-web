@@ -99,8 +99,8 @@ export const InputFile = ({ value = "", onChange, classBox = "", placeholder = "
 
 export const InputSelect = ({ value = "", onChange, classBox = "", placeholder = "", options = [] }) => {
     return (
-        <div className={`${classBox}`}>
-            <select value={value} onChange={(e) => onChange ? onChange(e.target.value) : {}} className={`border-b-brown border-b px-1 py-3 outline-none w-full ${value ? 'text-brown': 'text-gray-400 focus:text-brown '}`}>
+        <div className={`${classBox} cursor-pointer`}>
+            <select value={value} onChange={(e) => onChange ? onChange(e.target.value) : {}} className={`cursor-pointer border-b-brown border-b px-1 py-3 outline-none w-full ${value ? 'text-brown': 'text-gray-400 focus:text-brown '}`}>
                 {placeholder && <option value={null}>{placeholder}</option>}
                 {options?.map((option, index) => (
                     <option key={"Option-" + index} value={option?.id}>{option?.name}</option>
