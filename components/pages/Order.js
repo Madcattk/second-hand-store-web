@@ -7,36 +7,63 @@ import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
 import { InputFile, ButtonText } from '@components/inputs';
 import { DateFormat } from '@components/formats';
-import { addPayment } from '@app/api/getAPI/payment';
+import { addPayment, editPaymentById } from '@app/api/getAPI/payment';
 import { MetaProductStatus, MetaSaleStatus } from '@components/Meta';
 import { updateSaleStatusById } from '@app/api/getAPI/sale';
 
 export const Order = ({ form, onChange, onLoad }) => {
 
     const onUpLoadSlip = async () => {
-        const res = await addPayment({
-            "Sale_Id": form?.Sale_Id, 
-            "Payment_Slip": form?.Payment_Slip
-        })
-
-        if(res?.message === 'success'){
-            const sale = await updateSaleStatusById({
+        if(!form?.Payment){
+            const res = await addPayment({
                 "Sale_Id": form?.Sale_Id, 
-                "Sale_Status": MetaSaleStatus?.[1]?.id
+                "Payment_Slip": form?.Payment_Slip
             })
-            if(sale?.message === 'success'){
-                toast.success("🤍 Uploaded slip.", {
-                    autoClose: 2000,
-                });
+    
+            if(res?.message === 'success'){
+                const sale = await updateSaleStatusById({
+                    "Sale_Id": form?.Sale_Id, 
+                    "Sale_Status": MetaSaleStatus?.[1]?.id
+                })
+                if(sale?.message === 'success'){
+                    toast.success("🤍 Uploaded slip.", {
+                        autoClose: 2000,
+                    });
+                }else{
+                    toast.success("❗️ Couldn't update status.", {
+                        autoClose: 2000,
+                    });
+                }
             }else{
-                toast.success("❗️ Couldn't update status.", {
+                toast.success("❗️ Couldn't upload your slip.", {
                     autoClose: 2000,
                 });
             }
         }else{
-            toast.success("❗️ Couldn't upload your slip.", {
-                autoClose: 2000,
-            });
+            const res = await editPaymentById({
+                "Sale_Id": form?.Sale_Id, 
+                "Payment_Slip": form?.Payment_Slip
+            })
+    
+            if(res?.message === 'success'){
+                const sale = await updateSaleStatusById({
+                    "Sale_Id": form?.Sale_Id, 
+                    "Sale_Status": MetaSaleStatus?.[1]?.id
+                })
+                if(sale?.message === 'success'){
+                    toast.success("🤍 Uploaded slip.", {
+                        autoClose: 2000,
+                    });
+                }else{
+                    toast.success("❗️ Couldn't update status.", {
+                        autoClose: 2000,
+                    });
+                }
+            }else{
+                toast.success("❗️ Couldn't upload your slip.", {
+                    autoClose: 2000,
+                });
+            }
         }
         onLoad();
     }
@@ -88,7 +115,7 @@ export const Order = ({ form, onChange, onLoad }) => {
                     </>
                 }
                 <div className='w-full r'>Subtotal ฿{form?.Discounted_Total_Price?.toFixed(2) || form?.Sale_Total_Price?.toFixed(2)} Baht</div>
-                {form?.Payment?.length <= 0 &&
+                {(form?.Sale_Status === MetaSaleStatus?.[0]?.id ||  form?.Sale_Status === MetaSaleStatus?.[3]?.id) &&
                     <>
                         <div className='w-full border-b border-gray'></div>
                         <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} placeholder='Profile Picture' classBox='w-full'/>

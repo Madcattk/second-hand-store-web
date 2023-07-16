@@ -31,7 +31,7 @@ export async function POST(request) {
         WHERE s.Sale_Id = ${Sale_Id} `;
         values = [];
         [result] = await conn.execute(query, values);
-        let update = {...data[0], Payment: result}
+        let update = {...data[0], Payment: result[0]}
         data = update;
         
         query = `
