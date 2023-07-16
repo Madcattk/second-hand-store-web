@@ -36,7 +36,7 @@ const App = () => {
             {
               key: '3',
               icon: <UploadOutlined />,
-              label: 'Transaction',
+              label: 'Transactions',
             },
             {
               key: '4',
