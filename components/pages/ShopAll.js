@@ -4,10 +4,14 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import { getAllProducts } from '@app/api/getAPI/product';
 import { MetaProductStatus } from '@components/Meta';
+import { useSelector, useDispatch } from 'react-redux'
 
 const ShopAll = () => {
+    const searchValue = useSelector((state) => state.search.value)
     const router = useRouter();
     const [form, setForm] = useState([])
+
+    console.log(searchValue);
     
     useEffect(() => {
         onLoad()
