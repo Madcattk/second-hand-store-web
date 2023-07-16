@@ -78,7 +78,6 @@ export async function addMember(member) {
 };
 
 export async function editMemberById(member) {
-    console.log(member);
     try {
         const response = await fetch(`http://localhost:3000/api/member/editMemberById`, {
             method: 'PUT',

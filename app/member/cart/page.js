@@ -10,12 +10,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage'
 import { useRouter } from 'next/navigation'
-import { getCartByProductId } from '@app/api/getAPI/product'
+import { getCartByProductId, updateProductStatusAndSaleId } from '@app/api/getAPI/product'
 import { getPromotionByConditions } from '@app/api/getAPI/promotion'
 import { getMemberAddressesById } from '@app/api/getAPI/member'
 import { addSaleByMemberId } from '@app/api/getAPI/sale'
 import { MetaSaleStatus } from '@components/Meta'
 import { DateFormat } from '@components/formats'
+import { Result } from 'postcss'
 
 const page = () => {
     const [newDeliveryAddress, setNewDeliveryAddress] = useState(false)
@@ -149,12 +150,22 @@ const page = () => {
 
         const res = await addSaleByMemberId(sale)
         if(res?.message === 'success'){
-            toast.success("🤍 Successfully purchased.", {
+            toast.success("🤍 We've received your order.", {
                 autoClose: 2000,
             });
+
+            const product = await updateProductStatusAndSaleId({
+                "Product_Id": auth?.Product_Id || [], 
+                "Product_Status": 'Unavailable',
+                "Sale_Id": res?.data?.insertId || null, 
+            });
+            auth.Product_Id = null;
+            saveToLocalStorage('auth', auth);
+            onLoadAuth();
+            onLoad();
         }
         else{
-            toast.error("❗️Something's wrong with your order.", {
+            toast.error("❗️Something's wrong, please, try again.", {
                 autoClose: 2000,
             });
         }
