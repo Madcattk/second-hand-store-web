@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import { getAllProducts } from '@app/api/getAPI/product';
+import { MetaProductStatus } from '@components/Meta';
 
 const ShopAll = () => {
     const router = useRouter();
@@ -32,7 +33,7 @@ const ShopAll = () => {
                         />
                     </div>   
                     <div className='p-2 flex_center flex-col font-light'>
-                        {item.Product_Status === 'Available' ?
+                        {item.Product_Status === MetaProductStatus?.[0]?.id ?
                             <>
                                 <a>{item?.Product_Name || ''}</a>
                                 <div>฿{item?.Product_Price?.toFixed(2)} Baht</div>

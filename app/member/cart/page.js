@@ -65,7 +65,7 @@ const page = () => {
         if(res?.message === 'success' && res?.data){
             let total = 0;
             res?.data?.forEach((item) => {
-                if(item?.Product_Status === 'Available'){
+                if(item?.Product_Status === MetaProductStatus?.[0]?.id){
                     total += item?.Product_Price
                 } else {
                     auth.Product_Id = auth?.Product_Id?.filter((productId) => productId !== item.Product_Id);

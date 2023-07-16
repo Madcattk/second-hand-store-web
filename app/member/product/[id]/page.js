@@ -11,6 +11,7 @@ import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
+import { MetaProductStatus } from '@components/Meta'
 
 const page = () => {
     const { id } = useParams();
@@ -92,7 +93,7 @@ const page = () => {
                             <span className='r'>{form?.Product_Size_Detail || '-'}</span>
                         </div>
                     </div>
-                    {form?.Product_Status === 'Available' ?
+                    {form?.Product_Status === MetaProductStatus?.[0]?.id ?
                     <>
                         <TransparentButtonText onClick={() => onAdd(true)} placeholder='BUY NOW' classBox='md:w-[400px] w-[300px]'/>
                         <ButtonText onClick={() => onAdd(false)} placeholder='ADD TO CART' classBox='md:w-[400px] w-[300px]'/>
