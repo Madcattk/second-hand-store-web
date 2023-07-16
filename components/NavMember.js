@@ -11,13 +11,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import { inputSearch, clearSearch } from '@redux/searchSlice';
 import { getAllProductTypes } from '@app/api/getAPI/product-type';
 import { MetaProductSex } from './Meta';
+import { InputBox } from './inputs';
 
 
 const NavMember = ({ children }) => {
     const dispatch = useDispatch()
     const router = useRouter();
     const [auth, setAuth] = useState(null)
-    const [search, setSearch] = useState({})
+    const [search, setSearch] = useState(false)
+    const [form, setForm] = useState({})
     const [meta, setMeta] = useState({})
     
     useEffect(() => {
@@ -53,6 +55,8 @@ const NavMember = ({ children }) => {
     const searchInput = (input) => {
 
     }
+    
+    const onChange = (update) => setForm({ ...form, ...update })
 
     return (
         <>
@@ -97,8 +101,10 @@ const NavMember = ({ children }) => {
                         <FontAwesomeIcon onClick={() => router.push(`/member/cart`)} icon={faShoppingCart} />
                     </a>
                 </div>
+            </div>    
+            <div className='flex_center'>
+                <InputBox onChange={(searchInput) => onChange({ searchInput })} value={search?.searchInput || ''} placeholder='Search' classBox='md:w-[500px] w-[300px]'/>
             </div>
-
             <div className='pt-10'>{children}</div>
         </>
     )
