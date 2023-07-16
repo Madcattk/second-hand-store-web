@@ -78,7 +78,6 @@ export async function updateProductStatusAndSaleId(product) {
 };
 
 export async function getProductsBySearch(product) {
-    console.log(product);
     try {
         const response = await fetch(`http://localhost:3000/api/product/getProductsBySearch`, {
             method: 'POST',
