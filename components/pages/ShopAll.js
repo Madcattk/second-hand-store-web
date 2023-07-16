@@ -10,12 +10,14 @@ const ShopAll = () => {
     const searchValue = useSelector((state) => state.search.value)
     const router = useRouter();
     const [form, setForm] = useState([])
-
-    console.log(searchValue);
     
     useEffect(() => {
         onLoad()
     },[])
+
+    useEffect(() => {
+        console.log(searchValue);
+    },[searchValue])
 
     const onLoad = async () => {
         const res = await getAllProducts();
