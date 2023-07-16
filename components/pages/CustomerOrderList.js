@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
-import { getMemberOrderById } from '@app/api/getAPI/sale';
+import { getMemberOrdersById } from '@app/api/getAPI/sale';
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage';
 import { DateFormat } from '@components/formats';
 
@@ -9,7 +9,6 @@ const CustomerOrderList = () => {
     const router = useRouter();
     const [auth, setAuth] = useState(null);
     const [form, setForm] = useState(null);
-    console.log(form);
 
     useEffect(() => {
         setAuth(getFromLocalStorage('auth'))
@@ -20,7 +19,7 @@ const CustomerOrderList = () => {
     },[auth])
     
     const onLoad = async () => {
-        const res = await getMemberOrderById(auth?.Member_Id)
+        const res = await getMemberOrdersById(auth?.Member_Id)
         if(res?.message === 'success'){        
             let address = null;
             res?.data?.forEach((item, index) => {
@@ -41,10 +40,11 @@ const CustomerOrderList = () => {
             setForm(res?.data || []);
         }
     }
+
     return (
         <>
             {form?.map((item, index) => (
-                <div onClick={() => router.push(`/order/${item?.Sale_Id}`)} className='cursor-pointer hover:scale-[1.004] transform transition-transform duration-200 w-full flex_center flex-col gap-3 px-5 py-3 border border-brown mb-5' key={"Customer-Order"+index}>
+                <div onClick={() => router.push(`/member/order/${item?.Sale_Id}`)} className='cursor-pointer hover:scale-[1.004] transform transition-transform duration-200 w-full flex_center flex-col gap-3 px-5 py-3 border border-brown mb-5' key={"Customer-Order"+index}>
                     <div className='w-full flex flex-col md:flex-row md:items-end justify-between font-light'>
                         <span>ORDER NO: {item?.Sale_Id || ''}</span>
                         <span className='text-sm'>Date: {DateFormat(item?.Sale_Date) || ''}</span>

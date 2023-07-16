@@ -6,9 +6,9 @@ export async function POST(request) {
     try {       
         const conn = await dbConnection();
         const query = `
-        SELECT * 
-        FROM Sale 
-        WHERE Member_Id = ${Member_Id} `;
+            SELECT * 
+            FROM Sale 
+            WHERE Member_Id = ${Member_Id} `;
         const values = [];
         const [result] = await conn.execute(query, values);
         const data = result;

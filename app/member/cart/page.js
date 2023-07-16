@@ -251,7 +251,7 @@ const page = () => {
                     </div>
                 </>
                 :
-                <div onClick={() => router.push('/')} className='text-2xl flex_center font-bold cursor-pointer lg:col-span-3 col-span-1'>
+                <div onClick={() => router.push('/')} className='px-10 text-2xl flex_center text-center font-bold cursor-pointer lg:col-span-3 col-span-1'>
                     Let's add some product!
                 </div>
                 }
