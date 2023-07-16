@@ -66,7 +66,7 @@ const page = () => {
                         <div className="px-6 py-2">
                         <div onClick={() => setMenu(0)} className='flex_center gap-3 hover:underline cursor-pointer'>
                             <i><FontAwesomeIcon icon={faSearch} size="lg"/></i>
-                            <span className='text-[23px] font-light'>{form?.Member_Username || '...'}</span>
+                            <span className='text-[23px] font-light'>{form?.Member_Username || ''}</span>
                         </div>
                         <a onClick={() => setMenu(0)} className='py-2 text-[16px] font-light hover:underline cursor-pointer show md:hidden'>Edit Profile</a>
                         </div>
