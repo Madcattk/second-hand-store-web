@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUser, faShoppingCart, faBars, faUserShield, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage';
 
+
 const NavMember = ({ children }) => {
     const router = useRouter();
     const [auth, setAuth] = useState(null)
