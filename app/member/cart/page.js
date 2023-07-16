@@ -17,6 +17,7 @@ import { addSaleByMemberId } from '@app/api/getAPI/sale'
 import { MetaSaleStatus } from '@components/Meta'
 import { DateFormat } from '@components/formats'
 import { Result } from 'postcss'
+import { addPayment } from '@app/api/getAPI/payment'
 
 const page = () => {
     const [newDeliveryAddress, setNewDeliveryAddress] = useState(false)
@@ -159,6 +160,13 @@ const page = () => {
                 "Product_Status": 'Unavailable',
                 "Sale_Id": res?.data?.insertId || null, 
             });
+
+            if(form?.Payment_Slip){
+                const payment = await addPayment({
+                    "Sale_Id": res?.data?.insertId || null, 
+                    "Payment_Slip": form?.Payment_Slip
+                })
+            }
             auth.Product_Id = null;
             saveToLocalStorage('auth', auth);
             onLoadAuth();

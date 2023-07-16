@@ -23,6 +23,16 @@ export async function POST(request) {
             [result] = await conn.execute(query, values);
             data = result;
         }
+
+        query = `
+        SELECT p.* 
+        FROM Sale s
+        JOIN Payment p ON p.Sale_Id = s.Sale_Id
+        WHERE s.Sale_Id = ${Sale_Id} `;
+        values = [];
+        [result] = await conn.execute(query, values);
+        let update = {...data[0], Payment: result}
+        data = update;
         
         query = `
             SELECT p.*, s.*, pt.*
@@ -33,7 +43,7 @@ export async function POST(request) {
             WHERE ss.Sale_Id = ${Sale_Id} `;
         values = [];
         [result] = await conn.execute(query, values);
-        let update = {...data[0], Product: result}
+        update = {...data, Product: result}
         data = update;
         conn.end();
         return NextResponse.json({ data, message: "success" }, { status: 201 });

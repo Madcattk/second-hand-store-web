@@ -53,10 +53,14 @@ export const Order = ({ form }) => {
                     </>
                 }
                 <div className='w-full r'>Subtotal ฿{form?.Discounted_Total_Price?.toFixed(2) || form?.Sale_Total_Price?.toFixed(2)} Baht</div>
-                <div className='w-full border-b border-gray'></div>
-                <InputFile onChange={(order_slip) => onChange({ order_slip })} value={''} placeholder='Profile Picture' classBox='w-full'/>
-                <label htmlFor="order_slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
-                <div className='w-full flex justify-end'><ButtonText onClick={() => onSave()} placeholder='UPLOAD' classBox='w-72'/></div>
+                {form?.Payment?.length <= 0 &&
+                    <>
+                        <div className='w-full border-b border-gray'></div>
+                        <InputFile onChange={(order_slip) => onChange({ order_slip })} value={''} placeholder='Profile Picture' classBox='w-full'/>
+                        <label htmlFor="order_slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
+                        <div className='w-full flex justify-end'><ButtonText onClick={() => onSave()} placeholder='UPLOAD' classBox='w-72'/></div>
+                    </>
+                }
             </div>
         </div>
     )
