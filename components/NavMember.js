@@ -7,13 +7,23 @@ import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUser, faShoppingCart, faBars, faUserShield, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage';
+import { useSelector, useDispatch } from 'react-redux'
+import { inputSearch, clearSearch } from '@redux/searchSlice';
 
 const NavMember = ({ children }) => {
+    const dispatch = useDispatch()
     const router = useRouter();
     const [auth, setAuth] = useState(null)
+    const [search, setSearch] = useState({})
     
     useEffect(() => {
         onLoad()
+        let value = {
+            searchInput: '',
+            searchType: 'hi',
+            searchSex: ''
+        }
+        dispatch(inputSearch(value))
     },[])
     
     const onLoad = () => {
