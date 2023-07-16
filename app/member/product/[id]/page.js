@@ -35,35 +35,28 @@ const page = () => {
     }
 
     const onAdd= (buy) => {
-        if(auth){
-            if(auth?.Product_Id){
-                if (!auth.Product_Id.includes(form?.Product_Id)) {
-                    auth.Product_Id.push(form?.Product_Id);
-                    toast.success("🤍 Added to cart", {
-                        autoClose: 2000,
-                    });
-                }
-                else{
-                    toast.error("❗️ The product is already in your cart", {
-                        autoClose: 2000,
-                    });
-                }
-            }else{
-                auth.Product_Id = [form?.Product_Id];
+        if(auth?.Product_Id){
+            if (!auth.Product_Id.includes(form?.Product_Id)) {
+                auth.Product_Id.push(form?.Product_Id);
                 toast.success("🤍 Added to cart", {
                     autoClose: 2000,
                 });
             }
-    
-            saveToLocalStorage('auth', auth);
-            onLoadAuth();
-            if(buy) router.push('/member/cart')
-        }
-        else{
-            toast.error("❗️ You should register before buying our products.", {
+            else{
+                toast.error("🤍 The product is already in your cart", {
+                    autoClose: 2000,
+                });
+            }
+        }else{
+            auth.Product_Id = [form?.Product_Id];
+            toast.success("🤍 Added to cart", {
                 autoClose: 2000,
             });
         }
+
+        saveToLocalStorage('auth', auth);
+        onLoadAuth();
+        if(buy) router.push('/member/cart')
     }
 
     return (      
