@@ -5,13 +5,14 @@ import { useRouter } from 'next/navigation';
 import { ButtonText, InputBox, InputSelect } from '@components/inputs'
 import { saveToLocalStorage, getFromLocalStorage } from '@lib/localStorage';
 import { loginMember } from '@app/api/getAPI/member';
+import { loginEmployee } from '@app/api/getAPI/employee';
 
 const page = () => {
   const router = useRouter();
   const [auth, setAuth] = useState(null)
   const [form, setForm] = useState({})
   const onChange = (update) => setForm({ ...form, ...update })
-
+  
   useEffect(() => {
     setAuth(getFromLocalStorage('auth'))
   },[])
@@ -32,7 +33,12 @@ const page = () => {
         router.push('/member/account');  
       }
     } else {
-      //api admin login ตรงนี้
+      const res = await loginEmployee(form?.email, form?.password);
+      if(res?.message === 'success' && res?.data?.[0]){
+        let authData = res?.data?.[0] || null
+        saveToLocalStorage('auth', authData);
+        router.push('/backoffice');  
+      }
     }
   }
 
