@@ -58,7 +58,7 @@ const page = () => {
         });
         router.push('/');     
       }
-      else if(res?.status === 'duplicated'){
+      else if(res?.message === 'duplicated'){
         toast.error("❗️This email has already been used.", {
             autoClose: 2000,
         });
