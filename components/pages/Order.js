@@ -1,5 +1,5 @@
 "use client";
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import Image from 'next/image' 
 import { toast } from 'react-toastify';
@@ -10,6 +10,7 @@ import { DateFormat } from '@components/formats';
 import { addPayment, editPaymentById } from '@app/api/getAPI/payment';
 import { MetaProductStatus, MetaSaleStatus } from '@components/Meta';
 import { updateSaleStatusById } from '@app/api/getAPI/sale';
+import ReviewModal from './ReviewModal';
 
 export const Order = ({ form, onChange, onLoad }) => {
 
@@ -150,8 +151,16 @@ export const Order = ({ form, onChange, onLoad }) => {
 }
 
 export const Review = ({ form, onChange, onLoad }) => {
+    const router = useRouter();
+    const [menu, setMenu] = useState(false);
+    const [data, setData] = useState(null);
+
+    const onReview = (data) => {
+        setMenu(true)
+        setData(data)
+    }
     return (
-        <div className='w-full flex_center'>
+        <div className='w-full flex_center relative'>
             <div className='xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 flex_center flex-col gap-3 px-5 py-3 border border-brown mb-5'>
                 <div className='w-full flex flex-col md:flex-row md:items-end justify-between font-light'>
                     <span>ORDER NO: {form?.Sale_Id || ''}</span>
@@ -180,13 +189,17 @@ export const Review = ({ form, onChange, onLoad }) => {
                                         <Image src={form?.Product?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
                                     </div>
                                     <div className='flex flex-col font-light'>
-                                        <span>Purple Bag</span>
+                                        <span>{item?.Product_Name || '-'}</span>
                                         <span className='text-xs'>Size: {item?.Size_Name || '-'}</span>
                                         <span className='text-xs'>Detail: {item?.Product_Size_Detail || '-'}</span>
                                     </div>
                                 </div>
                                 <div className='r font-light'>฿{item?.Product_Price?.toFixed(2) || '-'} Baht</div>
-                                <div className='w-full flex justify-end'><ButtonText onClick={() => onReview()} placeholder='REVIEW' classBox='lg:w-52 sm:w-44 w-full'/></div>
+                                {item?.Review_Id ?
+                                    <div className='w-full flex justify-end'><ButtonText onClick={() => router.push(`/member/product/${item?.Product_Id}`)} placeholder='CHECK YOUR REVIEW' classBox='lg:w-52 sm:w-44 w-full'/></div>
+                                :
+                                    <div className='w-full flex justify-end'><ButtonText onClick={() => onReview(item)} placeholder='REVIEW' classBox='lg:w-52 sm:w-44 w-full'/></div>
+                                }
                             </div>  
                             {index !== array.length - 1 && <div className='md:col-start-3 border-b border-gray my-2'></div>}
                         </React.Fragment>
@@ -200,6 +213,7 @@ export const Review = ({ form, onChange, onLoad }) => {
                 }
                 <div className='w-full r'>Subtotal ฿{form?.Discounted_Total_Price?.toFixed(2) || form?.Sale_Total_Price?.toFixed(2)} Baht</div>
             </div>
+            {menu && <ReviewModal menu={menu} setMenu={setMenu} data={data} onLoad={onLoad}/>}  
         </div>
     )
 }

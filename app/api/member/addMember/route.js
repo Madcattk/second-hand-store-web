@@ -17,6 +17,12 @@ export async function POST(request) {
         const formattedDate = DateFormat(Member_Birth_Date)
     try {       
         const conn = await dbConnection();
+        const [existingMember] = await conn.execute('SELECT * FROM Member WHERE Member_Email = ?', [Member_Email]);
+
+        if (existingMember.length > 0) {
+            conn.end();
+            return NextResponse.json({ message: "duplicated" }, { status: 201 });
+        }
         const query = `INSERT INTO Member 
             (Member_Firstname, 
             Member_Lastname, 

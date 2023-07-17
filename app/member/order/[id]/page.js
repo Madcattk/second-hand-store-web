@@ -5,14 +5,19 @@ import { useParams } from 'next/navigation'
 import { getSaleById } from '@app/api/getAPI/sale';
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage';
 import { DateFormat } from '@components/formats';
+import { signIn } from '@auth/authMember';
+import { useRouter } from 'next/navigation';
 
 const page = () => {
+    const router = useRouter();
     const { id } = useParams();
     const [auth, setAuth] = useState(null);
     const [form, setForm] = useState(null);
 
     useEffect(() => {
-        setAuth(getFromLocalStorage('auth'))
+        const _signIn = signIn()
+        if(!_signIn) router.push('/login');
+        else setAuth(getFromLocalStorage('auth'))
     },[])
 
     useEffect(() => {

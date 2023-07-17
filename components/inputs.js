@@ -29,6 +29,21 @@ export const InputBox = ({ value = "", onChange, classBox = "", placeholder = ""
     );
 };
 
+export const InputTextArea = ({ value = "", onChange, classBox = "", placeholder = "", number = null, cols, rows }) => {
+    return (
+        <div className={`${classBox}`}>
+            <textarea
+                cols={cols}
+                rows={rows}
+                placeholder={placeholder}
+                className={`border-brown border px-1 py-3 outline-none w-full text-brown`}
+                onChange={(e) => onChange ? onChange(number ? e.target.value.replace(/[^0-9]/g, '') : e.target.value) : {}}
+                value={value}
+            />
+        </div>
+    );
+};
+
 export const InputDate = ({ value = "", onChange, classBox = "", placeholder = "" }) => {
     return (
         <div className={`${classBox}`}>
