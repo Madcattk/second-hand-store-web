@@ -50,7 +50,7 @@ const AddressModal = ({ menu, setMenu, add, address, setAdd, setAddress, data, o
   }
 
   return (
-    <div className='w-full h-full flex justify-center z-10 absolute bg-white bg-opacity-20'>
+    <div className='w-full h-full flex justify-center z-10 absolute top-0 left-0 right-0 bottom-0 bg-white bg-opacity-20'>
       <div className='lg:w-[700px] w-[70%] h-fit p-10 mt-10 flex flex-col items-center bg-white shadow-xl'>
         <div className='w-full flex justify-end'><FontAwesomeIcon onClick={() => {setMenu(0); setAdd(true); setAddress(null);}} icon={faXmark} size="lg" className='cursor-pointer'/></div>
         <div className='w-full l font-extralight text-3xl pb-5'>{add ? 'New Address' : 'Edit Address'}</div>
@@ -64,7 +64,7 @@ const AddressModal = ({ menu, setMenu, add, address, setAdd, setAddress, data, o
           <InputBox number={true} onChange={(Zipcode) => onChange({ Zipcode })} value={form?.Zipcode || ''} placeholder='Zip code' classBox='w-full border-r border-brown'/>
           <InputBox number={true} onChange={(Phone) => onChange({ Phone })} value={form?.Phone || ''} placeholder='Phone' classBox='w-full'/>
         </div>
-        <div className='w-full pt-10 grid md:grid-cols-4 grid-cols-2 gap-5'>
+        <div className='w-full pt-10 grid md:grid-cols-4 grid-cols-1 gap-5'>
           <ButtonText onClick={() => onSave()} placeholder='SAVE' classBox='md:col-start-3 col-span-1'/>
           <ButtonText onClick={() => {setMenu(0); setAdd(true); setAddress(null);}} placeholder='Cancel' classBox='col-span-1'/>
         </div>
