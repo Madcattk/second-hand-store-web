@@ -201,7 +201,7 @@ const page = () => {
                             <span>PRODUCT</span>
                             <span>PRICE</span>
                         </div>
-                        <div className={`${newDeliveryAddress ? 'min-h-[680px]' : 'min-h-[530px]'} border-y border-brown py-2 w-full overflow-auto`}>
+                        <div className={`${newDeliveryAddress ? 'h-[650px]' : 'h-[510px]'} border-y border-brown py-2 w-full overflow-auto`}>
                             {form?.Product?.map((item, index, array) => {
                                 return <React.Fragment key={"Customer-Order"+index}>
                                     <div className='w-full grid grid-cols-1 md:grid-cols-3'>
