@@ -58,6 +58,11 @@ const page = () => {
         });
         router.push('/');     
       }
+      else if(res?.status === 400){
+        toast.error("❗️This email has already been used.", {
+            autoClose: 2000,
+        });
+      }
       else{
           toast.error("❗️Something wrong", {
               autoClose: 2000,
