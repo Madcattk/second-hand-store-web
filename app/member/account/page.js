@@ -10,6 +10,7 @@ import AddressModal from '@components/pages/AddressModal';
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage';
 import { useRouter } from 'next/navigation';
 import { getMemberAddressesById } from '@app/api/getAPI/member';
+import { signIn } from '@auth/authMember';
 
 const page = () => {
     const router = useRouter();
@@ -19,7 +20,9 @@ const page = () => {
     const [address, setAddress] = useState({})
 
     useEffect(() => {
-        onLoad()
+        const _signIn = signIn()
+        if(!_signIn) router.push('/login');
+        else onLoad()
     },[])
 
     const onLogOut = () => {

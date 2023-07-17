@@ -8,13 +8,21 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
 import { addMember } from '@app/api/getAPI/member';
-import { saveToLocalStorage } from '@lib/localStorage';
+import { saveToLocalStorage, getFromLocalStorage } from '@lib/localStorage';
 
 const page = () => {
   const router = useRouter();
   const [auth, setAuth] = useState(null)
   const [form, setForm] = useState({Member_Image: null, status: false})
   const onChange = (update) => setForm({ ...form, ...update })
+
+  useEffect(() => {
+    setAuth(getFromLocalStorage('auth'))
+  },[])
+
+  useEffect(() => {
+    if(auth?.Member_Id) router.push('/member/account');
+  },[auth])
   
   const onSave = async () => {  
     form.status = form?.status === 'true' ? true : form?.status === true ? true : false;

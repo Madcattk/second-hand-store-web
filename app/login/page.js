@@ -36,26 +36,22 @@ const page = () => {
 
   return (
     <div className='w-full h-fit lg:grid lg:grid-cols-2 lg:px-0 md:px-44'>
-      {!auth &&
-        <>
-          <div className='lg:border-r lg:border-r-brown flex items-center flex-col'>
-            <div className='pb-14'>
-              <div className='font-extralight text-3xl pb-16'>Sign In</div>
-              <InputBox onChange={(email) => onChange({ email })} value={form?.email} placeholder='Email' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72'/>
-              <InputBox onChange={(password) => onChange({ password })} value={form?.password} placeholder='Password' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72'/>
-              <InputSelect onChange={(status) => onChange({ status })} options={[{id: false, name: 'Login as a customer'}, {id: true, name: 'Admin'}]} value={form?.status || false} classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72 pb-14'/>
-              <ButtonText onClick={() => onSave()} placeholder='SIGN IN' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72 pb-2'/>
-            </div>
-            <hr className='show lg:hidden lg:w-[400px] md:w-[450px] sm:w-96 w-72 border-1 border-brown'/>
-          </div>
-          <div className='flex items-center flex-col lg:pt-5 pt-10'>
-            <div>
-              <div className='font-extralight text-3xl pb-5'>New Account</div>
-                <ButtonText onClick={() => router.push('/register')} placeholder='CREATE ACCOUNT' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72'/>
-            </div>
-          </div>
-        </>
-      }
+      <div className='lg:border-r lg:border-r-brown flex items-center flex-col'>
+        <div className='pb-14'>
+          <div className='font-extralight text-3xl pb-16'>Sign In</div>
+          <InputBox onChange={(email) => onChange({ email })} value={form?.email} placeholder='Email' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72'/>
+          <InputBox onChange={(password) => onChange({ password })} value={form?.password} placeholder='Password' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72'/>
+          <InputSelect onChange={(status) => onChange({ status })} options={[{id: false, name: 'Login as a customer'}, {id: true, name: 'Admin'}]} value={form?.status || false} classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72 pb-14'/>
+          <ButtonText onClick={() => onSave()} placeholder='SIGN IN' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72 pb-2'/>
+        </div>
+        <hr className='show lg:hidden lg:w-[400px] md:w-[450px] sm:w-96 w-72 border-1 border-brown'/>
+      </div>
+      <div className='flex items-center flex-col lg:pt-5 pt-10'>
+        <div>
+          <div className='font-extralight text-3xl pb-5'>New Account</div>
+            <ButtonText onClick={() => router.push('/register')} placeholder='CREATE ACCOUNT' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72'/>
+        </div>
+      </div>
     </div>
   )
 }
