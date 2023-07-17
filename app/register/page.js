@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
 import { addMember } from '@app/api/getAPI/member';
 import { saveToLocalStorage, getFromLocalStorage } from '@lib/localStorage';
+import { addEmployee } from '@app/api/getAPI/employee';
 
 const page = () => {
   const router = useRouter();
@@ -39,7 +40,6 @@ const page = () => {
     }
 
     if(!form.status){
-      let status = delete form?.status
       const res = await addMember({
         "Member_Firstname": form?.firstname || '',
         "Member_Lastname": form?.lastname || '',
@@ -70,7 +70,34 @@ const page = () => {
           });
       }
     } else {
-      //api admin สมัครสมาชิกตรงนี้
+      const res = await addEmployee({
+        "Employee_Firstname": form?.firstname || '',
+        "Employee_Lastname": form?.lastname || '',
+        "Employee_Email": form?.email || '',
+        "Employee_Password": form?.password || '',
+        "Employee_Sex": form?.sex || '',
+        "Employee_Birth_Date": form?.birth_date || '',
+        "Employee_Image": form?.image || '',
+        "Employee_Phone": form?.phone || '',
+      })
+      
+      if(res?.message === 'success'){
+        saveToLocalStorage('auth', res?.data || null)
+        toast.success("🤍 Welcome to Second Hand Store", {
+            autoClose: 2000,
+        });
+        router.push('/');     
+      }
+      else if(res?.message === 'duplicated'){
+        toast.error("❗️This email has already been used.", {
+            autoClose: 2000,
+        });
+      }
+      else{
+          toast.error("❗️Something wrong", {
+              autoClose: 2000,
+          });
+      }
     }
   }
 
