@@ -84,7 +84,7 @@ const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress 
                     <InputBox onChange={(Member_Email) => onChange({ Member_Email })} value={form?.Member_Email || ''} placeholder='Email' classBox='w-full border-r border-brown'/>
                     <InputBox onChange={(Member_Password) => onChange({ Member_Password })} value={form?.Member_Password || ''} placeholder='Password' classBox='w-full'/>
                 </div>
-                <InputBox onChange={(Member_Phone) => onChange({ Member_Phone })} value={form?.Member_Phone || ''} placeholder='Phone Number' classBox='w-full'/>
+                <InputBox number={true} onChange={(Member_Phone) => onChange({ Member_Phone })} value={form?.Member_Phone || ''} placeholder='Phone Number' classBox='w-full'/>
                 <ButtonText onClick={() => onEdit()} placeholder='EDIT PROFILE' classBox='w-full pb-2 pt-10'/>
             </div>
             <div className='flex flex-col w-full md:pl-10 gap-3 mb-3'>
