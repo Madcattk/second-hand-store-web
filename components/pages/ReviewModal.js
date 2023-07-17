@@ -12,7 +12,7 @@ import '@/styles/toastStyles.css';
 import { addReview } from '@app/api/getAPI/review';
 import { updateSaleStatusById } from '@app/api/getAPI/sale';
 
-const ReviewModal = ({ menu, setMenu, data, onLoad }) => {
+const ReviewModal = ({ menu, setMenu, data, onLoad, onCheckReview }) => {
   const [form, setForm] = useState(data)
   const [rating, setRating] = useState(0);
   const onChange = (update) => setForm({ ...form, ...update })
@@ -20,7 +20,7 @@ const ReviewModal = ({ menu, setMenu, data, onLoad }) => {
   const handleRatingClick = (index) => {
     setRating((prevRating) => (prevRating === index ? 0 : index));
   };
-  
+
   const onSave = async () => {
     const res = await addReview({
       "Review_Detail": form?.Review_Detail || null, 
@@ -33,6 +33,7 @@ const ReviewModal = ({ menu, setMenu, data, onLoad }) => {
             autoClose: 3000,
         });
         setMenu(false)
+        onLoad();
     }else{
         toast.success("❗️ Couldn't upload data.", {
             autoClose: 2000,

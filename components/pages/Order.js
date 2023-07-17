@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import Image from 'next/image' 
 import { toast } from 'react-toastify';
@@ -151,8 +151,10 @@ export const Order = ({ form, onChange, onLoad }) => {
 }
 
 export const Review = ({ form, onChange, onLoad }) => {
+    const router = useRouter();
     const [menu, setMenu] = useState(false);
     const [data, setData] = useState(null);
+
     const onReview = (data) => {
         setMenu(true)
         setData(data)
@@ -187,13 +189,17 @@ export const Review = ({ form, onChange, onLoad }) => {
                                         <Image src={form?.Product?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
                                     </div>
                                     <div className='flex flex-col font-light'>
-                                        <span>Purple Bag</span>
+                                        <span>{item?.Product_Name || '-'}</span>
                                         <span className='text-xs'>Size: {item?.Size_Name || '-'}</span>
                                         <span className='text-xs'>Detail: {item?.Product_Size_Detail || '-'}</span>
                                     </div>
                                 </div>
                                 <div className='r font-light'>฿{item?.Product_Price?.toFixed(2) || '-'} Baht</div>
-                                <div className='w-full flex justify-end'><ButtonText onClick={() => onReview(item)} placeholder='REVIEW' classBox='lg:w-52 sm:w-44 w-full'/></div>
+                                {item?.Review_Id ?
+                                    <div className='w-full flex justify-end'><ButtonText onClick={() => router.push(`/member/product/${item?.Product_Id}`)} placeholder='CHECK YOUR REVIEW' classBox='lg:w-52 sm:w-44 w-full'/></div>
+                                :
+                                    <div className='w-full flex justify-end'><ButtonText onClick={() => onReview(item)} placeholder='REVIEW' classBox='lg:w-52 sm:w-44 w-full'/></div>
+                                }
                             </div>  
                             {index !== array.length - 1 && <div className='md:col-start-3 border-b border-gray my-2'></div>}
                         </React.Fragment>

@@ -104,18 +104,19 @@ const page = () => {
                     :
                     <div className='md:w-[400px] w-[300px] font-light text-sm'>
                         <div className='flex flex-col md:flex-row gap-1 items-start md:items-center'>
-                            <div className='flex gap-1'>
-                                <FontAwesomeIcon icon={solidStar} size='lg'/>
-                                <FontAwesomeIcon icon={solidStar} size='lg'/>
-                                <FontAwesomeIcon icon={solidStar} size='lg'/>
-                                <FontAwesomeIcon icon={solidStar} size='lg'/>
-                                <FontAwesomeIcon icon={regularStar} size='lg'/>
-                            </div>
-                            <span className='font-normal text-lg'>4.0 rated by our customer</span>
+                        <div className='flex gap-1'>
+                            {[1, 2, 3, 4, 5].map((index) => (
+                                <div key={"Rating"+index} className="cursor-pointer" onClick={() => handleRatingClick(index)}>
+                                <FontAwesomeIcon
+                                    icon={index <= parseInt(form?.Review_Rating) ? solidStar : regularStar}
+                                    size="lg"
+                                />
+                                </div>
+                            ))}
                         </div>
-                        <div className='w-full'>
-                            Super cute vintage jean vest in mint condition and only worn once!! Super cute vintage jean vest in mint condition and only worn once!! Super cute vintage jean vest in mint condition and only worn once!! Super cute vintage jean vest in mint condition and only worn once!!
+                            <span className='font-normal text-lg'>{form?.Review_Rating ? parseInt(form?.Review_Rating || 0).toFixed(1) + ' rated by our customer.' : 'No review from customer.'}</span>
                         </div>
+                        <div className='w-full'>{form?.Review_Detail}</div>
                     </div>
                     }
                 </div>
