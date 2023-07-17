@@ -32,7 +32,7 @@ const page = () => {
           autoClose: 2000,
       });
     }
-    if(!(form?.Member_Email && form?.Member_Password && form?.Member_Birth_Date && form?.Member_Sex && form?.Member_Firstname && form?.Member_Lastname && form?.Member_Phone)) {
+    if(!(form?.email && form?.password && form?.birth_date && form?.sex && form?.firstname && form?.lastname && form?.phone)) {
       return toast.error("❗️Please fill out all the fields", {
         autoClose: 2000,
       });
@@ -40,7 +40,17 @@ const page = () => {
 
     if(!form.status){
       let status = delete form?.status
-      const res = await addMember(form)
+      const res = await addMember({
+        "Member_Firstname": form?.firstname || '',
+        "Member_Lastname": form?.lastname || '',
+        "Member_Username": form?.Member_Username || '',
+        "Member_Email": form?.email || '',
+        "Member_Password": form?.password || '',
+        "Member_Sex": form?.sex || '',
+        "Member_Birth_Date": form?.birth_date || '',
+        "Member_Image": form?.image || '',
+        "Member_Phone": form?.phone || '',
+      })
       if(res?.message === 'success'){
         saveToLocalStorage('auth', res?.data || null)
         toast.success("🤍 Welcome to Second Hand Store", {
@@ -53,6 +63,8 @@ const page = () => {
               autoClose: 2000,
           });
       }
+    } else {
+      //api admin สมัครสมาชิกตรงนี้
     }
   }
 
@@ -60,25 +72,21 @@ const page = () => {
     <div className='w-full h-fit flex flex-col items-center'>
         <div className='font-extralight text-3xl pb-16'>Create Account</div>
         <InputSelect onChange={(status) => onChange({ status })} options={[{id: false, name: 'Create account as a customer'}, {id: true, name: 'Admin'}]} value={form?.status || false} classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
-        {(form?.status === 'false' || form?.status === false) &&
-          <>
-            <div className='flex lg:w-[500px] md:w-[450px] sm:w-96 w-72'>
-              <InputBox onChange={(Member_Firstname) => onChange({ Member_Firstname })} value={form?.Member_Firstname || ''} placeholder='Name' classBox='w-full border-r border-brown'/>
-              <InputBox onChange={(Member_Lastname) => onChange({ Member_Lastname })} value={form?.Member_Lastname || ''} placeholder='Surname' classBox='w-full'/>
-            </div>
-            {!(form?.status === 'true' || form?.status === true) && <InputBox onChange={(Member_Username) => onChange({ Member_Username })} value={form?.Member_Username || ''} placeholder='Username' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>}
-            <InputDate onChange={(Member_Birth_Date) => onChange({ Member_Birth_Date })} value={form?.Member_Birth_Date || ''} placeholder='Birth Date' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
-            <InputFile onChange={(Member_Image) => onChange({ Member_Image })} value={form?.Member_Image || ''} placeholder='Profile Picture' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
-            <InputSelect onChange={(Member_Sex) => onChange({ Member_Sex })} value={form?.Member_Sex || ''} options={MetaSex} placeholder='Gender' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
-            <div className='flex lg:w-[500px] md:w-[450px] sm:w-96 w-72'>
-              <InputBox onChange={(Member_Email) => onChange({ Member_Email })} value={form?.Member_Email || ''} placeholder='Email' classBox='w-full border-r border-brown'/>
-              <InputBox onChange={(Member_Password) => onChange({ Member_Password })} value={form?.Member_Password || ''} placeholder='Password' classBox='w-full'/>
-            </div>
-            <InputBox number={true} onChange={(Member_Phone) => onChange({ Member_Phone })} value={form?.Member_Phone || ''} placeholder='Phone Number' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
-            <ButtonText onClick={() => onSave()} placeholder='REGISTER' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72 pb-2 pt-14'/>
-          </>
-        }
-        <span onClick={() => router.push('/login')} className='font-extralight cursor-pointer hover:underline text-sm'>Already have an account?</span>
+          <div className='flex lg:w-[500px] md:w-[450px] sm:w-96 w-72'>
+            <InputBox onChange={(firstname) => onChange({ firstname })} value={form?.firstname || ''} placeholder='Name' classBox='w-full border-r border-brown'/>
+            <InputBox onChange={(lastname) => onChange({ lastname })} value={form?.lastname || ''} placeholder='Surname' classBox='w-full'/>
+          </div>
+          {!(form?.status === 'true' || form?.status === true) && <InputBox onChange={(Member_Username) => onChange({ Member_Username })} value={form?.Member_Username || ''} placeholder='Username' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>}
+          <InputDate onChange={(birth_date) => onChange({ birth_date })} value={form?.birth_date || ''} placeholder='Birth Date' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
+          <InputFile onChange={(image) => onChange({ image })} value={form?.image || ''} placeholder='Profile Picture' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
+          <InputSelect onChange={(sex) => onChange({ sex })} value={form?.sex || ''} options={MetaSex} placeholder='Gender' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
+          <div className='flex lg:w-[500px] md:w-[450px] sm:w-96 w-72'>
+            <InputBox onChange={(email) => onChange({ email })} value={form?.email || ''} placeholder='Email' classBox='w-full border-r border-brown'/>
+            <InputBox onChange={(password) => onChange({ password })} value={form?.password || ''} placeholder='Password' classBox='w-full'/>
+          </div>
+          <InputBox number={true} onChange={(phone) => onChange({ phone })} value={form?.phone || ''} placeholder='Phone Number' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
+          <ButtonText onClick={() => onSave()} placeholder='REGISTER' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72 pb-2 pt-14'/>
+        <span onClick={() => router.push('/login')} className='font-extralight cursor-pointer hover:underline text-sm pb-10'>Already have an account?</span>
       </div>
   )
 }
