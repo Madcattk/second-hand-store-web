@@ -51,6 +51,7 @@ const page = () => {
         "Member_Image": form?.image || '',
         "Member_Phone": form?.phone || '',
       })
+      
       if(res?.message === 'success'){
         saveToLocalStorage('auth', res?.data || null)
         toast.success("🤍 Welcome to Second Hand Store", {
