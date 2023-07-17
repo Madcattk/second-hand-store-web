@@ -5,7 +5,12 @@ import {
   MenuUnfoldOutlined,
   UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
+  TeamOutlined,
+  SkinOutlined,
+  InboxOutlined,
+  CalendarOutlined,
+  SoundOutlined,
+
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
 const { Header, Sider, Content } = Layout;
@@ -30,18 +35,39 @@ const App = () => {
             },
             {
               key: '2',
-              icon: <VideoCameraOutlined />,
+              icon: <TeamOutlined /> ,
               label: 'Employee',
             },
             {
               key: '3',
-              icon: <UploadOutlined />,
-              label: 'Transactions',
+              icon: <InboxOutlined />,
+              label: 'Transaction',
             },
             {
               key: '4',
-             
-            }
+              icon: <SkinOutlined />,
+              label: 'Product',
+            },
+            {
+              key: '5',
+              icon: <SkinOutlined />,
+              label: 'Product Type',
+            },
+            {
+              key: '6',
+              icon: <SkinOutlined />,
+              label: 'Size',
+            },
+            {
+              key: '7',
+              icon: <SoundOutlined />,
+              label: 'Promotion',
+            },
+            {
+              key: '8',
+              icon: <CalendarOutlined />,
+              label: 'Report Summary',
+            },
           ]}
         />
       </Sider>
@@ -67,7 +93,7 @@ const App = () => {
           style={{
             margin: '24px 16px',
             padding: 24,
-            minHeight: 280,
+            minHeight: 490,
             background: colorBgContainer,
           }}
         >
