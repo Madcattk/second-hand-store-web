@@ -21,7 +21,7 @@ export async function POST(request) {
 
         if (existingMember.length > 0) {
             conn.end();
-            return NextResponse.json({ message: "Email already exists. Please use a different email." }, { status: 400 });
+            return NextResponse.json({ message: "duplicated" }, { status: 400 });
         }
         const query = `INSERT INTO Member 
             (Member_Firstname, 
