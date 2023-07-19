@@ -187,7 +187,7 @@ const page = () => {
             });
         }
     }
-
+console.log(form);
     const onChange = (update) => setForm({ ...form, ...update })
 
     return (
@@ -208,7 +208,7 @@ const page = () => {
                                         <div className='md:col-span-2 flex gap-2'>
                                         <FontAwesomeIcon onClick={() => onDeleteProduct(item)} icon={faXmark} className='cursor-pointer'/>
                                             <div>
-                                                <Image src={form?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100} className='w-[80px] h-[100px]'/>
+                                                <Image src={item?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100} className='w-[80px] h-[100px]'/>
                                             </div>
                                             <div className='flex flex-col font-light'>
                                                 <span>{item?.Product_Name || ''}</span>
