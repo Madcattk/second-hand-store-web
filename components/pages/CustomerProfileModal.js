@@ -53,6 +53,7 @@ const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress 
         }
     } 
 
+
     const onDelete = async (address) => {
         const res = await deleteMemberAddressesById(address.Member_Id, address.Member_Address);
         if(res?.message === 'success'){
@@ -93,10 +94,10 @@ const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress 
                     <div className='p-3 border border-brown w-full font-light' key={"Customer-Address"+index}>
                         <div className='w-full flex gap-3 justify-end'>
                             <FontAwesomeIcon onClick={() => {setAdd(false); setAddress(item); setMenu(3);}} icon={faPenToSquare} className='cursor-pointer'/>
-                            <FontAwesomeIcon onClick={() => onDelete({Member_Id: item?.Member_Id, Member_Address: item.Fullname + "%" + item.Address + "%" + item.District + "%" + item.Province + "%" + item.Zipcode + "%" + item.Phone + "%"} || '')} icon={faTrashCan} className='cursor-pointer'/>
+                            <FontAwesomeIcon onClick={() => onDelete({Member_Id: item?.Member_Id, Member_Address: item.Member_Address} || '')} icon={faTrashCan} className='cursor-pointer'/>
                         </div>
                         <div>{item?.Fullname || ''}</div>
-                        <div>{item?.Address || ''} {item?.District || ''} {item?.Province || ''} {item?.Zipcode || ''}</div>
+                        <div>{item?.Address || ''} {item?.District || ''} {item?.Province || ''} {item?.Zipcode || ''} {item?.Country || ''}</div>
                         <div>Phone: {item?.Phone || ''}</div>
                     </div>
                 ))}

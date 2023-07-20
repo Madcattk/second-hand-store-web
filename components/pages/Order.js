@@ -97,7 +97,7 @@ export const Order = ({ form, onChange, onLoad }) => {
                 <div className='w-full py-1 flex flex-col md:flex-row items-start justify-between font-light text-sm border-b border-b-gray border-t border-t-gray'>
                     <div>
                     <div>{form?.Address?.Fullname || ''}</div>
-                    <div>{form?.Address?.Address || ''} {form?.Address?.District || ''} {form?.Address?.Province || ''} {form?.Address?.Zipcode || ''}</div>
+                    <div>{form?.Address?.Address || ''} {form?.Address?.District || ''} {form?.Address?.Province || ''} {form?.Address?.Zipcode || ''} {form?.Address?.Country || ''}</div>
                     <div>Phone: {form?.Address?.Phone || ''}</div>
                     </div>
                     <div>Tracking Number: {form?.Sale_Tracking_Number || '-'}</div>
@@ -173,7 +173,7 @@ export const Review = ({ form, onChange, onLoad }) => {
                 <div className='w-full py-1 flex flex-col md:flex-row items-start justify-between font-light text-sm border-b border-b-gray border-t border-t-gray'>
                     <div>
                     <div>{form?.Address?.Fullname || ''}</div>
-                    <div>{form?.Address?.Address || ''} {form?.Address?.District || ''} {form?.Address?.Province || ''} {form?.Address?.Zipcode || ''}</div>
+                    <div>{form?.Address?.Address || ''} {form?.Address?.District || ''} {form?.Address?.Province || ''} {form?.Address?.Zipcode || ''} {form?.Address?.Country || ''}</div>
                     <div>Phone: {form?.Address?.Phone || ''}</div>
                     </div>
                     <div>Tracking Nuber: {form?.Sale_Tracking_Number || '-'}</div>

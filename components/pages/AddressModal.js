@@ -13,13 +13,13 @@ const AddressModal = ({ menu, setMenu, add, address, setAdd, setAddress, data, o
   const onChange = (update) => setForm({ ...form, ...update })
   
   const onSave = async () => {
-    if(!(form?.Fullname && form?.Address && form?.District && form?.Province && form?.Zipcode && form?.Phone)) {
+    if(!(form?.Fullname && form?.Address && form?.District && form?.Province && form?.Zipcode &&form?.Country && form?.Phone)) {
       return toast.error("❗️Please fill out all the fields", {
         autoClose: 2000,
       });
     }
 
-    let addr = (form?.Fullname || '') + '%' + (form?.Address || '') + '%' + (form?.District || '') + '%' + (form?.Province || '') + '%' + (form?.Zipcode || '') + '%' + (form?.Phone || '') + '%'
+    let addr = (form?.Fullname || '') + '%' + (form?.Address || '') + '%' + (form?.District || '') + '%' + (form?.Province || '') + '%' + (form?.Zipcode || '') + '%' + (form?.Country || '') + '%' + (form?.Phone || '') + '%'
     
     let res = form?.Member_Id ? 
     await editMemberAddressById({
@@ -62,6 +62,9 @@ const AddressModal = ({ menu, setMenu, add, address, setAdd, setAddress, data, o
         </div>
         <div className='flex w-full'>
           <InputBox number={true} onChange={(Zipcode) => onChange({ Zipcode })} value={form?.Zipcode || ''} placeholder='Zip code' classBox='w-full border-r border-brown'/>
+          <InputBox onChange={(Country) => onChange({ Country })} value={form?.Country || ''} placeholder='Country' classBox='w-full'/>
+        </div>
+        <div className='flex w-full'>
           <InputBox number={true} onChange={(Phone) => onChange({ Phone })} value={form?.Phone || ''} placeholder='Phone' classBox='w-full'/>
         </div>
         <div className='w-full pt-10 grid md:grid-cols-4 grid-cols-1 gap-5'>
