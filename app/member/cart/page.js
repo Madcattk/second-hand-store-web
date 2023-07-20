@@ -27,6 +27,7 @@ const page = () => {
     const [form, setForm] = useState({})
     const [payment, setPayment] = useState({})
     const [meta, setMeta] = useState({Promotion: null, Delevery_Address: null})
+    console.log(form);
 
     useEffect(() => {
         const _signIn = signIn()
@@ -59,6 +60,7 @@ const page = () => {
             New_District: '',
             New_Province: '',
             New_Zipcode: '',
+            New_Country: '',
             New_Phone: '',
         });
     };
@@ -89,7 +91,8 @@ const page = () => {
                         District: add[2] || '',
                         Province: add[3] || '',
                         Zipcode: add[4] || '',
-                        Phone: add[5] || '',
+                        Country: add[5] || '',
+                        Phone: add[6] || '',
                         Member_Address: item?.Member_Address || ''
                     })
                 })
@@ -127,13 +130,13 @@ const page = () => {
         let address = null;
         if(form?.Selected_Address){
             address = form.Selected_Address.Member_Address;
-        }else if(form?.New_Fullname || form?.New_Address || form?.New_District || form?.New_Province || form?.New_Zipcode || form?.New_Phone){
-            if(!(form?.New_Fullname && form?.New_Address && form?.New_District && form?.New_Province && form?.New_Zipcode && form?.New_Phone)){
+        }else if(form?.New_Fullname || form?.New_Address || form?.New_District || form?.New_Province || form?.New_Zipcode || form?.New_Country || form?.New_Phone){
+            if(!(form?.New_Fullname && form?.New_Address && form?.New_District && form?.New_Province && form?.New_Zipcode && form?.New_Country && form?.New_Phone)){
                 return toast.error("🤍 Please fill out all new delivery address fields.", {
                     autoClose: 2000,
                 });
             }
-            address = form?.New_Fullname + "%" + form?.New_Address + "%" + form?.New_District + "%" + form?.New_Province + "%" + form?.New_Zipcode + "%" + form?.New_Phone + "%";
+            address = form?.New_Fullname + "%" + form?.New_Address + "%" + form?.New_District + "%" + form?.New_Province + "%" + form?.New_Zipcode + "%" + form?.New_Country + "%" + form?.New_Phone + "%";
         }
         else{
             return toast.error("🤍 Please select your delivery address.", {
@@ -187,7 +190,7 @@ const page = () => {
             });
         }
     }
-
+console.log(form);
     const onChange = (update) => setForm({ ...form, ...update })
 
     return (
@@ -201,14 +204,14 @@ const page = () => {
                             <span>PRODUCT</span>
                             <span>PRICE</span>
                         </div>
-                        <div className={`${newDeliveryAddress ? 'h-[650px]' : 'h-[510px]'} border-y border-brown py-2 w-full overflow-auto`}>
+                        <div className={`${newDeliveryAddress ? 'h-[840px]' : 'h-[645px]'} border-y border-brown py-2 w-full overflow-auto`}>
                             {form?.Product?.map((item, index, array) => {
                                 return <React.Fragment key={"Customer-Order"+index}>
                                     <div className='w-full grid grid-cols-1 md:grid-cols-3'>
                                         <div className='md:col-span-2 flex gap-2'>
                                         <FontAwesomeIcon onClick={() => onDeleteProduct(item)} icon={faXmark} className='cursor-pointer'/>
                                             <div>
-                                                <Image src={form?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100} className='w-[80px] h-[100px]'/>
+                                                <Image src={item?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100} className='w-[80px] h-[100px]'/>
                                             </div>
                                             <div className='flex flex-col font-light'>
                                                 <span>{item?.Product_Name || ''}</span>
@@ -242,7 +245,7 @@ const page = () => {
                                 <label className={`${form?.Color_Address === index ? 'bg-brown text-white' : ''} cursor-pointer p-3 border border-brown w-full font-light`} key={"Customer-Address" + index}>
                                     <input type="radio" name="selectedAddress" onChange={handleAddressSelection} value={index} className="hidden"/>
                                     <div>{item?.Fullname || ''}</div>
-                                    <div>{item?.Address || ''} {item?.District || ''} {item?.Province || ''} {item?.Zipcode || ''}</div>
+                                    <div>{item?.Address || ''} {item?.District || ''} {item?.Province || ''} {item?.Zipcode || ''} {item?.Country || ''}</div>
                                     <div>Phone: {item?.Phone || '-'}</div>
                                 </label>
                             ))}
@@ -258,6 +261,9 @@ const page = () => {
                                 </div>
                                 <div className='flex w-full'>
                                     <InputBox number={true} onChange={(New_Zipcode) => onChange({ New_Zipcode })} value={form?.New_Zipcode || ''} placeholder='Zip code' classBox='w-full border-r border-brown'/>
+                                    <InputBox onChange={(New_Country) => onChange({ New_Country })} value={form?.New_Country || ''} placeholder='Country' classBox='w-full'/>
+                                </div>
+                                <div className='flex w-full'>
                                     <InputBox number={true} onChange={(New_Phone) => onChange({ New_Phone })} value={form?.New_Phone || ''} placeholder='Phone' classBox='w-full'/>
                                 </div>
                             </div>

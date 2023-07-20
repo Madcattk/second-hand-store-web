@@ -97,7 +97,7 @@ export const Order = ({ form, onChange, onLoad }) => {
                 <div className='w-full py-1 flex flex-col md:flex-row items-start justify-between font-light text-sm border-b border-b-gray border-t border-t-gray'>
                     <div>
                     <div>{form?.Address?.Fullname || ''}</div>
-                    <div>{form?.Address?.Address || ''} {form?.Address?.District || ''} {form?.Address?.Province || ''} {form?.Address?.Zipcode || ''}</div>
+                    <div>{form?.Address?.Address || ''} {form?.Address?.District || ''} {form?.Address?.Province || ''} {form?.Address?.Zipcode || ''} {form?.Address?.Country || ''}</div>
                     <div>Phone: {form?.Address?.Phone || ''}</div>
                     </div>
                     <div>Tracking Number: {form?.Sale_Tracking_Number || '-'}</div>
@@ -112,7 +112,7 @@ export const Order = ({ form, onChange, onLoad }) => {
                             <div className='w-full grid grid-cols-1 md:grid-cols-3'>
                                 <div className='md:col-span-2 flex gap-2'>
                                     <div>
-                                        <Image src={form?.Product?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
+                                        <Image className='w-[80px] h-[100px]' src={item?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
                                     </div>
                                     <div className='flex flex-col font-light'>
                                         <span>{item?.Product_Name || ''}</span>
@@ -143,7 +143,10 @@ export const Order = ({ form, onChange, onLoad }) => {
                 }
                 {
                     form?.Sale_Status === MetaSaleStatus?.[5]?.id &&
-                    <div className='w-full flex justify-end'><ButtonText onClick={() => onReceive()} placeholder='RECEIVE PRODUCT' classBox='w-72'/></div>
+                    <>
+                        <div className='w-full border-b border-gray'></div>
+                        <div className='w-full flex justify-end'><ButtonText onClick={() => onReceive()} placeholder='RECEIVE PRODUCT' classBox='w-72'/></div>
+                    </>
                 }
             </div>
         </div>
@@ -170,7 +173,7 @@ export const Review = ({ form, onChange, onLoad }) => {
                 <div className='w-full py-1 flex flex-col md:flex-row items-start justify-between font-light text-sm border-b border-b-gray border-t border-t-gray'>
                     <div>
                     <div>{form?.Address?.Fullname || ''}</div>
-                    <div>{form?.Address?.Address || ''} {form?.Address?.District || ''} {form?.Address?.Province || ''} {form?.Address?.Zipcode || ''}</div>
+                    <div>{form?.Address?.Address || ''} {form?.Address?.District || ''} {form?.Address?.Province || ''} {form?.Address?.Zipcode || ''} {form?.Address?.Country || ''}</div>
                     <div>Phone: {form?.Address?.Phone || ''}</div>
                     </div>
                     <div>Tracking Nuber: {form?.Sale_Tracking_Number || '-'}</div>
@@ -186,7 +189,7 @@ export const Review = ({ form, onChange, onLoad }) => {
                             <div className='w-full grid grid-cols-1 md:grid-cols-3'>
                                 <div className='flex gap-2'>
                                     <div>
-                                        <Image src={form?.Product?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
+                                        <Image className='w-[80px] h-[100px]' src={item?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
                                     </div>
                                     <div className='flex flex-col font-light'>
                                         <span>{item?.Product_Name || '-'}</span>

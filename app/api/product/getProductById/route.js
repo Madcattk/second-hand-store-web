@@ -8,7 +8,7 @@ export async function POST(request) {
         const query = `
             SELECT p.*, s.Size_Name, pt.Product_Type_Name, r.Review_Id, r.Review_Detail, r.Review_Rating
             FROM Product p
-            JOIN Size s ON p.Size_Id = s.Size_Id
+            LEFT JOIN Size s ON p.Size_Id = s.Size_Id
             JOIN Product_Type pt ON p.Product_Type_Id = pt.Product_Type_Id
             LEFT JOIN Review r ON p.Product_Id = r.Product_Id
             WHERE p.Product_Id = ${Product_Id} ;

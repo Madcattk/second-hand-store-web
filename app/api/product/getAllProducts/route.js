@@ -7,7 +7,7 @@ export async function GET(request) {
         const query = `
             SELECT p.*, s.Size_Name, pt.Product_Type_Name
             FROM Product p
-            JOIN Size s ON p.Size_Id = s.Size_Id
+            LEFT JOIN Size s ON p.Size_Id = s.Size_Id
             JOIN Product_Type pt ON p.Product_Type_Id = pt.Product_Type_Id
             ORDER BY p.Product_Status;
         `;

@@ -36,7 +36,8 @@ const page = () => {
                 District: add[2] || '',
                 Province: add[3] || '',
                 Zipcode: add[4] || '',
-                Phone: add[5] || '',
+                Country: add[5] || '',
+                Phone: add[6] || '',
                 Member_Address: res?.data?.Delivery_Address || ''
             }
                 const updatedData = { ...res.data, Address: address };
