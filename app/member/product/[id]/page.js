@@ -76,7 +76,7 @@ const page = () => {
                         alt="Product"
                         width={280}
                         height={0}
-                        className='lg:h-[450px] h-[330px] object-cover w-full hover:scale-[1.01] transform transition-transform duration-200'
+                        className='h-[450px] w-[350px] object-cover hover:scale-[1.01] transform transition-transform duration-200'
                     />
                 </div>
                 <div className='flex flex-col gap-2'>
@@ -106,7 +106,7 @@ const page = () => {
                         <div className='flex flex-col md:flex-row gap-1 items-start md:items-center'>
                         <div className='flex gap-1'>
                             {[1, 2, 3, 4, 5].map((index) => (
-                                <div key={"Rating"+index} className="cursor-pointer" onClick={() => handleRatingClick(index)}>
+                                <div key={"Rating"+index}>
                                 <FontAwesomeIcon
                                     icon={index <= parseInt(form?.Review_Rating) ? solidStar : regularStar}
                                     size="lg"
@@ -114,7 +114,7 @@ const page = () => {
                                 </div>
                             ))}
                         </div>
-                            <span className='font-normal text-lg'>{form?.Review_Rating ? parseInt(form?.Review_Rating || 0).toFixed(1) + ' rated by our customer.' : 'No review from customer.'}</span>
+                            <span className='font-normal text-lg'>{form?.Review_Rating ? parseInt(form?.Review_Rating || 0).toFixed(1) + ' rated by our customer.' : 'No review from our customer.'}</span>
                         </div>
                         <div className='w-full'>{form?.Review_Detail}</div>
                     </div>

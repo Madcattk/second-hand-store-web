@@ -112,7 +112,7 @@ export const Order = ({ form, onChange, onLoad }) => {
                             <div className='w-full grid grid-cols-1 md:grid-cols-3'>
                                 <div className='md:col-span-2 flex gap-2'>
                                     <div>
-                                        <Image src={item?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
+                                        <Image className='w-[80px] h-[100px]' src={item?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
                                     </div>
                                     <div className='flex flex-col font-light'>
                                         <span>{item?.Product_Name || ''}</span>
@@ -189,7 +189,7 @@ export const Review = ({ form, onChange, onLoad }) => {
                             <div className='w-full grid grid-cols-1 md:grid-cols-3'>
                                 <div className='flex gap-2'>
                                     <div>
-                                        <Image src={item?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
+                                        <Image className='w-[80px] h-[100px]' src={item?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
                                     </div>
                                     <div className='flex flex-col font-light'>
                                         <span>{item?.Product_Name || '-'}</span>
