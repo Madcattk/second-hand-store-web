@@ -38,7 +38,7 @@ export async function POST(request) {
             SELECT p.*, s.*, pt.*, r.Review_Id
             FROM Sale ss 
             JOIN Product p ON p.Sale_Id = ss.Sale_Id
-            JOIN Size s ON p.Size_Id = s.Size_Id
+            LEFT JOIN Size s ON p.Size_Id = s.Size_Id
             JOIN Product_Type pt ON p.Product_Type_Id = pt.Product_Type_Id
             LEFT JOIN Review r ON p.Product_Id = r.Product_Id
             WHERE ss.Sale_Id = ${Sale_Id} `;
