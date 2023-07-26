@@ -50,10 +50,7 @@ export async function GET(request) {
             }
         }
     
-        let data = {
-            Product_Type_Count : countResult || null,
-            Product_Type_Max: countResult[0] || null
-        };
+        let data = countResult || null;
         conn.end();
         return NextResponse.json({data, message: "success"}, {status: 201});
     } catch (error) {   
