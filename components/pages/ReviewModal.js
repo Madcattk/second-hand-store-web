@@ -46,14 +46,14 @@ const ReviewModal = ({ menu, setMenu, data, onLoad, onCheckReview }) => {
       <div className='lg:w-[600px] w-[65%] h-fit p-10 mt-10 flex flex-col items-center bg-white shadow-xl'>
         <div className='w-full flex justify-end'><FontAwesomeIcon onClick={() => setMenu(false)} icon={faXmark} size="lg" className='cursor-pointer'/></div>
         <div className='w-full l font-extralight text-3xl pb-5'>Rate our product</div>
-        <div className='w-full sm:grid sm:grid-cols-3 gap-3'>
+        <div className='w-full md:grid md:grid-cols-3 gap-3'>
             <div className='col-span-1 pb-3'>
-              <Image src={form?.Product?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={150} height={200} className='sm:w-full sm:h-full'/>
+              <Image src={form?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={150} height={200} className='w-[150px] h-[200px]'/>
             </div>
             <div className='col-span-2 flex flex-col font-light'>
-                <span className='text-2xl font-extralight sm:block hidden'>{form?.Product_Name || ''}</span>
-                <span className='text-sm sm:block hidden'>฿{form?.Product_Price?.toFixed(2) || '-'} Baht</span>
-                <div className='my-5 w-full sm:block hidden'>
+                <span className='text-2xl font-extralight'>{form?.Product_Name || ''}</span>
+                <span className='text-sm md:block hidden'>฿{form?.Product_Price?.toFixed(2) || '-'} Baht</span>
+                <div className='my-5 w-full md:block hidden'>
                     <div className='flex justify-between gap-5 w-full font-light border-b p-2 border-brown'>
                         <span className='uppercase text-lg'>SIZE</span>
                         <span className='r'>{form?.Size_Name || '-'}</span>

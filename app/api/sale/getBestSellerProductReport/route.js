@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import dbConnection from "@/lib/db";
 import { MetaSaleStatus } from "@components/Meta";
 
-export async function GET(request) {
+export async function POST(request) {
+    const { Start_Date, End_Date } = await request.json();
     try {       
         const conn = await dbConnection()
         let query = `
@@ -11,17 +12,17 @@ export async function GET(request) {
                 '${MetaSaleStatus[2].id}',
                 '${MetaSaleStatus[5].id}',
                 '${MetaSaleStatus[6].id}'
-            ) THEN p.Product_Id ELSE NULL END) as Product,
+            ) AND s.Sale_Date >= '${Start_Date}' AND s.Sale_Date <= '${End_Date}' THEN p.Product_Id ELSE NULL END) as Product,
             COUNT(CASE WHEN s.Sale_Status IN (
                 '${MetaSaleStatus[2].id}',
                 '${MetaSaleStatus[5].id}',
                 '${MetaSaleStatus[6].id}'
-            ) THEN 1 ELSE NULL END) as Count, 
+            ) AND s.Sale_Date >= '${Start_Date}' AND s.Sale_Date <= '${End_Date}' THEN 1 ELSE NULL END) as Count, 
             SUM(CASE WHEN s.Sale_Status IN (
                 '${MetaSaleStatus[2].id}',
                 '${MetaSaleStatus[5].id}',
                 '${MetaSaleStatus[6].id}'
-            ) THEN p.Product_Price ELSE 0 END) as Total_Price
+            ) AND s.Sale_Date >= '${Start_Date}' AND s.Sale_Date <= '${End_Date}' THEN p.Product_Price ELSE 0 END) as Total_Price
             FROM Product_Type pt
             LEFT JOIN Product p ON p.Product_Type_Id = pt.Product_Type_Id
             LEFT JOIN Size size ON p.Size_Id = size.Size_Id 
