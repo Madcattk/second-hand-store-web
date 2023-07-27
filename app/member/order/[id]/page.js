@@ -26,9 +26,9 @@ const page = () => {
     
     const onLoad = async () => {
         const res = await getSaleById(id)
-        if(res?.message === 'success'){        
+        if(res?.message === 'success' && res?.data?.Product?.length > 0){   
             let address = null;
-            let add = res?.data?.Delivery_Address.split('%');
+            let add = res?.data?.Delivery_Address?.split('%');
             address = {
                 Member_Id: res?.data?.Member_Id || '',
                 Fullname: add[0] || '',
@@ -43,6 +43,8 @@ const page = () => {
                 const updatedData = { ...res.data, Address: address };
                 res.data = updatedData;
             setForm(res?.data || []);
+        } else {
+            router.push('/member/account');
         }
     }
 

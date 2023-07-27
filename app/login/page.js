@@ -8,6 +8,9 @@ import { loginMember } from '@app/api/getAPI/member';
 import { loginEmployee } from '@app/api/getAPI/employee';
 import { useDispatch } from 'react-redux';
 import { inputAuth } from '@redux/authSlice';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '@/styles/toastStyles.css';
 
 const page = () => {
   const dispatch = useDispatch();
@@ -34,6 +37,10 @@ const page = () => {
         let authData = res?.data?.[0] || null
         saveToLocalStorage('auth', authData);
         router.push('/member/account');  
+      } else {
+        toast.error("❗️Email or password is invalid.", {
+            autoClose: 2000,
+        });
       }
     } else {
       const res = await loginEmployee(form?.email, form?.password);
@@ -42,6 +49,10 @@ const page = () => {
         saveToLocalStorage('auth', authData);
         router.push('/backoffice');  
         dispatch(inputAuth(authData))
+      } else {
+        toast.error("❗️Email or password is invalid.", {
+            autoClose: 2000,
+        });
       }
     }
   }
