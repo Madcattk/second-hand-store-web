@@ -1,7 +1,6 @@
 "use client"
 import React from 'react';
-import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select, DatePicker, Upload, Image } from 'antd';
+import { Button, Form, Input } from 'antd';
 const layout = {
   labelCol: {
     span: 8,
@@ -9,13 +8,6 @@ const layout = {
   wrapperCol: {
     span: 16,
   },
-};
-const normFile = (e) => {
-  console.log('Upload event:', e);
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e?.fileList;
 };
 
 /* eslint-disable no-template-curly-in-string */
@@ -27,6 +19,7 @@ const validateMessages = {
 const onFinish = (values) => {
   console.log(values);
 };
+
 const App = () => (
   <Form
     {...layout}
@@ -45,17 +38,14 @@ const App = () => (
           required: true,
         },
       ]}
-
     >
       <Input />
     </Form.Item>
-   
-
+  
     <Form.Item
       wrapperCol={{
         ...layout.wrapperCol,
         offset: 8,
-
       }}
     >
       <Button type="primary" htmlType="submit">

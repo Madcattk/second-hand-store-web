@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Select, DatePicker, Upload} from 'antd';
 const layout = {
   labelCol: {

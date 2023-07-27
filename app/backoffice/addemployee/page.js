@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
-import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select, DatePicker, Upload} from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Select, DatePicker, Upload } from 'antd';
 const layout = {
   labelCol: {
     span: 8,
@@ -23,10 +23,6 @@ const validateMessages = {
   required: '${label} is required!',
   types: {
     email: '${label} is not a valid email!',
-    number: '${label} is not a valid number!',
-  },
-  number: {
-    range: '${label} must be between ${min} and ${max}',
   },
 };
 /* eslint-enable no-template-curly-in-string */
@@ -114,34 +110,33 @@ const App = () => (
     </Form.Item>
 
     <Form.Item label="Sex">
-          <Select>
-            <Select.Option value="male">Male</Select.Option>
-            <Select.Option value="female">Female</Select.Option>
-            <Select.Option value="others">Others</Select.Option>
-          </Select>
-        </Form.Item>
-   
-        <Form.Item label="DatePicker">
-        <DatePicker />
-      </Form.Item>
+      <Select>
+        <Select.Option value="male">Male</Select.Option>
+        <Select.Option value="female">Female</Select.Option>
+        <Select.Option value="others">Others</Select.Option>
+      </Select>
+    </Form.Item>
 
-      <Form.Item
+    <Form.Item label="DatePicker">
+      <DatePicker />
+    </Form.Item>
+
+    <Form.Item
       name="upload"
       label="Upload"
       getValueFromEvent={normFile}
       extra="Image"
-      
     >
       <Upload name="logo" action="/upload.do" listType="picture">
         <Button icon={<UploadOutlined />}>Click to upload</Button>
       </Upload>
     </Form.Item>
- 
+
     <Form.Item
       wrapperCol={{
         ...layout.wrapperCol,
         offset: 8,
-        
+
       }}
     >
       <Button type="primary" htmlType="submit">

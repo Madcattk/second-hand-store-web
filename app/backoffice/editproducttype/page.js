@@ -1,7 +1,6 @@
 "use client"
 import React from 'react';
-import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select, DatePicker, Upload} from 'antd';
+import { Button, Form, Input} from 'antd';
 const layout = {
   labelCol: {
     span: 8,
@@ -9,13 +8,6 @@ const layout = {
   wrapperCol: {
     span: 16,
   },
-};
-const normFile = (e) => {
-  console.log('Upload event:', e);
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e?.fileList;
 };
 
 /* eslint-disable no-template-curly-in-string */
@@ -60,7 +52,6 @@ const App = () => (
       <Input />
     </Form.Item>
 
- 
     <Form.Item
       wrapperCol={{
         ...layout.wrapperCol,

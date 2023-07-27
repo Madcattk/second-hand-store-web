@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
-import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select, DatePicker, Upload, Image } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Select, DatePicker, Upload } from 'antd';
 const layout = {
   labelCol: {
     span: 8,
@@ -37,19 +37,15 @@ const App = () => (
     }}
     validateMessages={validateMessages}
   >
-
-
     <Form.Item
       name={['user', 'product name']}
       label="Product Name"
-      
       rules={[
         {
           required: true,
         },
        
       ]}
-
     >
       <Input />
     </Form.Item>
@@ -89,7 +85,6 @@ const App = () => (
       <Select>
         <Select.Option value="unavailable">Unavailable</Select.Option>
         <Select.Option value="available">Available</Select.Option>
-
       </Select>
 
     </Form.Item>
@@ -112,7 +107,6 @@ const App = () => (
       wrapperCol={{
         ...layout.wrapperCol,
         offset: 8,
-
       }}
     >
       <Button type="primary" htmlType="submit">

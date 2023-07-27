@@ -1,10 +1,7 @@
 "use client"
 import React from 'react';
-import { Space, Table, Button, Image} from 'antd';
-const { Column, ColumnGroup } = Table;
-import {Row } from 'antd';
-
-
+import { Space, Table, Button, Row } from 'antd';
+const { Column } = Table;
 
 const data = [
     {
@@ -39,8 +36,7 @@ const App = () => (
             <Column title="Product" dataIndex="product" key="product" />
             <Column title="Description" dataIndex="description" key="description" />
             <Column title="Price" dataIndex="price" key="price" />
-        
-          
+
             <Column
                 title="Action"
                 key="action"

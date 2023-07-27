@@ -1,10 +1,7 @@
 "use client"
 import React from 'react';
-import { Space, Table, Button, Image } from 'antd';
-const { Column, ColumnGroup } = Table;
-import { Row } from 'antd';
-
-
+import { Space, Table, Button,Row  } from 'antd';
+const { Column} = Table;
 
 const data = [
     {
@@ -12,14 +9,11 @@ const data = [
         id: 'T001',
         typename: 'Top ',
 
-
     },
     {
         key: '2',
         id: 'T002',
         typename: 'Shoes',
-
-
     },
 
 ];
@@ -33,14 +27,9 @@ const App = () => (
                 </Button>
             </Space>
         </Row>
-
         <Table dataSource={data}>
-
             <Column title="ID" dataIndex="id" key="id" />
             <Column title="Type Name" dataIndex="typename" key="typename" />
-
-
-
             <Column
                 title="Action"
                 key="action"

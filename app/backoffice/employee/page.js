@@ -1,10 +1,7 @@
 "use client"
 import React from 'react';
-import { Space, Table, Button, Tag } from 'antd';
-const { Column, ColumnGroup } = Table;
-import {Row } from 'antd';
-
-
+import { Space, Table, Button, Row} from 'antd';
+const { Column} = Table;
 
 const data = [
     {
