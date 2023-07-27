@@ -12,12 +12,13 @@ import { inputSearch, clearSearch } from '@redux/searchSlice';
 import { getAllProductTypes } from '@app/api/getAPI/product-type';
 import { MetaProductSex } from './Meta';
 import { InputBox } from './inputs';
+import { inputAuth } from '@redux/authSlice';
 
 
 const NavMember = ({ children }) => {
+    const authValue = useSelector((state) => state.auth.value)
     const dispatch = useDispatch()
     const router = useRouter();
-    const [auth, setAuth] = useState(null)
     const [search, setSearch] = useState(false)
     const [meta, setMeta] = useState({})
     const [form, setForm] = useState({
@@ -25,6 +26,12 @@ const NavMember = ({ children }) => {
         searchType: '',
         searchSex: ''
     })
+    
+    useEffect(() => {
+        if(authValue?.logIn === false){
+            dispatch(inputAuth(getFromLocalStorage('auth')))
+        }
+    },[authValue])
     
     useEffect(() => {
         onLoad()
@@ -35,7 +42,6 @@ const NavMember = ({ children }) => {
     },[form])
 
     const onLoad = async () => {
-        setAuth(getFromLocalStorage('auth'))
         let res = await getAllProductTypes()
         if(res?.message === 'success' && res?.data){
             setMeta({...meta, Product_Type: res?.data})
@@ -46,7 +52,7 @@ const NavMember = ({ children }) => {
 
     return (
         <>
-            {!auth?.Employee_Id &&
+            {!authValue?.Employee_Id &&
                 <>
                     <div className="flex_center h-16 text-brown text-base font-light mb-5">
                         <div className="hidden md:flex md:justify-start">

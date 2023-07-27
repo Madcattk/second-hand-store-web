@@ -6,8 +6,11 @@ import { ButtonText, InputBox, InputSelect } from '@components/inputs'
 import { saveToLocalStorage, getFromLocalStorage } from '@lib/localStorage';
 import { loginMember } from '@app/api/getAPI/member';
 import { loginEmployee } from '@app/api/getAPI/employee';
+import { useDispatch } from 'react-redux';
+import { inputAuth } from '@redux/authSlice';
 
 const page = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [auth, setAuth] = useState(null)
   const [form, setForm] = useState({})
@@ -38,6 +41,7 @@ const page = () => {
         let authData = res?.data?.[0] || null
         saveToLocalStorage('auth', authData);
         router.push('/backoffice');  
+        dispatch(inputAuth(authData))
       }
     }
   }

@@ -12,8 +12,14 @@ import {
 
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
+import { saveToLocalStorage } from '@lib/localStorage';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { clearAuth } from '@redux/authSlice';
 const { Header, Sider, Content } = Layout;
 const App = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -96,7 +102,7 @@ const App = () => {
             background: colorBgContainer,
           }}
         >
-          Content
+          <a onClick={() => {saveToLocalStorage('auth', null); dispatch(clearAuth()); router.push('/login');}}>Log out</a>
         </Content>
       </Layout>
     </Layout>
