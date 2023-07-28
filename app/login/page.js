@@ -28,7 +28,11 @@ const page = () => {
   },[auth])
 
   const onSave = async () => {  
-    if(!(form?.email && form?.password)) {return }
+    if(!(form?.email && form?.password)) {
+      return toast.error("❗️Please fill out the fields.", {
+          autoClose: 2000,
+      });
+    }
     form.status = form?.status === 'true' ? true : form?.status === true ? true : false;
 
     if(!form?.status){
