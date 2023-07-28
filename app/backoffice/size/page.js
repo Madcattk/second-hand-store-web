@@ -10,12 +10,13 @@ const App = () => {
     const router = useRouter();
     const [data, setData] = useState([]);
     useEffect(() => {
-        const fetchData = async () => {
-            const sizesData = await getAllSizes();
-            setData(sizesData?.data || []);
-        };
-        fetchData();
+        onLoad();
     }, []);
+
+    const onLoad = async () => {
+        const res = await getAllSizes();
+        setData(res?.data || []);
+    };
 
     return (
         <>
@@ -35,7 +36,7 @@ const App = () => {
             key="action"
             render={(_, record) => (
                 <Space size="middle">  
-                <a>Edit</a>  
+                {/* <Button onClick={()=> router.push(`/backoffice/size/${rowKey}`)} danger>Edit</Button> */}
                 </Space>
             )}
             />
