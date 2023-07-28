@@ -72,7 +72,7 @@ const App = () => {
                         label="Size Name"
                         rules={[
                             {
-                                type: true,
+                                required: true,
                             },
                         ]}
                     >

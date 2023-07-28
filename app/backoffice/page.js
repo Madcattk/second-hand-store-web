@@ -93,12 +93,13 @@ const App = () => {
               height: 64,
             }}
           />
+          
         </Header>
         <Content
           style={{
             margin: '24px 16px',
             padding: 24,
-            minHeight: 490,
+            minHeight: 570,
             background: colorBgContainer,
           }}
         >
