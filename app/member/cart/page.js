@@ -190,7 +190,6 @@ const page = () => {
             });
         }
     }
-console.log(form);
     const onChange = (update) => setForm({ ...form, ...update })
 
     return (

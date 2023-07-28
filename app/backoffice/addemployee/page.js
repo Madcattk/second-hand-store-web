@@ -1,7 +1,8 @@
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Select, DatePicker, Upload } from 'antd';
+import { InputFile, WhiteInputFile } from '@components/inputs';
 const layout = {
   labelCol: {
     span: 8,
@@ -27,11 +28,17 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const onFinish = (values) => {
-  console.log(values);
-};
-const App = () => (
-  <Form
+const App = () => {
+  const [image, setImage] = useState(null);
+  const onChange = (update) => setImage(update)
+
+  const onFinish = (values) => {
+    let data = {...values, Employee_Image: image?.image || null}
+    console.log(data);
+  };
+  return(
+    <>
+     <Form
     {...layout}
     name="nest-messages"
     onFinish={onFinish}
@@ -132,6 +139,10 @@ const App = () => (
       </Upload>
     </Form.Item>
 
+    <div className='w-full flex justify-center'>
+    <WhiteInputFile onChange={(image) => onChange({ image })} value={image?.image || ''} placeholder='Profile Picture' classBox='w-[50%]'/>
+    </div>
+
     <Form.Item
       wrapperCol={{
         ...layout.wrapperCol,
@@ -144,5 +155,8 @@ const App = () => (
       </Button>
     </Form.Item>
   </Form>
-);
+  
+    </>
+  )
+}
 export default App;
