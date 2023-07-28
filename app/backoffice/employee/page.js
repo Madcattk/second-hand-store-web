@@ -6,36 +6,15 @@ const { Column} = Table;
 const data = [
     {
         key: '1',
-        firstName: 'John',
-        lastName: 'Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
-    },
-    {
-        key: '2',
-        firstName: 'Jim',
-        lastName: 'Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser'],
-    },
-    {
-        key: '3',
-        firstName: 'Joe',
-        lastName: 'Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-    {
-        key: '5',
-        firstName: 'Joe',
-        lastName: 'Black',
-        email: 'Pank',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
+        emplyeeId: '1',
+        emplyeeFirstName: 'John',
+        emplyeelastName: 'Brown',
+        emplyeeEmail: 'John@gmail.com',
+        emplyeePassword: 'dddd111111',
+        emplyeeSex: 'Female',
+        emplyeeBirthDate: '2001-11-01',
+        emplyeeImage: '',
+        emplyeePhone: '0843260583',
     },
 ];
 
@@ -50,21 +29,21 @@ const App = () => (
         </Row>
 
         <Table dataSource={data}>
-            <Column title="First Name" dataIndex="firstName" key="firstName" />
-            <Column title="Last Name" dataIndex="lastName" key="lastName" />
-            <Column title="Email" dataIndex="email" key="email" />
-            <Column title="Password" dataIndex="password" key="password" />
-            <Column title="Address" dataIndex="address" key="address" />
-            <Column title="Phone" dataIndex="phone" key="phone" />
-            <Column title="Sex" dataIndex="sex" key="Sex" />
-            <Column title="BirthDate" dataIndex="birthDate" key="birthDate" />
-            <Column title="Image" dataIndex="image" key="image" />
+            <Column title="Employee_Id" dataIndex="emplyeeId" key="emplyeeId" />
+            <Column title="Employee_Firstname" dataIndex="emplyeeFirstName" key="emplyeeFirstName" />
+            <Column title="Employee_Lastname" dataIndex="emplyeelastName" key="lastName" />
+            <Column title="Employee_Email" dataIndex="emplyeeEmail" key="emplyeeEmail" />
+            <Column title="Employee_Password" dataIndex="emplyeePassword" key="emplyeePassword" />
+            <Column title="Employee_Sex" dataIndex="emplyeeSex" key="emplyeeSex" />
+            <Column title="Employee_Birth_Date" dataIndex="emplyeeBirthDate" key="emplyeeBirthDate" />
+            <Column title="Employee_Image" dataIndex="emplyeeImage" key="emplyeeImage" />
+            <Column title="Employee_Phone" dataIndex="emplyeePhone" key="emplyeePhone" />
             <Column
                 title="Action"
                 key="action"
                 render={(_, record) => (
                     <Space size="middle">
-                        <a>Invite {record.lastName}</a>
+                        {/* <a>Invite {record.lastName}</a> */}
                         <a>Edit</a>
                         <a>Delete</a>
                     </Space>

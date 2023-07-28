@@ -73,26 +73,6 @@ const App = () => (
       <Input />
     </Form.Item>
 
-    <Form.Item label="Sex">
-      <Select>
-        <Select.Option value="male">Male</Select.Option>
-        <Select.Option value="female">Female</Select.Option>
-        <Select.Option value="others">Others</Select.Option>
-      </Select>
-    </Form.Item>
-
-    <Form.Item label="Status">
-      <Select>
-        <Select.Option value="unavailable">Unavailable</Select.Option>
-        <Select.Option value="available">Available</Select.Option>
-      </Select>
-
-    </Form.Item>
-
-    <Form.Item label="Product date">
-      <DatePicker />
-    </Form.Item>
-
     <Form.Item
       name="upload"
       label="Upload"
@@ -103,6 +83,72 @@ const App = () => (
       </Upload>
     </Form.Item>
 
+    <Form.Item label="Sex">
+      <Select>
+        <Select.Option value="male">Male</Select.Option>
+        <Select.Option value="female">Female</Select.Option>
+        <Select.Option value="others">Others</Select.Option>
+      </Select>
+    </Form.Item>
+
+    <Form.Item label="Product date">
+      <DatePicker />
+    </Form.Item>
+
+
+    <Form.Item label="Status">
+      <Select>
+        <Select.Option value="unavailable">Unavailable</Select.Option>
+        <Select.Option value="available">Available</Select.Option>
+      </Select>
+
+    </Form.Item>
+
+    <Form.Item
+      name={['user', 'producttypeid']}
+      label="Product Type Id"
+      rules={[
+        {
+          type: 'Product Type Id',
+        },
+      ]}
+    >
+      <Input />
+    </Form.Item>
+
+    <Form.Item
+      name={['user', 'sizeid']}
+      label="Size Id"
+      rules={[
+        {
+          type: 'Size Id',
+        },
+      ]}
+    >
+      <Input />
+    </Form.Item>
+    <Form.Item
+      name={['user', 'productsizedetail']}
+      label="PProduct Size Detail"
+      rules={[
+        {
+          type: 'Product Size Detail',
+        },
+      ]}
+    >
+      <Input />
+    </Form.Item>
+    <Form.Item
+      name={['user', 'saleid']}
+      label="Sale Id"
+      rules={[
+        {
+          type: 'Sale Id',
+        },
+      ]}
+    >
+      <Input />
+    </Form.Item>
     <Form.Item
       wrapperCol={{
         ...layout.wrapperCol,

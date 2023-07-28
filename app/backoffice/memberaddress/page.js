@@ -1,35 +1,32 @@
 "use client"
 import React from 'react';
-import { Space, Table, Button,Row  } from 'antd';
-const { Column} = Table;
+import { Space, Table, Button, Row } from 'antd';
+const { Column } = Table;
 
 const data = [
     {
         key: '1',
-        productTypeId: '1',
-        productTypeName: 'Top ',
+        memberId: '1',
+        memberAddress: '590/66 Asok-Dindaeng Road Bangkok 10310',
+        
 
     },
-    {
-        key: '2',
-        productTypeId: '2',
-        productTypeName: 'Shoes',
-    },
-
 ];
 
 const App = () => (
     <>
-        <Row justify="end">
+        {/* <Row justify="end">
             <Space wrap>
                 <Button type="primary" danger>
-                    Add Product Type
+                    Add Address
                 </Button>
             </Space>
-        </Row>
+        </Row> */}
+
         <Table dataSource={data}>
-            <Column title="Product_Type_Id" dataIndex="productTypeId" key="productTypeId" />
-            <Column title="Product_Type__Name" dataIndex="productTypeName" key="productTypeName" />
+            <Column title="Member_Id" dataIndex="memberId" key="memberId" />
+            <Column title="Member_Address" dataIndex="memberAddress" key="memberAddress" />
+
             <Column
                 title="Action"
                 key="action"

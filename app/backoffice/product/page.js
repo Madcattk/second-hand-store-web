@@ -6,19 +6,20 @@ const { Column } = Table;
 const data = [
     {
         key: '1',
-        product: 'John',
-        description: 'Jean Vest ',
-        price: 32,
-        
+        productId: '1',
+        productName: 'Artzia Women’s White Crop-top',
+        productPrice: '150.00 ',
+        productDescription: 'Aritzia sculpt knit square neck in',
+        productImage: '',
+        productSex: 'Female',
+        productDate: '2023-01-23',
+        productStatus: 'Unavailable',
+        productTypeId: '1',
+        sizeId: '1',
+        productSizeDetail: 'waist31',
+        saleId: '3',
+
     },
-    {
-        key: '2',
-        product: 'Jim',
-        description: 'Green',
-        price: 42,
-        
-    },
-  
 ];
 
 const App = () => (
@@ -32,10 +33,20 @@ const App = () => (
         </Row>
 
         <Table dataSource={data}>
-            
-            <Column title="Product" dataIndex="product" key="product" />
-            <Column title="Description" dataIndex="description" key="description" />
-            <Column title="Price" dataIndex="price" key="price" />
+            <Column title="Product_Id" dataIndex="productId" key="productId" />
+            <Column title="Product_Name" dataIndex="productName" key="productName" />
+            <Column title="Product_Price" dataIndex="productPrice" key="productPrice" />
+            <Column title="Product_Description" dataIndex="productDescription" key="productDescription" />
+            <Column title="Product_Image" dataIndex="productImage" key="productImage" />
+            <Column title="Product_Sex" dataIndex="productSex" key="productSex" />
+            <Column title="Product_Date" dataIndex="productDate" key="productDate" />
+            <Column title="Product_Status" dataIndex="productStatus" key="productStatus" />
+            <Column title="Product_Type_Id" dataIndex="productTypeId" key="productTypeId" />
+            <Column title="Size_Id" dataIndex="sizeId" key="sizeId" />
+            <Column title="Product_Size_Detail" dataIndex="productSizeDetail" key="productSizeDetail" />
+            <Column title="Sale_Id" dataIndex="saleId" key="saleId" />
+
+
 
             <Column
                 title="Action"

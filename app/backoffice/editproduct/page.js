@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select, DatePicker, Upload} from 'antd';
+import { Button, Form, Input, Select, DatePicker, Upload } from 'antd';
 const layout = {
   labelCol: {
     span: 8,
@@ -37,6 +37,7 @@ const App = () => (
     }}
     validateMessages={validateMessages}
   >
+
     <Form.Item
       name={['user', 'id']}
       label="ID"
@@ -48,6 +49,7 @@ const App = () => (
     >
       <Input />
     </Form.Item>
+
     <Form.Item
       name={['user', 'product name']}
       label="Product Name"
@@ -55,6 +57,7 @@ const App = () => (
         {
           required: true,
         },
+
       ]}
     >
       <Input />
@@ -83,28 +86,7 @@ const App = () => (
       <Input />
     </Form.Item>
 
-    <Form.Item label="Sex">
-          <Select>
-            <Select.Option value="male">Male</Select.Option>
-            <Select.Option value="female">Female</Select.Option>
-            <Select.Option value="others">Others</Select.Option>
-          </Select>
-        </Form.Item>
-   
-        <Form.Item label="Status">
-          <Select>
-            <Select.Option value="unavailable">Unavailable</Select.Option>
-            <Select.Option value="available">Available</Select.Option>
-        
-          </Select>
-    
-        </Form.Item>
-   
-        <Form.Item label="Product date">
-        <DatePicker />
-      </Form.Item>
-
-      <Form.Item
+    <Form.Item
       name="upload"
       label="Upload"
       getValueFromEvent={normFile}
@@ -113,12 +95,77 @@ const App = () => (
         <Button icon={<UploadOutlined />}>Product Image</Button>
       </Upload>
     </Form.Item>
- 
+
+    <Form.Item label="Sex">
+      <Select>
+        <Select.Option value="male">Male</Select.Option>
+        <Select.Option value="female">Female</Select.Option>
+        <Select.Option value="others">Others</Select.Option>
+      </Select>
+    </Form.Item>
+
+    <Form.Item label="Product date">
+      <DatePicker />
+    </Form.Item>
+
+
+    <Form.Item label="Status">
+      <Select>
+        <Select.Option value="unavailable">Unavailable</Select.Option>
+        <Select.Option value="available">Available</Select.Option>
+      </Select>
+
+    </Form.Item>
+
+    <Form.Item
+      name={['user', 'producttypeid']}
+      label="Product Type Id"
+      rules={[
+        {
+          type: 'Product Type Id',
+        },
+      ]}
+    >
+      <Input />
+    </Form.Item>
+
+    <Form.Item
+      name={['user', 'sizeid']}
+      label="Size Id"
+      rules={[
+        {
+          type: 'Size Id',
+        },
+      ]}
+    >
+      <Input />
+    </Form.Item>
+    <Form.Item
+      name={['user', 'productsizedetail']}
+      label="PProduct Size Detail"
+      rules={[
+        {
+          type: 'Product Size Detail',
+        },
+      ]}
+    >
+      <Input />
+    </Form.Item>
+    <Form.Item
+      name={['user', 'saleid']}
+      label="Sale Id"
+      rules={[
+        {
+          type: 'Sale Id',
+        },
+      ]}
+    >
+      <Input />
+    </Form.Item>
     <Form.Item
       wrapperCol={{
         ...layout.wrapperCol,
         offset: 8,
-        
       }}
     >
       <Button type="primary" htmlType="submit">
@@ -128,3 +175,5 @@ const App = () => (
   </Form>
 );
 export default App;
+
+

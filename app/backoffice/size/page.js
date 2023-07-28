@@ -7,13 +7,13 @@ const { Column } = Table;
 const data = [
     {
         key: '1',
-        id: 'T001',
-        sizename: 'S',
+        sizeId: '1',
+        sizeName: 'S',
     },
     {
         key: '2',
-        id: 'T002',
-        sizename: 'M',
+        sizeId: '2',
+        sizeName: 'M',
     },
 
 ];
@@ -23,14 +23,14 @@ const App = () => (
         <Row justify="end">
             <Space wrap>
                 <Button type="primary" danger>
-                    Add Product
+                    Add Size
                 </Button>
             </Space>
         </Row>
 
         <Table dataSource={data}>
-            <Column title="ID" dataIndex="id" key="id" />
-            <Column title="Size Name" dataIndex="sizename" key="sizename" />
+            <Column title="Size_Id" dataIndex="sizeId" key="sizeId" />
+            <Column title="Size_Name" dataIndex="sizeName" key="sizeName" />
             <Column
                 title="Action"
                 key="action"
