@@ -18,7 +18,7 @@ export async function getSizeById(Size_Id) {
         }
 };
 
-export async function addSise(size) {
+export async function addSize(size) {
     try {
         const response = await fetch(`http://localhost:3000/api/size/addSize`, {
             method: 'POST',

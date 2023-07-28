@@ -1,6 +1,8 @@
 "use client"
 import React from 'react';
 import { Button, Form, Input } from 'antd';
+import { addSize } from '@app/api/getAPI/size';
+
 const layout = {
   labelCol: {
     span: 8,
@@ -16,8 +18,10 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const onFinish = (values) => {
-  console.log(values);
+const onFinish = async(form) => {
+  const res= await addSize(form?.form);
+  console.log(res);
+
 };
 const App = () => (
   <Form
@@ -30,8 +34,8 @@ const App = () => (
     validateMessages={validateMessages}
   >
     <Form.Item
-      name={['user', 'size']}
-      label="Size"
+      name={['form', 'Size_Name']}
+      label="Size Name"
       rules={[
         {
           required: true,
