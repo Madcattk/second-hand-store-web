@@ -1,6 +1,7 @@
 "use client"
 import React from 'react';
 import { Button, Form, Input, DatePicker, } from 'antd';
+import { DateFormat } from '@components/formats';
 const layout = {
     labelCol: {
         span: 8,
@@ -17,7 +18,7 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 const onFinish = (values) => {
-    console.log(values);
+    console.log(DateFormat(values.user.startDate));
 };
 const App = () => (
     <Form
@@ -40,12 +41,11 @@ const App = () => (
         >
             <Input />
         </Form.Item>
-
-        <Form.Item label="Star Date">
+        <Form.Item label="Start Date" name={['user', 'startDate']}>
             <DatePicker />
         </Form.Item>
 
-        <Form.Item label="End Date">
+        <Form.Item label="Start Date" name={['user', 'sendDate']}>
             <DatePicker />
         </Form.Item>
 

@@ -22,7 +22,7 @@ const App = () => {
         <>
         <Row justify="end">
             <Space wrap>
-            <Button onClick={()=> router.push('/backoffice/addsize')} type="primary" danger>
+            <Button onClick={()=> router.push('/backoffice/size/addsize')} type="primary" danger>
                 Add Size
             </Button>
             </Space>
@@ -36,7 +36,7 @@ const App = () => {
             key="action"
             render={(_, record) => (
                 <Space size="middle">  
-                {/* <Button onClick={()=> router.push(`/backoffice/size/${rowKey}`)} danger>Edit</Button> */}
+                <Button onClick={()=> router.push(`/backoffice/size/${record.Size_Id}`)} danger>Edit</Button> 
                 </Space>
             )}
             />
