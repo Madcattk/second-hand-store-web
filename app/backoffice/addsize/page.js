@@ -22,18 +22,18 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const onFinish = async (form) => {
-  const res = await addSize(form?.form);
-  if (res?.message === 'success') {
-    toast.success("Size Added.", {
-      autoClose: 2000,
-    });
-    router.push('/backoffice/size');
-  }
-
-};
 const App = () => {
   const router = useRouter();
+
+  const onFinish = async (form) => {
+    const res = await addSize(form?.form);
+    if (res?.message === 'success') {
+      toast.success("Size Added.", {
+        autoClose: 2000,
+      });
+    }
+    router.push('/backoffice/size');
+  };
   return (
     <Form
       {...layout}
@@ -63,7 +63,7 @@ const App = () => {
 
         }}
       >
-        <Button type="primary" danger>
+        <Button htmlType="submit" type="primary" danger>
           Submit
         </Button>
 
