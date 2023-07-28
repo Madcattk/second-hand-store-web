@@ -2,17 +2,18 @@
 import React, { useEffect, useState } from 'react';
 import { Space, Table, Button, Row } from 'antd';
 import { getAllSizes } from '@app/api/getAPI/size';
+import { useRouter } from 'next/navigation';
+
 const { Column } = Table;
 
 const App = () => {
+    const router = useRouter();
     const [data, setData] = useState([]);
-
     useEffect(() => {
         const fetchData = async () => {
             const sizesData = await getAllSizes();
             setData(sizesData?.data || []);
         };
-    
         fetchData();
     }, []);
 
@@ -20,7 +21,7 @@ const App = () => {
         <>
         <Row justify="end">
             <Space wrap>
-            <Button type="primary" danger>
+            <Button onClick={()=> router.push('/backoffice/addsize')} type="primary" danger>
                 Add Size
             </Button>
             </Space>
@@ -33,10 +34,8 @@ const App = () => {
             title="Action"
             key="action"
             render={(_, record) => (
-                <Space size="middle">
-                {/* <a>Invite {record.lastName}</a> */}
-                <a>Edit</a>
-                <a>Delete</a>
+                <Space size="middle">  
+                <a>Edit</a>  
                 </Space>
             )}
             />

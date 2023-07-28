@@ -2,6 +2,10 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
 import { addSize } from '@app/api/getAPI/size';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '@/styles/toastStyles.css';
+import { useRouter } from 'next/navigation';
 
 const layout = {
   labelCol: {
@@ -18,44 +22,53 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const onFinish = async(form) => {
-  const res= await addSize(form?.form);
-  console.log(res);
+const onFinish = async (form) => {
+  const res = await addSize(form?.form);
+  if (res?.message === 'success') {
+    toast.success("Size Added.", {
+      autoClose: 2000,
+    });
+    router.push('/backoffice/size');
+  }
 
 };
-const App = () => (
-  <Form
-    {...layout}
-    name="nest-messages"
-    onFinish={onFinish}
-    style={{
-      maxWidth: 600,
-    }}
-    validateMessages={validateMessages}
-  >
-    <Form.Item
-      name={['form', 'Size_Name']}
-      label="Size Name"
-      rules={[
-        {
-          required: true,
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-
-    <Form.Item
-      wrapperCol={{
-        ...layout.wrapperCol,
-        offset: 8,
-
+const App = () => {
+  const router = useRouter();
+  return (
+    <Form
+      {...layout}
+      name="nest-messages"
+      onFinish={onFinish}
+      style={{
+        maxWidth: 600,
       }}
+      validateMessages={validateMessages}
     >
-      <Button type="primary" htmlType="submit">
-        Submit
-      </Button>
-    </Form.Item>
-  </Form>
-);
+      <Form.Item
+        name={['form', 'Size_Name']}
+        label="Size Name"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        wrapperCol={{
+          ...layout.wrapperCol,
+          offset: 8,
+
+        }}
+      >
+        <Button type="primary" danger>
+          Submit
+        </Button>
+
+      </Form.Item>
+    </Form>
+  )
+}
 export default App;
