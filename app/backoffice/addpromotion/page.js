@@ -45,7 +45,7 @@ const App = () => (
             <DatePicker />
         </Form.Item>
 
-        <Form.Item label="Start Date" name={['user', 'sendDate']}>
+        <Form.Item label="End Date">
             <DatePicker />
         </Form.Item>
 

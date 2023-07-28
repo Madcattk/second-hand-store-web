@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnection from "@/lib/db";
-import { getEmployeeById } from "@app/api/getAPI/employee";
+import { getSizeById } from "@app/api/getAPI/addsize";
 import { DateFormat } from "@components/formats";
 
 export async function POST(request) {
