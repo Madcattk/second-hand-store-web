@@ -16,10 +16,6 @@ const layout = {
     },
 };
 
-const validateMessages = {
-    required: '${label} is required!',
-};
-
 const App = () => {
     const { id } = useParams();
     const router = useRouter();
@@ -41,16 +37,13 @@ const App = () => {
         if (res?.message === 'success') {
             toast.success("Size Edited.", {
                 autoClose: 2000,
-
             });
             router.push('/backoffice/size');
         }
-
     };
 
     return (
         <>
-
             {loading ? (
                 <div>Loading...</div> // Show a loading message or spinner while data is being fetched
             ) : (
@@ -61,7 +54,6 @@ const App = () => {
                     style={{
                         maxWidth: 600,
                     }}
-                    validateMessages={validateMessages}
                     initialValues={data}
                 >
                     <Form.Item
@@ -69,7 +61,7 @@ const App = () => {
                         label="Size Id"
                         rules={[
                             {
-                                required: true,
+                                type: true,
                             },
                         ]}
                     >
@@ -80,7 +72,7 @@ const App = () => {
                         label="Size Name"
                         rules={[
                             {
-                                required: true,
+                                type: true,
                             },
                         ]}
                     >
