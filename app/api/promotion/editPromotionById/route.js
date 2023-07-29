@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnection from "@/lib/db";
+import { DateFormat } from "@components/formats";
 
 export async function PUT(request) {
     const { Promotion_Name,
@@ -7,7 +8,7 @@ export async function PUT(request) {
         Promotion_End_Date,
         Promotion_Discount,
         Promotion_Price_Condition } = await request.json();
-
+        const formattedDate = DateFormat(Promotion_Start_Date,Promotion_End_Date)
     try {
         const conn = await dbConnection();
         const query = `UPDATE Promotion SET 

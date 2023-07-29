@@ -43,6 +43,6 @@ const App = () => {
         </Table>
         </>
     );
-};
+}
 
 export default App;

@@ -41,7 +41,6 @@ const App = () => {
                 key="action"
                 render={(_, record) => (
                     <Space size="middle">
-                        {/* <a>Invite {record.lastName}</a> */}
                         <Button onClick={()=> router.push(`/backoffice/promotion/${record.Promotion_Id}`)} danger>Edit</Button> 
                         <a>Delete</a>
                     </Space>
@@ -50,7 +49,7 @@ const App = () => {
             </Table>
             </>
         );
-    };
+    }
     
-    export default App;
+export default App;
     

@@ -48,12 +48,12 @@ const App = () => {
       router.push('/backoffice/size');
     }
   };
-//   const onFinish = (values) => {
-//     console.log(DateFormat(values.form.startDate));
-//     console.log(DateFormat(values.form.endDate));
+  //   const onFinish = (values) => {
+  //     console.log(DateFormat(values.form.startDate));
+  //     console.log(DateFormat(values.form.endDate));
 
-// };
-  
+  // };
+
 
   return (
     <>
@@ -94,12 +94,12 @@ const App = () => {
 
 
           <Form.Item label="Promotion Start Date" name={['form', 'startDate']}>
-                <DatePicker />
-            </Form.Item>
+            <DatePicker />
+          </Form.Item>
 
-            <Form.Item label="Promotion_End_Date" name={['form', 'endDate']}>
-                <DatePicker />
-            </Form.Item>
+          <Form.Item label="Promotion_End_Date" name={['form', 'endDate']}>
+            <DatePicker />
+          </Form.Item>
 
 
           <Form.Item
@@ -141,6 +141,6 @@ const App = () => {
       )}
     </>
   );
-};
+}
 
 export default App;
