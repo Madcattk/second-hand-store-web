@@ -30,6 +30,7 @@ const onFinish = (values) => {
 };
 const App = () => {
     const router = useRouter();
+    
     const onFinish = async (form) => {
         const res = await addPromotion(form?.form);
         if (res?.message === 'success') {

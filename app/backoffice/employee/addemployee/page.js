@@ -1,8 +1,9 @@
 "use client"
 import React, { useState } from 'react';
-import { UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select, DatePicker, Upload } from 'antd';
-import { InputFile, WhiteInputFile } from '@components/inputs';
+import { Button, Form, Input, Select, DatePicker } from 'antd';
+import { WhiteInputFile } from '@components/inputs';
+import { useRouter } from 'next/navigation';
+
 const layout = {
   labelCol: {
     span: 8,
@@ -10,13 +11,6 @@ const layout = {
   wrapperCol: {
     span: 16,
   },
-};
-const normFile = (e) => {
-  console.log('Upload event:', e);
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e?.fileList;
 };
 
 /* eslint-disable no-template-curly-in-string */
@@ -29,71 +23,83 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 const App = () => {
+  const router = useRouter();
+
+  // const onFinish = async (form) => {
+  //   const res = await addSize(form?.form);
+  //   if (res?.message === 'success') {
+  //     toast.success("Size Added.", {
+  //       autoClose: 2000,
+  //     });
+  //   }
+  //   router.push('/backoffice/size');
+  // };
+
   const [image, setImage] = useState(null);
   const onChange = (update) => setImage(update)
 
   const onFinish = (values) => {
-    let data = {...values, Employee_Image: image?.image || null}
+    let data = { ...values, Employee_Image: image?.image || null }
     console.log(data);
   };
-  return(
+  return (
     <>
-     <Form
-    {...layout}
-    name="nest-messages"
-    onFinish={onFinish}
-    style={{
-      maxWidth: 600,
-    }}
-    validateMessages={validateMessages}
-  >
-    <Form.Item
-      name={['user', 'name']}
-      label="FristName"
-      rules={[
-        {
-          required: true,
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    <Form.Item
-      name={['user', 'lastname']}
-      label="LastName"
-      rules={[
-        {
-          required: true,
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    <Form.Item
-      name={['user', 'email']}
-      label="Email"
-      rules={[
-        {
-          type: 'email',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    <Form.Item
-      name={['user', 'password']}
-      label="Password"
-      rules={[
-        {
-          type: 'password',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
+      <Form
+        {...layout}
+        name="nest-messages"
+        onFinish={onFinish}
+        style={{
+          maxWidth: 600,
+        }}
+        validateMessages={validateMessages}
+      >
+        <Form.Item
+          name={['form', 'Employee_Firstname']}
+          label="Employee Firstname"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name={['form', 'Employee_Lastname']}
+          label="Employee Lastname"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name={['form', 'Employee_Email']}
+          label="Employee Email"
+          rules={[
+            {
+              type: 'Employee Email',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name={['form', 'Employee_Password']}
+          label="Employee Password"
+          rules={[
+            {
+              type: 'Employee Password',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
 
-    <Form.Item
-      name={['user', 'address']}
+        {/* <Form.Item
+      name={['form', 'address']}
       label="Address"
       rules={[
         {
@@ -102,60 +108,48 @@ const App = () => {
       ]}
     >
       <Input />
-    </Form.Item>
+    </Form.Item> */}
 
-    <Form.Item
-      name={['user', 'phone']}
-      label="Phone"
-      rules={[
-        {
-          type: 'phone',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
+        <Form.Item label="Employee Sex">
+          <Select>
+            <Select.Option value="male">Male</Select.Option>
+            <Select.Option value="female">Female</Select.Option>
+            <Select.Option value="others">Others</Select.Option>
+          </Select>
+        </Form.Item>
 
-    <Form.Item label="Sex">
-      <Select>
-        <Select.Option value="male">Male</Select.Option>
-        <Select.Option value="female">Female</Select.Option>
-        <Select.Option value="others">Others</Select.Option>
-      </Select>
-    </Form.Item>
+        <Form.Item label="Employee Birth Date">
+          <DatePicker />
+        </Form.Item>
 
-    <Form.Item label="DatePicker">
-      <DatePicker />
-    </Form.Item>
+        <Form.Item
+          name={['form', 'Employee_Phone']}
+          label="Employee Phone"
+          rules={[
+            {
+              type: 'Employee Phone',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
 
-    <Form.Item
-      name="upload"
-      label="Upload"
-      getValueFromEvent={normFile}
-      extra="Image"
-    >
-      <Upload name="logo" action="/upload.do" listType="picture">
-        <Button icon={<UploadOutlined />}>Click to upload</Button>
-      </Upload>
-    </Form.Item>
+        <div className='w-full flex justify-center'>
+          <WhiteInputFile onChange={(image) => onChange({ image })} value={image?.image || ''} placeholder='Profile Picture' classBox='w-[50%]' />
+        </div>
 
-    <div className='w-full flex justify-center'>
-    <WhiteInputFile onChange={(image) => onChange({ image })} value={image?.image || ''} placeholder='Profile Picture' classBox='w-[50%]'/>
-    </div>
+        <Form.Item
+          wrapperCol={{
+            ...layout.wrapperCol,
+            offset: 8,
 
-    <Form.Item
-      wrapperCol={{
-        ...layout.wrapperCol,
-        offset: 8,
-
-      }}
-    >
-      <Button type="primary" htmlType="submit">
-        Submit
-      </Button>
-    </Form.Item>
-  </Form>
-  
+          }}
+        >
+          <Button htmlType="submit" type="primary" danger>
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
     </>
   )
 }

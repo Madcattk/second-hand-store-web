@@ -38,7 +38,7 @@ export async function PUT(request) {
             Product_Description,
             Product_Image,
             Product_Sex,
-            Product_Date,
+            formattedDate,
             Product_Status,
             Product_Type_Id,
             Size_Id,

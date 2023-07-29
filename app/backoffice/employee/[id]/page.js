@@ -1,7 +1,13 @@
 "use client"
-import React from 'react';
-import { UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select, DatePicker, Upload } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Form, Input, Select, DatePicker } from 'antd';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '@/styles/toastStyles.css';
+import { useParams, useRouter } from 'next/navigation';
+import { editEmployeeById, getEmployeeById } from '@app/api/getAPI/employee';
+import { WhiteInputFile } from '@components/inputs';
+
 const layout = {
   labelCol: {
     span: 8,
@@ -10,13 +16,7 @@ const layout = {
     span: 16,
   },
 };
-const normFile = (e) => {
-  console.log('Upload event:', e);
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e?.fileList;
-};
+
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -27,122 +27,156 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const onFinish = (values) => {
-  console.log(values);
-};
-const App = () => (
-  <Form
-    {...layout}
-    name="nest-messages"
-    onFinish={onFinish}
-    style={{
-      maxWidth: 600,
-    }}
-    validateMessages={validateMessages}
-  >
-    <Form.Item
-      name={['user', 'id']}
-      label="ID"
-      rules={[
-        {
-          required: true,
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    <Form.Item
-      name={['user', 'name']}
-      label="FristName"
-      rules={[
-        {
-          required: true,
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    <Form.Item
-      name={['user', 'lastname']}
-      label="LastName"
-      rules={[
-        {
-          required: true,
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    <Form.Item
-      name={['user', 'email']}
-      label="Email"
-      rules={[
-        {
-          type: 'email',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    <Form.Item
-      name={['user', 'password']}
-      label="Password"
-      rules={[
-        {
-          type: 'password',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
+const App = () => {
+  const { id } = useParams();
+  const router = useRouter();
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true); // Add a loading state
 
-    <Form.Item
-      name={['user', 'phone']}
-      label="Phone"
-      rules={[
-        {
-          type: 'phone',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
+  useEffect(() => {
+    onLoad();
+  }, []);
 
-    <Form.Item label="Sex">
-      <Select>
-        <Select.Option value="male">Male</Select.Option>
-        <Select.Option value="female">Female</Select.Option>
-        <Select.Option value="others">Others</Select.Option>
-      </Select>
-    </Form.Item>
+  const [image, setImage] = useState(null);
+  const onChange = (update) => setImage(update)
 
-    <Form.Item label="DatePicker">
-      <DatePicker />
-    </Form.Item>
+  const onFinish = (values) => {
+    let data = {...values, Employee_Image: image?.image || null}
+    console.log(data);
+    
+  };
 
-    <Form.Item
-      name="upload"
-      label="Upload"
-      getValueFromEvent={normFile}
-      extra="Image"
+  const onLoad = async () => {
+    const res = await getEmployeeById(id);
+    setData(res?.data?.[0] || {});
+    setLoading(false); // Set loading to false after data is fetched
+  };
 
-    >
-      <Upload name="logo" action="/upload.do" listType="picture">
-        <Button icon={<UploadOutlined />}>Click to upload</Button>
-      </Upload>
-    </Form.Item>
+  // const onFinish = async (form) => {
+  //   const res = await editEmployeeById(form);
+  //   if (res?.message === 'success') {
+  //     toast.success("Employee Edited.", {
+  //       autoClose: 2000,
+  //     });
+  //     router.push('/backoffice/employee');
+  //   }
+  // };
 
-    <Form.Item
-      wrapperCol={{
-        ...layout.wrapperCol,
-        offset: 8,
+  return (
+    <>
+      {loading ? (
+        <div>Loading...</div> // Show a loading message or spinner while data is being fetched
+      ) : (
+        <Form
+          {...layout}
+          name="nest-messages"
+          onFinish={onFinish}
+          style={{
+            maxWidth: 600,
+          }}
+          validateMessages={validateMessages}
+          initialValues={data}
+        >
+          <Form.Item
+            name="Employee_Id"
+            label="Employee Id"
+            rules={[
+              {
+                type: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="Employee_Firstname"
+            label="Employee Firstname	"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="Employee_Lastname"
+            label="Employee Lastname"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="Employee_Email"
+            label="Employee Email"
+            rules={[
+              {
+                type: 'Employee Email',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="Employee_Password"
+            label="Employee Password"
+            rules={[
+              {
+                type: 'Employee Password',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-      }}
-    >
-      <Button type="primary" htmlType="submit">
-        Submit
-      </Button>
-    </Form.Item>
-  </Form>
-);
+
+          <Form.Item label="Employee Sex">
+            <Select>
+              <Select.Option value="male">Male</Select.Option>
+              <Select.Option value="female">Female</Select.Option>
+              <Select.Option value="others">Others</Select.Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item label="Employee Birth Date">
+            <DatePicker />
+          </Form.Item>
+
+          <Form.Item
+            name="Employee_Phone"
+            label="Employee Phone"
+            rules={[
+              {
+                type: 'Employee Phone',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <div className='w-full flex justify-center'>
+            <WhiteInputFile onChange={(image) => onChange({ image })} value={image?.image || ''} placeholder='Profile Picture' classBox='w-[50%]' />
+          </div>
+
+          <Form.Item
+            wrapperCol={{
+              ...layout.wrapperCol,
+              offset: 8,
+
+            }}
+          >
+            <Button htmlType="submit" type="primary" danger>
+          Submit
+        </Button>
+          </Form.Item>
+        </Form>
+      )}
+    </>
+  );
+}
+
 export default App;
