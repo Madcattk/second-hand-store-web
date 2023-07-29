@@ -56,20 +56,17 @@ const Page = () => {
 
     function getRandomColorArray(length) {
         const backgroundColors = [];
-        const borderColors = [];
     
         for (let i = 0; i < length; i++) {
             const randomColor = getRandomColor();
-            const backgroundColor = `${randomColor}33`; // Adding alpha value (0.2 * 255 = 51) for rgba
-            const borderColor = randomColor;
+            const backgroundColor = randomColor;
             
             backgroundColors.push(backgroundColor);
-            borderColors.push(borderColor);
         }
     
         return {
             backgroundColor: backgroundColors,
-            borderColor: borderColors,
+            borderColor: backgroundColors,
             borderWidth: 1,
         };
     }
