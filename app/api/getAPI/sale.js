@@ -77,3 +77,23 @@ export async function updateSaleStatusById(sale) {
             console.error(error);
         }
 };
+
+export async function getBestSellerProductReport(date) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/sale/getBestSellerProductReport`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(date),
+        });
+        if (response.ok) {
+            return await response.json();
+        } else {
+            const errorData = await response.json();
+            console.error(errorData);
+        }
+        } catch (error) {
+            console.error(error);
+        }
+};
