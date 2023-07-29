@@ -45,7 +45,7 @@ const Page = () => {
                     {
                         label: 'Total sales',
                         data: _data,
-                        backgroundColor: randomColors.backgroundColor,
+                        backgroundColor: randomColors.borderColor,
                         borderColor: randomColors.borderColor,
                         borderWidth: randomColors.borderWidth,
                     },
