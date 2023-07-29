@@ -20,8 +20,8 @@ export async function PUT(request) {
         WHERE Size_Id = ?`;
         const values = [
             Promotion_Name,
-            Promotion_Start_Date,
-            Promotion_End_Date,
+            formattedDate,
+            formattedDate,
             Promotion_Discount,
             Promotion_Price_Condition,
             Promotion_Id
