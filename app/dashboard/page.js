@@ -90,7 +90,7 @@ const Page = () => {
                 <div className='font-bold text-brown'>Dashboard</div>
                 <div className='flex lg:flex-row lg:justify-center lg:items-start flex-col items-center gap-5 w-full'>
                     <div className='relative bg-white h-[500px] sm:w-[450px] pb-10 w-full shadow-md rounded-md'>
-                        <div className='font-bold text-greyV1 px-10 py-5 z-10 sticky bg-white top-0 rounded-t-md'>Best Seller Product Pie Chart</div>
+                        <div className='font-bold text-greyV1 px-10 py-5 z-10 sticky bg-white rounded-t-md'>Best Seller Product Pie Chart</div>
                         <div className='px-10 w-full h-full'><Pie data={BSPData} /></div>
                     </div>
                     <div className='relative bg-white overflow-y-auto h-[500px] xl:w-[620px] sm:w-[450px] w-full pb-10 shadow-md rounded-md flex flex-col gap-3'>
