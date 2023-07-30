@@ -96,16 +96,11 @@ export async function getProductsBySearch(product) {
             console.error(error);
         }
 };
-<<<<<<< HEAD
 
-export async function addProduct(product_name) {
-    try {
-        const response = await fetch(`http://localhost:3000/api/product_name/addProduct`, {
-=======
 export async function addProduct(product) {
     try {
         const response = await fetch(`http://localhost:3000/api/product/addProduct`, {
->>>>>>> main
+
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -123,11 +118,9 @@ export async function addProduct(product) {
         }
 };
 
-<<<<<<< HEAD
-export async function editProductById(product_name) {
-=======
+
 export async function editProductById(product) {
->>>>>>> main
+
     try {
         const response = await fetch(`http://localhost:3000/api/product/editProductById`, {
             method: 'PUT',
