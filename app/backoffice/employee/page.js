@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Space, Table, Button, Row } from 'antd';
 import { useRouter } from 'next/navigation';
-import { getAllEmployees } from '@app/api/getAPI/product';
+import { getAllEmployees } from '@app/api/getAPI/employee';
 const { Column } = Table;
 
 

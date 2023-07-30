@@ -132,10 +132,11 @@ export const Dashboard = () => {
                         <table className='table text-brown'>
                             <thead>
                                 <tr className='h-[5vh] border-y border-hover bg-gray z-10 sticky top-0'>
-                                    <th className='lg:min-w-[300px] w-[150px] l px-2'>Product Name</th>
-                                    <th className='lg:min-w-[200px] w-[100px] l px-2'>Product Type Name</th>
-                                    <th className='lg:min-w-[200px] w-[100px] c px-2'>Sale Date</th>
-                                    <th className='lg:w-full r px-2'>Product Price</th>
+                                    <th className='lg:min-w-[200px] w-[150px] l px-2'>Product Name</th>
+                                    <th className='lg:min-w-[180px] w-[180px] l px-2'>Product Type Name</th>
+                                    <th className='lg:min-w-[150px] w-[150px] c px-2'>Sale Date</th>
+                                    <th className='lg:w-full c px-2'>Sale Status</th>
+                                    <th className='lg:min-w-[200px] w-[100px] r px-2'>Product Price</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -146,6 +147,7 @@ export const Dashboard = () => {
                                             <td className='l px-2'>{product?.Product_Name || '-'}</td>
                                             <td className='l px-2'>{product?.Product_Type_Name || '-'}</td>
                                             <td className='c px-2'>{DateFormat(product?.Sale_Date) || '-'}</td>
+                                            <td className='c px-2'>{product?.Sale_Status || '-'}</td>
                                             <td className='r px-2'>{product?.Product_Price.toFixed(2) || '0.00'}</td>
                                         </tr>
                                     })
