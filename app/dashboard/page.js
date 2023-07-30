@@ -18,6 +18,7 @@ const Page = () => {
             },
         ],
     })
+    let total = 0;
 
     useEffect(() => {
         onLoad()
@@ -82,25 +83,58 @@ const Page = () => {
         }
         return color;
     }
-    
-    
+
     return (
         <div className='w-full flex flex-col items-center p-10 bg-[#F0F0F0] min-h-screen'>
-            <div className='flex lg:flex-row lg:justify-center lg:items-start flex-col items-center gap-10 w-full p-10'>
-                <div className='relative bg-white lg:h-[550px] sm:h-[500px] lg:w-[500px] sm:w-[450px] pb-10 w-full shadow-md rounded-md'>
-                    <div className='font-bold text-greyV1 px-10 py-5 z-10 sticky bg-white top-0 rounded-t-md'>Best Seller Product Pie Chart</div>
-                    <div className='px-10 w-full h-full'><Pie data={BSPData} width={550} height={550} /></div>
+            <div className='flex flex-col gap-5'>
+                <div className='font-bold text-brown'>Dashboard</div>
+                <div className='flex lg:flex-row lg:justify-center lg:items-start flex-col items-center gap-5 w-full'>
+                    <div className='relative bg-white h-[500px] sm:w-[450px] pb-10 w-full shadow-md rounded-md'>
+                        <div className='font-bold text-greyV1 px-10 py-5 z-10 sticky bg-white top-0 rounded-t-md'>Best Seller Product Pie Chart</div>
+                        <div className='px-10 w-full h-full'><Pie data={BSPData} /></div>
+                    </div>
+                    <div className='relative bg-white overflow-y-auto h-[500px] xl:w-[620px] sm:w-[450px] w-full pb-10 shadow-md rounded-md flex flex-col gap-3'>
+                        <div className='font-bold text-greyV1 px-10 py-5 z-10 sticky bg-white top-0'>Best Seller Product Report</div>
+                        <div className='w-full px-10 flex flex-col gap-3'>
+                            {form?.map((item, index) => {
+                                return <div className={`border-b border-b-brown w-full px-3  p-3 text-brown`} key={"Best-Seller-Product"+index}>
+                                    <div className='pb-3 w-full font-bold text-lg'>{item?.Product_Type_Name || ''}</div>
+                                    <div className='font-medium'>Total sales: {item?.Count || '0'}</div>
+                                    <div className='font-medium'>Total price: <span className='font-bold text-red-500'>฿{item?.Total_Price.toFixed(2) || '0'}</span> Baht</div>
+                                </div>
+                            })}
+                        </div>
+                    </div>
                 </div>
-                <div className='relative bg-white overflow-y-auto lg:h-[550px] sm:h-[500px] lg:w-[850px] sm:w-[450px] w-full pb-10 shadow-md rounded-md flex flex-col gap-3'>
-                    <div className='font-bold text-greyV1 px-10 py-5 z-10 sticky bg-white top-0'>Best Seller Product Report</div>
-                    <div className='w-full px-10 flex flex-col gap-3'>
-                        {form?.map((item, index) => {
-                            return <div className={`border-b border-b-brown w-full px-3  p-3 text-brown`} key={"Best-Seller-Product"+index}>
-                                <div className='pb-3 w-full font-bold text-lg'>{item?.Product_Type_Name || ''}</div>
-                                <div className='font-medium'>Total sales: {item?.Count || '0'}</div>
-                                <div className='font-medium'>Total price: <span className='font-bold text-red-500'>฿{item?.Total_Price.toFixed(2) || '0'}</span> Baht</div>
-                            </div>
-                        })}
+                <div className='relative w-full bg-white shadow-md rounded-md'>
+                    <div className='rounded-t-md font-bold text-greyV1 px-10 py-5 z-10 sticky bg-white top-0'>Summary Revenue</div>
+                    <div className='w-full px-10 h-[450px] overflow-auto'>
+                        <table className='table text-brown'>
+                            <thead>
+                                <tr className='h-[5vh] border-y border-hover bg-gray z-10 sticky top-0'>
+                                    <th className='lg:min-w-[300px] w-[150px] l px-2'>Product Name</th>
+                                    <th className='lg:min-w-[200px] w-[100px] l px-2'>Product Type Name</th>
+                                    <th className='lg:w-full r px-2'>Product Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {form?.map((item) => {
+                                    return item?.Product?.map((product, index) => {
+                                        total += product?.Product_Price;
+                                        return <tr className='h-[5vh] border-y border-hover hover:bg-hover' key={"Summary-Revenue"+index}>
+                                            <td className='l px-2'>{product?.Product_Name || '-'}</td>
+                                            <td className='l px-2'>{product?.Product_Type_Name || '-'}</td>
+                                            <td className='r px-2'>{product?.Product_Price.toFixed(2) || '0.00'}</td>
+                                        </tr>
+                                    })
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className='w-full rounded-b-md font-bold bg-white pb-10 px-10 z-10 absolute bottom-0'>
+                        <div className='w-full h-[5vh] bg-gray text-brown flex items-center justify-end px-2 r'>
+                            Total Revenue: {total.toFixed(2) || '0.00'}
+                        </div>
                     </div>
                 </div>
             </div>
