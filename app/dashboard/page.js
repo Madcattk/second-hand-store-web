@@ -97,7 +97,7 @@ const Page = () => {
                         <div className='font-bold text-greyV1 px-10 py-5 z-10 sticky bg-white top-0'>Best Seller Product Report</div>
                         <div className='w-full px-10 flex flex-col gap-3'>
                             {form?.map((item, index) => {
-                                return <div className={`border-b border-b-brown w-full px-3  p-3 text-brown`} key={"Best-Seller-Product"+index}>
+                                return <div className={`border-b border-b-hover w-full px-3  p-3 text-brown`} key={"Best-Seller-Product"+index}>
                                     <div className='pb-3 w-full font-bold text-lg'>{item?.Product_Type_Name || ''}</div>
                                     <div className='font-medium'>Total sales: {item?.Count || '0'}</div>
                                     <div className='font-medium'>Total price: <span className='font-bold text-red-500'>฿{item?.Total_Price.toFixed(2) || '0'}</span> Baht</div>
