@@ -103,10 +103,13 @@ export const Dashboard = () => {
         <div className='w-full flex flex-col items-center p-10 bg-[#F0F0F0] min-h-screen'>
             <div className='flex flex-col gap-5'>
                 <div className='font-bold text-brown'>Dashboard</div>
-                <div className='w-[450px] bg-white flex shadow-md rounded-md p-2'>
-                    <InputDate onChange={(Start_Date) => onChange({ Start_Date })} value={date?.Start_Date || ''} placeholder='StartDate' classBox='w-full' classInput='c'/>
-                    <div className='flex items-center px-2 font-bold'>to</div>
-                    <InputDate onChange={(End_Date) => onChange({ End_Date })} value={date?.End_Date || ''} placeholder='End Date' classBox='w-full' classInput='c'/>
+                <div className='w-[450px] bg-white shadow-md rounded-md p-2'>
+                    <div className='font-bold text-greyV1'>Select a time period here</div>
+                    <div className='flex'>
+                        <InputDate onChange={(Start_Date) => onChange({ Start_Date })} value={date?.Start_Date || ''} placeholder='StartDate' classBox='w-full' classInput='c'/>
+                        <div className='flex items-center px-2 font-bold'>to</div>
+                        <InputDate onChange={(End_Date) => onChange({ End_Date })} value={date?.End_Date || ''} placeholder='End Date' classBox='w-full' classInput='c'/>
+                    </div>
                 </div>
                 <div className='flex lg:flex-row lg:justify-center lg:items-start flex-col items-center gap-5 w-full'>
                     <div className='relative bg-white h-[500px] sm:w-[450px] pb-10 w-full shadow-md rounded-md'>
