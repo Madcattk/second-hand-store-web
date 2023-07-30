@@ -4,10 +4,30 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { getBestSellerProductReport } from '@app/api/getAPI/sale';
 import { DateFormat } from '@components/formats';
+import { InputDate } from '@components/inputs';
 
 export const Dashboard = () => {
     ChartJS.register(ArcElement, Tooltip, Legend);
     const [form, setForm] = useState([])
+    const [date, setDate] = useState({
+        Start_Date: DateFormat(getStartOfYear()),
+        End_Date: DateFormat(getEndOfYear())
+    });
+
+    // Function to get the first day of the current year
+    function getStartOfYear() {
+        const currentYear = new Date().getFullYear();
+        const startOfYear = new Date(currentYear, 0, 1); // January is month 0
+        return startOfYear;
+    }
+
+    // Function to get the last day of the current year
+    function getEndOfYear() {
+        const currentYear = new Date().getFullYear();
+        const endOfYear = new Date(currentYear, 11, 31); // December is month 11 (0-based index)
+        return endOfYear;
+    }
+
     const [BSPData, setBSPData] = useState({
         labels: [],
         datasets: [
@@ -18,16 +38,17 @@ export const Dashboard = () => {
             },
         ],
     })
+    const onChange = (update) => setDate({ ...date, ...update })
     let total = 0;
 
     useEffect(() => {
         onLoad()
-    },[])
+    },[date])
 
     const onLoad = async () => {
         const resBestSellerProduct = await getBestSellerProductReport({
-            "Start_Date": '2023-01-01',
-            "End_Date": '2023-12-31'
+            "Start_Date": DateFormat(date?.Start_Date),
+            "End_Date": DateFormat(date?.End_Date)
         }) 
         if(resBestSellerProduct.message == 'success'){
             setForm(resBestSellerProduct?.data || [])
@@ -87,6 +108,11 @@ export const Dashboard = () => {
         <div className='w-full flex flex-col items-center p-10 bg-[#F0F0F0] min-h-screen'>
             <div className='flex flex-col gap-5'>
                 <div className='font-bold text-brown'>Dashboard</div>
+                <div className='w-fit bg-white flex shadow-md rounded-md p-2'>
+                    <InputDate onChange={(Start_Date) => onChange({ Start_Date })} value={date?.Start_Date || ''} placeholder='StartDate' classInput='c'/>
+                    <div className='flex items-center px-2'>to</div>
+                    <InputDate onChange={(End_Date) => onChange({ End_Date })} value={date?.End_Date || ''} placeholder='End Date' classInput='c'/>
+                </div>
                 <div className='flex lg:flex-row lg:justify-center lg:items-start flex-col items-center gap-5 w-full'>
                     <div className='relative bg-white h-[500px] sm:w-[450px] pb-10 w-full shadow-md rounded-md'>
                         <div className='font-bold text-greyV1 px-10 py-5 z-10 sticky bg-white rounded-t-md'>Best Seller Product Pie Chart</div>
