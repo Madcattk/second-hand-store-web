@@ -38,7 +38,7 @@ export async function getProductTypesById(Product_Type_Id) {
 
 export async function addProductTypes(product_type) {
     try {
-        const response = await fetch(`http://localhost:3000/api/product_type/addProductType`, {
+        const response = await fetch(`http://localhost:3000/api/product_type/addProductTypes`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
