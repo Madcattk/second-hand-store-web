@@ -2,10 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input } from 'antd';
 import { useParams, useRouter } from 'next/navigation';
-import { editSizeById, getSizeById } from '@app/api/getAPI/size';
+import { editEmployeeAddressById, getEmployeeAddressesById } from '@app/api/getAPI/size';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
+
 
 const layout = {
     labelCol: {
@@ -33,18 +34,18 @@ const App = () => {
     }, []);
 
     const onLoad = async () => {
-        const res = await getSizeById(id);
+        const res = await getEmployeeAddressesById(id);
         setData(res?.data?.[0] || {});
         setLoading(false); // Set loading to false after data is fetched
     };
 
     const onFinish = async (form) => {
-        const res = await editSizeById(form);
+        const res = await editEmployeeAddressById(form);
         if (res?.message === 'success') {
-            toast.success("Size Edited.", {
+            toast.success("Address Edited.", {
                 autoClose: 2000,
             });
-            router.push('/backoffice/size');
+            router.push('/backoffice/employeeaddress');
         }
     };
 
@@ -63,21 +64,22 @@ const App = () => {
                     initialValues={data}
                 >
                     <Form.Item
-                        name="Size_Id"
-                        label="Size Id"
+                        name="Employee_Id"
+                        label="Employee Id"
                         rules={[
                             {
-                                type: 'Size Id',
+                                type: true,
                             },
+
                         ]}
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
-                        name="Size_Name"
-                        label="Size Name"
+                        name="Employee_Address"
+                        label="	Employee Address"
                         rules={[
-                            {
+                            { 
                                 required: true,
                             },
                         ]}

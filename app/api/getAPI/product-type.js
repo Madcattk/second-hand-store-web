@@ -16,9 +16,9 @@ export async function getAllProductTypes() {
             console.error(error);
         }
 };
-export async function getProductTypeById(Product_Type_Id) {
+export async function getProductTypesById(Product_Type_Id) {
     try {
-        const response = await fetch(`http://localhost:3000/api/product_type/getProductTypeById`, {
+        const response = await fetch(`http://localhost:3000/api/product_type/getProductTypesById`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',

@@ -1,6 +1,12 @@
 "use client"
 import React from 'react';
 import { Button, Form, Input } from 'antd';
+import { useRouter } from 'next/navigation';
+import { addEmployee } from '@app/api/getAPI/employee';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '@/styles/toastStyles.css';
+
 const layout = {
     labelCol: {
         span: 8,
@@ -9,13 +15,6 @@ const layout = {
         span: 16,
     },
 };
-const normFile = (e) => {
-    console.log('Upload event:', e);
-    if (Array.isArray(e)) {
-        return e;
-    }
-    return e?.fileList;
-};
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -23,11 +22,20 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const onFinish = (values) => {
-    console.log(values);
-};
-const App = () => (
-    <Form
+const App = () => {
+    const router = useRouter();
+  
+    const onFinish = async (form) => {
+      const res = await addEmployee(form?.form);
+      if (res?.message === 'success') {
+        toast.success("Address Added.", {
+          autoClose: 2000,
+        });
+      }
+      router.push('/backoffice/employeeaddress');
+    };
+    return (
+      <Form
         {...layout}
         name="nest-messages"
         onFinish={onFinish}
@@ -37,30 +45,16 @@ const App = () => (
         validateMessages={validateMessages}
     >
         <Form.Item
-            name={['user', 'id']}
-            label="Id"
+            name={['form', 'Employee_Address']}
+            label="Employee Address"
             rules={[
                 {
                     required: true,
                 },
-
             ]}
         >
             <Input />
         </Form.Item>
-        <Form.Item
-            name={['user', 'address']}
-            label="Address"
-            rules={[
-                {
-                    type: 'Address',
-                },
-            ]}
-        >
-            <Input />
-        </Form.Item>
-
-
 
         <Form.Item
             wrapperCol={{
@@ -68,10 +62,12 @@ const App = () => (
                 offset: 8,
             }}
         >
-            <Button type="primary" htmlType="submit">
-                Submit
-            </Button>
-        </Form.Item>
+            <Button htmlType="submit" type="primary" danger>
+          Submit
+        </Button>
+
+      </Form.Item>
     </Form>
-);
+  )
+}
 export default App;

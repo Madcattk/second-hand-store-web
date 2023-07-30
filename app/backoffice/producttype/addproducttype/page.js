@@ -1,6 +1,12 @@
 "use client"
 import React from 'react';
 import { Button, Form, Input } from 'antd';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '@/styles/toastStyles.css';
+import { addProductTypes } from '@app/api/getAPI/product-type';
+import { useRouter } from 'next/navigation';
+
 const layout = {
   labelCol: {
     span: 8,
@@ -15,43 +21,52 @@ const validateMessages = {
   required: '${label} is required!',
 };
 /* eslint-enable no-template-curly-in-string */
+const App = () => {
+  const router = useRouter();
 
-const onFinish = (values) => {
-  console.log(values);
-};
-
-const App = () => (
-  <Form
-    {...layout}
-    name="nest-messages"
-    onFinish={onFinish}
-    style={{
-      maxWidth: 600,
-    }}
-    validateMessages={validateMessages}
-  >
-    <Form.Item
-      name={['user', 'producttype']}
-      label="Product Type"
-      rules={[
-        {
-          required: true,
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-  
-    <Form.Item
-      wrapperCol={{
-        ...layout.wrapperCol,
-        offset: 8,
+  const onFinish = async (form) => {
+    const res = await addProductTypes(form?.form);
+    if (res?.message === 'success') {
+      toast.success("Product Types Added.", {
+        autoClose: 2000,
+      });
+    }
+    router.push('/backoffice/producttype');
+  };
+  return (
+    <Form
+      {...layout}
+      name="nest-messages"
+      onFinish={onFinish}
+      style={{
+        maxWidth: 600,
       }}
+      validateMessages={validateMessages}
     >
-      <Button type="primary" htmlType="submit">
-        Submit
-      </Button>
-    </Form.Item>
-  </Form>
-);
+      <Form.Item
+        name={['form', 'Product_Type__Name']}
+        label="Product Type Name"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        wrapperCol={{
+          ...layout.wrapperCol,
+          offset: 8,
+        }}
+      >
+        <Button htmlType="submit" type="primary" danger>
+          Submit
+        </Button>
+
+      </Form.Item>
+    </Form>
+  )
+}
 export default App;
