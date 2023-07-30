@@ -82,7 +82,7 @@ const App = () => {
             label="Employee Id"
             rules={[
               {
-                type: true,
+                type: 'Employee Id',
               },
             ]}
           >

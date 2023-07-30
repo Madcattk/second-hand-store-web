@@ -8,7 +8,7 @@ export async function PUT(request) {
     try {       
         const conn = await dbConnection();
         const query = `UPDATE Product_Type SET 
-        Product_Type__Name = ?
+            Product_Type__Name = ?
             WHERE Product_Type_Id = ?`;
         const values = [
             Product_Type__Name,
