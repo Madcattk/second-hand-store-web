@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 import { ToastContainer } from 'react-toastify';
 import { store } from '@redux/store';
 import { Provider } from 'react-redux'
+import { useEffect } from 'react';
 
 // const inter = Inter({ subsets: ['latin'] })
 
@@ -14,6 +15,26 @@ import { Provider } from 'react-redux'
 // }
 
 export default function RootLayout({ children }) {
+  useEffect(() => {
+    const checkMidnight = () => {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      //console.log(hours, minutes);
+      if (hours === 0 && minutes === 0) {
+        console.log('It\'s midnight! Do something!');
+      }
+    };
+
+    // Check every second (1000 milliseconds)
+    const intervalId = setInterval(checkMidnight, 1000);
+
+    // Clean up the interval when the component is unmounted
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
   return (
     <html lang="en">
       <body>

@@ -36,9 +36,10 @@ export async function POST(request) {
         for (const item of countResult) {
             if (item.Product) {
                 const query = `
-                    SELECT p.*, s.Size_Name, pt.Product_Type_Name, r.Review_Id, r.Review_Detail, r.Review_Rating
+                    SELECT p.*, s.Size_Name, ss.*, pt.Product_Type_Name, r.Review_Id, r.Review_Detail, r.Review_Rating
                     FROM Product p
                     LEFT JOIN Size s ON p.Size_Id = s.Size_Id
+                    LEFT JOIN Sale ss ON p.Sale_Id = ss.Sale_Id
                     JOIN Product_Type pt ON p.Product_Type_Id = pt.Product_Type_Id
                     LEFT JOIN Review r ON p.Product_Id = r.Product_Id
                     WHERE p.Product_Id IN (${item.Product});
