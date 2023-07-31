@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Space, Table, Button, Row } from 'antd';
 import { useRouter } from 'next/navigation';
+import { getAllProducts } from '@app/api/getAPI/product';
 const { Column } = Table;
 
 const App = () => {
