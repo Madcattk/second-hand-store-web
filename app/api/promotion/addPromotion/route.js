@@ -17,7 +17,7 @@ export async function POST(request) {
                 Promotion_Start_Date, 
                 Promotion_End_Date,
                 Promotion_Discount,
-                Promotion_Price_Condition
+                Promotion_Price_Condition)
                 VALUES (?, ?, ?, ?, ?)`;
         const values = [
             Promotion_Name,

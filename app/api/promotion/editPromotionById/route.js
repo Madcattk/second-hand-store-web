@@ -8,7 +8,7 @@ export async function PUT(request) {
         Promotion_End_Date,
         Promotion_Discount,
         Promotion_Price_Condition } = await request.json();
-        const formattedDate = DateFormat(Promotion_Start_Date,Promotion_End_Date)
+        
     try {
         const conn = await dbConnection();
         const query = `UPDATE Promotion SET 
@@ -20,8 +20,8 @@ export async function PUT(request) {
         WHERE Size_Id = ?`;
         const values = [
             Promotion_Name,
-            formattedDate,
-            formattedDate,
+            DateFormat(Promotion_Start_Date),
+            DateFormat(Promotion_End_Date),
             Promotion_Discount,
             Promotion_Price_Condition,
             Promotion_Id

@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 import dbConnection from "@/lib/db";
-import { getSizeById } from "@app/api/getAPI/size";
-import { DateFormat } from "@components/formats";
 
 export async function POST(request) {
     const { Size_Name } = await request.json();
