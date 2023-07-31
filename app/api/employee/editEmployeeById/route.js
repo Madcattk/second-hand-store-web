@@ -14,7 +14,6 @@ export async function PUT(request) {
         Employee_Image,
         Employee_Phone } = await request.json();
         
-        const formattedDate = DateFormat(Employee_Birth_Date)
     try {       
         const conn = await dbConnection();
         const query = `UPDATE Employee SET 
@@ -33,7 +32,7 @@ export async function PUT(request) {
             Employee_Email,
             Employee_Password,
             Employee_Sex,
-            formattedDate,
+            Employee_Birth_Date,
             Employee_Image,
             Employee_Phone,
             Employee_Id
