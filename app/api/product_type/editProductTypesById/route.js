@@ -3,15 +3,15 @@ import dbConnection from "@/lib/db";
 
 export async function PUT(request) {
     const { Product_Type_Id,
-        Product_Type_Name } = await request.json();
+        Product_Type__Name } = await request.json();
     
     try {       
         const conn = await dbConnection();
         const query = `UPDATE Product_Type SET 
-            Product_Type_Name = ?
+            Product_Type__Name = ?
             WHERE Product_Type_Id = ?`;
         const values = [
-            Product_Type_Name,
+            Product_Type__Name,
             Product_Type_Id
         ];
         const [result] = await conn.execute(query, values);

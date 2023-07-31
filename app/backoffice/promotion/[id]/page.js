@@ -34,18 +34,18 @@ const App = () => {
   }, []);
 
   const onLoad = async () => {
-    const res = await getPromotionById(id);
+    const res = await getSizeById(id);
     setData(res?.data?.[0] || {});
     setLoading(false); // Set loading to false after data is fetched
   };
 
   const onFinish = async (form) => {
-    const res = await editPromotionById(form);
+    const res = await editSizeById(form);
     if (res?.message === 'success') {
-      toast.success("Promotion Edited.", {
+      toast.success("Size Edited.", {
         autoClose: 2000,
       });
-      router.push('/backoffice/promotion');
+      router.push('/backoffice/size');
     }
   };
   //   const onFinish = (values) => {
@@ -74,7 +74,7 @@ const App = () => {
             label="Promotion Id"
             rules={[
               {
-                type: 'Promotion Id',
+                required: true,
               },
             ]}
           >
@@ -91,6 +91,7 @@ const App = () => {
           >
             <Input />
           </Form.Item>
+
 
           <Form.Item label="Promotion Start Date" name={['form', 'startDate']}>
             <DatePicker />
@@ -132,9 +133,9 @@ const App = () => {
 
             }}
           >
-             <Button htmlType="submit" type="primary" danger>
-                    Submit
-                </Button>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
           </Form.Item>
         </Form>
       )}

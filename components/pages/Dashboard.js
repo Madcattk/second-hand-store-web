@@ -13,14 +13,6 @@ export const Dashboard = () => {
         Start_Date: DateFormat(getStartOfYear()),
         End_Date: DateFormat(Date.now())
     });
-
-    // Function to get the first day of the current year
-    function getStartOfYear() {
-        const currentYear = new Date().getFullYear();
-        const startOfYear = new Date(currentYear, 0, 1); // January is month 0
-        return startOfYear;
-    }
-
     const [BSPData, setBSPData] = useState({
         labels: [],
         datasets: [
@@ -39,12 +31,10 @@ export const Dashboard = () => {
     },[date])
 
     const onLoad = async () => {
-        total = 0;
         const resBestSellerProduct = await getBestSellerProductReport({
             "Start_Date": DateFormat(date?.Start_Date),
             "End_Date": DateFormat(date?.End_Date)
         }) 
-        
         if(resBestSellerProduct.message == 'success'){
             setForm(resBestSellerProduct?.data || [])
             let labels = [];
@@ -69,6 +59,12 @@ export const Dashboard = () => {
                 ],
             });
         }
+    }
+
+    function getStartOfYear() {
+        const currentYear = new Date().getFullYear();
+        const endOfYear = new Date(currentYear, 0, 1); // January is month 0 (0-based index)
+        return endOfYear;
     }
 
     function getRandomColorArray(length) {
@@ -103,10 +99,13 @@ export const Dashboard = () => {
         <div className='w-full flex flex-col items-center p-10 bg-[#F0F0F0] min-h-screen'>
             <div className='flex flex-col gap-5'>
                 <div className='font-bold text-brown'>Dashboard</div>
-                <div className='w-[450px] bg-white flex shadow-md rounded-md p-2'>
-                    <InputDate onChange={(Start_Date) => onChange({ Start_Date })} value={date?.Start_Date || ''} placeholder='StartDate' classBox='w-full' classInput='c'/>
-                    <div className='flex items-center px-2 font-bold'>to</div>
-                    <InputDate onChange={(End_Date) => onChange({ End_Date })} value={date?.End_Date || ''} placeholder='End Date' classBox='w-full' classInput='c'/>
+                <div className='w-[450px] bg-white shadow-md rounded-md p-2'>
+                    <div className='font-bold text-greyV1'>Select a time period here</div>
+                    <div className='flex'>
+                        <InputDate onChange={(Start_Date) => onChange({ Start_Date })} value={date?.Start_Date || ''} placeholder='StartDate' classBox='w-full' classInput='c'/>
+                        <div className='flex items-center px-2 font-bold'>to</div>
+                        <InputDate onChange={(End_Date) => onChange({ End_Date })} value={date?.End_Date || ''} placeholder='End Date' classBox='w-full' classInput='c'/>
+                    </div>
                 </div>
                 <div className='flex lg:flex-row lg:justify-center lg:items-start flex-col items-center gap-5 w-full'>
                     <div className='relative bg-white h-[500px] sm:w-[450px] pb-10 w-full shadow-md rounded-md'>
@@ -132,11 +131,11 @@ export const Dashboard = () => {
                         <table className='table text-brown'>
                             <thead>
                                 <tr className='h-[5vh] border-y border-hover bg-gray z-10 sticky top-0'>
-                                    <th className='lg:min-w-[200px] w-[150px] l px-2'>Product Name</th>
-                                    <th className='lg:min-w-[180px] w-[180px] l px-2'>Product Type Name</th>
-                                    <th className='lg:min-w-[150px] w-[150px] c px-2'>Sale Date</th>
-                                    <th className='lg:w-full c px-2'>Sale Status</th>
-                                    <th className='lg:min-w-[200px] w-[100px] r px-2'>Product Price</th>
+                                    <th className='lg:min-w-[200px] w-[200px] l px-2'>Product Name</th>
+                                    <th className='lg:min-w-[170px] w-[170px] l px-2'>Product Type Name</th>
+                                    <th className='lg:min-w-[170px] w-[170px] c px-2'>Sale Date</th>
+                                    <th className='lg:min-w-[170px] w-[170px] c px-2'>Sale Status</th>
+                                    <th className='lg:w-full w-[100px] r px-2'>Product Price</th>
                                 </tr>
                             </thead>
                             <tbody>
