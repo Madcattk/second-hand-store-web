@@ -9,7 +9,8 @@ export async function POST(request) {
         Promotion_End_Date,
         Promotion_Discount,
         Promotion_Price_Condition } = await request.json();
-        const formattedDate = DateFormat(Promotion_Start_Date,Promotion_End_Date)
+        
+        const formattedDate = DateFormat(Promotion_Start_Date, Promotion_End_Date)
     try {
         const conn = await dbConnection();
         const query = `INSERT INTO Promotion
@@ -18,7 +19,7 @@ export async function POST(request) {
                 Promotion_End_Date,
                 Promotion_Discount,
                 Promotion_Price_Condition
-            VALUES (?, ?, ?, ?, ?)`;
+                VALUES (?, ?, ?, ?, ?)`;
         const values = [
             Promotion_Name,
             formattedDate,

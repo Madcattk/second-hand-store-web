@@ -1,18 +1,15 @@
 import { NextResponse } from "next/server";
 import dbConnection from "@/lib/db";
 
-export async function PUT(request) {
-    const { Product_Type_Id,
-        Product_Type__Name } = await request.json();
-    
+export async function POST(request) {
+    const { Product_Type_Name } = await request.json();
     try {       
         const conn = await dbConnection();
-        const query = `UPDATE Product_Type SET 
-            Product_Type__Name = ?
-            WHERE Product_Type_Id = ?`;
+        const query = `INSERT INTO Product_Type 
+            (Product_Type_Name)
+            VALUES (?)`;
         const values = [
-            Product_Type__Name,
-            Product_Type_Id
+            Product_Type_Name
         ];
         const [result] = await conn.execute(query, values);
         conn.end();

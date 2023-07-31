@@ -1,8 +1,8 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input } from 'antd';
-import { editProductTypesById, getProductTypesById } from '@app/api/getAPI/product-type';
+import { Button, Form, Input, DatePicker, } from 'antd';
 import { useParams, useRouter } from 'next/navigation';
+import { editPromotionById, getPromotionById } from '@app/api/getAPI/promotion';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
@@ -22,6 +22,7 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
+
 const App = () => {
   const { id } = useParams();
   const router = useRouter();
@@ -33,20 +34,26 @@ const App = () => {
   }, []);
 
   const onLoad = async () => {
-    const res = await getProductTypesById(id);
+    const res = await getPromotionById(id);
     setData(res?.data?.[0] || {});
     setLoading(false); // Set loading to false after data is fetched
   };
 
   const onFinish = async (form) => {
-    const res = await editProductTypesById(form);
+    const res = await editPromotionById(form);
     if (res?.message === 'success') {
-      toast.success("Product Types Edited.", {
+      toast.success("Promotion Edited.", {
         autoClose: 2000,
       });
-      router.push('/backoffice/producttype');
+      router.push('/backoffice/promotion');
     }
   };
+  //   const onFinish = (values) => {
+  //     console.log(DateFormat(values.form.startDate));
+  //     console.log(DateFormat(values.form.endDate));
+
+  // };
+
 
   return (
     <>
@@ -60,12 +67,22 @@ const App = () => {
           style={{
             maxWidth: 600,
           }}
-          validateMessages={validateMessages}
           initialValues={data}
         >
           <Form.Item
-            name="Product_Type_Id"
-            label="Product Type Id"
+            name="Promotion_Id"
+            label="Promotion Id"
+            rules={[
+              {
+                type: 'Promotion Id',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="Promotion_Name"
+            label="Promotion Name"
             rules={[
               {
                 required: true,
@@ -74,12 +91,34 @@ const App = () => {
           >
             <Input />
           </Form.Item>
+
+          <Form.Item label="Promotion Start Date" name={['form', 'startDate']}>
+            <DatePicker />
+          </Form.Item>
+
+          <Form.Item label="Promotion_End_Date" name={['form', 'endDate']}>
+            <DatePicker />
+          </Form.Item>
+
+
           <Form.Item
-            name="Product_Type__Name"
-            label="Product Type Name"
+            name="Promotion_Discount"
+            label="Promotion Discount"
             rules={[
               {
-                required: true,
+                type: 'Promotion Discount',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="Promotion_Price_Condition"
+            label="Promotion Price Condition"
+            rules={[
+              {
+                type: 'Promotion Price Condition',
               },
             ]}
           >
@@ -93,9 +132,9 @@ const App = () => {
 
             }}
           >
-            <Button htmlType="submit" type="primary" danger>
-              Submit
-            </Button>
+             <Button htmlType="submit" type="primary" danger>
+                    Submit
+                </Button>
           </Form.Item>
         </Form>
       )}

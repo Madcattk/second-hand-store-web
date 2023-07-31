@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import { store } from '@redux/store';
 import { Provider } from 'react-redux'
 import { useEffect } from 'react';
+import { cutLot } from './api/getAPI/sale';
 
 // const inter = Inter({ subsets: ['latin'] })
 
@@ -16,18 +17,18 @@ import { useEffect } from 'react';
 
 export default function RootLayout({ children }) {
   useEffect(() => {
-    const checkMidnight = () => {
+    const checkMidnight = async () => {
       const now = new Date();
       const hours = now.getHours();
       const minutes = now.getMinutes();
       //console.log(hours, minutes);
       if (hours === 0 && minutes === 0) {
-        console.log('It\'s midnight! Do something!');
+        const res = await cutLot();
       }
     };
 
-    // Check every second (1000 milliseconds)
-    const intervalId = setInterval(checkMidnight, 1000);
+    // Check every second (10000 milliseconds)
+    const intervalId = setInterval(checkMidnight, 10000);
 
     // Clean up the interval when the component is unmounted
     return () => {

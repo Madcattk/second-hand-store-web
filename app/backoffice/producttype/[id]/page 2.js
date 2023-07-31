@@ -75,7 +75,7 @@ const App = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="Product_Type__Name"
+            name="Product_Type_Name"
             label="Product Type Name"
             rules={[
               {
