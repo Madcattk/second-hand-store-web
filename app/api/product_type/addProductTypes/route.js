@@ -4,14 +4,15 @@ import { getProductTypeById } from "@app/api/getAPI/product-type";
 import { DateFormat } from "@components/formats";
 
 export async function POST(request) {
-    const { Product_Type__Name } = await request.json();
+    const { Product_Type_Name } = await request.json();
     try {       
         const conn = await dbConnection();
         const query = `INSERT INTO Promotion_Type 
-            (Product_Type__Name)
+            (Product_Type_Name)
             VALUES (?)`;
+            
         const values = [
-            Product_Type__Name
+            Product_Type_Name
         ];
         const [result] = await conn.execute(query, values);
         conn.end();

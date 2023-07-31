@@ -38,20 +38,20 @@ const App = () => {
     onLoad();
   }, []);
 
-  const onChange = (update) => setData({...data, ...update})
+  const onChange = (update) => setData({ ...data, ...update })
 
   const onLoad = async () => {
     const res = await getEmployeeById(id);
-    res.data[0].Employee_Birth_Date = DateFormat( res.data[0].Employee_Birth_Date );
+    res.data[0].Employee_Birth_Date = DateFormat(res.data[0].Employee_Birth_Date);
     setData(res?.data?.[0] || {});
     setLoading(false); // Set loading to false after data is fetched
   };
 
 
   const onFinish = async ({ form, ...restValues }) => {
-    const updatedValues = { 
-      ...restValues, 
-      Employee_Image: data?.image || null , 
+    const updatedValues = {
+      ...restValues,
+      Employee_Image: data?.image || null,
       Employee_Birth_Date: DateFormat(form?.Employee_Birth_Date),
       Employee_Sex: form?.Employee_Sex
     };
@@ -60,11 +60,11 @@ const App = () => {
     if (res?.message === 'success') {
       toast.success("Employee Edited.", {
         autoClose: 2000,
-        
+
       });
       router.push('/backoffice/employee');
     }
-    
+
   };
 
   return (
@@ -87,7 +87,7 @@ const App = () => {
             label="Employee Id"
             rules={[
               {
-                type: true,
+                required: true,
               },
             ]}
           >
@@ -120,7 +120,7 @@ const App = () => {
             label="Employee Email"
             rules={[
               {
-                type: 'Employee Email',
+                required: true,
               },
             ]}
           >
@@ -131,31 +131,44 @@ const App = () => {
             label="Employee Password"
             rules={[
               {
-                type: 'Employee Password',
+                required: true,
               },
             ]}
           >
             <Input />
           </Form.Item>
 
-          <Form.Item label="Employee Sex" name={['form', 'Employee_Sex']}>
-          <Select>
-            {MetaSex.map((item, index) => {
-              return  <Select.Option key={"Sex"+index} value={item.id}>{item.name}</Select.Option>
-            })}
-          </Select>
-        </Form.Item>
+          <Form.Item label="Employee Sex" name={['form', 'Employee_Sex']}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
 
-            <Form.Item label="Employee Birth Date" name={['form', 'Employee_Birth_Date']}>
-                <DatePicker />
-            </Form.Item>
+            <Select>
+              {MetaSex.map((item, index) => {
+                return <Select.Option key={"Sex" + index} value={item.id}>{item.name}</Select.Option>
+              })}
+            </Select>
+          </Form.Item>
+
+          <Form.Item label="Employee Birth Date" name={['form', 'Employee_Birth_Date']}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          >
+            <DatePicker />
+          </Form.Item>
 
           <Form.Item
             name="Employee_Phone"
             label="Employee Phone"
             rules={[
               {
-                type: 'Employee Phone',
+                required: true,
               },
             ]}
           >
@@ -174,8 +187,8 @@ const App = () => {
             }}
           >
             <Button htmlType="submit" type="primary" danger>
-          Submit
-        </Button>
+              Submit
+            </Button>
           </Form.Item>
         </Form>
       )}
