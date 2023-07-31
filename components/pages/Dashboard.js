@@ -4,23 +4,10 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { getBestSellerProductReport } from '@app/api/getAPI/sale';
 import { DateFormat } from '@components/formats';
-import { InputDate } from '@components/inputs';
 
 export const Dashboard = () => {
     ChartJS.register(ArcElement, Tooltip, Legend);
     const [form, setForm] = useState([])
-    const [date, setDate] = useState({
-        Start_Date: DateFormat(getStartOfYear()),
-        End_Date: DateFormat(Date.now())
-    });
-
-    // Function to get the first day of the current year
-    function getStartOfYear() {
-        const currentYear = new Date().getFullYear();
-        const startOfYear = new Date(currentYear, 0, 1); // January is month 0
-        return startOfYear;
-    }
-
     const [BSPData, setBSPData] = useState({
         labels: [],
         datasets: [
@@ -31,20 +18,17 @@ export const Dashboard = () => {
             },
         ],
     })
-    const onChange = (update) => setDate({ ...date, ...update })
     let total = 0;
 
     useEffect(() => {
         onLoad()
-    },[date])
+    },[])
 
     const onLoad = async () => {
-        total = 0;
         const resBestSellerProduct = await getBestSellerProductReport({
-            "Start_Date": DateFormat(date?.Start_Date),
-            "End_Date": DateFormat(date?.End_Date)
+            "Start_Date": '2023-01-01',
+            "End_Date": '2023-12-31'
         }) 
-        
         if(resBestSellerProduct.message == 'success'){
             setForm(resBestSellerProduct?.data || [])
             let labels = [];
@@ -103,14 +87,6 @@ export const Dashboard = () => {
         <div className='w-full flex flex-col items-center p-10 bg-[#F0F0F0] min-h-screen'>
             <div className='flex flex-col gap-5'>
                 <div className='font-bold text-brown'>Dashboard</div>
-                <div className='w-[450px] bg-white shadow-md rounded-md p-2'>
-                    <div className='font-bold text-greyV1'>Select a time period here</div>
-                    <div className='flex'>
-                        <InputDate onChange={(Start_Date) => onChange({ Start_Date })} value={date?.Start_Date || ''} placeholder='StartDate' classBox='w-full' classInput='c'/>
-                        <div className='flex items-center px-2 font-bold'>to</div>
-                        <InputDate onChange={(End_Date) => onChange({ End_Date })} value={date?.End_Date || ''} placeholder='End Date' classBox='w-full' classInput='c'/>
-                    </div>
-                </div>
                 <div className='flex lg:flex-row lg:justify-center lg:items-start flex-col items-center gap-5 w-full'>
                     <div className='relative bg-white h-[500px] sm:w-[450px] pb-10 w-full shadow-md rounded-md'>
                         <div className='font-bold text-greyV1 px-10 py-5 z-10 sticky bg-white rounded-t-md'>Best Seller Product Pie Chart</div>
@@ -131,15 +107,13 @@ export const Dashboard = () => {
                 </div>
                 <div className='relative w-full bg-white shadow-md rounded-md'>
                     <div className='rounded-t-md font-bold text-greyV1 px-10 py-5 z-10 sticky bg-white top-0'>Summary Revenue</div>
-                    <div className='lg:w-full w-[450px] px-10 h-[450px] overflow-auto'>
+                    <div className='w-full px-10 h-[450px] overflow-auto'>
                         <table className='table text-brown'>
                             <thead>
                                 <tr className='h-[5vh] border-y border-hover bg-gray z-10 sticky top-0'>
-                                    <th className='lg:min-w-[200px] w-[150px] l px-2'>Product Name</th>
-                                    <th className='lg:min-w-[180px] w-[180px] l px-2'>Product Type Name</th>
-                                    <th className='lg:min-w-[150px] w-[150px] c px-2'>Sale Date</th>
-                                    <th className='lg:w-full c px-2'>Sale Status</th>
-                                    <th className='lg:min-w-[200px] w-[100px] r px-2'>Product Price</th>
+                                    <th className='lg:min-w-[300px] w-[150px] l px-2'>Product Name</th>
+                                    <th className='lg:min-w-[200px] w-[100px] l px-2'>Product Type Name</th>
+                                    <th className='lg:w-full r px-2'>Product Price</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -149,8 +123,6 @@ export const Dashboard = () => {
                                         return <tr className='h-[5vh] border-y border-hover hover:bg-hover' key={"Summary-Revenue"+index}>
                                             <td className='l px-2'>{product?.Product_Name || '-'}</td>
                                             <td className='l px-2'>{product?.Product_Type_Name || '-'}</td>
-                                            <td className='c px-2'>{DateFormat(product?.Sale_Date) || '-'}</td>
-                                            <td className='c px-2'>{product?.Sale_Status || '-'}</td>
                                             <td className='r px-2'>{product?.Product_Price.toFixed(2) || '0.00'}</td>
                                         </tr>
                                     })

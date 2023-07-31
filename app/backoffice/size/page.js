@@ -20,27 +20,27 @@ const App = () => {
 
     return (
         <>
-            <Row justify="end">
-                <Space wrap>
-                    <Button onClick={() => router.push('/backoffice/size/addsize')} type="primary" danger>
-                        Add Size
-                    </Button>
-                </Space>
-            </Row>
+        <Row justify="end">
+            <Space wrap>
+            <Button onClick={()=> router.push('/backoffice/size/addsize')} type="primary" danger>
+                Add Size
+            </Button>
+            </Space>
+        </Row>
 
-            <Table dataSource={data} rowKey="Size_Id">
-                <Column title="Size_Id" dataIndex="Size_Id" key="Size_Id" />
-                <Column title="Size_Name" dataIndex="Size_Name" key="Size_Name" />
-                <Column
-                    title="Action"
-                    key="action"
-                    render={(_, record) => (
-                        <Space size="middle">
-                            <Button onClick={() => router.push(`/backoffice/size/${record.Size_Id}`)} danger>Edit</Button>
-                        </Space>
-                    )}
-                />
-            </Table>
+        <Table dataSource={data} rowKey="Size_Id">
+            <Column title="Size_Id" dataIndex="Size_Id" key="Size_Id" />
+            <Column title="Size_Name" dataIndex="Size_Name" key="Size_Name" />
+            <Column
+            title="Action"
+            key="action"
+            render={(_, record) => (
+                <Space size="middle">  
+                <Button onClick={()=> router.push(`/backoffice/size/${record.Size_Id}`)} danger>Edit</Button> 
+                </Space>
+            )}
+            />
+        </Table>
         </>
     );
 }

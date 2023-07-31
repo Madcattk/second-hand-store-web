@@ -1,49 +1,45 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Space, Table, Button, Row } from 'antd';
-import { useRouter } from 'next/navigation';
-import { getAllEmployees } from '@app/api/getAPI/employee';
-
 const { Column } = Table;
 
-const App = () => {
-    const router = useRouter();
-    const [data, setData] = useState([]);
-    useEffect(() => {
-        onLoad();
-    }, []);
+const data = [
+    {
+        key: '1',
+        employeeId: '1',
+        employeeAddress: '590/66 Asok-Dindaeng Road Bangkok 10310',
+        
 
-    const onLoad = async () => {
-        const res = await getAllEmployees();
-        setData(res?.data || []);
-    };
+    },
+];
 
-    return (
+const App = () => (
     <>
         <Row justify="end">
             <Space wrap>
-            <Button onClick={()=> router.push('/backoffice/employeeaddress/addaddress')} type="primary" danger>
-                Add Employee Address
-            </Button>
+                <Button type="primary" danger>
+                    Add Address
+                </Button>
             </Space>
         </Row>
 
-        <Table dataSource={data} rowKey="Employee_Id">
-            <Column title="Employee_Id" dataIndex="Employee_Id" key="Employee_Id" />
-            <Column title="Employee_Address" dataIndex="Employee_Address" key="Employee_Address" />
+        <Table dataSource={data}>
+            <Column title="Employee_Id" dataIndex="employeeId" key="employeeId" />
+            <Column title="Employee_Address" dataIndex="employeeAddress" key="employeeAddress" />
 
             <Column
                 title="Action"
                 key="action"
                 render={(_, record) => (
                     <Space size="middle">
-                       <Button onClick={()=> router.push(`/backoffice/employeeaddress/${record.Employee_Id}`)} danger>Edit</Button> 
-                </Space>
-            )}
+                        {/* <a>Invite {record.lastName}</a> */}
+                        <a>Edit</a>
+                        <a>Delete</a>
+                    </Space>
+                )}
             />
-        </Table>
-        </>
-    );
-}
 
+        </Table>
+    </>
+);
 export default App;

@@ -36,7 +36,8 @@ const App = () => (
         }}
         validateMessages={validateMessages}
     >
-        <Form.Item
+
+<Form.Item
             name={['user', 'id']}
             label="Id"
             rules={[
@@ -60,8 +61,6 @@ const App = () => (
             <Input />
         </Form.Item>
 
-
-
         <Form.Item
             wrapperCol={{
                 ...layout.wrapperCol,
@@ -72,6 +71,8 @@ const App = () => (
                 Submit
             </Button>
         </Form.Item>
+
     </Form>
+
 );
 export default App;

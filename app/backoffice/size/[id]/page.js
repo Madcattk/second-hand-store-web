@@ -16,12 +16,6 @@ const layout = {
     },
 };
 
-/* eslint-disable no-template-curly-in-string */
-const validateMessages = {
-    required: '${label} is required!',
-};
-/* eslint-enable no-template-curly-in-string */
-
 const App = () => {
     const { id } = useParams();
     const router = useRouter();
@@ -67,7 +61,7 @@ const App = () => {
                         label="Size Id"
                         rules={[
                             {
-                                type: 'Size Id',
+                                type: true,
                             },
                         ]}
                     >
@@ -91,7 +85,7 @@ const App = () => {
                             offset: 8,
                         }}
                     >
-                        <Button htmlType="submit" type="primary" danger>
+                        <Button type="primary" htmlType="submit">
                             Submit
                         </Button>
                     </Form.Item>

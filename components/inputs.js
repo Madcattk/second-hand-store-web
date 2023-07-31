@@ -44,16 +44,16 @@ export const InputTextArea = ({ value = "", onChange, classBox = "", placeholder
     );
 };
 
-export const InputDate = ({ value = "", onChange, classBox = "",classInput = "", placeholder = "" }) => {
+export const InputDate = ({ value = "", onChange, classBox = "", placeholder = "" }) => {
     return (
         <div className={`${classBox}`}>
             <input
-                className={`${classInput} border-b-brown border-b px-1 py-3 outline-none w-full text-brown cursor-pointer`}
+                className={`border-b-brown border-b px-1 py-3 outline-none w-full text-brown`}
                 type={'text'}
                 value={value}
                 onChange={(e) => onChange ? onChange(e.target.value) : {}}
                 placeholder={placeholder}
-                onClick={(e) => e.target.type = 'date'}
+                onFocus={(e) => e.target.type = 'date'}
             />
         </div>
     );

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Space, Table, Button, Row } from 'antd';
 import { useRouter } from 'next/navigation';
-import { getAllEmployees } from '@app/api/getAPI/employee';
+import { getAllProducts } from '@app/api/getAPI/product';
 const { Column } = Table;
 
 
@@ -14,7 +14,7 @@ const App = () => {
     }, []);
 
     const onLoad = async () => {
-        const res = await getAllEmployees();
+        const res = await getAllProducts();
         setData(res?.data || []);
     };
 
@@ -28,7 +28,7 @@ const App = () => {
                 </Space>
             </Row>
 
-            <Table dataSource={data} rowKey="Employee_Id">
+            <Table dataSource={data}>
                 <Column title="Employee_Id" dataIndex="Employee_Id" key="Employee_Id" />
                 <Column title="Employee_Firstname" dataIndex="Employee_Firstname" key="Employee_Firstname" />
                 <Column title="Employee_Lastname" dataIndex="Employee_Lastname" key="Employee_Lastname" />
