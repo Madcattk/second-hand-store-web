@@ -38,9 +38,7 @@ const App = () => {
     onLoad();
   }, []);
 
-  const [image, setImage] = useState(null);
-  const onChange = (update) => setImage(update)
-
+  const onChange = (update) => setData({...data, ...update})
 
   const onLoad = async () => {
     const res = await getEmployeeById(id);
@@ -160,7 +158,7 @@ const App = () => {
           </Form.Item>
 
           <div className='w-full flex justify-center'>
-            <WhiteInputFile onChange={(image) => onChange({ image })} value={image?.image || ''} placeholder='Profile Picture' classBox='w-[50%]' />
+            <WhiteInputFile onChange={(Employee_Image) => onChange({ Employee_Image })} value={data?.Employee_Image || ''} placeholder='Profile Picture' classBox='w-[50%]' />
           </div>
 
           <Form.Item
