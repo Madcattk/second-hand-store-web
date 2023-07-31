@@ -4,6 +4,7 @@ import { Button, Form, Input, Select, DatePicker } from 'antd';
 import { WhiteInputFile } from '@components/inputs';
 import { useRouter } from 'next/navigation';
 import { addEmployee } from '@app/api/getAPI/employee';
+import { DateFormat } from '@components/formats';
 
 const layout = {
   labelCol: {
@@ -40,7 +41,7 @@ const App = () => {
   const onChange = (update) => setImage(update)
 
   const onFinish = async (values) => {
-    values.form = { ...values.form, Employee_Image: image?.image || null }
+    values.form = { ...values.form, Employee_Image: image?.image || null , Employee_Birth_Date: DateFormat( values?.form?.Employee_Birth_Date )}
     const res = await addEmployee(values.form);
     if (res?.message === 'success') {
       toast.success("Employee Added.", {
