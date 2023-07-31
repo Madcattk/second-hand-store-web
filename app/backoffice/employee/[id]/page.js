@@ -48,10 +48,15 @@ const App = () => {
   };
 
 
-  const onFinish = async (values) => {
-    console.log(values);
-    values.form = { ...values.form, Employee_Image: image?.image || null , Employee_Birth_Date: DateFormat( values?.form?.Employee_Birth_Date )}
-    const res = await editEmployeeById(values.form);
+  const onFinish = async ({ form, ...restValues }) => {
+    const updatedValues = { 
+      ...restValues, 
+      Employee_Image: data?.image || null , 
+      Employee_Birth_Date: DateFormat(form?.Employee_Birth_Date),
+      Employee_Sex: form?.Employee_Sex
+    };
+
+    const res = await editEmployeeById(updatedValues);
     if (res?.message === 'success') {
       toast.success("Employee Edited.", {
         autoClose: 2000,
