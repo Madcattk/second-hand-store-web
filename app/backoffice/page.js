@@ -103,7 +103,7 @@ const App = () => {
             background: colorBgContainer,
           }}
         >
-          <a onClick={() => {saveToLocalStorage('auth', null); dispatch(clearAuth()); router.push('/login');}}>Log outdddddd</a>
+          <a onClick={() => {saveToLocalStorage('auth', null); dispatch(clearAuth()); router.push('/login');}}>Log out</a>
         </Content>
       </Layout>
     </Layout>
