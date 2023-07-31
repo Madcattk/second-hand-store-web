@@ -5,6 +5,7 @@ import { WhiteInputFile } from '@components/inputs';
 import { useRouter } from 'next/navigation';
 import { addEmployee } from '@app/api/getAPI/employee';
 import { DateFormat } from '@components/formats';
+import { MetaSex } from '@components/Meta';
 
 const layout = {
   labelCol: {
@@ -41,6 +42,7 @@ const App = () => {
   const onChange = (update) => setImage(update)
 
   const onFinish = async (values) => {
+    console.log(values);
     values.form = { ...values.form, Employee_Image: image?.image || null , Employee_Birth_Date: DateFormat( values?.form?.Employee_Birth_Date )}
     const res = await addEmployee(values.form);
     if (res?.message === 'success') {
@@ -120,11 +122,11 @@ const App = () => {
       <Input />
     </Form.Item> */}
 
-        <Form.Item label="Employee Sex">
+        <Form.Item label="Employee Sex" name={['form', 'Employee_Sex']}>
           <Select>
-            <Select.Option value="male">Male</Select.Option>
-            <Select.Option value="female">Female</Select.Option>
-            <Select.Option value="others">Others</Select.Option>
+            {MetaSex.map((item, index) => {
+              return  <Select.Option key={"Sex"+index} value={item.id}>{item.name}</Select.Option>
+            })}
           </Select>
         </Form.Item>
 
