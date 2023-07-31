@@ -17,7 +17,6 @@ const layout = {
   },
 };
 
-
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: '${label} is required!',
@@ -132,7 +131,6 @@ const App = () => {
           >
             <Input />
           </Form.Item>
-
 
           <Form.Item label="Employee Sex">
             <Select>
