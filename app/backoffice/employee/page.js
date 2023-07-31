@@ -53,7 +53,7 @@ const App = () => {
                     key="Employee_Image"
                     render={(_, record) => (
                         <div>
-                            <Image className='w-[80px] h-[100px]' src={data?.Employee_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
+                            <Image className='w-[80px] h-[100px]' src={record?.Employee_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
                         </div>
                     )}
                 /> 

@@ -39,11 +39,6 @@ const App = () => {
   const [image, setImage] = useState(null);
   const onChange = (update) => setImage(update)
 
-  const onFinish = (values) => {
-    let data = {...values, Employee_Image: image?.image || null}
-    console.log(data);
-    
-  };
 
   const onLoad = async () => {
     const res = await getEmployeeById(id);
@@ -51,15 +46,19 @@ const App = () => {
     setLoading(false); // Set loading to false after data is fetched
   };
 
-  // const onFinish = async (form) => {
-  //   const res = await editEmployeeById(form);
-  //   if (res?.message === 'success') {
-  //     toast.success("Employee Edited.", {
-  //       autoClose: 2000,
-  //     });
-  //     router.push('/backoffice/employee');
-  //   }
-  // };
+  const onFinish = async (values) => {
+    console.log(values);
+    values.form = { ...values.form, Employee_Image: image?.image || null , Employee_Birth_Date: DateFormat( values?.form?.Employee_Birth_Date )}
+    const res = await editEmployeeById(values.form);
+    if (res?.message === 'success') {
+      toast.success("Employee Edited.", {
+        autoClose: 2000,
+        
+      });
+      router.push('/backoffice/employee');
+    }
+    
+  };
 
   return (
     <>
