@@ -3,7 +3,8 @@ import dbConnection from "@/lib/db";
 import { DateFormat } from "@components/formats";
 
 export async function PUT(request) {
-    const { Promotion_Name,
+    const { Promotion_Id,
+        Promotion_Name,
         Promotion_Start_Date,
         Promotion_End_Date,
         Promotion_Discount,
@@ -17,7 +18,7 @@ export async function PUT(request) {
         Promotion_End_Date = ?,
         Promotion_Discount = ?,
         Promotion_Price_Condition = ?
-        WHERE Size_Id = ?`;
+        WHERE Promotion_Id = ?`;
         const values = [
             Promotion_Name,
             DateFormat(Promotion_Start_Date),

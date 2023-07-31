@@ -34,27 +34,27 @@ const App = () => {
   }, []);
 
   const onLoad = async () => {
-    const res = await getSizeById(id);
+    const res = await getPromotionById(id);
     setData(res?.data?.[0] || {});
     setLoading(false); // Set loading to false after data is fetched
   };
 
-  const onFinish = async (form) => {
-    const res = await editSizeById(form);
+  const onFinish = async ({ form, ...restValues }) => {
+    const updatedValues = {
+      ...restValues,
+      Promotion_Start_Date: form?.Promotion_Start_Date,
+      Promotion_End_Date: form?.Promotion_End_Date,
+      
+    };
+    const res = await editPromotionById(updatedValues);
     if (res?.message === 'success') {
-      toast.success("Size Edited.", {
+      toast.success("Promotion Edited.", {
         autoClose: 2000,
       });
-      router.push('/backoffice/size');
+      router.push('/backoffice/promotion');
     }
   };
-  //   const onFinish = (values) => {
-  //     console.log(DateFormat(values.form.startDate));
-  //     console.log(DateFormat(values.form.endDate));
-
-  // };
-
-
+  
   return (
     <>
       {loading ? (
@@ -92,15 +92,26 @@ const App = () => {
             <Input />
           </Form.Item>
 
-
-          <Form.Item label="Promotion Start Date" name={['form', 'startDate']}>
+          <Form.Item label="Promotion Start Date" name={['form', 'Promotion_Start_Date']}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          >
             <DatePicker />
           </Form.Item>
 
-          <Form.Item label="Promotion_End_Date" name={['form', 'endDate']}>
+
+          <Form.Item label="Promotion_End_Date" name={['form', 'Promotion_End_Date']}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          >
             <DatePicker />
           </Form.Item>
-
 
           <Form.Item
             name="Promotion_Discount"

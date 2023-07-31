@@ -7,7 +7,7 @@ export async function POST(request) {
     const { Product_Type_Name } = await request.json();
     try {       
         const conn = await dbConnection();
-        const query = `INSERT INTO Promotion_Type 
+        const query = `INSERT INTO Product_Type 
             (Product_Type_Name)
             VALUES (?)`;
             

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Space, Table, Button, Row } from 'antd';
 import { getAllPromotions } from '@app/api/getAPI/promotion';
 import { useRouter } from 'next/navigation';
+import { DateFormat } from '@components/formats';
 
 const { Column} = Table;
 
@@ -16,7 +17,18 @@ const App = () => {
 
     const onLoad = async () => {
         const res = await getAllPromotions();
-        setData(res?.data || []);
+        if(res?.message === 'success'){
+            console.log(res.data);
+            let data = [];
+            res?.data?.forEach((item, index) => {
+                data.push({ ...item, Promotion_Start_Date: DateFormat(item.Promotion_Start_Date),
+                    Promotion_End_Date: DateFormat(item.Promotion_End_Date)})
+            })
+            console.log(data);
+            setData(data || []);
+        
+        }
+        
     };
 
     return (

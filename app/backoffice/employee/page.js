@@ -23,7 +23,6 @@ const App = () => {
             res?.data?.forEach((item, index) => {
                 data.push({ ...item, Employee_Birth_Date: DateFormat(item.Employee_Birth_Date)})
             })
-            console.log(data);
             setData(data || []);
         
         }
