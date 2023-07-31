@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button, Form, Input, Select, DatePicker } from 'antd';
 import { WhiteInputFile } from '@components/inputs';
 import { useRouter } from 'next/navigation';
+import { addEmployee } from '@app/api/getAPI/employee';
 
 const layout = {
   labelCol: {
@@ -28,7 +29,7 @@ const App = () => {
   // const onFinish = async (form) => {
   //   const res = await addSize(form?.form);
   //   if (res?.message === 'success') {
-  //     toast.success("Size Added.", {
+  //     toast.success("Employee Added.", {
   //       autoClose: 2000,
   //     });
   //   }
@@ -38,9 +39,17 @@ const App = () => {
   const [image, setImage] = useState(null);
   const onChange = (update) => setImage(update)
 
-  const onFinish = (values) => {
-    let data = { ...values, Employee_Image: image?.image || null }
-    console.log(data);
+  const onFinish = async (values) => {
+    values.form = { ...values.form, Employee_Image: image?.image || null }
+    const res = await addEmployee(values.form);
+    if (res?.message === 'success') {
+      toast.success("Employee Added.", {
+        autoClose: 2000,
+        
+      });
+      router.push('/backoffice/employee');
+    }
+    
   };
   return (
     <>
