@@ -4,6 +4,7 @@ import { Space, Table, Button, Row } from 'antd';
 import { useRouter } from 'next/navigation';
 import { getAllEmployees } from '@app/api/getAPI/employee';
 import { DateFormat } from '@components/formats';
+import Image from 'next/image';
 const { Column } = Table;
 
 
@@ -47,7 +48,15 @@ const App = () => {
                 <Column title="Employee_Password" dataIndex="Employee_Password" key="Employee_Password" />
                 <Column title="Employee_Sex" dataIndex="Employee_Sex" key="Employee_Sex" />
                 <Column title="Employee_Birth_Date" dataIndex="Employee_Birth_Date" key="Employee_Birth_Date" />
-                <Column title="Employee_Image" dataIndex="Employee_Image" key="Employee_Image"/> 
+                <Column 
+                    title="Employee_Image"  
+                    key="Employee_Image"
+                    render={(_, record) => (
+                        <div>
+                            <Image className='w-[80px] h-[100px]' src={data?.Employee_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
+                        </div>
+                    )}
+                /> 
                 
                 <Column title="Employee_Phone" dataIndex="Employee_Phone" key="Employee_Phone" />
                 <Column
