@@ -118,9 +118,7 @@ const App = () => {
           </Select>
         </Form.Item>
 
-        <Form.Item 
-          label="Employee Birth Date"
-          name={['form', 'birthDate']}>
+        <Form.Item label="Employee Birth Date">
           <DatePicker />
         </Form.Item>
 
