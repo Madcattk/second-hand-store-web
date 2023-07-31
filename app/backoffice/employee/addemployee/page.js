@@ -6,6 +6,9 @@ import { useRouter } from 'next/navigation';
 import { addEmployee } from '@app/api/getAPI/employee';
 import { DateFormat } from '@components/formats';
 import { MetaSex } from '@components/Meta';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '@/styles/toastStyles.css';
 
 const layout = {
   labelCol: {
@@ -110,17 +113,7 @@ const App = () => {
           <Input />
         </Form.Item>
 
-        {/* <Form.Item
-      name={['form', 'address']}
-      label="Address"
-      rules={[
-        {
-          type: 'address',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item> */}
+     
 
         <Form.Item label="Employee Sex" name={['form', 'Employee_Sex']}>
           <Select>

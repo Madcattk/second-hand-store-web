@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Space, Table, Button, Row } from 'antd';
 import { useRouter } from 'next/navigation';
 import { getAllEmployees } from '@app/api/getAPI/employee';
+import { DateFormat } from '@components/formats';
 const { Column } = Table;
 
 
@@ -15,7 +16,17 @@ const App = () => {
 
     const onLoad = async () => {
         const res = await getAllEmployees();
-        setData(res?.data || []);
+        if(res?.message === 'success'){
+            console.log(res.data);
+            let data = [];
+            res?.data?.forEach((item, index) => {
+                data.push({ ...item, Employee_Birth_Date: DateFormat(item.Employee_Birth_Date)})
+            })
+            console.log(data);
+            setData(data || []);
+        
+        }
+        
     };
 
     return (
@@ -36,7 +47,8 @@ const App = () => {
                 <Column title="Employee_Password" dataIndex="Employee_Password" key="Employee_Password" />
                 <Column title="Employee_Sex" dataIndex="Employee_Sex" key="Employee_Sex" />
                 <Column title="Employee_Birth_Date" dataIndex="Employee_Birth_Date" key="Employee_Birth_Date" />
-                <Column title="Employee_Image" dataIndex="Employee_Image" key="Employee_Image" />
+                <Column title="Employee_Image" dataIndex="Employee_Image" key="Employee_Image"/> 
+                
                 <Column title="Employee_Phone" dataIndex="Employee_Phone" key="Employee_Phone" />
                 <Column
                     title="Action"
