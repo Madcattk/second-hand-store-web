@@ -8,6 +8,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { editEmployeeById, getEmployeeById } from '@app/api/getAPI/employee';
 import { WhiteInputFile } from '@components/inputs';
 import { MetaSex } from '@components/Meta';
+import { DateFormat } from '@components/formats';
 
 const layout = {
   labelCol: {
@@ -43,7 +44,7 @@ const App = () => {
 
   const onLoad = async () => {
     const res = await getEmployeeById(id);
-    // res?.data?.[0] = { ...res?.data?.[0], Employee_Birth_Date: DateFormat( res.data[0].Employee_Birth_Date )}
+    res.data[0].Employee_Birth_Date = DateFormat( res.data[0].Employee_Birth_Date );
     setData(res?.data?.[0] || {});
     setLoading(false); // Set loading to false after data is fetched
   };
