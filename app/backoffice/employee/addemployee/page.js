@@ -31,16 +31,6 @@ const validateMessages = {
 const App = () => {
   const router = useRouter();
 
-  // const onFinish = async (form) => {
-  //   const res = await addSize(form?.form);
-  //   if (res?.message === 'success') {
-  //     toast.success("Employee Added.", {
-  //       autoClose: 2000,
-  //     });
-  //   }
-  //   router.push('/backoffice/size');
-  // };
-
   const [image, setImage] = useState(null);
   const onChange = (update) => setImage(update)
 
@@ -112,8 +102,6 @@ const App = () => {
         >
           <Input />
         </Form.Item>
-
-     
 
         <Form.Item label="Employee Sex" name={['form', 'Employee_Sex']}>
           <Select>

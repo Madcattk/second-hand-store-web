@@ -64,7 +64,7 @@ const App = () => {
                     key="action"
                     render={(_, record) => (
                         <Space size="middle">
-                            <Button onClick={() => router.push(`/backoffice/employee/${record.employee_Id}`)} danger>Edit</Button>
+                            <Button onClick={() => router.push(`/backoffice/employee/${record.Employee_Id}`)} danger>Edit</Button>
                         </Space>
                     )}
                 />

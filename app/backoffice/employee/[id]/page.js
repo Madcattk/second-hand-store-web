@@ -7,6 +7,7 @@ import '@/styles/toastStyles.css';
 import { useParams, useRouter } from 'next/navigation';
 import { editEmployeeById, getEmployeeById } from '@app/api/getAPI/employee';
 import { WhiteInputFile } from '@components/inputs';
+import { MetaSex } from '@components/Meta';
 
 const layout = {
   labelCol: {
@@ -42,9 +43,11 @@ const App = () => {
 
   const onLoad = async () => {
     const res = await getEmployeeById(id);
+    // res?.data?.[0] = { ...res?.data?.[0], Employee_Birth_Date: DateFormat( res.data[0].Employee_Birth_Date )}
     setData(res?.data?.[0] || {});
     setLoading(false); // Set loading to false after data is fetched
   };
+
 
   const onFinish = async (values) => {
     console.log(values);
@@ -131,17 +134,17 @@ const App = () => {
             <Input />
           </Form.Item>
 
-          <Form.Item label="Employee Sex">
-            <Select>
-              <Select.Option value="male">Male</Select.Option>
-              <Select.Option value="female">Female</Select.Option>
-              <Select.Option value="others">Others</Select.Option>
-            </Select>
-          </Form.Item>
+          <Form.Item label="Employee Sex" name={['form', 'Employee_Sex']}>
+          <Select>
+            {MetaSex.map((item, index) => {
+              return  <Select.Option key={"Sex"+index} value={item.id}>{item.name}</Select.Option>
+            })}
+          </Select>
+        </Form.Item>
 
-          <Form.Item label="Employee Birth Date">
-            <DatePicker />
-          </Form.Item>
+            <Form.Item label="Employee Birth Date" name={['form', 'Employee_Birth_Date']}>
+                <DatePicker />
+            </Form.Item>
 
           <Form.Item
             name="Employee_Phone"
