@@ -30,7 +30,7 @@ const onFinish = (values) => {
 };
 const App = () => {
     const router = useRouter();
-    
+
     const onFinish = async (form) => {
         const res = await addPromotion(form?.form);
         if (res?.message === 'success') {
@@ -51,7 +51,7 @@ const App = () => {
             validateMessages={validateMessages}
         >
             <Form.Item
-                name={['form', 'productname']}
+                name={['form', 'Promotion_Name']}
                 label="Promotion Name"
                 rules={[
                     {
@@ -62,20 +62,20 @@ const App = () => {
                 <Input />
             </Form.Item>
 
-            <Form.Item label="Start Date" name={['form', 'startDate']}>
+            <Form.Item label="Promotion Start Date Date" name={['form', 'Promotion_Start_Date']}>
                 <DatePicker />
             </Form.Item>
 
-            <Form.Item label="End Date" name={['form', 'endDate']}>
+            <Form.Item label="Promotion End Date" name={['form', 'Promotion_End_Date']}>
                 <DatePicker />
             </Form.Item>
 
             <Form.Item
-                name={['form', 'discount']}
-                label="Discount"
+                name={['form', 'Promotion_Discount']}
+                label="Promotion Discount"
                 rules={[
                     {
-                        type: 'discount',
+                        required: true,
                     },
                 ]}
             >
@@ -83,11 +83,11 @@ const App = () => {
             </Form.Item>
 
             <Form.Item
-                name={['form', 'pricecondition']}
-                label="Price Cndition"
+                name={['form', 'Promotion_Price_Condition']}
+                label="Promotion Price Condition"
                 rules={[
                     {
-                        type: 'pricecondition',
+                        required: true,
                     },
                 ]}
             >
@@ -101,7 +101,7 @@ const App = () => {
 
                 }}
             >
-                <Button type="primary" htmlType="submit">
+                <Button htmlType="submit" type="primary" danger>
                     Submit
                 </Button>
             </Form.Item>

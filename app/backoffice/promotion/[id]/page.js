@@ -133,9 +133,9 @@ const App = () => {
 
             }}
           >
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
+            <Button htmlType="submit" type="primary" danger>
+            Submit
+          </Button>
           </Form.Item>
         </Form>
       )}
