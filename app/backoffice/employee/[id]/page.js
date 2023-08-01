@@ -51,7 +51,7 @@ const App = () => {
   const onFinish = async ({ form, ...restValues }) => {
     const updatedValues = {
       ...restValues,
-      Employee_Image: data?.image || null,
+      Employee_Image: data?.Employee_Image || null,
       Employee_Birth_Date: DateFormat(form?.Employee_Birth_Date),
       Employee_Sex: form?.Employee_Sex
     };

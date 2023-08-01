@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Space, Table, Button, Row } from 'antd';
 import { useRouter } from 'next/navigation';
 import { getAllProducts } from '@app/api/getAPI/product';
+import Image from 'next/image';
 const { Column } = Table;
 
 const App = () => {
@@ -32,7 +33,15 @@ const App = () => {
                 <Column title="Product_Name" dataIndex="Product_Name" key="Product_Name" />
                 <Column title="Product_Price" dataIndex="Product_Price" key="Product_Price" />
                 <Column title="Product_Description" dataIndex="Product_Description" key="Product_Description" />
-                <Column title="Product_Image" dataIndex="Product_Image" key="Product_Image" />
+                <Column 
+                    title="Product_Image"  
+                    key="Product_Image"
+                    render={(_, record) => (
+                        <div>
+                            <Image className='w-[80px] h-[100px]' src={record?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
+                        </div>
+                    )}
+                /> 
                 <Column title="Product_Sex" dataIndex="Product_Sex" key="Product_Sex" />
                 <Column title="Product_Date" dataIndex="Product_Date" key="Product_Date" />
                 <Column title="Product_Status" dataIndex="Product_Status" key="Product_Status" />
@@ -46,7 +55,7 @@ const App = () => {
                     key="action"
                     render={(_, record) => (
                         <Space size="middle">
-                            <Button onClick={() => router.push(`/backoffice/size/${record.Size_Id}`)} danger>Edit</Button>
+                            <Button onClick={() => router.push(`/backoffice/product/${record.Product_Id}`)} danger>Edit</Button>
                         </Space>
                     )}
                 />

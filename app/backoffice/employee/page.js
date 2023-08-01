@@ -18,7 +18,6 @@ const App = () => {
     const onLoad = async () => {
         const res = await getAllEmployees();
         if(res?.message === 'success'){
-            console.log(res.data);
             let data = [];
             res?.data?.forEach((item, index) => {
                 data.push({ ...item, Employee_Birth_Date: DateFormat(item.Employee_Birth_Date)})

@@ -35,7 +35,6 @@ const App = () => {
   const onChange = (update) => setImage(update)
 
   const onFinish = async (values) => {
-    console.log(values);
     values.form = { ...values.form, Employee_Image: image?.image || null , Employee_Birth_Date: DateFormat( values?.form?.Employee_Birth_Date )}
     const res = await addEmployee(values.form);
     if (res?.message === 'success') {
