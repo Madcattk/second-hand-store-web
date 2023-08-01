@@ -42,7 +42,7 @@ const App = () => {
     const onFinish = async (form) => {
         const res = await editEmployeeAddressById(form);
         if (res?.message === 'success') {
-            toast.success("Address Edited.", {
+            toast.success("Address Editedoooooo.", {
                 autoClose: 2000,
             });
             router.push('/backoffice/employeeaddress');
