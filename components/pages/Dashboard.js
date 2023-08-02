@@ -31,6 +31,8 @@ export const Dashboard = () => {
     },[date])
 
     const onLoad = async () => {
+        if(!(date?.Start_Date && date?.End_Date)) { return }
+
         const resBestSellerProduct = await getBestSellerProductReport({
             "Start_Date": DateFormat(date?.Start_Date),
             "End_Date": DateFormat(date?.End_Date)

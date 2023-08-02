@@ -27,8 +27,7 @@ const page = () => {
     const [form, setForm] = useState({})
     const [payment, setPayment] = useState({})
     const [meta, setMeta] = useState({Promotion: null, Delevery_Address: null})
-    console.log(form);
-
+    
     useEffect(() => {
         const _signIn = signIn()
         if(!_signIn) router.push('/login');
