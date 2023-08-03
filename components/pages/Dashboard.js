@@ -149,7 +149,7 @@ export const Dashboard = () => {
                                             <td className='l px-2'>{product?.Product_Type_Name || '-'}</td>
                                             <td className='c px-2'>{DateFormat(product?.Sale_Date) || '-'}</td>
                                             <td className='c px-2'>{product?.Sale_Status || '-'}</td>
-                                            <td className='r px-2'>{product?.Product_Price.toFixed(2) || '0.00'}</td>
+                                            <td className='r px-2'>฿{product?.Product_Price.toFixed(2) || '0.00'}</td>
                                         </tr>
                                     })
                                 })}
@@ -158,7 +158,7 @@ export const Dashboard = () => {
                     </div>
                     <div className='w-full rounded-b-md font-bold bg-white pb-10 px-10 z-10 absolute bottom-0'>
                         <div className='w-full h-[5vh] bg-gray text-brown flex items-center justify-end px-2 r'>
-                            Total Revenue: {total.toFixed(2) || '0.00'}
+                            Total Revenue: ฿{total.toFixed(2) || '0.00'} Baht
                         </div>
                     </div>
                 </div>
