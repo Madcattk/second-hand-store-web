@@ -12,8 +12,6 @@ export async function POST(request) {
         Employee_Birth_Date, 
         Employee_Image,
         Employee_Phone } = await request.json();
-
-        const formattedDate = DateFormat(Employee_Birth_Date)
     try {       
         const conn = await dbConnection();
         const [existingEmployee] = await conn.execute('SELECT * FROM Employee WHERE Employee_Email = ?', [Employee_Email]);
@@ -37,7 +35,7 @@ export async function POST(request) {
             Employee_Email,
             Employee_Password,
             Employee_Sex,
-            formattedDate,
+            DateFormat(Employee_Birth_Date),
             Employee_Image,
             Employee_Phone
         ];

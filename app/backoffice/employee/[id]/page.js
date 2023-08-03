@@ -1,14 +1,14 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Select, DatePicker } from 'antd';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import '@/styles/toastStyles.css';
 import { useParams, useRouter } from 'next/navigation';
 import { editEmployeeById, getEmployeeById } from '@app/api/getAPI/employee';
 import { WhiteInputFile } from '@components/inputs';
 import { MetaSex } from '@components/Meta';
 import { DateFormat } from '@components/formats';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '@/styles/toastStyles.css';
 
 const layout = {
   labelCol: {

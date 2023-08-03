@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Space, Table, Button, Row } from 'antd';
 import { useRouter } from 'next/navigation';
 import { getAllProducts } from '@app/api/getAPI/product';
+import { DateFormat } from '@components/formats';
 import Image from 'next/image';
 const { Column } = Table;
 
@@ -15,7 +16,15 @@ const App = () => {
 
     const onLoad = async () => {
         const res = await getAllProducts();
-        setData(res?.data || []);
+        if(res?.message === 'success'){
+            let data = [];
+            res?.data?.forEach((item, index) => {
+                data.push({ ...item, Product_Date: DateFormat(item.Product_Date)})
+            })
+            setData(data || []);
+        
+        }
+        
     };
 
     return (

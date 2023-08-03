@@ -7,7 +7,6 @@ import { DateFormat } from '@components/formats';
 import Image from 'next/image';
 const { Column } = Table;
 
-
 const App = () => {
     const router = useRouter();
     const [data, setData] = useState([]);
@@ -55,9 +54,9 @@ const App = () => {
                         </div>
                     )}
                 /> 
-                
-                <Column title="Employee_Phone" dataIndex="Employee_Phone" key="Employee_Phone" />
-                <Column
+            
+                <Column title="Employee_Phone" dataIndex="Employee_Phone" key="Employee_Phone" /> 
+                 <Column
                     title="Action"
                     key="action"
                     render={(_, record) => (

@@ -1,7 +1,15 @@
 "use client"
-import React from 'react';
-import { UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select, DatePicker, Upload } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Form, Input, Select, DatePicker} from 'antd';
+import { DateFormat } from '@components/formats';
+import { useParams, useRouter } from 'next/navigation';
+import { editProductById, getProductById } from '@app/api/getAPI/product';
+import { MetaProductStatus, MetaSex } from '@components/Meta';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '@/styles/toastStyles.css';
+import { WhiteInputFile } from '@components/inputs';
+
 const layout = {
   labelCol: {
     span: 8,
@@ -10,170 +18,202 @@ const layout = {
     span: 16,
   },
 };
-const normFile = (e) => {
-  console.log('Upload event:', e);
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e?.fileList;
-};
+
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: '${label} is required!',
 };
 /* eslint-enable no-template-curly-in-string */
+const App = () => {
+  const { id } = useParams();
+  const router = useRouter();
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true); // Add a loading state
 
-const onFinish = (values) => {
-  console.log(values);
-};
-const App = () => (
-  <Form
-    {...layout}
-    name="nest-messages"
-    onFinish={onFinish}
-    style={{
-      maxWidth: 600,
-    }}
-    validateMessages={validateMessages}
-  >
+  useEffect(() => {
+    onLoad();
+  }, []);
 
-    <Form.Item
-      name={['user', 'id']}
-      label="ID"
-      rules={[
-        {
-          required: true,
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
+  const onChange = (update) => setData({ ...data, ...update })
 
-    <Form.Item
-      name={['user', 'product name']}
-      label="Product Name"
-      rules={[
-        {
-          required: true,
-        },
-
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    <Form.Item
-      name={['user', 'price']}
-      label="Price"
-      rules={[
-        {
-          required: true,
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-
-    <Form.Item
-      name={['user', 'description']}
-      label="Description"
-      rules={[
-        {
-          type: 'Description',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-
-    <Form.Item
-      name="upload"
-      label="Upload"
-      getValueFromEvent={normFile}
-    >
-      <Upload name="logo" action="/upload.do" listType="picture">
-        <Button icon={<UploadOutlined />}>Product Image</Button>
-      </Upload>
-    </Form.Item>
-
-    <Form.Item label="Sex">
-      <Select>
-        <Select.Option value="male">Male</Select.Option>
-        <Select.Option value="female">Female</Select.Option>
-        <Select.Option value="others">Others</Select.Option>
-      </Select>
-    </Form.Item>
-
-    <Form.Item label="Product date">
-      <DatePicker />
-    </Form.Item>
+  const onLoad = async () => {
+    const res = await getProductById(id);
+    res.data[0].Product_Date = DateFormat(res.data[0].Product_Date);
+    setData(res?.data?.[0] || {});
+    setLoading(false); // Set loading to false after data is fetched
+  };
 
 
-    <Form.Item label="Status">
-      <Select>
-        <Select.Option value="unavailable">Unavailable</Select.Option>
-        <Select.Option value="available">Available</Select.Option>
-      </Select>
+  const onFinish = async ({ form, ...restValues }) => {
+    const updatedValues = {
+      ...restValues,
+      Product_Image: data?.Product_Image || null,
+      Product_Date: DateFormat(form?.Product_Date),
+      Product_Sex: form?.Product_Sex
+    };
 
-    </Form.Item>
+    const res = await editProductById(updatedValues);
+    if (res?.message === 'success') {
+      toast.success("Product Edited.", {
+        autoClose: 2000,
 
-    <Form.Item
-      name={['user', 'producttypeid']}
-      label="Product Type Id"
-      rules={[
-        {
-          type: 'Product Type Id',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
+      });
+      router.push('/backoffice/product');
+    }
+  };
 
-    <Form.Item
-      name={['user', 'sizeid']}
-      label="Size Id"
-      rules={[
-        {
-          type: 'Size Id',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    <Form.Item
-      name={['user', 'productsizedetail']}
-      label="PProduct Size Detail"
-      rules={[
-        {
-          type: 'Product Size Detail',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    <Form.Item
-      name={['user', 'saleid']}
-      label="Sale Id"
-      rules={[
-        {
-          type: 'Sale Id',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-    <Form.Item
-      wrapperCol={{
-        ...layout.wrapperCol,
-        offset: 8,
-      }}
-    >
-      <Button type="primary" htmlType="submit">
-        Submit
-      </Button>
-    </Form.Item>
-  </Form>
-);
+  return (
+    <>
+      {loading ? (
+        <div>Loading...</div> // Show a loading message or spinner while data is being fetched
+      ) : (
+        <Form
+          {...layout}
+          name="nest-messages"
+          onFinish={onFinish}
+          style={{
+            maxWidth: 600,
+          }}
+          validateMessages={validateMessages}
+          initialValues={data}
+        >
+
+          <Form.Item
+            name="Product_Id"
+            label="Product Id"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="Product_Name"
+            label="Product Name"
+            rules={[
+              {
+                required: true,
+              },
+
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="Product_Price"
+            label="Product Price"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="Product_Description"
+            label="Product Description"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item label="Product Sex" name={['form', 'Product_Sex']}>
+            <Select>
+              {MetaSex.map((item, index) => {
+                return <Select.Option key={"Sex" + index} value={item.id}>{item.name}</Select.Option>
+              })}
+            </Select>
+          </Form.Item>
+
+          <Form.Item label="Product Date" name={['form', 'Product_Date']}>
+            <DatePicker />
+          </Form.Item>
+
+
+          <Form.Item label="Product Status	" name={['form', 'Product_Status']}>
+            <Select>
+              {MetaProductStatus.map((item, index) => {
+                return <Select.Option key={"Status" + index} value={item.id}>{item.name}</Select.Option>
+              })}
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name="Product_Type_Id"
+            label="Product Type Id"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="Size_Id"
+            label="Size Id"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="Product_Size_Detail"
+            label="Product Size Detail"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="Sale_Id"
+            label="Sale_Id"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <div className='w-full flex justify-center'>
+            <WhiteInputFile onChange={(Product_Image) => onChange({ Product_Image })} value={data?.Product_Image || ''} placeholder='Profile Picture' classBox='w-[50%]' />
+          </div>
+
+          <Form.Item
+            wrapperCol={{
+              ...layout.wrapperCol,
+              offset: 8,
+
+            }}
+          >
+            <Button htmlType="submit" type="primary" danger>
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      )}
+    </>
+  );
+}
+
 export default App;
-
-
