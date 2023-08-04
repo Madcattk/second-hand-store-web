@@ -8,7 +8,8 @@ export async function POST(request) {
         const query = `
             SELECT * 
             FROM Sale 
-            WHERE Member_Id = ${Member_Id} `;
+            WHERE Member_Id = ${Member_Id} 
+            ORDER BY Sale_Date DESC`;
         const values = [];
         const [result] = await conn.execute(query, values);
         const data = result;
