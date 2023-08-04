@@ -147,7 +147,7 @@ const page = () => {
           <InputSelect onChange={(sex) => onChange({ sex })} value={form?.sex || ''} options={MetaSex} placeholder='Gender' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
           <div className='flex lg:w-[500px] md:w-[450px] sm:w-96 w-72'>
             <InputBox onChange={(email) => onChange({ email })} value={form?.email || ''} placeholder='Email' classBox='w-full border-r border-brown'/>
-            <InputBox onChange={(password) => onChange({ password })} value={form?.password || ''} placeholder='Password' classBox='w-full'/>
+            <InputBox password={true} onChange={(password) => onChange({ password })} value={form?.password || ''} placeholder='Password' classBox='w-full'/>
           </div>
           <InputBox number={true} onChange={(phone) => onChange({ phone })} value={form?.phone || ''} placeholder='Phone Number' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
           <ButtonText onClick={() => onSave()} placeholder='REGISTER' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72 pb-2 pt-14'/>

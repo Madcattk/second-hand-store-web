@@ -15,12 +15,12 @@ export const TransparentButtonText = ({ classBox = "", placeholder = "", onClick
     </div>
 );
 
-export const InputBox = ({ value = "", onChange, classBox = "", placeholder = "", number = null }) => {
+export const InputBox = ({ value = "", onChange, classBox = "", placeholder = "", number = null, password = null }) => {
     return (
         <div className={`${classBox}`}>
             <input
                 className={`border-b-brown border-b px-1 py-3 outline-none w-full text-brown`}
-                type={'text'}
+                type={password ? 'password' : 'text'}
                 value={value}
                 onChange={(e) => onChange ? onChange(number ? e.target.value.replace(/[^0-9]/g, '') : e.target.value) : {}}
                 placeholder={placeholder}
