@@ -12,7 +12,6 @@ export async function PUT(request) {
 
         const values = [MetaSaleStatus[4].id];
         const [updateResult] = await conn.execute(updateQuery, values);
-        console.log(updateQuery);
 
         const selectQuery = `SELECT Sale_Id FROM Sale
             WHERE Sale_Status = ? AND DATEDIFF(NOW(), Sale_Date) > 3;`;
