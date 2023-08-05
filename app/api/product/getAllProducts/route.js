@@ -11,7 +11,7 @@ export async function POST(request) {
             LEFT JOIN Size s ON p.Size_Id = s.Size_Id
             JOIN Product_Type pt ON p.Product_Type_Id = pt.Product_Type_Id
             ORDER BY p.Product_Status
-            ${(Limit.Limit === true) ? 'LIMIT 9' : ''};
+            ${(Limit.Limit === true) ? 'LIMIT 6' : ''};
         `;
         const values = [];
         const [result] = await conn.execute(query, values);

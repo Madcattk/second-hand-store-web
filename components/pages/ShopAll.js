@@ -75,7 +75,7 @@ const ShopAll = () => {
                     </div>
                 ))}
             </div>
-            {limit && (!(searchValue.searchInput && searchValue.searchSex && searchValue.searchType)) &&
+            {limit && (!(searchValue.searchInput || searchValue.searchSex || searchValue.searchType)) &&
                 <div className='xl:w-[1200px] lg:w-[900px] md:w-[700px] sm:w-[500px] w-[500px] flex justify-center py-7'>
                     <ButtonText onClick={() => setLimit(false)} placeholder='View All' classBox='w-44'/>
                 </div>
