@@ -72,7 +72,7 @@ const page = () => {
                             <i><FontAwesomeIcon icon={faSearch} size="lg"/></i>
                             <span className='text-[23px] font-light'>{form?.Member_Username || ''}</span>
                         </div>
-                        <a onClick={() => setMenu(0)} className='py-2 text-[16px] font-light hover:underline cursor-pointer show md:hidden'>Edit Profile</a>
+                        <a onClick={() => onLogOut()} className='py-2 text-[16px] font-light hover:underline cursor-pointer show md:hidden'>Logout</a>
                         </div>
                     </div>
                     <div className='py-2 text-[16px] font-light md:block hidden'><span className='cursor-pointer hover:underline' onClick={() => onLogOut()}>Logout</span></div>

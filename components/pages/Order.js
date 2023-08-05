@@ -11,8 +11,11 @@ import { addPayment, editPaymentById } from '@app/api/getAPI/payment';
 import { MetaProductStatus, MetaSaleStatus } from '@components/Meta';
 import { updateSaleStatusById } from '@app/api/getAPI/sale';
 import ReviewModal from './ReviewModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleLeft } from '@fortawesome/free-solid-svg-icons'; 
 
 export const Order = ({ form, onChange, onLoad }) => {
+    const router = useRouter();
 
     const onUpLoadSlip = async () => {
         if(!form?.Payment){
@@ -90,7 +93,7 @@ export const Order = ({ form, onChange, onLoad }) => {
         <div className='w-full flex_center'>
             <div className='xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 flex_center flex-col gap-3 px-5 py-3 border border-brown mb-5'>
                 <div className='w-full flex flex-col md:flex-row md:items-end justify-between font-light'>
-                    <span>ORDER NO: {form?.Sale_Id || ''}</span>
+                    <span><FontAwesomeIcon icon={faCircleLeft} className='cursor-pointer' onClick={() => router.back()}/> ORDER NO: {form?.Sale_Id || ''}</span>
                     <span className='text-sm'>Date: {DateFormat(form?.Sale_Date) || ''}</span>
                     <span>{form?.Sale_Status || ''}</span>
                 </div>
@@ -166,7 +169,7 @@ export const Review = ({ form, onChange, onLoad }) => {
         <div className='w-full flex_center relative'>
             <div className='xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 flex_center flex-col gap-3 px-5 py-3 border border-brown mb-5'>
                 <div className='w-full flex flex-col md:flex-row md:items-end justify-between font-light'>
-                    <span>ORDER NO: {form?.Sale_Id || ''}</span>
+                    <span><FontAwesomeIcon icon={faCircleLeft} className='cursor-pointer' onClick={() => router.back()}/> ORDER NO: {form?.Sale_Id || ''}</span>
                     <span className='text-sm'>Date: {DateFormat(form?.Sale_Date) || ''}</span>
                     <span>{form?.Sale_Status || ''}</span>
                 </div>

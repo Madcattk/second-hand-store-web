@@ -13,6 +13,7 @@ import { getAllProductTypes } from '@app/api/getAPI/product-type';
 import { MetaProductSex } from './Meta';
 import { InputBox } from './inputs';
 import { inputAuth } from '@redux/authSlice';
+import { getLatestProduct } from '@app/api/getAPI/product';
 
 
 const NavMember = ({ children }) => {
@@ -48,13 +49,19 @@ const NavMember = ({ children }) => {
         }
     };
     
+    const onLatestItem = async() => {
+        const res = await getLatestProduct();
+        if(res?.data?.[0]?.Product_Id) router.push(`/member/product/${res?.data?.[0]?.Product_Id}`);
+    }
+
     const onChange = (update) => setForm({ ...update, searchType: '', searchSex: '' })
 
     return (
         <>
             {!authValue?.Employee_Id &&
                 <>
-                    <div className="flex_center h-16 text-brown text-base font-light mb-5">
+                    <div onClick={() => onLatestItem()} className="flex_center py-2 bg-brown text-white text-sm font-extralight cursor-pointer hover:bg-opacity-90">Discover Our Exquisite Pre-Loved Gem Today &rarr;</div>
+                    <div className="flex_center py-4 text-brown text-base font-light">
                         <div className="hidden md:flex md:justify-start">
                             <div className="group relative">
                                 <button onClick={() => {setForm({searchInput: '', searchType: '', searchSex: ''});router.push('/');}} className="menu-hover border-none bg-white text-base font-light pr-8">SHOP</button>
@@ -82,7 +89,7 @@ const NavMember = ({ children }) => {
                             </div>
                         </div>
                         <div className="w-72 xl:w-[780px] lg:w-[480px] md:w-[280px] transform-none text-center text-2xl font-bold cursor-pointer">       
-                            <a onClick={() => {setForm({searchInput: '', searchType: '', searchSex: ''});router.push('/');}} className="no-underline text-gray-800">Second Hand Store</a>
+                            <a onClick={() => {setForm({searchInput: '', searchType: '', searchSex: ''});router.push('/');}} className="no-underline text-brown">Second Hand Store</a>
                         </div>
                         <div className="hidden md:flex md:justify-end">
                             <a onClick={() => {setSearch(!search); if(!search)setForm({...form, searchInput: ''});router.push('/');}} className="block px-6 py-2 cursor-pointer">

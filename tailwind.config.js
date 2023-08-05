@@ -10,7 +10,8 @@ module.exports = {
       fontFamily: {
       },
       colors: {
-        'brown': '#31311c',
+        // 'brown': '#31311c',
+        'brown': '#000',
         'hover': '#EEEEEE',
         'gray': '#D8D8D8',
         'greyV1': '#9D9D9D',

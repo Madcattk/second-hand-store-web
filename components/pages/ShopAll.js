@@ -38,7 +38,7 @@ const ShopAll = () => {
         }
     }
     return (
-        <>
+        <div className='xl:w-[1200px] lg:w-[900px] md:w-[700px] sm:w-[500px] w-[500px] grid lg:grid-cols-9 md:grid-cols-6 grid-cols-4 gap-4 px-10'>
             {form?.map((item, index)=>(
                 <div onClick={() => router.push(`/member/product/${item?.Product_Id}`)} className='cursor-pointer md:col-span-3 col-span-2 w-full flex flex-col items-center' key={"Product"+index}>
                     <div className='w-full flex justify-center'>
@@ -71,8 +71,8 @@ const ShopAll = () => {
                     </div> 
                 </div>
             ))}
-        </>
-)
+        </div>
+    )
 }
 
 export default ShopAll

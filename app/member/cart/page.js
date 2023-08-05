@@ -4,7 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 import { ButtonText, InputBox, InputFile, InputSelect } from '@components/inputs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons'; 
+import { faXmark, faCircleLeft } from '@fortawesome/free-solid-svg-icons'; 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
@@ -197,7 +197,10 @@ const page = () => {
                 {(auth?.Product_Id && auth?.Product_Id?.length > 0) ?
                 <>
                     <div className='lg:col-span-2 col-span-1 p-10 flex flex-col gap-3 md:border-r border-brown'>
-                        <div className='text-3xl'>Summary</div>
+                        <div className='flex gap-2 items-center'>
+                            <FontAwesomeIcon onClick={() => router.back()} icon={faCircleLeft} size='lg' className='cursor-pointer'/>
+                            <div className='text-3xl'>Summary</div>
+                        </div>
                         <div className='w-full flex justify-between text-[10px] font-light'>
                             <span>PRODUCT</span>
                             <span>PRICE</span>
