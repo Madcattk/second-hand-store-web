@@ -269,7 +269,7 @@ const page = () => {
                                 </div>
                             </div>
                         }
-                        <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} placeholder='Profile Picture' classBox='w-full'/>
+                        <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} buttonText='Upload Slip' placeholder='Profile Picture' classBox='w-full'/>
                         <label htmlFor="order_slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
                         <ButtonText onClick={() => onSave()} placeholder='CHECK OUT' classBox='w-full'/>
                     </div>

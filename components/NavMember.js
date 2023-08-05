@@ -14,6 +14,7 @@ import { MetaProductSex } from './Meta';
 import { InputBox } from './inputs';
 import { inputAuth } from '@redux/authSlice';
 import { getLatestProduct } from '@app/api/getAPI/product';
+import Footer from './pages/Footer';
 
 
 const NavMember = ({ children }) => {
@@ -110,7 +111,9 @@ const NavMember = ({ children }) => {
                     <InputBox onChange={(searchInput) => onChange({ searchInput })} value={form?.searchInput || ''} placeholder='Search' classBox='md:w-[500px] w-[300px]'/>
                 </div>
             }
-            <div className=''>{children}</div>
+            <div className='min-h-screen'>{children}</div>
+
+            <Footer/>
         </div>
     )
 }

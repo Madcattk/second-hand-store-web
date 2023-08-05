@@ -139,7 +139,7 @@ export const Order = ({ form, onChange, onLoad }) => {
                 {(form?.Sale_Status === MetaSaleStatus?.[0]?.id ||  form?.Sale_Status === MetaSaleStatus?.[3]?.id) &&
                     <>
                         <div className='w-full border-b border-gray'></div>
-                        <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} placeholder='Profile Picture' classBox='w-full'/>
+                        <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} buttonText='Upload Slip' placeholder='Profile Picture' classBox='w-full'/>
                         <label htmlFor="Payment_Slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
                         <div className='w-full flex justify-end'><ButtonText onClick={() => onUpLoadSlip()} placeholder='UPLOAD' classBox='w-72'/></div>
                     </>
