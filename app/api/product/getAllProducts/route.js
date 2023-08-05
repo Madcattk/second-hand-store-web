@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import dbConnection from "@/lib/db";
 
-export async function GET(request) {
+export async function POST(request) {
+    const { Limit } = await request.json();
     try {       
         const conn = await dbConnection()
         const query = `
@@ -9,7 +10,8 @@ export async function GET(request) {
             FROM Product p
             LEFT JOIN Size s ON p.Size_Id = s.Size_Id
             JOIN Product_Type pt ON p.Product_Type_Id = pt.Product_Type_Id
-            ORDER BY p.Product_Status;
+            ORDER BY p.Product_Status
+            ${(Limit.Limit === true) ? 'LIMIT 9' : ''};
         `;
         const values = [];
         const [result] = await conn.execute(query, values);

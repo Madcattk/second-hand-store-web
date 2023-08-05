@@ -1,10 +1,11 @@
-export async function getAllProducts() {
+export async function getAllProducts(Limit) {
     try {
         const response = await fetch(`http://localhost:3000/api/product/getAllProducts`, {
-            method: 'GET',
+            method: 'POST',
             headers: {
             'Content-Type': 'application/json',
-            }
+            },
+            body: JSON.stringify({Limit}),
         });
         if (response.ok) {
             return await response.json();

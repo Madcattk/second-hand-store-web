@@ -7,7 +7,7 @@ const Footer = () => {
     const router = useRouter();
     
     return (
-        <div className='text-brown w-full py-10 xl:px-44 lg:px-20 px-10 border-t border-hover flex gap-5  md:flex-row md:justify-between flex-col justify-center'>
+        <div className='text-brown w-full mt-5 py-10 xl:px-44 lg:px-20 px-10 border-t border-hover flex gap-5  md:flex-row md:justify-between flex-col justify-center'>
             <div className='flex gap-10'>
                 <div className='flex flex-col gap-5 min-w-[150px]'>
                     <div className='uppercase text-greyV1 text-xs'>About Second Hand Store</div>

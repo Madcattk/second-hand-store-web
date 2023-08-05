@@ -15,7 +15,7 @@ const App = () => {
     }, []);
 
     const onLoad = async () => {
-        const res = await getAllProducts();
+        const res = await getAllProducts({Limit: false});
         if(res?.message === 'success'){
             let data = [];
             res?.data?.forEach((item, index) => {
