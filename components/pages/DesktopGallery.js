@@ -25,7 +25,7 @@ const DesktopGallery = () => {
                 >
                 {carouselImages.map((imageUrl, index) => (
                     <div key={index} className='w-full h-[80vh] relative'>
-                    <Image src={imageUrl} layout='fill' alt='' priority={true} className='object-cover' />
+                        <Image src={imageUrl} fill={true} alt='' priority={true} className='object-cover' />
                     </div>
                 ))}
                 </Carousel>

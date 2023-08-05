@@ -11,14 +11,16 @@ export async function POST(request) {
             query = `
                 SELECT *
                 FROM Product
-                WHERE Product_Type_Id = '${searchType}' ;
+                WHERE Product_Type_Id = '${searchType}' 
+                ORDER BY Product_Status;
             `;
         }
         else if(searchInput){
             query = `
                 SELECT *
                 FROM Product
-                WHERE LOWER(Product_Name) LIKE LOWER(?);
+                WHERE LOWER(Product_Name) LIKE LOWER(?)
+                ORDER BY Product_Status;
             `;
             values = [`%${searchInput.toLowerCase()}%`]
         }
@@ -26,7 +28,8 @@ export async function POST(request) {
             query = `
                 SELECT *
                 FROM Product
-                WHERE Product_Sex = '${searchSex}' ;
+                WHERE Product_Sex = '${searchSex}' 
+                ORDER BY Product_Status;
             `;
         }
         const [result] = await conn.execute(query, values);
