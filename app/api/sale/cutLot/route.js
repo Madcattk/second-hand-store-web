@@ -8,7 +8,7 @@ export async function PUT(request) {
         const conn = await dbConnection();
         const updateQuery = `UPDATE Sale SET 
             Sale_Status = ?
-            WHERE DATEDIFF(NOW(), Sale_Date) > 3 AND (Sale_Status = '${MetaSaleStatus[0].id}' OR Sale_Status = '${MetaSaleStatus[3].id}');`;
+            WHERE (DATEDIFF(NOW(), Sale_Date) > 3 AND Sale_Status = '${MetaSaleStatus[0].id}') || (DATEDIFF(NOW(), Sale_Date) > 6 AND Sale_Status = '${MetaSaleStatus[3].id}');`;
 
         const values = [MetaSaleStatus[4].id];
         const [updateResult] = await conn.execute(updateQuery, values);
