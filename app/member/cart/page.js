@@ -241,7 +241,7 @@ const page = () => {
                     </div>
                     <div className='p-10 col-span-1 flex flex-col gap-3'>
                         <div className='py-2 text-xl font-light'>Delivery Information</div>
-                        <div className='w-full flex flex-col gap-3 max-h-[260px] overflow-y-auto'>
+                        <div className='w-full flex flex-col gap-3 max-h-[255px] overflow-y-auto'>
                             {form?.Address?.map((item,index) => (
                                 <label className={`${form?.Color_Address === index ? 'bg-brown text-white' : ''} cursor-pointer p-3 border border-brown w-full font-light`} key={"Customer-Address" + index}>
                                     <input type="radio" name="selectedAddress" onChange={handleAddressSelection} value={index} className="hidden"/>
@@ -270,6 +270,16 @@ const page = () => {
                             </div>
                         }
                         <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} buttonText='Upload Slip' placeholder='Profile Picture' classBox='w-full'/>
+                        <div className='text-sm border border-brown p-5 relative'>
+                            <span className='absolute bg-white left-5'>
+                            <Image src={"/assets/images/payment/scb.jpeg"} alt="Bank" width={50} height={10}/>
+                            </span>
+                            <span className='pl-14'>
+                                Siam Commercial Bank PCL. <br />
+                                Account Number: 345-455-3453 <br />
+                                Account Name: Second Hand store <br />
+                            </span>
+                        </div>
                         <label htmlFor="order_slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
                         <ButtonText onClick={() => onSave()} placeholder='CHECK OUT' classBox='w-full'/>
                     </div>
