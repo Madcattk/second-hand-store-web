@@ -42,7 +42,7 @@ const page = () => {
                             <ul className='list-decimal pl-5'>
                                 <li>Select your items: Browse our wide selection of pre-loved treasures and add your chosen items to the cart.</li>
                                 <li>Checkout: During the checkout process, choose the "Upload Slip" payment option.</li>
-                                <li>Upload payment slip: After completing the order, you'll receive an order confirmation email with instructions on how to proceed with payment. To utilize the "Upload Slip" payment option, please ensure that you upload the payment slip within 3 days of placing your order.</li>
+                                <li>Upload payment slip: After completing the order, your order details will be shown on your profile with instructions on how to proceed with payment. To utilize the "Upload Slip" payment option, please ensure that you upload the payment slip within 3 days of placing your order.</li>
                                 <li>Order processing: Once we receive and verify your payment slip, our team will process your order and get it ready for shipping.</li>
                             </ul>
                             <p>The "upload slip within 3 days" policy allows us to promptly fulfill orders and ensure a smooth shopping experience for all our valued customers.</p>
