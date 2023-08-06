@@ -9,7 +9,9 @@ const DesktopGallery = () => {
     const carouselImages = [
         '/assets/images/desktops/333_img_desktop.jpg',
         '/assets/images/desktops/334_img_desktop.jpg',
-        '/assets/images/desktops/335_img_desktop.jpg'
+        '/assets/images/desktops/335_img_desktop.jpg',
+        // '/assets/images/desktops/desktop4.jpg',
+        // '/assets/images/desktops/desktop3.jpg',
     ];
     return (
         <>

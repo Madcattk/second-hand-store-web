@@ -45,7 +45,7 @@ const page = () => {
                                 <li>Upload payment slip: After completing the order, your order details will be shown on your profile with instructions on how to proceed with payment. To utilize the "Upload Slip" payment option, please ensure that you upload the payment slip within 3 days of placing your order.</li>
                                 <li>Order processing: Once we receive and verify your payment slip, our team will process your order and get it ready for shipping.</li>
                             </ul>
-                            <p>The "upload slip within 3 days" policy allows us to promptly fulfill orders and ensure a smooth shopping experience for all our valued customers.</p>
+                            <p>The "Upload Slip within 3 days" policy allows us to promptly fulfill orders and ensure a smooth shopping experience for all our valued customers.</p>
                             <p>If you encounter any challenges or have inquiries about the "upload slip" payment option or any other aspect, our dedicated customer support team is ready to assist you. Feel free to reach out to us via <strong>second-hand-store@gmail.com</strong></p>
                             <p>Thank you for choosing Second Hand Store for your shopping needs. Your support aids us in promoting sustainability while providing premium service and top-quality products.</p>
                             <p>Happy shopping!</p>
@@ -73,7 +73,7 @@ const page = () => {
                         <div className='text-3xl font-bold pb-10'>Order Status</div>
                         <div className='flex flex-col gap-10'>
                             <ul className='list-decimal pl-5'>
-                                <li><strong>Waiting To Pay &#40;Upload Slip within 3 days&#41;:</strong> Your order is currently in the "Waiting to Pay" status. You have items in your cart, and we're excited to fulfill your order. To proceed with your purchase, please complete the payment process within 3 days. After you've completed the order, your order details will be shown on your profile.</li>
+                                <li><strong>Waiting To Pay &#40;Upload Slip within 3 days&#41;:</strong> Your order is currently in the "Waiting To Pay" status. You have items in your cart, and we're excited to fulfill your order. To proceed with your purchase, please complete the payment process within 3 days. After you've completed the order, your order details will be shown on your profile.</li>
                                 <li><strong>Waiting:</strong> Your payment has been successfully submitted, and your order is now in the "Waiting" status. Our team is reviewing your payment to ensure its accuracy. Once verified, your order will progress to the next stage.</li>
                                 <li><strong>Confirmed:</strong> Congratulations! Your payment has been verified, and your order is now in the "Confirmed" status. Our team is preparing your items for shipment, and you can expect an update with tracking information soon.</li>
                                 <li><strong>Invalid &#40;Upload Slip within 3 days&#41;:</strong> Unfortunately, your payment was not successful, and your order has been placed in the "Invalid" status. To complete your purchase, please upload the payment slip within 3 days. Then your order details will be shown on your profile.</li>
