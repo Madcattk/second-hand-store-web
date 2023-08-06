@@ -58,9 +58,9 @@ const NavMember = ({ children }) => {
     const onChange = (update) => setForm({ ...update, searchType: '', searchSex: '' })
 
     return (
-        <div className='relative'>
-            {!authValue?.Employee_Id &&
-                <React.Fragment>
+        <React.Fragment>
+            {!authValue?.Employee_Id ?
+                <div className='relative'>
                     <div onClick={() => onLatestItem()} className="flex_center py-2 bg-brown text-white text-sm font-extralight cursor-pointer hover:bg-opacity-90">Discover Our Exquisite Pre-Loved Gem Today &rarr;</div>
                     <div className="sticky top-0 z-50 flex_center py-4 text-brown text-base font-light bg-white">
                         <div className="hidden md:flex md:justify-start">
@@ -104,17 +104,18 @@ const NavMember = ({ children }) => {
                             </a>
                         </div>
                     </div> 
-                </React.Fragment>
-            }   
-            {search && 
-                <div className='flex_center pb-10'>
-                    <InputBox onChange={(searchInput) => onChange({ searchInput })} value={form?.searchInput || ''} placeholder='Search' classBox='md:w-[500px] w-[300px]'/>
+                    {search && 
+                        <div className='flex_center pb-10'>
+                            <InputBox onChange={(searchInput) => onChange({ searchInput })} value={form?.searchInput || ''} placeholder='Search' classBox='md:w-[500px] w-[300px]'/>
+                        </div>
+                    }
+                    <div className='min-h-screen'>{children}</div>
+                    <Footer/>
                 </div>
+            :
+                <React.Fragment>{children}</React.Fragment>   
             }
-            <div className='min-h-screen'>{children}</div>
-
-            <Footer/>
-        </div>
+        </React.Fragment>
     )
 }
 
