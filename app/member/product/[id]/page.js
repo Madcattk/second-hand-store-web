@@ -76,7 +76,7 @@ const page = () => {
                         alt="Product"
                         width={280}
                         height={0}
-                        className='lg:h-[550px] lg:w-[450px] h-[400px] w-[300px] object-cover hover:scale-[1.01] transform transition-transform duration-200'
+                        className='lg:h-[550px] lg:w-[450px] h-[400px] w-[300px] object-cover'
                     />
                 </div>
                 <div className='flex flex-col gap-2'>

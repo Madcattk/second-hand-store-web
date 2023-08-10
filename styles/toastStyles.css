@@ -1,22 +1,18 @@
 /* Custom styles for the timeline */
-.Toastify__toast-container {
-    .Toastify__progress-bar--success {
-      background-color: #EEEEEE; /* Change the color of the progress bar */
-    }
-    .Toastify__progress-bar--error {
-      background-color: #FF8989; /* Change the color of the progress bar */
-    }
-  }
-  
-  /* Custom styles for the toast container */
-  .Toastify__toast-container {
-    .Toastify__toast {
-      background-color: #31311c; /* Change the background color of the toast */
-      color: #fff; /* Change the text color of the toast */
-    }
-  }
+.Toastify__toast-container .Toastify__progress-bar--success {
+  background-color: #EEEEEE; /* Change the color of the progress bar */
+}
 
-  .Toastify__close-button {
-    color: #fff; /* Change the color of the close button */
-  }
-  
+.Toastify__toast-container .Toastify__progress-bar--error {
+  background-color: #FF8989; /* Change the color of the progress bar */
+}
+
+/* Custom styles for the toast container */
+.Toastify__toast-container .Toastify__toast {
+  background-color: #31311c; /* Change the background color of the toast */
+  color: #fff; /* Change the text color of the toast */
+}
+
+.Toastify__close-button {
+  color: #fff; /* Change the color of the close button */
+}
