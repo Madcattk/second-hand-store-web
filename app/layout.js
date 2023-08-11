@@ -1,6 +1,6 @@
 "use client"
 import '@/styles/globals.css'
-import NavMember from '@components/NavMember'
+import Nav from '@components/Nav'
 import { Inter } from 'next/font/google'
 import { ToastContainer } from 'react-toastify';
 import { store } from '@redux/store';
@@ -21,9 +21,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Provider store={store}>
-          <NavMember>
+          <Nav>
             {children}
-          </NavMember>
+          </Nav>
           <ToastContainer position={'bottom-right'} icon={false}/>
         </Provider>
       </body>
