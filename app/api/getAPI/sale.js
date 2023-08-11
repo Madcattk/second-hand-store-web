@@ -136,3 +136,23 @@ export async function getSalesBySaleStatus(Sale_Status) {
             console.error(error);
         }
 };
+
+export async function updateSaleTrackingNumberById(sale) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/sale/updateSaleTrackingNumberById`, {
+            method: 'PUT',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(sale),
+        });
+        if (response.ok) {
+            return await response.json();
+        } else {
+            const errorData = await response.json();
+            console.error(errorData);
+        }
+        } catch (error) {
+            console.error(error);
+        }
+};
