@@ -67,7 +67,7 @@ const App = () => {
                         label="Size Id"
                         rules={[
                             {
-                                type: 'Size Id',
+                                required: true,
                             },
                         ]}
                     >

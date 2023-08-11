@@ -13,7 +13,6 @@ const App = () => {
     useEffect(() => {
         onLoad();
     }, []);
-
     const onLoad = async () => {
         const res = await getAllEmployees();
         if(res?.message === 'success'){
@@ -22,9 +21,7 @@ const App = () => {
                 data.push({ ...item, Employee_Birth_Date: DateFormat(item.Employee_Birth_Date)})
             })
             setData(data || []);
-        
         }
-        
     };
 
     return (
@@ -36,7 +33,6 @@ const App = () => {
                     </Button>
                 </Space>
             </Row>
-
             <Table dataSource={data} rowKey="Employee_Id">
                 <Column title="Employee_Id" dataIndex="Employee_Id" key="Employee_Id" />
                 <Column title="Employee_Firstname" dataIndex="Employee_Firstname" key="Employee_Firstname" />

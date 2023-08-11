@@ -39,14 +39,12 @@ const App = () => {
   }, []);
 
   const onChange = (update) => setData({ ...data, ...update })
-
   const onLoad = async () => {
     const res = await getEmployeeById(id);
     res.data[0].Employee_Birth_Date = DateFormat(res.data[0].Employee_Birth_Date);
     setData(res?.data?.[0] || {});
     setLoading(false); // Set loading to false after data is fetched
   };
-
 
   const onFinish = async ({ form, ...restValues }) => {
     const updatedValues = {
@@ -60,11 +58,9 @@ const App = () => {
     if (res?.message === 'success') {
       toast.success("Employee Edited.", {
         autoClose: 2000,
-
       });
       router.push('/backoffice/employee');
     }
-
   };
 
   return (
@@ -145,7 +141,6 @@ const App = () => {
               },
             ]}
           >
-
             <Select>
               {MetaSex.map((item, index) => {
                 return <Select.Option key={"Sex" + index} value={item.id}>{item.name}</Select.Option>

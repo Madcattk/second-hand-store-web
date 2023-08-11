@@ -83,15 +83,19 @@ const App = () => {
           label="Product Description"
           rules={[
             {
-              required: true,
+                type: 'Product Description',
             },
           ]}
         >
           <Input />
         </Form.Item>
 
-
-        <Form.Item label="Product Sex" name={['form', 'Product_Sex']}>
+        <Form.Item label="Product Sex" name={['form', 'Product_Sex']}  rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
           <Select>
             {MetaSex.map((item, index) => {
               return <Select.Option key={"Sex" + index} value={item.id}>{item.name}</Select.Option>
@@ -99,12 +103,23 @@ const App = () => {
           </Select>
         </Form.Item>
 
-        <Form.Item label="Product Date" name={['form', 'Product_Date']}>
+        <Form.Item label="Product Date" name={['form', 'Product_Date']}  
+        rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
           <DatePicker />
         </Form.Item>
 
 
-        <Form.Item label="Product Status" name={['form', 'Product_Status']}>
+        <Form.Item label="Product Status" name={['form', 'Product_Status']}  rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
           <Select>
             {MetaProductStatus.map((item, index) => {
               return <Select.Option key={"Status" + index} value={item.id}>{item.name}</Select.Option>
@@ -129,7 +144,7 @@ const App = () => {
           label="Size Id"
           rules={[
             {
-              required: true,
+              type: 'Size Id',
             },
           ]}
         >
@@ -141,7 +156,7 @@ const App = () => {
           label="Product Size Detail"
           rules={[
             {
-              required: true,
+              type: 'Product Size Detail',
             },
           ]}
         >
@@ -153,7 +168,7 @@ const App = () => {
           label="Sale Id"
           rules={[
             {
-              required: true,
+              type: 'Sale Id',
             },
           ]}
         >

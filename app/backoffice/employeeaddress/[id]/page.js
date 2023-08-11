@@ -68,7 +68,7 @@ const App = () => {
                         label="Employee Id"
                         rules={[
                             {
-                                type: true,
+                                required: true,
                             },
 
                         ]}

@@ -118,7 +118,7 @@ const App = () => {
             label="Promotion Discount"
             rules={[
               {
-                type: 'Promotion Discount',
+                required: true,
               },
             ]}
           >
@@ -130,7 +130,7 @@ const App = () => {
             label="Promotion Price Condition"
             rules={[
               {
-                type: 'Promotion Price Condition',
+                required: true,
               },
             ]}
           >

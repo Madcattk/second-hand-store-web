@@ -17,7 +17,6 @@ const App = () => {
         const res = await getAllEmployees();
         setData(res?.data || []);
     };
-
     return (
     <>
         <Row justify="end">
@@ -27,11 +26,9 @@ const App = () => {
             </Button>
             </Space>
         </Row>
-
         <Table dataSource={data} rowKey="Employee_Id">
             <Column title="Employee_Id" dataIndex="Employee_Id" key="Employee_Id" />
             <Column title="Employee_Address" dataIndex="Employee_Address" key="Employee_Address" />
-
             <Column
                 title="Action"
                 key="action"

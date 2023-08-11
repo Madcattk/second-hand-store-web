@@ -62,11 +62,23 @@ const App = () => {
                 <Input />
             </Form.Item>
 
-            <Form.Item label="Promotion Start Date Date" name={['form', 'Promotion_Start_Date']}>
+            <Form.Item label="Promotion Start Date Date" name={['form', 'Promotion_Start_Date']}
+             rules={[
+                {
+                    required: true,
+                },
+            ]}
+        >
                 <DatePicker />
             </Form.Item>
 
-            <Form.Item label="Promotion End Date" name={['form', 'Promotion_End_Date']}>
+            <Form.Item label="Promotion End Date" name={['form', 'Promotion_End_Date']}
+             rules={[
+                {
+                    required: true,
+                },
+            ]}
+        >
                 <DatePicker />
             </Form.Item>
 
