@@ -25,10 +25,10 @@ const Footer = () => {
             </div>
             <div className='flex flex-col gap-5'>
                 <div className='uppercase text-greyV1 text-xs'>Location</div>
-                <div className='flex gap-2'>
+                <a href='https://www.google.co.th/maps/search/992%2F111+Moo.4,+Map+Pong,+Phan+Thong,+Chon+Buri,+Thailand,+20160/@13.4162094,101.081991,15z/data=!3m1!4b1?hl=th&entry=ttu' className='flex gap-2'>
                     <span><FontAwesomeIcon icon={faLocationDot} size='lg'/></span>
                     <span>992/111 Moo.4, Map Pong, Phan Thong, Chon Buri, Thailand, 20160</span>
-                </div>
+                </a>
             </div>
         </div>
     )
