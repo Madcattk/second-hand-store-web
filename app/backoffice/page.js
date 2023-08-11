@@ -9,6 +9,8 @@ import {
   InboxOutlined,
   CalendarOutlined,
   SoundOutlined,
+  LogoutOutlined,
+  HomeOutlined,
 
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
@@ -35,43 +37,54 @@ const App = () => {
           items={[
             {
               key: '1',
+              icon: <HomeOutlined />,
+              label: 'Home',
+            },
+            {
+              key: '2',
               icon: <UserOutlined />,
               label: 'Account',
             },
             {
-              key: '2',
+              key: '3',
               icon: <TeamOutlined /> ,
               label: 'Employee',
             },
             {
-              key: '3',
+              key: '4',
               icon: <InboxOutlined />,
               label: 'Transaction',
             },
             {
-              key: '4',
+              key: '5',
               icon: <SkinOutlined />,
               label: 'Product',
             },
             {
-              key: '5',
+              key: '6',
               icon: <SkinOutlined />,
               label: 'Product Type',
             },
             {
-              key: '6',
+              key: '7',
               icon: <SkinOutlined />,
               label: 'Size',
             },
             {
-              key: '7',
+              key: '8',
               icon: <SoundOutlined />,
               label: 'Promotion',
             },
             {
-              key: '8',
+              key: '9',
               icon: <CalendarOutlined />,
               label: 'Report Summary',
+            },
+            {
+              key: '10',
+              icon: <LogoutOutlined />,
+              label: 'Log out',
+              
             },
           ]}
         />
@@ -93,7 +106,6 @@ const App = () => {
               height: 64,
             }}
           />
-          
         </Header>
         <Content
           style={{
@@ -102,6 +114,7 @@ const App = () => {
             minHeight: 570,
             background: colorBgContainer,
           }}
+          
         >
           <a onClick={() => {saveToLocalStorage('auth', null); dispatch(clearAuth()); router.push('/login');}}>Log out</a>
         </Content>

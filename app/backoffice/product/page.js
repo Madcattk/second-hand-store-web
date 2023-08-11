@@ -54,8 +54,8 @@ const App = () => {
                 <Column title="Product_Sex" dataIndex="Product_Sex" key="Product_Sex" />
                 <Column title="Product_Date" dataIndex="Product_Date" key="Product_Date" />
                 <Column title="Product_Status" dataIndex="Product_Status" key="Product_Status" />
-                <Column title="Product_Type_Id" dataIndex="Product_Type_Id" key="Product_Type_Id" />
-                <Column title="Size_Id" dataIndex="Size_Id" key="Size_Id" />
+                <Column title="Product_Type_Name" dataIndex="Product_Type_Name" key="Product_Type_Name" />
+                <Column title="Size_Name" dataIndex="Size_Name" key="Size_Name" />
                 <Column title="Product_Size_Detail" dataIndex="Product_Size_Detail" key="Product_Size_Detail" />
                 <Column title="Sale_Id" dataIndex="Sale_Id" key="Sale_Id" />
 

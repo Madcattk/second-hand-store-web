@@ -38,7 +38,7 @@ const App = () => {
                 <Column title="Employee_Firstname" dataIndex="Employee_Firstname" key="Employee_Firstname" />
                 <Column title="Employee_Lastname" dataIndex="Employee_Lastname" key="Employee_Lastname" />
                 <Column title="Employee_Email" dataIndex="Employee_Email" key="Employee_Email" />
-                <Column title="Employee_Password" dataIndex="Employee_Password" key="Employee_Password" />
+                {/* <Column title="Employee_Password" dataIndex="Employee_Password" key="Employee_Password" /> */}
                 <Column title="Employee_Sex" dataIndex="Employee_Sex" key="Employee_Sex" />
                 <Column title="Employee_Birth_Date" dataIndex="Employee_Birth_Date" key="Employee_Birth_Date" />
                 <Column 

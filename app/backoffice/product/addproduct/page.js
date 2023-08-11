@@ -83,7 +83,7 @@ const App = () => {
           label="Product Description"
           rules={[
             {
-                type: 'Product Description',
+                type: 'Product_Description',
             },
           ]}
         >
@@ -128,7 +128,7 @@ const App = () => {
         </Form.Item>
 
         <Form.Item
-          name={['form', 'Product_Type_Id']}
+          name={['form', 'Product_Type_Name']}
           label="Product Type Id"
           rules={[
             {
@@ -140,11 +140,11 @@ const App = () => {
         </Form.Item>
 
         <Form.Item
-          name={['form', 'Size_Id']}
+          name={['form', 'Size_Name']}
           label="Size Id"
           rules={[
             {
-              type: 'Size Id',
+              type: 'Size_Id',
             },
           ]}
         >
@@ -156,7 +156,7 @@ const App = () => {
           label="Product Size Detail"
           rules={[
             {
-              type: 'Product Size Detail',
+              type: 'Product_Size_Detail',
             },
           ]}
         >
@@ -168,7 +168,7 @@ const App = () => {
           label="Sale Id"
           rules={[
             {
-              type: 'Sale Id',
+              type: 'Sale_Id',
             },
           ]}
         >
@@ -178,7 +178,6 @@ const App = () => {
         <div className='w-full flex justify-center'>
           <WhiteInputFile onChange={(image) => onChange({ image })} value={image?.image || ''} placeholder='Profile Picture' classBox='w-[50%]' />
         </div>
-
 
         <Form.Item
           wrapperCol={{

@@ -119,7 +119,7 @@ const App = () => {
             label="Product Description"
             rules={[
               {
-                type: 'Product Description',
+                type: 'Product_Description',
               },
             ]}
           >
@@ -181,7 +181,7 @@ const App = () => {
             label="Size Id"
             rules={[
               {
-                type: 'Size Id',
+                type: 'Size_Id',
               },
             ]}
           >
@@ -192,7 +192,7 @@ const App = () => {
             label="Product Size Detail"
             rules={[
               {
-                type: 'Product Size Detail',
+                type: 'Product_Size_Detail',
               },
             ]}
           >
