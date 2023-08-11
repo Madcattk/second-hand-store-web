@@ -116,3 +116,23 @@ export async function cutLot() {
             console.error(error);
         }
 };
+
+export async function getSalesBySaleStatus(Sale_Status) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/sale/getSalesBySaleStatus`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({Sale_Status}),
+        });
+        if (response.ok) {
+            return await response.json();
+        } else {
+            const errorData = await response.json();
+            console.error(errorData);
+        }
+        } catch (error) {
+            console.error(error);
+        }
+};
