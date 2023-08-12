@@ -1,51 +1,28 @@
 "use client"
-import React from 'react';
-import { Anchor } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Tabs } from 'antd';
+import { MetaSaleStatus } from '@components/Meta';
+import { Sale, Confirmed, Waiting } from '@components/pages/Transaction';
 
-const App = () => (
-  <>
-    <div
-      style={{
-        padding: '20px',
-      }}
-    >
-      <Anchor
-        direction="horizontal"
-        items={[
-          {
-            key: 'paying',
-            href: '#paying',
-            title: 'Paying',
-          },
-          {
-            key: 'waiting',
-            href: '#waiting',
-            title: 'Waiting',
-          },
-          {
-            key: 'confirmed',
-            href: '#confirmed',
-            title: 'Confirmed',
-          },
-          {
-            key: 'invalid',
-            href: '#invalid',
-            title: 'Invalid',
-          },
-          {
-            key: 'canaeled',
-            href: '#canaeled',
-            title: 'Canaeled',
-          },
-          {
-            key: 'shipped',
-            href: '#shipped',
-            title: 'Shipped',
-          },
-        ]}
-      />
-    </div>
-  
-  </>
-);
+const App = () => {
+  const [tab, setTab] = useState(null);
+  const items = MetaSaleStatus.map((status, index) => ({
+    key: status.id,
+    label: status.name,
+    children: index === 1 ? <Waiting status={status.id}/> :
+    index === 2 ? <Confirmed status={status.id}/> : <Sale status={status.id}/>
+  }))
+
+  const onChange = (key) => {
+    setTab(key)
+  }
+  return (
+    <>
+      <div className='p-5'>
+        <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+      </div>
+    </>
+  );
+};
+
 export default App;

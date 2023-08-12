@@ -6,7 +6,7 @@ export async function POST(request) {
     try {       
         const conn = await dbConnection();
         let query = `
-            SELECT s.*, p.*, pm.*
+            SELECT s.*, p.Promotion_Name, p.Promotion_Discount, pm.Payment_Slip, pm.Payment_Date, pm.Employee_Id
             FROM Sale s
             LEFT JOIN Promotion p ON s.Promotion_Id = p.Promotion_Id
             LEFT JOIN Payment pm ON s.Sale_Id = pm.Sale_Id
