@@ -4,11 +4,13 @@ import { Button, Form, Input, Select, DatePicker} from 'antd';
 import { DateFormat } from '@components/formats';
 import { useParams, useRouter } from 'next/navigation';
 import { editProductById, getProductById } from '@app/api/getAPI/product';
-import { MetaProductStatus, MetaSex } from '@components/Meta';
+import { MetaProductSex, MetaProductStatus, MetaSex } from '@components/Meta';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
 import { WhiteInputFile } from '@components/inputs';
+import { getAllSizes } from '@app/api/getAPI/size';
+import { getAllProductTypes } from '@app/api/getAPI/product-type';
 
 const layout = {
   labelCol: {
@@ -29,6 +31,7 @@ const App = () => {
   const { id } = useParams();
   const router = useRouter();
   const [data, setData] = useState({});
+  const [meta, setMeta] = useState({}) 
   const [loading, setLoading] = useState(true); // Add a loading state
 
   useEffect(() => {
@@ -41,6 +44,25 @@ const App = () => {
     const res = await getProductById(id);
     res.data[0].Product_Date = DateFormat(res.data[0].Product_Date);
     setData(res?.data?.[0] || {});
+
+    const resSize = await getAllSizes();
+    const sizes = resSize?.data?.map((item, index) => {
+      return {
+        id: item?.Size_Id,
+        name: item?.Size_Name
+      }
+    })
+    const resProductType = await getAllProductTypes();
+    const productTypes = resProductType?.data?.map((item, index) => {
+      return {
+        id: item?.Product_Type_Id,
+        name: item?.Product_Type_Name
+      }
+    })
+    setMeta({
+      Sizes: sizes,
+      Product_Types: productTypes
+    })
     setLoading(false); // Set loading to false after data is fetched
   };
   
@@ -48,10 +70,9 @@ const App = () => {
     const updatedValues = {
       ...restValues,
       Product_Image: data?.Product_Image || null,
-      Product_Date: DateFormat(form?.Product_Date),
-      Product_Sex: form?.Product_Sex
+      Product_Date: DateFormat(form?.Product_Date)
     };
-
+    
     const res = await editProductById(updatedValues);
     if (res?.message === 'success') {
       toast.success("Product Edited.", {
@@ -87,7 +108,7 @@ const App = () => {
               },
             ]}
           >
-            <Input />
+            <Input disabled/>
           </Form.Item>
 
           <Form.Item
@@ -126,7 +147,7 @@ const App = () => {
             <Input />
           </Form.Item>
 
-          <Form.Item label="Product Sex" name={['form', 'Product_Sex']}
+          <Form.Item label="Product Sex" name={'Product_Sex'}
           rules={[
               {
                 required: true,
@@ -134,7 +155,7 @@ const App = () => {
             ]}
           >
             <Select>
-              {MetaSex.map((item, index) => {
+              {MetaProductSex.map((item, index) => {
                 return <Select.Option key={"Sex" + index} value={item.id}>{item.name}</Select.Option>
               })}
             </Select>
@@ -150,7 +171,7 @@ const App = () => {
             <DatePicker />
           </Form.Item>
 
-          <Form.Item label="Product Status	" name={['form', 'Product_Status']}
+          <Form.Item label="Product Status	" name={'Product_Status'}
           rules={[
             {
               required: true,
@@ -164,37 +185,31 @@ const App = () => {
             </Select>
           </Form.Item>
 
-          <Form.Item
-            name="Product_Type_Id"
-            label="Product Type Id"
-            rules={[
+          <Form.Item label="Product Type" name={'Product_Type_Id'}  rules={[
               {
                 required: true,
               },
             ]}
           >
-            <Input />
-          </Form.Item>
+          <Select>
+            {meta?.Product_Types?.map((item, index) => {
+              return <Select.Option key={"Product-Type" + index} value={item.id}>{item.name}</Select.Option>
+            })}
+          </Select>
+        </Form.Item>
 
-          <Form.Item
-            name="Size_Id"
-            label="Size Id"
-            rules={[
-              {
-                type: 'Size_Id',
-              },
-            ]}
+        <Form.Item label="Size" name={'Size_Id'}  
           >
-            <Input />
-          </Form.Item>
+          <Select>
+            {meta?.Sizes?.map((item, index) => {
+              return <Select.Option key={"Product-Type" + index} value={item.id}>{item.name}</Select.Option>
+            })}
+          </Select>
+        </Form.Item>
+
           <Form.Item
             name="Product_Size_Detail"
             label="Product Size Detail"
-            rules={[
-              {
-                type: 'Product_Size_Detail',
-              },
-            ]}
           >
             <Input />
           </Form.Item>
@@ -202,13 +217,8 @@ const App = () => {
           <Form.Item
             name="Sale_Id"
             label="Sale_Id"
-            rules={[
-              {
-                type: 'Sale_Id',
-              },
-            ]}
           >
-            <Input />
+            <Input disabled />
           </Form.Item>
 
           <div className='w-full flex justify-center'>

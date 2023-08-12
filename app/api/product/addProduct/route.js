@@ -36,7 +36,7 @@ export async function POST(request) {
             Product_Description,
             Product_Image,
             Product_Sex,
-            DateFormat(Product_Date),
+            Product_Date,
             Product_Status,
             Product_Type_Id,
             Size_Id,
@@ -44,8 +44,9 @@ export async function POST(request) {
             Sale_Id
         ];
         const [result] = await conn.execute(query, values);
+        const res = await getProductById(result?.insertId)
         conn.end();
-        return NextResponse.json({ data: result, message: "success" }, { status: 201 });
+        return NextResponse.json({ data: res?.data?.[0], message: "success" }, { status: 201 });
     } catch (error) {
         return NextResponse.json({ error, message: "error" }, { status: 500 });
     }
