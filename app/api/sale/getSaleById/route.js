@@ -8,21 +8,11 @@ export async function POST(request) {
         let query = `
         SELECT s.*, p.* 
         FROM Sale s
-        JOIN Promotion p ON p.Promotion_Id = s.Promotion_Id
+        LEFT JOIN Promotion p ON s.Promotion_Id = p.Promotion_Id
         WHERE s.Sale_Id = ${Sale_Id} `;
         let values = [];
         let [result] = await conn.execute(query, values);
         let data = result;
-
-        if(data?.length <= 0){
-            query = `
-            SELECT *
-            FROM Sale
-            WHERE Sale_Id = ${Sale_Id} `;
-            values = [];
-            [result] = await conn.execute(query, values);
-            data = result;
-        }
 
         query = `
         SELECT p.* 
