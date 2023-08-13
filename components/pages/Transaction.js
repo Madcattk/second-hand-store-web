@@ -33,10 +33,10 @@ export const Transaction = ({status}) => {
         <div className='flex flex-col gap-6'>
             {data?.map((sale, saleIndex) => {
                 return <div className='border p-3' key={"Sale"+saleIndex}>
-                    <div>sale id {sale.Sale_Id || '-'}</div>
-                    <div>sale date {sale.Sale_Date|| '-'}</div>
-                    <div>address {sale.Delivery_Address|| '-'}</div>
-                    <div>tracking {sale.Sale_Tracking_Number|| '-'}</div>
+                    <div>Sale ID: {sale.Sale_Id || '-'}</div>
+                    <div>Sale Date {sale.Sale_Date|| '-'}</div>
+                    <div>Address {sale.Delivery_Address|| '-'}</div>
+                    <div>Tracking Number {sale.Sale_Tracking_Number|| '-'}</div>
                     <div>
                         {sale?.Product?.map((product, productIndex) => {
                             return <div className='border' key={"Product"+productIndex}>
@@ -48,16 +48,16 @@ export const Transaction = ({status}) => {
                                     width={100} height={120}
                                     className='w-[100px] h-[120px] object-cover'/>
                                 </div>
-                                <div>product id {product?.Product_Id}</div>
-                                <div>product name{product?.Product_Name}</div>
+                                <div>Product ID {product?.Product_Id}</div>
+                                <div>Product Name {product?.Product_Name}</div>
                             </div>
                         })}
                     </div>
-                    <div>total {sale.Sale_Total_Price || '-'}</div>
-                    <div>promotion {sale.Promotion_Name || '-'}</div>
-                    <div>discounted total{sale.Discounted_Total_Price || '-'}</div>
+                    <div>Total {sale.Sale_Total_Price || '-'}</div>
+                    <div>Promotion {sale.Promotion_Name || '-'}</div>
+                    <div>Discounted Total{sale.Discounted_Total_Price || '-'}</div>
                     <div>
-                        <div>slip</div>
+                        <div>Slip</div>
                         <Image src={sale?.Payment_Slip || "/assets/images/avatars/no-image.png"} 
                         priority={true} 
                         alt="Bank" 
