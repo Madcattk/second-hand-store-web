@@ -135,7 +135,7 @@ export const Order = ({ form, onChange, onLoad }) => {
                         <div className='w-full border-b border-gray'></div> 
                     </>
                 }
-                <div className='w-full r'>Subtotal ฿{form?.Discounted_Total_Price?.toFixed(2) || form?.Sale_Total_Price?.toFixed(2)} Baht</div>
+                <div className='w-full r'>Total ฿{form?.Discounted_Total_Price?.toFixed(2) || form?.Sale_Total_Price?.toFixed(2)} Baht</div>
                 {(form?.Sale_Status === MetaSaleStatus?.[0]?.id ||  form?.Sale_Status === MetaSaleStatus?.[3]?.id) &&
                     <>
                         <div className='w-full border-b border-gray'></div>
@@ -217,7 +217,7 @@ export const Review = ({ form, onChange, onLoad }) => {
                         <div className='w-full border-b border-gray'></div> 
                     </>
                 }
-                <div className='w-full r'>Subtotal ฿{form?.Discounted_Total_Price?.toFixed(2) || form?.Sale_Total_Price?.toFixed(2)} Baht</div>
+                <div className='w-full r'>Total ฿{form?.Discounted_Total_Price?.toFixed(2) || form?.Sale_Total_Price?.toFixed(2)} Baht</div>
             </div>
             {menu && <ReviewModal menu={menu} setMenu={setMenu} data={data} onLoad={onLoad}/>}  
         </div>

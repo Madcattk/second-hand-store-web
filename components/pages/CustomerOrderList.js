@@ -59,7 +59,7 @@ const CustomerOrderList = () => {
                         </div>
                         <div>Tracking Number: {item?.Sale_Tracking_Number || '-'}</div>
                     </div>
-                    <div className='w-full r'>Subtotal ฿{item?.Discounted_Total_Price?.toFixed(2) || item?.Sale_Total_Price?.toFixed(2)} Baht</div>
+                    <div className='w-full r'>Total ฿{item?.Discounted_Total_Price?.toFixed(2) || item?.Sale_Total_Price?.toFixed(2)} Baht</div>
                 </div>
             ))}
         </>
