@@ -2,13 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from 'antd';
 import { Image } from 'antd';
-import { getEmployeeAddressesById, getEmployeeById } from '@app/api/getAPI/employee';
+import { addEmployeeAddressById, editEmployeeAddressById, getEmployeeAddressesById, getEmployeeById } from '@app/api/getAPI/employee';
 import { getFromLocalStorage } from '@lib/localStorage';
 import { useRouter } from 'next/navigation';
 
 const App = () => {
     const router = useRouter()
     const [data, setData] = useState(null)
+    const [addAddress, setAddAddress] = useState(null)
 
     useEffect(() => {
         onLoad()
@@ -20,12 +21,41 @@ const App = () => {
             const res = await getEmployeeById(auth?.Employee_Id)
             setData(res?.data?.[0])
             const resAdd = await getEmployeeAddressesById(auth?.Employee_Id)
+            let _resAdd = resAdd?.data?.map((item, index) => {
+                return {
+                    Employee_Id: item.Employee_Id,
+                    Employee_Address: item.Employee_Address,
+                    New_Employee_Address: item.Employee_Address
+                }
+            })
             setData({
                 ...res?.data?.[0],
-                Addresses: resAdd?.data || null
+                Addresses: _resAdd || []
             })
         }
         else router.push('/login')
+    }
+
+    const onChangeAddress = (index, value) => {
+        const updatedAddresses = [...data.Addresses];
+        updatedAddresses[index].New_Employee_Address = value;
+        setData({
+            ...data,
+            Addresses: updatedAddresses
+        })
+    }
+
+    const onEditAddress = async (index) => {
+        const res = await editEmployeeAddressById(data?.Addresses?.[index])
+    }
+
+    const onAddAddress = async () => {
+        const res = await addEmployeeAddressById({
+            Employee_Id: data?.Employee_Id || null,
+            Employee_Address: addAddress || null
+        })
+        onLoad()
+        setAddAddress(null)
     }
     
     return (
@@ -38,10 +68,32 @@ const App = () => {
             <div>{data?.Employee_Email}</div>
             <div>{data?.Employee_Birth_Date}</div>
             <Image src={data?.Employee_Image || "/assets/images/avatars/avartar.jpeg"} alt="Bank" width={130} height={180}/>
-            <div>
+            
+            <div className='flex flex-col gap-3'>
+                <div className='flex gap-2'>
+                    <textarea
+                        className='border'
+                        name=""
+                        id=""
+                        cols="40"
+                        rows="6"
+                        value={addAddress || ""}
+                        onChange={(e) => setAddAddress(e.target.value)}
+                    ></textarea>
+                    <button onClick={() => onAddAddress()}>Add New Address</button>
+                </div>
                 {data?.Addresses?.map((item, index) => {
-                    return <div key={"Employee-Address"+index}>
-                        <div>{item.Employee_Address}</div>
+                    return <div className='flex gap-2' key={"Employee-Address"+index}>
+                        <textarea
+                            className='border'
+                            name=""
+                            id=""
+                            cols="40"
+                            rows="6"
+                            value={item?.New_Employee_Address || ""}
+                            onChange={(e) => onChangeAddress(index, e.target.value)}
+                        ></textarea>
+                        <button onClick={() => onEditAddress(index)}>Edit</button>
                     </div>
                 })}
             </div>
