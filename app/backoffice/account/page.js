@@ -60,13 +60,13 @@ const App = () => {
     
     return (
         <div>
-            <div>{data?.Employee_Id}</div>
-            <div>{data?.Employee_Firstname}</div>
-            <div>{data?.Employee_Lastname}</div>
-            <div>{data?.Employee_Sex}</div>
-            <div>{data?.Employee_Phone}</div>
-            <div>{data?.Employee_Email}</div>
-            <div>{data?.Employee_Birth_Date}</div>
+            <div>id {data?.Employee_Id}</div>
+            <div>fname {data?.Employee_Firstname}</div>
+            <div>lname {data?.Employee_Lastname}</div>
+            <div>sex {data?.Employee_Sex}</div>
+            <div>phone {data?.Employee_Phone}</div>
+            <div>email {data?.Employee_Email}</div>
+            <div>birth {data?.Employee_Birth_Date}</div>
             <Image src={data?.Employee_Image || "/assets/images/avatars/avartar.jpeg"} alt="Bank" width={130} height={180}/>
             
             <div className='flex flex-col gap-3'>
