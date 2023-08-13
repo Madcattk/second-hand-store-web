@@ -244,7 +244,7 @@ const page = () => {
                         <div className='w-full flex flex-col gap-3 max-h-[255px] overflow-y-auto'>
                             {form?.Address?.map((item,index) => (
                                 <label className={`${form?.Color_Address === index ? 'bg-brown text-white' : ''} cursor-pointer p-3 border border-brown w-full font-light`} key={"Customer-Address" + index}>
-                                    <input type="radio" name="selectedAddress" onChange={handleAddressSelection} value={index} className="hidden"/>
+                                    <input type="radio" name="selectedAddress" onClick={handleAddressSelection} value={index} className="hidden"/>
                                     <div>{item?.Fullname || ''}</div>
                                     <div>{item?.Address || ''} {item?.District || ''} {item?.Province || ''} {item?.Zipcode || ''} {item?.Country || ''}</div>
                                     <div>Phone: {item?.Phone || '-'}</div>
