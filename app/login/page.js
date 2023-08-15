@@ -63,7 +63,7 @@ const page = () => {
       }
     }
   }
-  console.log(auth);
+  
   return (
     <Loading loading={loading}>
       <div className='w-full h-fit lg:grid lg:grid-cols-2 lg:px-0 md:px-44'>
