@@ -7,12 +7,14 @@ import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage';
 import { DateFormat } from '@components/formats';
 import { signIn } from '@auth/authMember';
 import { useRouter } from 'next/navigation';
+import Loading from '@components/pages/Loading';
 
 const page = () => {
     const router = useRouter();
     const { id } = useParams();
     const [auth, setAuth] = useState(null);
     const [form, setForm] = useState(null);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const _signIn = signIn()
@@ -43,6 +45,7 @@ const page = () => {
                 const updatedData = { ...res.data, Address: address };
                 res.data = updatedData;
             setForm(res?.data || []);
+            setLoading(false)
         } else {
             router.push('/member/account');
         }
@@ -51,13 +54,15 @@ const page = () => {
     const onChange = (update) => setForm({ ...form, ...update })
 
     return (
-        <div className='flex_center'>
-            {form?.Sale_Status === 'Received' ?
-                <Review form={form} onChange={onChange} onLoad={onLoad} />
-            :
-                <Order form={form} onChange={onChange} onLoad={onLoad} />
-            }
-        </div>
+        <Loading loading={loading}>
+            <div className='flex_center'>
+                {form?.Sale_Status === 'Received' ?
+                    <Review form={form} onChange={onChange} onLoad={onLoad} />
+                :
+                    <Order form={form} onChange={onChange} onLoad={onLoad} />
+                }
+            </div>
+        </Loading>
     )
 }
 

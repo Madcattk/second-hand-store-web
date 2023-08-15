@@ -10,10 +10,12 @@ import '@/styles/toastStyles.css';
 import { addMember } from '@app/api/getAPI/member';
 import { saveToLocalStorage, getFromLocalStorage } from '@lib/localStorage';
 import { addEmployee } from '@app/api/getAPI/employee';
+import Loading from '@components/pages/Loading';
 
 const page = () => {
   const router = useRouter();
-  const [auth, setAuth] = useState(null)
+  const [auth, setAuth] = useState({})
+  const [loading, setLoading] = useState(true)
   // const [form, setForm] = useState({Member_Image: null, status: false})
   const [form, setForm] = useState({Member_Image: null})
   const onChange = (update) => setForm({ ...form, ...update })
@@ -24,6 +26,7 @@ const page = () => {
 
   useEffect(() => {
     if(auth?.Member_Id) router.push('/member/account');
+    else if (auth === null) setLoading(false)
   },[auth])
   
   const onSave = async () => {  
@@ -133,7 +136,8 @@ const page = () => {
   }
 
   return (
-    <div className='w-full h-fit flex flex-col items-center'>
+    <Loading loading={loading}>
+      <div className='w-full h-fit flex flex-col items-center'>
         <div className='font-extralight text-3xl pb-16'>Create Account</div>
         {/* <InputSelect onChange={(status) => onChange({ status })} options={[{id: false, name: 'Create account as a customer'}, {id: true, name: 'Admin'}]} value={form?.status || false} classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/> */}
           <div className='flex lg:w-[500px] md:w-[450px] sm:w-96 w-72'>
@@ -153,6 +157,7 @@ const page = () => {
           <ButtonText onClick={() => onSave()} placeholder='REGISTER' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72 pb-2 pt-14'/>
         <span onClick={() => router.push('/login')} className='font-extralight cursor-pointer hover:underline text-sm pb-10'>Already have an account?</span>
       </div>
+    </Loading>
   )
 }
 

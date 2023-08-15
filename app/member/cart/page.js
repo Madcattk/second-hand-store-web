@@ -19,11 +19,13 @@ import { DateFormat } from '@components/formats'
 import { Result } from 'postcss'
 import { addPayment } from '@app/api/getAPI/payment'
 import { signIn } from '@auth/authMember';
+import Loading from '@components/pages/Loading'
 
 const page = () => {
     const [newDeliveryAddress, setNewDeliveryAddress] = useState(false)
     const router = useRouter();
     const [auth, setAuth] = useState(null)
+    const [loading, setLoading] = useState(true)
     const [form, setForm] = useState({})
     const [payment, setPayment] = useState({})
     const [meta, setMeta] = useState({Promotion: null, Delevery_Address: null})
@@ -64,7 +66,10 @@ const page = () => {
         });
     };
     const onLoad = async () => {
-        if(!auth?.Product_Id?.length > 0) {return }
+        if(!auth?.Product_Id?.length > 0 && auth?.Member_Id !== null) {
+            setLoading(false)
+            return
+        }
         const res = await getCartByProductId(auth?.Product_Id || []);
         if(res?.message === 'success' && res?.data){
             let total = 0;
@@ -113,6 +118,7 @@ const page = () => {
                 setMeta({...meta, Promotion: _p})
             }
         }
+        setLoading(false)
     }
 
     const onDeleteProduct = (id) => {
@@ -192,105 +198,107 @@ const page = () => {
     const onChange = (update) => setForm({ ...form, ...update })
 
     return (
-        <div className='flex flex-col items-center w-full mb-10'>
-            <div className='min-h-[600px] xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 border border-brown grid lg:grid-cols-3 grid-cols-1'>
-                {(auth?.Product_Id && auth?.Product_Id?.length > 0) ?
-                <>
-                    <div className='lg:col-span-2 col-span-1 p-10 flex flex-col gap-3 md:border-r border-brown'>
-                        <div className='flex gap-2 items-center'>
-                            <FontAwesomeIcon onClick={() => router.back()} icon={faCircleLeft} size='lg' className='cursor-pointer'/>
-                            <div className='text-3xl'>Summary</div>
-                        </div>
-                        <div className='w-full flex justify-between text-[10px] font-light'>
-                            <span>PRODUCT</span>
-                            <span>PRICE</span>
-                        </div>
-                        <div className={`${newDeliveryAddress ? 'h-[840px]' : 'h-[645px]'} border-y border-brown py-2 w-full overflow-auto`}>
-                            {form?.Product?.map((item, index, array) => {
-                                return <React.Fragment key={"Customer-Order"+index}>
-                                    <div className='w-full grid grid-cols-1 md:grid-cols-3'>
-                                        <div className='md:col-span-2 flex gap-2'>
-                                        <FontAwesomeIcon onClick={() => onDeleteProduct(item)} icon={faXmark} className='cursor-pointer'/>
-                                            <div>
-                                                <Image src={item?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100} className='w-[80px] h-[100px]'/>
-                                            </div>
-                                            <div className='flex flex-col font-light'>
-                                                <span>{item?.Product_Name || ''}</span>
-                                                <span className='text-xs'>Size: {item?.Size_Name || '-'}</span>
-                                                <span className='text-xs'>Detail: {item?.Product_Size_Detail || '-'}</span>
-                                            </div>
-                                        </div>
-                                        <div className='md:col-start-3 r font-light'>฿{item?.Product_Price?.toFixed(2) || ''} Baht</div>
-                                    </div>  
-                                    {index !== array.length - 1 && <div className='md:col-start-3 border-b border-gray my-2'></div>}
-                                </React.Fragment>
-                            })}
-                        </div>
-
-                        { meta?.Promotion?.length > 0 && 
-                            <>
-                                <InputSelect onChange={(Promotion) => onChange({ Promotion })} options={meta?.Promotion} value={form?.Promotion || ''} placeholder={'Get your discount here'} classBox='w-full font-extrabold'/>
-                                <div className='w-full r font-semibold'>
-                                    {form?.Promotion_Data?.Promotion_Name || 'Select discount'} ฿{((parseFloat(form?.Sale_Total_Price) * (form?.Promotion_Data?.Promotion_Discount / 100)) || 0).toFixed(2) || '0.00'} Baht
-                                </div>
-                            </>
-                        }
-                        <div className='w-full border-b border-gray'></div>
-                        <div className='w-full r font-semibold'>Total ฿{(parseFloat(form?.Sale_Total_Price)-(parseFloat(form?.Sale_Total_Price) * (form?.Promotion_Data?.Promotion_Discount / 100)) || parseFloat(form?.Sale_Total_Price)).toFixed(2) || '0.00'} Baht</div>
-                        <div className='w-full border-b border-gray'></div>
-                    </div>
-                    <div className='p-10 col-span-1 flex flex-col gap-3'>
-                        <div className='py-2 text-xl font-light'>Delivery Information</div>
-                        <div className='w-full flex flex-col gap-3 max-h-[255px] overflow-y-auto'>
-                            {form?.Address?.map((item,index) => (
-                                <label className={`${form?.Color_Address === index ? 'bg-brown text-white' : ''} cursor-pointer p-3 border border-brown w-full font-light`} key={"Customer-Address" + index}>
-                                    <input type="radio" name="selectedAddress" onClick={handleAddressSelection} value={index} className="hidden"/>
-                                    <div>{item?.Fullname || ''}</div>
-                                    <div>{item?.Address || ''} {item?.District || ''} {item?.Province || ''} {item?.Zipcode || ''} {item?.Country || ''}</div>
-                                    <div>Phone: {item?.Phone || '-'}</div>
-                                </label>
-                            ))}
-                        </div>
-                        {!newDeliveryAddress && <div onClick={() => {setNewDeliveryAddress(true); setForm({...form, Selected_Address: null, Color_Address: null})}} className='cursor-pointer p-3 border border-brown w-full font-light'>Add New Address</div>}
-                        {newDeliveryAddress &&
-                            <div className='w-full'>
-                                <InputBox onChange={(New_Fullname) => onChange({ New_Fullname })} value={form?.New_Fullname || ''} placeholder='Fullname' classBox='w-full'/>
-                                <InputBox onChange={(New_Address) => onChange({ New_Address })} value={form?.New_Address || ''} placeholder='Address' classBox='w-full'/>
-                                <div className='flex w-full'>
-                                    <InputBox onChange={(New_District) => onChange({ New_District })} value={form?.New_District || ''} placeholder='District' classBox='w-full border-r border-brown'/>
-                                    <InputBox onChange={(New_Province) => onChange({ New_Province })} value={form?.New_Province || ''} placeholder='Province' classBox='w-full'/>
-                                </div>
-                                <div className='flex w-full'>
-                                    <InputBox number={true} onChange={(New_Zipcode) => onChange({ New_Zipcode })} value={form?.New_Zipcode || ''} placeholder='Zip code' classBox='w-full border-r border-brown'/>
-                                    <InputBox onChange={(New_Country) => onChange({ New_Country })} value={form?.New_Country || ''} placeholder='Country' classBox='w-full'/>
-                                </div>
-                                <div className='flex w-full'>
-                                    <InputBox number={true} onChange={(New_Phone) => onChange({ New_Phone })} value={form?.New_Phone || ''} placeholder='Phone' classBox='w-full'/>
-                                </div>
+        <Loading loading={loading}>
+            <div className='flex flex-col items-center w-full mb-10'>
+                <div className='min-h-[600px] xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 border border-brown grid lg:grid-cols-3 grid-cols-1'>
+                    {(auth?.Product_Id && auth?.Product_Id?.length > 0) ?
+                    <>
+                        <div className='lg:col-span-2 col-span-1 p-10 flex flex-col gap-3 md:border-r border-brown'>
+                            <div className='flex gap-2 items-center'>
+                                <FontAwesomeIcon onClick={() => router.back()} icon={faCircleLeft} size='lg' className='cursor-pointer'/>
+                                <div className='text-3xl'>Summary</div>
                             </div>
-                        }
-                        <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} buttonText='Upload Slip' placeholder='Profile Picture' classBox='w-full'/>
-                        <div className='text-sm border border-brown p-5 relative'>
-                            <span className='absolute bg-white left-5'>
-                            <Image src={"/assets/images/payment/scb.jpeg"} alt="Bank" width={50} height={10}/>
-                            </span>
-                            <span className='pl-14'>
-                                Siam Commercial Bank PCL. <br />
-                                Account Number: 345-455-3453 <br />
-                                Account Name: Second Hand store <br />
-                            </span>
+                            <div className='w-full flex justify-between text-[10px] font-light'>
+                                <span>PRODUCT</span>
+                                <span>PRICE</span>
+                            </div>
+                            <div className={`${newDeliveryAddress ? 'h-[840px]' : 'h-[645px]'} border-y border-brown py-2 w-full overflow-auto`}>
+                                {form?.Product?.map((item, index, array) => {
+                                    return <React.Fragment key={"Customer-Order"+index}>
+                                        <div className='w-full grid grid-cols-1 md:grid-cols-3'>
+                                            <div className='md:col-span-2 flex gap-2'>
+                                            <FontAwesomeIcon onClick={() => onDeleteProduct(item)} icon={faXmark} className='cursor-pointer'/>
+                                                <div>
+                                                    <Image src={item?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100} className='w-[80px] h-[100px]'/>
+                                                </div>
+                                                <div className='flex flex-col font-light'>
+                                                    <span>{item?.Product_Name || ''}</span>
+                                                    <span className='text-xs'>Size: {item?.Size_Name || '-'}</span>
+                                                    <span className='text-xs'>Detail: {item?.Product_Size_Detail || '-'}</span>
+                                                </div>
+                                            </div>
+                                            <div className='md:col-start-3 r font-light'>฿{item?.Product_Price?.toFixed(2) || ''} Baht</div>
+                                        </div>  
+                                        {index !== array.length - 1 && <div className='md:col-start-3 border-b border-gray my-2'></div>}
+                                    </React.Fragment>
+                                })}
+                            </div>
+
+                            { meta?.Promotion?.length > 0 && 
+                                <>
+                                    <InputSelect onChange={(Promotion) => onChange({ Promotion })} options={meta?.Promotion} value={form?.Promotion || ''} placeholder={'Get your discount here'} classBox='w-full font-extrabold'/>
+                                    <div className='w-full r font-semibold'>
+                                        {form?.Promotion_Data?.Promotion_Name || 'Select discount'} ฿{((parseFloat(form?.Sale_Total_Price) * (form?.Promotion_Data?.Promotion_Discount / 100)) || 0).toFixed(2) || '0.00'} Baht
+                                    </div>
+                                </>
+                            }
+                            <div className='w-full border-b border-gray'></div>
+                            <div className='w-full r font-semibold'>Total ฿{(parseFloat(form?.Sale_Total_Price)-(parseFloat(form?.Sale_Total_Price) * (form?.Promotion_Data?.Promotion_Discount / 100)) || parseFloat(form?.Sale_Total_Price)).toFixed(2) || '0.00'} Baht</div>
+                            <div className='w-full border-b border-gray'></div>
                         </div>
-                        <label htmlFor="order_slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
-                        <ButtonText onClick={() => onSave()} placeholder='CHECK OUT' classBox='w-full'/>
+                        <div className='p-10 col-span-1 flex flex-col gap-3'>
+                            <div className='py-2 text-xl font-light'>Delivery Information</div>
+                            <div className='w-full flex flex-col gap-3 max-h-[255px] overflow-y-auto'>
+                                {form?.Address?.map((item,index) => (
+                                    <label className={`${form?.Color_Address === index ? 'bg-brown text-white' : ''} cursor-pointer p-3 border border-brown w-full font-light`} key={"Customer-Address" + index}>
+                                        <input type="radio" name="selectedAddress" onClick={handleAddressSelection} value={index} className="hidden"/>
+                                        <div>{item?.Fullname || ''}</div>
+                                        <div>{item?.Address || ''} {item?.District || ''} {item?.Province || ''} {item?.Zipcode || ''} {item?.Country || ''}</div>
+                                        <div>Phone: {item?.Phone || '-'}</div>
+                                    </label>
+                                ))}
+                            </div>
+                            {!newDeliveryAddress && <div onClick={() => {setNewDeliveryAddress(true); setForm({...form, Selected_Address: null, Color_Address: null})}} className='cursor-pointer p-3 border border-brown w-full font-light'>Add New Address</div>}
+                            {newDeliveryAddress &&
+                                <div className='w-full'>
+                                    <InputBox onChange={(New_Fullname) => onChange({ New_Fullname })} value={form?.New_Fullname || ''} placeholder='Fullname' classBox='w-full'/>
+                                    <InputBox onChange={(New_Address) => onChange({ New_Address })} value={form?.New_Address || ''} placeholder='Address' classBox='w-full'/>
+                                    <div className='flex w-full'>
+                                        <InputBox onChange={(New_District) => onChange({ New_District })} value={form?.New_District || ''} placeholder='District' classBox='w-full border-r border-brown'/>
+                                        <InputBox onChange={(New_Province) => onChange({ New_Province })} value={form?.New_Province || ''} placeholder='Province' classBox='w-full'/>
+                                    </div>
+                                    <div className='flex w-full'>
+                                        <InputBox number={true} onChange={(New_Zipcode) => onChange({ New_Zipcode })} value={form?.New_Zipcode || ''} placeholder='Zip code' classBox='w-full border-r border-brown'/>
+                                        <InputBox onChange={(New_Country) => onChange({ New_Country })} value={form?.New_Country || ''} placeholder='Country' classBox='w-full'/>
+                                    </div>
+                                    <div className='flex w-full'>
+                                        <InputBox number={true} onChange={(New_Phone) => onChange({ New_Phone })} value={form?.New_Phone || ''} placeholder='Phone' classBox='w-full'/>
+                                    </div>
+                                </div>
+                            }
+                            <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} buttonText='Upload Slip' placeholder='Profile Picture' classBox='w-full'/>
+                            <div className='text-sm border border-brown p-5 relative'>
+                                <span className='absolute bg-white left-5'>
+                                <Image src={"/assets/images/payment/scb.jpeg"} alt="Bank" width={50} height={10}/>
+                                </span>
+                                <span className='pl-14'>
+                                    Siam Commercial Bank PCL. <br />
+                                    Account Number: 345-455-3453 <br />
+                                    Account Name: Second Hand store <br />
+                                </span>
+                            </div>
+                            <label htmlFor="order_slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
+                            <ButtonText onClick={() => onSave()} placeholder='CHECK OUT' classBox='w-full'/>
+                        </div>
+                    </>
+                    :
+                    <div onClick={() => router.push('/')} className='px-10 text-2xl flex_center text-center font-bold cursor-pointer lg:col-span-3 col-span-1'>
+                        Let's add some products!
                     </div>
-                </>
-                :
-                <div onClick={() => router.push('/')} className='px-10 text-2xl flex_center text-center font-bold cursor-pointer lg:col-span-3 col-span-1'>
-                    Let's add some products!
+                    }
                 </div>
-                }
             </div>
-        </div>
+        </Loading>
     )
 }
 
