@@ -43,7 +43,7 @@ const layoutBackOffice = ({ children }) => {
                 router.push(item.props.path)
                 if(item.props.path == '/logout') {
                    saveToLocalStorage('auth', null); 
-                   dispatch(clearAuth()); 
+                   //dispatch(clearAuth()); 
                    router.push('/login')
                 }
             }}

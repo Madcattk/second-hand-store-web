@@ -55,7 +55,7 @@ const page = () => {
         let authData = res?.data?.[0] || null
         saveToLocalStorage('auth', authData);
         router.push('/backoffice');  
-        dispatch(inputAuth(authData))
+        //dispatch(inputAuth(authData))
       } else {
         toast.error("❗️Email or password is invalid.", {
             autoClose: 2000,
