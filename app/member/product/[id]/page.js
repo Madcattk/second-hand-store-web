@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { ButtonText, TransparentButtonText } from '@components/inputs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
-import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
+import { faCommentDots, faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
 import { getProductById } from '@app/api/getAPI/product'
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage'
 import { toast } from 'react-toastify';
@@ -104,19 +104,34 @@ const page = () => {
                     :
                     <div className='md:w-[400px] w-[300px] font-light text-sm'>
                         <div className='flex flex-col md:flex-row gap-1 items-start md:items-center'>
-                        <div className='flex gap-1'>
-                            {[1, 2, 3, 4, 5].map((index) => (
-                                <div key={"Rating"+index}>
-                                <FontAwesomeIcon
-                                    icon={index <= parseInt(form?.Review_Rating) ? solidStar : regularStar}
-                                    size="lg"
-                                />
+                        {form?.Review_Rating ?
+                            <>
+                                <div className='flex gap-1'>
+                                    {[1, 2, 3, 4, 5].map((index) => (
+                                        <div key={"Rating"+index}>
+                                        <FontAwesomeIcon
+                                            icon={index <= parseInt(form?.Review_Rating) ? solidStar : regularStar}
+                                            size="lg"
+                                        />
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
+                                <span className='font-normal text-lg'>{form?.Review_Rating ? parseInt(form?.Review_Rating || 0).toFixed(1) + ' rated by our customer.' : ''}</span>
+                            </>
+                            :
+                            <div className='border-2 border-dashed p-2'>
+                                The product is currently reserved and unavailable for purchase. We apologize for any inconvenience this may cause. Please stay tuned for further updates regarding its availability. Thank you for your understanding.    
+                            </div>
+                        }    
                         </div>
-                            <span className='font-normal text-lg'>{form?.Review_Rating ? parseInt(form?.Review_Rating || 0).toFixed(1) + ' rated by our customer.' : 'No review from our customer.'}</span>
-                        </div>
-                        <div className='w-full'>{form?.Review_Detail}</div>
+                        { form?.Review_Detail &&
+                            <div className='w-full relative'>
+                                <span className='absolute'>
+                                    <FontAwesomeIcon icon={faCommentDots} size='lg' className='transform scale-x-[-1]'/> 
+                                    <span className='pl-2'>{form?.Review_Detail}</span>
+                                </span>
+                            </div>
+                        }
                     </div>
                     }
                 </div>

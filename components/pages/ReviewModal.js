@@ -48,7 +48,7 @@ const ReviewModal = ({ menu, setMenu, data, onLoad, onCheckReview }) => {
         <div className='w-full l font-extralight text-3xl pb-5'>Rate our product</div>
         <div className='w-full md:grid md:grid-cols-3 gap-3'>
             <div className='col-span-1 pb-3'>
-              <Image src={form?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={150} height={200} className='w-[150px] h-[200px]'/>
+              <Image src={form?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={150} height={200} className='w-[150px] h-[200px] object-cover'/>
             </div>
             <div className='col-span-2 flex flex-col font-light'>
                 <span className='text-2xl font-extralight'>{form?.Product_Name || ''}</span>
