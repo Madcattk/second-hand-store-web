@@ -132,6 +132,7 @@ const page = () => {
                                 <div className='w-full relative'>
                                     <span className='absolute'>
                                         <FontAwesomeIcon icon={faCommentDots} size='lg' className='transform scale-x-[-1]'/> 
+                                        <span className='pl-1 font-bold'>{form?.Member_Username ? form?.Member_Username?.[0] + "****" + form?.Member_Username?.slice(-1) : ""}:</span>
                                         <span className='pl-2'>{form?.Review_Detail}</span>
                                     </span>
                                 </div>
