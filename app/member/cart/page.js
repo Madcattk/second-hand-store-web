@@ -212,7 +212,11 @@ const page = () => {
                                 <span>PRODUCT</span>
                                 <span>PRICE</span>
                             </div>
-                            <div className={`${newDeliveryAddress ? 'h-[935px]' : 'h-[740px]'} border-y border-brown py-2 w-full overflow-auto`}>
+                            <div className={`
+                            ${(newDeliveryAddress && meta?.Promotion?.length > 0) ? 'h-[840px] ' :
+                            ((!newDeliveryAddress) && meta?.Promotion?.length > 0) ? 'h-[645px] ' :
+                            (newDeliveryAddress && (!meta?.Promotion?.length > 0)) ? 'h-[935px] ' : 'h-[740px] '}
+                            border-y border-brown py-2 w-full overflow-auto`}>
                                 {form?.Product?.map((item, index, array) => {
                                     return <React.Fragment key={"Customer-Order"+index}>
                                         <div className='w-full grid grid-cols-1 md:grid-cols-3'>
