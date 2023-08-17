@@ -103,7 +103,7 @@ const layoutBackOffice = ({ children }) => {
                     key: '9',
                     icon: <CalendarOutlined />,
                     label: 'Report Summary',
-                    path: "/backoffice/"
+                    path: "/backoffice/dashboard"
                 },
                 {
                     key: '10',
@@ -136,7 +136,7 @@ const layoutBackOffice = ({ children }) => {
           style={{
             margin: '24px 16px',
             padding: 24,
-            minHeight: 570,
+            minHeight: '100vh',
             background: colorBgContainer,
           }}
           
