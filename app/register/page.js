@@ -14,29 +14,16 @@ import Loading from '@components/pages/Loading';
 
 const page = () => {
   const router = useRouter();
-  const [auth, setAuth] = useState({})
+  const auth = getFromLocalStorage('auth')
   const [loading, setLoading] = useState(true)
-  // const [form, setForm] = useState({Member_Image: null, status: false})
   const [form, setForm] = useState({Member_Image: null})
   const onChange = (update) => setForm({ ...form, ...update })
 
   useEffect(() => {
-    setAuth(getFromLocalStorage('auth'))
+    if (auth === null) setLoading(false)
   },[])
-
-  useEffect(() => {
-    if(auth?.Member_Id) router.push('/member/account');
-    else if (auth === null) setLoading(false)
-  },[auth])
   
-  const onSave = async () => {  
-    // form.status = form?.status === 'true' ? true : form?.status === true ? true : false;
-
-    // if((!form?.status) && (!form?.Member_Username)) {
-    //   return toast.error("❗️Please fill out all the fields", {
-    //       autoClose: 2000,
-    //   });
-    // }
+  const onSave = async () => { 
     if(!(form?.Member_Username && form?.email && form?.password && form?.birth_date && form?.sex && form?.firstname && form?.lastname && form?.phone)) {
       return toast.error("❗️Please fill out all the fields", {
         autoClose: 2000,
@@ -72,67 +59,6 @@ const page = () => {
             autoClose: 2000,
         });
     }
-
-    // if(!form.status){
-    //   const res = await addMember({
-    //     "Member_Firstname": form?.firstname || '',
-    //     "Member_Lastname": form?.lastname || '',
-    //     "Member_Username": form?.Member_Username || '',
-    //     "Member_Email": form?.email || '',
-    //     "Member_Password": form?.password || '',
-    //     "Member_Sex": form?.sex || '',
-    //     "Member_Birth_Date": form?.birth_date || '',
-    //     "Member_Image": form?.image || '',
-    //     "Member_Phone": form?.phone || '',
-    //   })
-      
-    //   if(res?.message === 'success'){
-    //     saveToLocalStorage('auth', res?.data || null)
-    //     toast.success("🤍 Welcome to Second Hand Store", {
-    //         autoClose: 2000,
-    //     });
-    //     router.push('/');     
-    //   }
-    //   else if(res?.message === 'duplicated'){
-    //     toast.error("❗️This email has already been used.", {
-    //         autoClose: 2000,
-    //     });
-    //   }
-    //   else{
-    //       toast.error("❗️Something wrong", {
-    //           autoClose: 2000,
-    //       });
-    //   }
-    // } else {
-    //   const res = await addEmployee({
-    //     "Employee_Firstname": form?.firstname || '',
-    //     "Employee_Lastname": form?.lastname || '',
-    //     "Employee_Email": form?.email || '',
-    //     "Employee_Password": form?.password || '',
-    //     "Employee_Sex": form?.sex || '',
-    //     "Employee_Birth_Date": form?.birth_date || '',
-    //     "Employee_Image": form?.image || '',
-    //     "Employee_Phone": form?.phone || '',
-    //   })
-      
-    //   if(res?.message === 'success'){
-    //     saveToLocalStorage('auth', res?.data || null)
-    //     toast.success("🤍 Welcome to Second Hand Store", {
-    //         autoClose: 2000,
-    //     });
-    //     router.push('/');     
-    //   }
-    //   else if(res?.message === 'duplicated'){
-    //     toast.error("❗️This email has already been used.", {
-    //         autoClose: 2000,
-    //     });
-    //   }
-    //   else{
-    //       toast.error("❗️Something wrong", {
-    //           autoClose: 2000,
-    //       });
-    //   }
-    // }
   }
 
   return (

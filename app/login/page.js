@@ -16,19 +16,14 @@ import Loading from '@components/pages/Loading';
 const page = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [auth, setAuth] = useState({})
+  const auth = getFromLocalStorage('auth')
   const [loading, setLoading] = useState(true)
   const [form, setForm] = useState({})
   const onChange = (update) => setForm({ ...form, ...update })
-  
-  useEffect(() => {
-    setAuth(getFromLocalStorage('auth'))
-  },[])
 
   useEffect(() => {
-    if(auth?.Member_Id) router.push('/member/account');
-    else if (auth === null) setLoading(false)
-  },[auth])
+    if (auth === null) setLoading(false)
+  },[])
 
   const onSave = async () => {  
     if(!(form?.email && form?.password)) {

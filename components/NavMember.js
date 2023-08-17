@@ -28,9 +28,8 @@ const NavMember = ({ children }) => {
     })
 
     useEffect(() => {
-        if((!signIn()) && (url !== '/' && url !== '/login' && url !== `/member/product/${id}`)){
-            router.push('/login')
-        }
+        if((!signIn()) && (url !== '/' && url !== '/login' && url !== '/register' && url !== `/member/product/${id}`)) router.push('/login')
+        if(signIn() && (url === '/login' || url === '/register')) router.push('/member/account')
     },[url])
     
     useEffect(() => {
