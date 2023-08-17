@@ -4,19 +4,16 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faUser, faShoppingCart, faBars, faUserShield, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage';
-import { useSelector, useDispatch } from 'react-redux'
-import { inputSearch, clearSearch } from '@redux/searchSlice';
+import { faSearch, faUser, faShoppingCart, faBars } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux'
+import { inputSearch } from '@redux/searchSlice';
 import { getAllProductTypes } from '@app/api/getAPI/product-type';
 import { MetaProductSex } from './Meta';
 import { InputBox } from './inputs';
-import { inputAuth } from '@redux/authSlice';
 import { getLatestProduct } from '@app/api/getAPI/product';
 import Footer from './pages/Footer';
 
 const NavMember = ({ children }) => {
-    const authValue = useSelector((state) => state.auth.value)
     const dispatch = useDispatch()
     const router = useRouter();
     const [search, setSearch] = useState(false)
@@ -26,12 +23,6 @@ const NavMember = ({ children }) => {
         searchType: '',
         searchSex: ''
     })
-    
-    useEffect(() => {
-        if(authValue?.logIn === false){
-            dispatch(inputAuth(getFromLocalStorage('auth')))
-        }
-    },[authValue])
     
     useEffect(() => {
         onLoad()
