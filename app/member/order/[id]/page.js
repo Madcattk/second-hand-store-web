@@ -4,27 +4,18 @@ import { Order, Review } from '@components/pages/Order'
 import { useParams } from 'next/navigation'
 import { getSaleById } from '@app/api/getAPI/sale';
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage';
-import { DateFormat } from '@components/formats';
-import { signIn } from '@auth/authMember';
 import { useRouter } from 'next/navigation';
 import Loading from '@components/pages/Loading';
 
 const page = () => {
     const router = useRouter();
     const { id } = useParams();
-    const [auth, setAuth] = useState(null);
     const [form, setForm] = useState(null);
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        const _signIn = signIn()
-        if(!_signIn) router.push('/login');
-        else setAuth(getFromLocalStorage('auth'))
+        if(getFromLocalStorage('auth')) onLoad();
     },[])
-
-    useEffect(() => {
-        if(auth) onLoad();
-    },[auth])
     
     const onLoad = async () => {
         const res = await getSaleById(id)

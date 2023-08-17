@@ -10,7 +10,6 @@ import AddressModal from '@components/pages/AddressModal';
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage';
 import { useRouter } from 'next/navigation';
 import { getMemberAddressesById } from '@app/api/getAPI/member';
-import { signIn } from '@auth/authMember';
 import Loading from '@components/pages/Loading';
 
 const page = () => {
@@ -22,9 +21,7 @@ const page = () => {
     const [address, setAddress] = useState({})
 
     useEffect(() => {
-        const _signIn = signIn()
-        if(!_signIn) router.push('/login');
-        else onLoad()
+        onLoad()
     },[])
 
     const onLogOut = () => {
@@ -34,27 +31,29 @@ const page = () => {
     
     const onLoad = async () => {
         const auth = getFromLocalStorage('auth')
-        const res = await getMemberAddressesById(auth?.Member_Id || '')
-        if(res?.message === 'success'){
-            let address = [];
-            res?.data?.forEach((item, index) => {
-                let add = item?.Member_Address.split('%');
-                address.push({
-                    Member_Id: item?.Member_Id || '',
-                    Fullname: add[0] || '',
-                    Address: add[1] || '',
-                    District: add[2] || '',
-                    Province: add[3] || '',
-                    Zipcode: add[4] || '',
-                    Country: add[5] || '',
-                    Phone: add[6] || '',
-                    Member_Address: item?.Member_Address || ''
+        if(auth){
+            const res = await getMemberAddressesById(auth?.Member_Id || '')
+            if(res?.message === 'success'){
+                let address = [];
+                res?.data?.forEach((item, index) => {
+                    let add = item?.Member_Address.split('%');
+                    address.push({
+                        Member_Id: item?.Member_Id || '',
+                        Fullname: add[0] || '',
+                        Address: add[1] || '',
+                        District: add[2] || '',
+                        Province: add[3] || '',
+                        Zipcode: add[4] || '',
+                        Country: add[5] || '',
+                        Phone: add[6] || '',
+                        Member_Address: item?.Member_Address || ''
+                    })
                 })
-            })
-            auth.Member_Address = address;
+                auth.Member_Address = address;
+            }
+            setForm(auth);
+            setLoading(false)
         }
-        setForm(auth);
-        setLoading(false)
     }
     
     return (

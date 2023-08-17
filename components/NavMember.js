@@ -2,7 +2,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUser, faShoppingCart, faBars } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux'
@@ -12,10 +12,13 @@ import { MetaProductSex } from './Meta';
 import { InputBox } from './inputs';
 import { getLatestProduct } from '@app/api/getAPI/product';
 import Footer from './pages/Footer';
+import { signIn } from '@auth/authMember';
 
 const NavMember = ({ children }) => {
     const dispatch = useDispatch()
     const router = useRouter();
+    const url = usePathname()
+    const { id } = useParams()
     const [search, setSearch] = useState(false)
     const [meta, setMeta] = useState({})
     const [form, setForm] = useState({
@@ -23,6 +26,12 @@ const NavMember = ({ children }) => {
         searchType: '',
         searchSex: ''
     })
+
+    useEffect(() => {
+        if((!signIn()) && (url !== '/' && url !== '/login' && url !== `/member/product/${id}`)){
+            router.push('/login')
+        }
+    },[url])
     
     useEffect(() => {
         onLoad()

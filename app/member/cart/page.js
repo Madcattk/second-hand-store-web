@@ -18,7 +18,6 @@ import { MetaProductStatus, MetaSaleStatus } from '@components/Meta'
 import { DateFormat } from '@components/formats'
 import { Result } from 'postcss'
 import { addPayment } from '@app/api/getAPI/payment'
-import { signIn } from '@auth/authMember';
 import Loading from '@components/pages/Loading'
 
 const page = () => {
@@ -31,13 +30,11 @@ const page = () => {
     const [meta, setMeta] = useState({Promotion: null, Delevery_Address: null})
     
     useEffect(() => {
-        const _signIn = signIn()
-        if(!_signIn) router.push('/login');
-        else onLoadAuth()
+        onLoadAuth()
     }, []);
 
     useEffect(() => {
-        onLoad()
+        if(auth) onLoad();
     },[auth])
 
     useEffect(() => {
