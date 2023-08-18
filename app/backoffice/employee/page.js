@@ -52,7 +52,7 @@ const App = () => {
                 /> 
             
                 <Column title="Employee_Phone" dataIndex="Employee_Phone" key="Employee_Phone" /> 
-                 <Column
+                 {/* <Column
                     title="Action"
                     key="action"
                     render={(_, record) => (
@@ -60,7 +60,7 @@ const App = () => {
                             <Button onClick={() => router.push(`/backoffice/employee/${record.Employee_Id}`)} danger>Edit</Button>
                         </Space>
                     )}
-                />
+                /> */}
             </Table>
         </>
     );

@@ -2,6 +2,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import validator from 'validator';
 import { ButtonText, InputBox, InputDate, InputFile, InputSelect } from '@components/inputs'
 import { MetaSex } from '@components/Meta';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,14 +25,20 @@ const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress 
     },[data])
 
     const onEdit = async () => {
-        form.status = form?.status === 'true' ? true : form?.status === true ? true : false;
-        if((!form?.status) && (!form?.Member_Username)) {
+        if(!(form?.Member_Email && form?.Member_Password && form?.Member_Birth_Date && form?.Member_Sex && form?.Member_Firstname && form?.Member_Lastname && form?.Member_Phone)) {
             return toast.error("❗️Please fill out all the fields", {
                 autoClose: 2000,
             });
         }
-        if(!(form?.Member_Email && form?.Member_Password && form?.Member_Birth_Date && form?.Member_Sex && form?.Member_Firstname && form?.Member_Lastname && form?.Member_Phone)) {
-            return toast.error("❗️Please fill out all the fields", {
+    
+        if(!validator.isEmail(form?.Member_Email)){
+            return toast.error("❗️Please make sure you enter a valid email address (e.g., example@example.com).", {
+                autoClose: 2000,
+            });
+        }
+
+        if(form?.Member_Password?.length < 8) {
+            return toast.error("❗️Your password must consist of a minimum of 8 characters.", {
                 autoClose: 2000,
             });
         }
@@ -53,7 +60,6 @@ const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress 
         }
     } 
 
-
     const onDelete = async (address) => {
         const res = await deleteMemberAddressesById(address.Member_Id, address.Member_Address);
         if(res?.message === 'success'){
@@ -68,7 +74,7 @@ const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress 
             });
         }
     }
-
+    
     return (
         <div className='w-full grid md:grid-cols-3 grid-cols-1'>
             <div className='md:col-span-2'>
@@ -77,7 +83,7 @@ const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress 
                     <InputBox onChange={(Member_Firstname) => onChange({ Member_Firstname })} value={form?.Member_Firstname || ''} placeholder='Name' classBox='w-full border-r border-brown'/>
                     <InputBox onChange={(Member_Lastname) => onChange({ Member_Lastname })} value={form?.Member_Lastname || ''} placeholder='Surname' classBox='w-full'/>
                 </div>
-                {!(form?.status === 'true' || form?.status === true) && <InputBox onChange={(Member_Username) => onChange({ Member_Username })} value={form?.Member_Username || ''} placeholder='Username' classBox='w-full'/>}
+                <InputBox onChange={(Member_Username) => onChange({ Member_Username })} value={form?.Member_Username || ''} placeholder='Username' classBox='w-full'/>
                 <InputDate onChange={(Member_Birth_Date) => onChange({ Member_Birth_Date })} value={DateFormat(form?.Member_Birth_Date || '')} placeholder='Birth Date' classBox='w-full'/>
                 <InputFile onChange={(Member_Image) => onChange({ Member_Image })} value={form?.Member_Image || ''} placeholder='Profile Picture' classBox='w-full'/>
                 <InputSelect onChange={(Member_Sex) => onChange({ Member_Sex })} value={form?.Member_Sex || ''} options={MetaSex} placeholder='Gender' classBox='w-full'/>

@@ -2,6 +2,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import validator from 'validator';
 import { ButtonText, InputBox, InputDate, InputFile, InputSelect } from '@components/inputs'
 import { MetaSex } from '@components/Meta';
 import { toast } from 'react-toastify';
@@ -29,6 +30,19 @@ const page = () => {
         autoClose: 2000,
       });
     }
+    
+    if(!validator.isEmail(form?.email)){
+      return toast.error("❗️Please make sure you enter a valid email address (e.g., example@example.com).", {
+        autoClose: 2000,
+      });
+    }
+
+    if(form?.password?.length < 8) {
+      return toast.error("❗️Your password must consist of a minimum of 8 characters.", {
+        autoClose: 2000,
+      });
+    }
+
 
     const res = await addMember({
       "Member_Firstname": form?.firstname || '',

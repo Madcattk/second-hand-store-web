@@ -69,6 +69,7 @@ const App = () => {
             <div>Phone {data?.Employee_Phone}</div>
             <div>Email {data?.Employee_Email}</div>
             <div>Birth Date {data?.Employee_Birth_Date}</div>
+            <button className='text-lg font-bold' onClick={() => router.push(`/backoffice/employee/${data.Employee_Id}`)} danger>Edit</button>
             
             <div className='flex flex-col items-center w-full relative'>
             <div className='flex flex-col gap-3'>
