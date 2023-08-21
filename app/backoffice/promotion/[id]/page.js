@@ -78,7 +78,7 @@ const App = () => {
               },
             ]}
           >
-            <Input />
+             <Input disabled/>
           </Form.Item>
           <Form.Item
             name="Promotion_Name"
