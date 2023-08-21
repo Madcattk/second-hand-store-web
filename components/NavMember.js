@@ -103,7 +103,7 @@ const NavMember = ({ children }) => {
                     <InputBox onChange={(searchInput) => onChange({ searchInput })} value={form?.searchInput || ''} placeholder='Search' classBox='md:w-[500px] w-[300px]'/>
                 </div>
             }
-            <div className='min-h-screen'>{children}</div>
+            <div className=''>{children}</div>
             <Footer/>
         </div>
     )
