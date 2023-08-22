@@ -5,6 +5,7 @@ import { Image } from 'antd';
 import { addEmployeeAddressById, editEmployeeAddressById, getEmployeeAddressesById, getEmployeeById } from '@app/api/getAPI/employee';
 import { getFromLocalStorage } from '@lib/localStorage';
 import { useRouter } from 'next/navigation';
+import { DateFormat } from '@components/formats';
 
 const App = () => {
     const router = useRouter()
@@ -13,11 +14,11 @@ const App = () => {
 
     useEffect(() => {
         onLoad()
-    },[])
+    }, [])
 
-    const onLoad = async () => { 
+    const onLoad = async () => {
         let auth = getFromLocalStorage('auth')
-        if(auth?.Employee_Id){
+        if (auth?.Employee_Id) {
             const res = await getEmployeeById(auth?.Employee_Id)
             setData(res?.data?.[0])
             const resAdd = await getEmployeeAddressesById(auth?.Employee_Id)
@@ -57,21 +58,26 @@ const App = () => {
         onLoad()
         setAddAddress(null)
     }
-    
+
     return (
-            
-        <div>
-            <Image src={data?.Employee_Image || "/assets/images/avatars/avartar.jpeg"} alt="Bank" width={130} height={180} /> 
+
+        <div className='border'>
+            <div className='border'>
+                <Image src={data?.Employee_Image || "/assets/images/avatars/avartar.jpeg"}
+                    alt="Bank"
+                    width={140} height={180}
+                    className='w-[100px] h-[10px] object-cover' />
+                <button className='text-lg font-bold' onClick={() => router.push(`/backoffice/employee/${data.Employee_Id}`)} danger>Edit</button>
+
+            </div>
             <div>ID {data?.Employee_Id}</div>
             <div>Firstname {data?.Employee_Firstname}</div>
             <div>Lastname {data?.Employee_Lastname}</div>
             <div>Sex {data?.Employee_Sex}</div>
             <div>Phone {data?.Employee_Phone}</div>
             <div>Email {data?.Employee_Email}</div>
-            <div>Birth Date {data?.Employee_Birth_Date}</div>
-            <button className='text-lg font-bold' onClick={() => router.push(`/backoffice/employee/${data.Employee_Id}`)} danger>Edit</button>
-            
-            <div className='flex flex-col items-center w-full relative'>
+            <div>Birth Date {DateFormat(data?.Employee_Birth_Date)}</div>
+
             <div className='flex flex-col gap-3'>
                 <div className='flex gap-2'>
                     <textarea
@@ -86,7 +92,7 @@ const App = () => {
                     <button onClick={() => onAddAddress()}>Add New Address</button>
                 </div>
                 {data?.Addresses?.map((item, index) => {
-                    return <div className='flex gap-2' key={"Employee-Address"+index}>
+                    return <div className='flex gap-2' key={"Employee-Address" + index}>
                         <textarea
                             className='border'
                             name=""
@@ -98,11 +104,11 @@ const App = () => {
                         ></textarea>
                         <button onClick={() => onEditAddress(index)}>Edit</button>
                     </div>
+                    
                 })}
             </div>
         </div>
-        </div>
-        
+
     )
 };
 export default App;

@@ -4,6 +4,7 @@ import { MetaSaleStatus } from '@components/Meta'
 import { getFromLocalStorage } from '@lib/localStorage'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
+import { DateFormat } from '@components/formats';
 
 export const Transaction = ({status}) => {
     const auth = getFromLocalStorage('auth')
@@ -34,7 +35,7 @@ export const Transaction = ({status}) => {
             {data?.map((sale, saleIndex) => {
                 return <div className='border p-3' key={"Sale"+saleIndex}>
                     <div>Sale ID: {sale.Sale_Id || '-'}</div>
-                    <div>Sale Date {sale.Sale_Date|| '-'}</div>
+                    <div>Sale Date {DateFormat(sale.Sale_Date|| '-')}</div>
                     <div>Address {sale.Delivery_Address|| '-'}</div>
                     <div>Tracking Number {sale.Sale_Tracking_Number|| '-'}</div>
                     <div>
