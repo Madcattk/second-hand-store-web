@@ -95,7 +95,7 @@ const App = () => {
             },
           ]}
         >
-          <Input />
+          <Input.Password />
         </Form.Item>
         <Form.Item label="Employee Sex" name={['form', 'Employee_Sex']}
             rules={[
