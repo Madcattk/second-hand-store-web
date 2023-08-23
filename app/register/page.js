@@ -12,12 +12,15 @@ import { addMember } from '@app/api/getAPI/member';
 import { saveToLocalStorage, getFromLocalStorage } from '@lib/localStorage';
 import { addEmployee } from '@app/api/getAPI/employee';
 import Loading from '@components/pages/Loading';
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const page = () => {
   const router = useRouter();
   const auth = getFromLocalStorage('auth')
   const [loading, setLoading] = useState(true)
   const [form, setForm] = useState({Member_Image: null})
+  const [password, setPassword] = useState(true)
   const onChange = (update) => setForm({ ...form, ...update })
 
   useEffect(() => {
@@ -91,7 +94,18 @@ const page = () => {
           <InputSelect onChange={(sex) => onChange({ sex })} value={form?.sex || ''} options={MetaSex} placeholder='Gender' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
           <div className='flex lg:w-[500px] md:w-[450px] sm:w-96 w-72'>
             <InputBox onChange={(email) => onChange({ email })} value={form?.email || ''} placeholder='Email' classBox='w-full border-r border-brown'/>
-            <InputBox password={true} onChange={(password) => onChange({ password })} value={form?.password || ''} placeholder='Password' classBox='w-full'/>
+            <div className='relative w-full'>
+                { password ? 
+                    <div className='absolute right-0 top-1/2 transform -translate-y-1/2'>
+                        <FontAwesomeIcon onClick={() => setPassword(!password)} className='cursor-pointer' icon={faEyeSlash} />
+                    </div>
+                :
+                    <div className='absolute right-0 top-1/2 transform -translate-y-1/2'>
+                        <FontAwesomeIcon onClick={() => setPassword(!password)} className='cursor-pointer' icon={faEye} />
+                    </div>
+                }
+                <InputBox password={password} onChange={(password) => onChange({ password })} value={form?.password || ''} placeholder='Password' classBox='w-full' classInput='pr-6'/>
+            </div>
           </div>
           <InputBox number={true} onChange={(phone) => onChange({ phone })} value={form?.phone || ''} placeholder='Phone Number' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
           <ButtonText onClick={() => onSave()} placeholder='REGISTER' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72 pb-2 pt-14'/>

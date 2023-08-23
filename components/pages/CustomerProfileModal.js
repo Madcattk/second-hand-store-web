@@ -13,12 +13,14 @@ import '@/styles/toastStyles.css';
 import { deleteMemberAddressesById, editMemberById } from '@app/api/getAPI/member';
 import { saveToLocalStorage } from '@lib/localStorage';
 import { DateFormat } from '@components/formats';
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 
 
 const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress }) => {
     const router = useRouter();
     const onChange = (update) => setForm({ ...form, ...update })
     const [form, setForm] = useState(data || {})
+    const [password, setPassword] = useState(true)
 
     useEffect(() => {
         setForm(data)
@@ -48,6 +50,7 @@ const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress 
             if(res?.message === 'success'){
                 saveToLocalStorage('auth', res?.data)
                 onLoad()
+                setPassword(true)
                 toast.success("🤍 Edited profile", {
                     autoClose: 2000,
                 });
@@ -89,7 +92,18 @@ const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress 
                 <InputSelect onChange={(Member_Sex) => onChange({ Member_Sex })} value={form?.Member_Sex || ''} options={MetaSex} placeholder='Gender' classBox='w-full'/>
                 <div className='flex w-full'>
                     <InputBox onChange={(Member_Email) => onChange({ Member_Email })} value={form?.Member_Email || ''} placeholder='Email' classBox='w-full border-r border-brown'/>
-                    <InputBox password={true} onChange={(Member_Password) => onChange({ Member_Password })} value={form?.Member_Password || ''} placeholder='Password' classBox='w-full'/>
+                    <div className='relative w-full'>
+                        { password ? 
+                            <div className='absolute right-0 top-1/2 transform -translate-y-1/2'>
+                                <FontAwesomeIcon onClick={() => setPassword(!password)} className='cursor-pointer' icon={faEyeSlash} />
+                            </div>
+                        :
+                            <div className='absolute right-0 top-1/2 transform -translate-y-1/2'>
+                                <FontAwesomeIcon onClick={() => setPassword(!password)} className='cursor-pointer' icon={faEye} />
+                            </div>
+                        }
+                        <InputBox password={password} onChange={(Member_Password) => onChange({ Member_Password })} value={form?.Member_Password || ''} placeholder='Password' classBox='w-full' classInput='pr-6'/>
+                    </div>
                 </div>
                 <InputBox number={true} onChange={(Member_Phone) => onChange({ Member_Phone })} value={form?.Member_Phone || ''} placeholder='Phone Number' classBox='w-full'/>
                 <ButtonText onClick={() => onEdit()} placeholder='EDIT PROFILE' classBox='w-full pb-2 pt-10'/>

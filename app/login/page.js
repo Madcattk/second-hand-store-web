@@ -12,6 +12,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
 import Loading from '@components/pages/Loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 
 const page = () => {
   const dispatch = useDispatch();
@@ -19,6 +21,7 @@ const page = () => {
   const auth = getFromLocalStorage('auth')
   const [loading, setLoading] = useState(true)
   const [form, setForm] = useState({})
+  const [password, setPassword] = useState(true)
   const onChange = (update) => setForm({ ...form, ...update })
 
   useEffect(() => {
@@ -66,7 +69,18 @@ const page = () => {
           <div className='pb-14'>
             <div className='font-extralight text-3xl pb-16'>Sign In</div>
             <InputBox onChange={(email) => onChange({ email })} value={form?.email} placeholder='Email' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72'/>
-            <InputBox password={true} onChange={(password) => onChange({ password })} value={form?.password} placeholder='Password' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72'/>
+            <div className='relative'>
+              { password ? 
+                <div className='absolute right-0 top-1/2 transform -translate-y-1/2'>
+                  <FontAwesomeIcon onClick={() => setPassword(!password)} className='cursor-pointer' icon={faEyeSlash} />
+                </div>
+              :
+                <div className='absolute right-0 top-1/2 transform -translate-y-1/2'>
+                  <FontAwesomeIcon onClick={() => setPassword(!password)} className='cursor-pointer' icon={faEye} />
+                </div>
+              }
+              <InputBox password={password} onChange={(password) => onChange({ password })} value={form?.password} placeholder='Password' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72' classInput='pr-6'/>
+            </div>
             <InputSelect onChange={(status) => onChange({ status })} options={[{id: false, name: 'Login as a customer'}, {id: true, name: 'Admin'}]} value={form?.status || false} classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72 pb-14'/>
             <ButtonText onClick={() => onSave()} placeholder='SIGN IN' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72 pb-2'/>
           </div>
