@@ -197,10 +197,10 @@ const page = () => {
     return (
         <Loading loading={loading}>
             <div className='flex flex-col items-center w-full mb-10'>
-                <div className='min-h-[600px] xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 border border-brown grid lg:grid-cols-3 grid-cols-1'>
+                <div className='min-h-[600px] xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 shadow-md grid lg:grid-cols-3 grid-cols-1'>
                     {(auth?.Product_Id && auth?.Product_Id?.length > 0) ?
                     <>
-                        <div className='lg:col-span-2 col-span-1 p-10 flex flex-col gap-3 md:border-r border-brown'>
+                        <div className='lg:col-span-2 col-span-1 p-10 flex flex-col gap-3 border-gray lg:border-r lg:border-b-0 border-r-0 border-b'>
                             <div className='flex gap-2 items-center'>
                                 <FontAwesomeIcon onClick={() => router.back()} icon={faCircleLeft} size='lg' className='cursor-pointer'/>
                                 <div className='text-3xl'>Summary</div>
@@ -247,8 +247,8 @@ const page = () => {
                             <div className='w-full r font-semibold'>Total ฿{(parseFloat(form?.Sale_Total_Price)-(parseFloat(form?.Sale_Total_Price) * (form?.Promotion_Data?.Promotion_Discount / 100)) || parseFloat(form?.Sale_Total_Price)).toFixed(2) || '0.00'} Baht</div>
                             <div className='w-full border-b border-gray'></div>
                         </div>
-                        <div className='p-10 col-span-1 flex flex-col gap-3'>
-                            <div className='py-2 text-xl font-light'>Delivery Information</div>
+                        <div className='p-10 col-span-1 flex flex-col gap-3 bg-greyV2'>
+                            <div className='py-2 text-xl font-light'>Shipping Address</div>
                             <div className='w-full flex flex-col gap-3 max-h-[255px] overflow-y-auto'>
                                 {form?.Address?.map((item,index) => (
                                     <label className={`${form?.Color_Address === index ? 'bg-brown text-white' : ''} cursor-pointer p-3 border border-brown w-full font-light`} key={"Customer-Address" + index}>
@@ -262,18 +262,18 @@ const page = () => {
                             {!newDeliveryAddress && <div onClick={() => {setNewDeliveryAddress(true); setForm({...form, Selected_Address: null, Color_Address: null})}} className='cursor-pointer p-3 border border-brown w-full font-light'>Add New Address</div>}
                             {newDeliveryAddress &&
                                 <div className='w-full'>
-                                    <InputBox onChange={(New_Fullname) => onChange({ New_Fullname })} value={form?.New_Fullname || ''} placeholder='Fullname' classBox='w-full'/>
-                                    <InputBox onChange={(New_Address) => onChange({ New_Address })} value={form?.New_Address || ''} placeholder='Address' classBox='w-full'/>
+                                    <InputBox  onChange={(New_Fullname) => onChange({ New_Fullname })} value={form?.New_Fullname || ''} placeholder='Fullname' classBox='w-full' classInput='bg-greyV2'/>
+                                    <InputBox onChange={(New_Address) => onChange({ New_Address })} value={form?.New_Address || ''} placeholder='Address' classBox='w-full' classInput='bg-greyV2'/>
                                     <div className='flex w-full'>
-                                        <InputBox onChange={(New_District) => onChange({ New_District })} value={form?.New_District || ''} placeholder='District' classBox='w-full border-r border-brown'/>
-                                        <InputBox onChange={(New_Province) => onChange({ New_Province })} value={form?.New_Province || ''} placeholder='Province' classBox='w-full'/>
+                                        <InputBox onChange={(New_District) => onChange({ New_District })} value={form?.New_District || ''} placeholder='District' classBox='w-full border-r border-brown' classInput='bg-greyV2'/>
+                                        <InputBox onChange={(New_Province) => onChange({ New_Province })} value={form?.New_Province || ''} placeholder='Province' classBox='w-full' classInput='bg-greyV2'/>
                                     </div>
                                     <div className='flex w-full'>
-                                        <InputBox number={true} onChange={(New_Zipcode) => onChange({ New_Zipcode })} value={form?.New_Zipcode || ''} placeholder='Zip code' classBox='w-full border-r border-brown'/>
-                                        <InputBox onChange={(New_Country) => onChange({ New_Country })} value={form?.New_Country || ''} placeholder='Country' classBox='w-full'/>
+                                        <InputBox number={true} onChange={(New_Zipcode) => onChange({ New_Zipcode })} value={form?.New_Zipcode || ''} placeholder='Zip code' classBox='w-full border-r border-brown' classInput='bg-greyV2'/>
+                                        <InputBox onChange={(New_Country) => onChange({ New_Country })} value={form?.New_Country || ''} placeholder='Country' classBox='w-full' classInput='bg-greyV2'/>
                                     </div>
                                     <div className='flex w-full'>
-                                        <InputBox number={true} onChange={(New_Phone) => onChange({ New_Phone })} value={form?.New_Phone || ''} placeholder='Phone' classBox='w-full'/>
+                                        <InputBox number={true} onChange={(New_Phone) => onChange({ New_Phone })} value={form?.New_Phone || ''} placeholder='Phone' classBox='w-full' classInput='bg-greyV2'/>
                                     </div>
                                 </div>
                             }
