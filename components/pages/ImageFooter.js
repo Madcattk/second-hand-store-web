@@ -25,8 +25,8 @@ const ImageFooter = () => {
             { (!(searchValue.searchInput || searchValue.searchType || searchValue.searchSex)) &&
                 <>
                     <div className='w-full flex_center flex-col pb-10'>
-                        <div className='uppercase md:text-2xl text-xl font-extralight'>Follow us @secondhandstore</div>
-                        <div className='text-xl font-extralight'>Get inspired, shop the looks.</div>
+                        <div className='uppercase md:text-2xl text-xl font-extralight tracking-widest'>Follow us @secondhandstore</div>
+                        <div className='text-xl font-extralight tracking-wider'>Get inspired, shop the looks.</div>
                     </div>
                     <div className='w-full grid grid-cols-6 xl:h-[32vh] lg:h-[25vh] md:h-[20vh] sm:h-[15vh] h-[10vh]'>
                         {form?.map((item, index) => {
