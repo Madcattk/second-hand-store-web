@@ -30,7 +30,6 @@ const onFinish = (values) => {
 };
 const App = () => {
     const router = useRouter();
-
     const onFinish = async (form) => {
         const res = await addPromotion(form?.form);
         if (res?.message === 'success') {
@@ -61,27 +60,24 @@ const App = () => {
             >
                 <Input />
             </Form.Item>
-
             <Form.Item label="Promotion Start Date Date" name={['form', 'Promotion_Start_Date']}
-             rules={[
-                {
-                    required: true,
-                },
-            ]}
-        >
+                rules={[
+                    {
+                        required: true,
+                    },
+                ]}
+            >
                 <DatePicker />
             </Form.Item>
-
             <Form.Item label="Promotion End Date" name={['form', 'Promotion_End_Date']}
-             rules={[
-                {
-                    required: true,
-                },
-            ]}
-        >
+                rules={[
+                    {
+                        required: true,
+                    },
+                ]}
+            >
                 <DatePicker />
             </Form.Item>
-
             <Form.Item
                 name={['form', 'Promotion_Discount']}
                 label="Promotion Discount"
@@ -93,7 +89,6 @@ const App = () => {
             >
                 <Input />
             </Form.Item>
-
             <Form.Item
                 name={['form', 'Promotion_Price_Condition']}
                 label="Promotion Price Condition"
@@ -105,7 +100,6 @@ const App = () => {
             >
                 <Input />
             </Form.Item>
-
             <Form.Item
                 wrapperCol={{
                     ...layout.wrapperCol,
@@ -120,4 +114,5 @@ const App = () => {
         </Form>
     )
 }
+
 export default App;

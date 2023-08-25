@@ -42,6 +42,7 @@ const App = () => {
       router.push('/backoffice/employee');
     }
   };
+
   return (
     <>
       <Form
@@ -147,4 +148,5 @@ const App = () => {
     </>
   )
 }
+
 export default App;

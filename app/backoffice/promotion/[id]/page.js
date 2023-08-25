@@ -22,7 +22,6 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-
 const App = () => {
   const { id } = useParams();
   const router = useRouter();
@@ -101,8 +100,6 @@ const App = () => {
           >
             <DatePicker />
           </Form.Item>
-
-
           <Form.Item label="Promotion_End_Date" name={['form', 'Promotion_End_Date']}
           rules={[
             {
@@ -112,7 +109,6 @@ const App = () => {
           >
             <DatePicker />
           </Form.Item>
-
           <Form.Item
             name="Promotion_Discount"
             label="Promotion Discount"
@@ -124,7 +120,6 @@ const App = () => {
           >
             <Input />
           </Form.Item>
-
           <Form.Item
             name="Promotion_Price_Condition"
             label="Promotion Price Condition"

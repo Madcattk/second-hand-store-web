@@ -84,7 +84,6 @@ const App = () => {
                     >
                         <Input />
                     </Form.Item>
-
                     <Form.Item
                         wrapperCol={{
                             ...layout.wrapperCol,

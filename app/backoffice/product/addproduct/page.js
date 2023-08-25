@@ -29,14 +29,13 @@ const validateMessages = {
 
 const App = () => {
   const router = useRouter();
-
   const [image, setImage] = useState(null);
-  const [meta, setMeta] = useState({}) 
+  const [meta, setMeta] = useState({})
   const onChange = (update) => setImage(update)
 
   useEffect(() => {
     onload()
-  },[])
+  }, [])
 
   const onload = async () => {
     const resSize = await getAllSizes();
@@ -60,15 +59,15 @@ const App = () => {
   }
 
   const onFinish = async (values) => {
-    values.form = { 
-      ...values.form, 
+    values.form = {
+      ...values.form,
       Product_Image: image?.image || null,
       Product_Date: DateFormat(values.form.Product_Date) || null,
       Product_Description: values.form.Product_Description || null,
       Size_Id: values.form.Size_Id || null,
       Product_Size_Detail: values.form.Product_Size_Detail || null,
     }
-    
+
     const res = await addProduct(values.form);
     if (res?.message === 'success') {
       toast.success("Product Added.", {
@@ -78,6 +77,7 @@ const App = () => {
       router.push('/backoffice/product');
     }
   };
+
   return (
     <>
       <Form
@@ -102,7 +102,6 @@ const App = () => {
             {
               required: true,
             },
-
           ]}
         >
           <Input />
@@ -118,78 +117,70 @@ const App = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           name={['form', 'Product_Description']}
           label="Product Description"
           rules={[
             {
-                type: 'Product_Description',
+              type: 'Product_Description',
             },
           ]}
         >
           <Input />
         </Form.Item>
-
-        <Form.Item label="Product Sex" name={['form', 'Product_Sex']}  rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
+        <Form.Item label="Product Sex" name={['form', 'Product_Sex']} rules={[
+          {
+            required: true,
+          },
+        ]}
+        >
           <Select>
             {MetaProductSex.map((item, index) => {
               return <Select.Option key={"Sex" + index} value={item.id}>{item.name}</Select.Option>
             })}
           </Select>
         </Form.Item>
-
-        <Form.Item label="Product Date" name={['form', 'Product_Date']}  
-        rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
+        <Form.Item label="Product Date" name={['form', 'Product_Date']}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
           <DatePicker />
         </Form.Item>
-
-
-        <Form.Item label="Product Status" name={['form', 'Product_Status']}  rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
+        <Form.Item label="Product Status" name={['form', 'Product_Status']} rules={[
+          {
+            required: true,
+          },
+        ]}
+        >
           <Select>
             {MetaProductStatus.map((item, index) => {
               return <Select.Option key={"Status" + index} value={item.id}>{item.name}</Select.Option>
             })}
           </Select>
         </Form.Item>
-
-        <Form.Item label="Product Type" name={['form', 'Product_Type_Id']}  rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
+        <Form.Item label="Product Type" name={['form', 'Product_Type_Id']} rules={[
+          {
+            required: true,
+          },
+        ]}
+        >
           <Select>
             {meta?.Product_Types?.map((item, index) => {
               return <Select.Option key={"Product-Type" + index} value={item.id}>{item.name}</Select.Option>
             })}
           </Select>
         </Form.Item>
-
-        <Form.Item label="Size" name={['form', 'Size_Id']} 
-          >
+        <Form.Item label="Size" name={['form', 'Size_Id']}
+        >
           <Select>
             {meta?.Sizes?.map((item, index) => {
               return <Select.Option key={"Product-Type" + index} value={item.id}>{item.name}</Select.Option>
             })}
           </Select>
         </Form.Item>
-
         <Form.Item
           name={['form', 'Product_Size_Detail']}
           label="Product Size Detail"
@@ -201,7 +192,6 @@ const App = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           name={['form', 'Sale_Id']}
           label="Sale Id"
@@ -211,13 +201,11 @@ const App = () => {
             },
           ]}
         >
-          <Input disabled/>
+          <Input disabled />
         </Form.Item>
-
         <div className='w-full flex justify-center'>
           <WhiteInputFile onChange={(image) => onChange({ image })} value={image?.image || ''} placeholder='Profile Picture' classBox='w-[50%]' />
         </div>
-
         <Form.Item
           wrapperCol={{
             ...layout.wrapperCol,
@@ -232,4 +220,5 @@ const App = () => {
     </>
   )
 }
+
 export default App;

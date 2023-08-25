@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, Select, DatePicker} from 'antd';
+import { Button, Form, Input, Select, DatePicker } from 'antd';
 import { DateFormat } from '@components/formats';
 import { useParams, useRouter } from 'next/navigation';
 import { editProductById, getProductById } from '@app/api/getAPI/product';
@@ -21,7 +21,6 @@ const layout = {
   },
 };
 
-
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
   required: '${label} is required!',
@@ -31,7 +30,7 @@ const App = () => {
   const { id } = useParams();
   const router = useRouter();
   const [data, setData] = useState({});
-  const [meta, setMeta] = useState({}) 
+  const [meta, setMeta] = useState({})
   const [loading, setLoading] = useState(true); // Add a loading state
 
   useEffect(() => {
@@ -39,12 +38,10 @@ const App = () => {
   }, []);
 
   const onChange = (update) => setData({ ...data, ...update })
-
   const onLoad = async () => {
     const res = await getProductById(id);
     res.data[0].Product_Date = DateFormat(res.data[0].Product_Date);
     setData(res?.data?.[0] || {});
-
     const resSize = await getAllSizes();
     const sizes = resSize?.data?.map((item, index) => {
       return {
@@ -65,14 +62,14 @@ const App = () => {
     })
     setLoading(false); // Set loading to false after data is fetched
   };
-  
+
   const onFinish = async ({ form, ...restValues }) => {
     const updatedValues = {
       ...restValues,
       Product_Image: data?.Product_Image || null,
       Product_Date: DateFormat(form?.Product_Date)
     };
-    
+
     const res = await editProductById(updatedValues);
     if (res?.message === 'success') {
       toast.success("Product Edited.", {
@@ -98,7 +95,6 @@ const App = () => {
           validateMessages={validateMessages}
           initialValues={data}
         >
-
           <Form.Item
             name="Product_Id"
             label="Product Id"
@@ -108,9 +104,8 @@ const App = () => {
               },
             ]}
           >
-            <Input disabled/>
+            <Input disabled />
           </Form.Item>
-
           <Form.Item
             name="Product_Name"
             label="Product Name"
@@ -134,7 +129,6 @@ const App = () => {
           >
             <Input />
           </Form.Item>
-
           <Form.Item
             name="Product_Description"
             label="Product Description"
@@ -146,9 +140,8 @@ const App = () => {
           >
             <Input />
           </Form.Item>
-
           <Form.Item label="Product Sex" name={'Product_Sex'}
-          rules={[
+            rules={[
               {
                 required: true,
               },
@@ -160,9 +153,8 @@ const App = () => {
               })}
             </Select>
           </Form.Item>
-
           <Form.Item label="Product Date" name={['form', 'Product_Date']}
-          rules={[
+            rules={[
               {
                 required: true,
               },
@@ -170,66 +162,58 @@ const App = () => {
           >
             <DatePicker />
           </Form.Item>
-
           <Form.Item label="Product Status	" name={'Product_Status'}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
             <Select>
               {MetaProductStatus.map((item, index) => {
                 return <Select.Option key={"Status" + index} value={item.id}>{item.name}</Select.Option>
               })}
             </Select>
           </Form.Item>
-
-          <Form.Item label="Product Type" name={'Product_Type_Id'}  rules={[
-              {
-                required: true,
-              },
-            ]}
+          <Form.Item label="Product Type" name={'Product_Type_Id'} rules={[
+            {
+              required: true,
+            },
+          ]}
           >
-          <Select>
-            {meta?.Product_Types?.map((item, index) => {
-              return <Select.Option key={"Product-Type" + index} value={item.id}>{item.name}</Select.Option>
-            })}
-          </Select>
-        </Form.Item>
-
-        <Form.Item label="Size" name={'Size_Id'}  
+            <Select>
+              {meta?.Product_Types?.map((item, index) => {
+                return <Select.Option key={"Product-Type" + index} value={item.id}>{item.name}</Select.Option>
+              })}
+            </Select>
+          </Form.Item>
+          <Form.Item label="Size" name={'Size_Id'}
           >
-          <Select>
-            {meta?.Sizes?.map((item, index) => {
-              return <Select.Option key={"Product-Type" + index} value={item.id}>{item.name}</Select.Option>
-            })}
-          </Select>
-        </Form.Item>
-
+            <Select>
+              {meta?.Sizes?.map((item, index) => {
+                return <Select.Option key={"Product-Type" + index} value={item.id}>{item.name}</Select.Option>
+              })}
+            </Select>
+          </Form.Item>
           <Form.Item
             name="Product_Size_Detail"
             label="Product Size Detail"
           >
             <Input />
           </Form.Item>
-
           <Form.Item
             name="Sale_Id"
             label="Sale_Id"
           >
             <Input disabled />
           </Form.Item>
-
           <div className='w-full flex justify-center'>
             <WhiteInputFile onChange={(Product_Image) => onChange({ Product_Image })} value={data?.Product_Image || ''} placeholder='Profile Picture' classBox='w-[50%]' />
           </div>
-
           <Form.Item
             wrapperCol={{
               ...layout.wrapperCol,
               offset: 8,
-
             }}
           >
             <Button htmlType="submit" type="primary" danger>

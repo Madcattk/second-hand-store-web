@@ -54,7 +54,6 @@ const App = () => {
       >
         <Input />
       </Form.Item>
-
       <Form.Item
         wrapperCol={{
           ...layout.wrapperCol,
@@ -64,7 +63,6 @@ const App = () => {
         <Button htmlType="submit" type="primary" danger>
           Submit
         </Button>
-
       </Form.Item>
     </Form>
   )

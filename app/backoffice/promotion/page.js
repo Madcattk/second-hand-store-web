@@ -6,8 +6,6 @@ import { useRouter } from 'next/navigation';
 import { DateFormat } from '@components/formats';
 
 const { Column} = Table;
-
-
 const App = () => {
     const router = useRouter();
     const [data, setData] = useState([]);
@@ -26,7 +24,6 @@ const App = () => {
             })
             console.log(data);
             setData(data || []);
-        
         }
         
     };
@@ -42,12 +39,12 @@ const App = () => {
         </Row>
 
         <Table dataSource={data} rowKey="Promotion_Id">
-            <Column title="Promotion_Id" dataIndex="Promotion_Id" key="Promotion_Id" />
-            <Column title="Promotion_Name" dataIndex="Promotion_Name" key="Promotion_Name" />
-            <Column title="Promotion_Start_Date" dataIndex="Promotion_Start_Date" key="Promotion_Start_Date" />
-            <Column title="Promotion_End_Date" dataIndex="Promotion_End_Date" key="Promotion_End_Date" />
-            <Column title="Promotion_Discount" dataIndex="Promotion_Discount" key="Promotion_Discount" />
-            <Column title="Promotion_Price_Condition" dataIndex="Promotion_Price_Condition" key="Promotion_Price_Condition" />
+            <Column title="Promotion Id" dataIndex="Promotion_Id" key="Promotion_Id" />
+            <Column title="Promotion Name" dataIndex="Promotion_Name" key="Promotion_Name" />
+            <Column title="Promotion Start_Date" dataIndex="Promotion_Start_Date" key="Promotion_Start_Date" />
+            <Column title="Promotion End Date" dataIndex="Promotion_End_Date" key="Promotion_End_Date" />
+            <Column title="Promotion Discount" dataIndex="Promotion_Discount" key="Promotion_Discount" />
+            <Column title="Promotion Price Condition" dataIndex="Promotion_Price_Condition" key="Promotion_Price_Condition" />
             <Column
                 title="Action"
                 key="action"

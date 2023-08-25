@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Space, Table, Button, Row } from 'antd';
 import { getAllProductTypes } from '@app/api/getAPI/product-type';
 import { useRouter } from 'next/navigation';
-const { Column } = Table;
 
+const { Column } = Table;
 const App = () => {
     const router = useRouter();
     const [data, setData] = useState([]);
@@ -27,8 +27,8 @@ const App = () => {
                 </Space>
             </Row>
             <Table dataSource={data} rowKey="Product_Type_Id">
-                <Column title="Product_Type_Id" dataIndex="Product_Type_Id" key="Product_Type_Id" />
-                <Column title="Product_Type_Name" dataIndex="Product_Type_Name" key="Product_Type_Name" />
+                <Column title="Product Type Id" dataIndex="Product_Type_Id" key="Product_Type_Id" />
+                <Column title="Product Type Name" dataIndex="Product_Type_Name" key="Product_Type_Name" />
                 <Column
                     title="Action"
                     key="action"
