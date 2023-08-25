@@ -61,7 +61,7 @@ const App = () => {
 
     return (
         <div>
-            <div className='flex justify-between '>
+            <div className='flex justify-between'>
                 <div className='flex gap-5'>
                     <Image src={data?.Employee_Image || "/assets/images/avatars/avartar.jpeg"}
                         alt="Profile image"

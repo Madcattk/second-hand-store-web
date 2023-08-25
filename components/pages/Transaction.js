@@ -6,20 +6,20 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { DateFormat } from '@components/formats';
 
-export const Transaction = ({status}) => {
+export const Transaction = ({ status }) => {
     const auth = getFromLocalStorage('auth')
     const [data, setData] = useState([])
     const [trackingNumbers, setTrackingNumbers] = useState({});
 
     useEffect(() => {
         onLoad()
-    },[status])
-    
+    }, [status])
+
     const onLoad = async () => {
         const res = await getSalesBySaleStatus(status)
         setData(res?.data || [])
     }
-    
+
     const onUpdate = async (sale, status) => {
         const res = await updateSaleStatusById({
             Sale_Id: sale.Sale_Id,
@@ -29,48 +29,55 @@ export const Transaction = ({status}) => {
         })
         onLoad()
     }
-    
+
     return (
         <div className='flex flex-col gap-6'>
             {data?.map((sale, saleIndex) => {
-                return <div className='border p-3' key={"Sale"+saleIndex}>
-                    <div>Sale ID: {sale.Sale_Id || '-'}</div>
-                    <div>Sale Date {DateFormat(sale.Sale_Date|| '-')}</div>
-                    <div>Address {sale.Delivery_Address|| '-'}</div>
-                    <div>Tracking Number {sale.Sale_Tracking_Number|| '-'}</div>
+                return <div className='border p-3' key={"Sale" + saleIndex}>
+                    <div className='w-full flex flex-col md:flex-row md:items-end justify-between '>
+                        <div>Sale ID: {sale.Sale_Id || '-'}</div>
+                        <div>Sale Date: {DateFormat(sale.Sale_Date || '-')}</div>
+                    </div>
+                    <div >Address: {sale.Delivery_Address || '-'}</div>
+                    <div>Tracking Number: {sale.Sale_Tracking_Number || '-'}</div>
                     <div>
                         {sale?.Product?.map((product, productIndex) => {
-                            return <div className='border' key={"Product"+productIndex}>
-                                <div>
-                                    <Image 
-                                    src={product?.Product_Image || "/assets/images/avatars/no-image.png"} 
-                                    priority={true} 
-                                    alt="Bank" 
-                                    width={100} height={120}
-                                    className='w-[100px] h-[120px] object-cover'/>
+                            return <div className='w-full border-y border-brown py-2' key={"Product" + productIndex}>
+                                <div className='flex gap-5'>
+                                    <Image
+                                        src={product?.Product_Image || "/assets/images/avatars/no-image.png"}
+                                        priority={true}
+                                        alt="Bank"
+                                        width={100} height={120}
+                                        className='w-[100px] h-[120px] object-cover' />
+                                    <div className='flex flex-col col-span-2'>
+                                        <div>Product ID: {product?.Product_Id}</div>
+                                        <div>Product Name: {product?.Product_Name}</div>
+                                    </div>
                                 </div>
-                                <div>Product ID {product?.Product_Id}</div>
-                                <div>Product Name {product?.Product_Name}</div>
                             </div>
                         })}
                     </div>
-                    <div>Total {sale.Sale_Total_Price || '-'}</div>
+                    <div className='w-full r'>
+                    <div>Total ฿ {sale.Sale_Total_Price.toFixed(2) || '-'} Baht</div>
                     <div>Promotion {sale.Promotion_Name || '-'}</div>
-                    <div>Discounted Total{sale.Discounted_Total_Price || '-'}</div>
+                    <div>Discounted Total {sale.Discounted_Total_Price || '-'}</div>
+                    </div>
                     <div>
+                    <div className='w-full border-b border-gray'></div>
                         <div>Slip</div>
-                        <Image src={sale?.Payment_Slip || "/assets/images/avatars/no-image.png"} 
-                        priority={true} 
-                        alt="Bank" 
-                        width={100} height={120}
-                        className='w-[100px] h-[120px] object-cover'/>
+                        <Image src={sale?.Payment_Slip || "/assets/images/avatars/no-image.png"}
+                            priority={true}
+                            alt="Bank"
+                            width={100} height={120}
+                            className='w-[100px] h-[120px] object-cover pb-5' />
                     </div>
                     <div>Verified by {sale?.Employee_Id || '-'}</div>
                     {status === MetaSaleStatus[1].id &&
                         <div className='flex gap-10'>
-                            <button onClick={(() => onUpdate(sale, MetaSaleStatus[2].id))} >CONFIRM</button>
-                            <button onClick={(() => onUpdate(sale, MetaSaleStatus[3].id))}>INVALID</button>
-                            <button onClick={(() => onUpdate(sale, MetaSaleStatus[4].id))}>CANCEL</button>
+                            <button className='border' onClick={(() => onUpdate(sale, MetaSaleStatus[2].id))} >CONFIRM</button>
+                            <button className='border' onClick={(() => onUpdate(sale, MetaSaleStatus[3].id))}>INVALID</button>
+                            <button className='border' onClick={(() => onUpdate(sale, MetaSaleStatus[4].id))}>CANCEL</button>
                         </div>
                     }
                     {status === MetaSaleStatus[2].id &&
@@ -87,7 +94,7 @@ export const Transaction = ({status}) => {
                                     setTrackingNumbers(updatedTrackingNumbers);
                                 }}
                             />
-                            <button onClick={(() => onUpdate(sale, MetaSaleStatus[5].id))}>ADD TRACKING NUMBER</button>
+                            <button className='flex flex-col col-span-1' onClick={(() => onUpdate(sale, MetaSaleStatus[5].id))}>ADD TRACKING NUMBER</button>
                         </div>
                     }
                 </div>
