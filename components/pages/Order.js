@@ -179,7 +179,7 @@ export const Review = ({ form, onChange, onLoad }) => {
                     <div>{form?.Address?.Address || ''} {form?.Address?.District || ''} {form?.Address?.Province || ''} {form?.Address?.Zipcode || ''} {form?.Address?.Country || ''}</div>
                     <div>Phone: {form?.Address?.Phone || ''}</div>
                     </div>
-                    <div>Tracking Nuber: {form?.Sale_Tracking_Number || '-'}</div>
+                    <div>Tracking Number: {form?.Sale_Tracking_Number || '-'}</div>
                 </div>
                 <div className='w-full grid grid-cols-1 md:grid-cols-3 text-[10px] font-light'>
                     <span>PRODUCT</span>
