@@ -102,7 +102,7 @@ export const Transaction = ({ status }) => {
                             width={100} height={120}
                             className='w-[100px] h-[120px] object-cover pb-5' />
                     </div>
-                    <div>Verified by {sale?.Employee_Id || '-'}</div>
+                    <div>Verified by Employee Id: {sale?.Employee_Id || '-'}</div>
                     {status === MetaSaleStatus[1].id &&
                         <div className='flex gap-3'>
                             <button className='px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={(() => onUpdate(sale, MetaSaleStatus[2].id))} >CONFIRM</button>
@@ -111,7 +111,7 @@ export const Transaction = ({ status }) => {
                         </div>
                     }
                     {status === MetaSaleStatus[2].id &&
-                        <div>
+                        <div className='flex gap-3'>
                             <input
                                 className='border'
                                 type="text"
@@ -124,7 +124,7 @@ export const Transaction = ({ status }) => {
                                     setTrackingNumbers(updatedTrackingNumbers);
                                 }}
                             />
-                            <button className='flex flex-col col-span-1' onClick={(() => onUpdate(sale, MetaSaleStatus[5].id))}>ADD TRACKING NUMBER</button>
+                            <button className='px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={(() => onUpdate(sale, MetaSaleStatus[5].id))}>ADD TRACKING NUMBER</button>
                         </div>
                     }
                 </div>

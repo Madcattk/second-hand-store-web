@@ -1,18 +1,24 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { Space, Table, Button, Row } from 'antd';
+import { Modal } from 'antd';
 import { useRouter } from 'next/navigation';
 import { getAllEmployees } from '@app/api/getAPI/employee';
 import { DateFormat } from '@components/formats';
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 
 const { Column } = Table;
 const App = () => {
     const router = useRouter();
     const [data, setData] = useState([]);
+    const [hoveredRowId, setHoveredRowId] = useState(-1);
+
     useEffect(() => {
         onLoad();
     }, []);
+
     const onLoad = async () => {
         const res = await getAllEmployees();
         if(res?.message === 'success'){
@@ -23,7 +29,7 @@ const App = () => {
             setData(data || []);
         }
     };
-
+    
     return (
         <>
             <Row justify="end">
@@ -59,7 +65,33 @@ const App = () => {
                         </Space>
                     )}
                 /> */}
+                <Column
+                    title="Address"
+                    dataIndex="Employee_Id"
+                    key="click"
+                    render={(_, record, index) => (
+                        <a onClick={() => setHoveredRowId(index)}>
+                            <FontAwesomeIcon icon={faAddressBook} size='2xl'/>        
+                        </a>
+                    )}
+                />
             </Table>
+            
+            <Modal
+                open={hoveredRowId !== -1 ? true : false}
+                onCancel={() => setHoveredRowId(-1)}
+                footer={null}
+                destroyOnClose
+            >
+                <div className='flex flex-col gap-3 min-h-[40px]'> 
+                    {data?.[hoveredRowId]?.Addresses?.map((item, index) => {
+                        return<div key={index}>
+                                <div> Address {index + 1} :</div>
+                                <div className='pl-5'>{item?.Employee_Address}</div>
+                            </div>
+                    })}
+                </div>
+            </Modal>
         </>
     );
 }
