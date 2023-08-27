@@ -5,7 +5,7 @@ import { MetaSaleStatus } from '@components/Meta';
 import { Transaction } from '@components/pages/Transaction';
 
 const App = () => {
-  const [tab, setTab] = useState(null);
+  const [tab, setTab] = useState(MetaSaleStatus?.[0]?.id);
   const items = MetaSaleStatus.map((status, index) => ({
     key: status.id,
     label: status.name,
