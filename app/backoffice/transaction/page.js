@@ -9,7 +9,7 @@ const App = () => {
   const items = MetaSaleStatus.map((status, index) => ({
     key: status.id,
     label: status.name,
-    children: <Transaction status={status.id}/> 
+    children: <Transaction status={tab}/> 
   }))
 
   const onChange = (key) => {
