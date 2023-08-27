@@ -18,7 +18,7 @@ export const Transaction = ({ status }) => {
     const onLoad = async () => {
         const res = await getSalesBySaleStatus(status)
         setData(res?.data || [])
-        if(res?.message === 'success'){   
+        if (res?.message === 'success') {
             let address = null;
             res?.data?.forEach((item, index) => {
                 let add = item?.Delivery_Address?.split('%');
@@ -33,7 +33,7 @@ export const Transaction = ({ status }) => {
                 }
                 res.data[index] = { ...item, Address: address };
             });
-            
+
             setData(res?.data || [])
         }
     }
@@ -57,9 +57,12 @@ export const Transaction = ({ status }) => {
                         <div>Sale Date: {DateFormat(sale.Sale_Date || '-')}</div>
                         <div>{sale.Sale_Status || ''}</div>
                     </div>
-                    <div className='w-full flex flex-col md:flex-row md:items-end justify-between pb-2'>
-                        <div>Address:{sale?.Address.Fullname || '-'} {sale?.Address.District || '-'} {sale?.Address?.Province || ''} {sale?.Address?.Zipcode || ''} {sale?.Address?.Country || ''} {sale?.Address?.Phone || ''}</div>
-                       
+                    <div className='w-full flex flex-col md:flex-row md:items-end justify-between'>
+                        <div>
+                            <div>{sale?.Address.Fullname || '-'} </div>
+                            <div>{sale?.Address.District || '-'} {sale?.Address?.Province || ''} {sale?.Address?.Zipcode || ''} {sale?.Address?.Country || ''} </div>
+                            <div>Phone: {sale?.Address?.Phone || ''}</div>
+                        </div>
                         <div>Tracking Number: {sale.Sale_Tracking_Number || '-'}</div>
                     </div>
                     <div>
@@ -72,14 +75,15 @@ export const Transaction = ({ status }) => {
                                         alt="Bank"
                                         width={100} height={120}
                                         className='w-[100px] h-[120px] object-cover' />
-                                    <div>
+                                    <div className='w-full flex flex-col '>
                                         <div>Product ID: {product?.Product_Id}</div>
                                         <div>Product Name: {product?.Product_Name}</div>
                                         <div>Size: {product?.Size_Name || '-'}</div>
                                         <div>Detail: {product?.Product_Size_Detail || '-'}</div>
                                     </div>
-                                    <div>฿ {product?.Product_Price?.toFixed(2) || '-'} Baht</div>
+                                    <div className='w-full r'>฿ {product?.Product_Price?.toFixed(2) || '-'} Baht</div>
                                 </div>
+                                
 
                             </div>
                         })}
@@ -101,9 +105,9 @@ export const Transaction = ({ status }) => {
                     <div>Verified by {sale?.Employee_Id || '-'}</div>
                     {status === MetaSaleStatus[1].id &&
                         <div className='flex gap-3'>
-                            <button className='border' onClick={(() => onUpdate(sale, MetaSaleStatus[2].id))} >CONFIRM</button>
-                            <button className='border' onClick={(() => onUpdate(sale, MetaSaleStatus[3].id))}>INVALID</button>
-                            <button className='border' onClick={(() => onUpdate(sale, MetaSaleStatus[4].id))}>CANCEL</button>
+                            <button className='px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={(() => onUpdate(sale, MetaSaleStatus[2].id))} >CONFIRM</button>
+                            <button className='px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={(() => onUpdate(sale, MetaSaleStatus[3].id))}>INVALID</button>
+                            <button className='px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={(() => onUpdate(sale, MetaSaleStatus[4].id))}>CANCEL</button>
                         </div>
                     }
                     {status === MetaSaleStatus[2].id &&
