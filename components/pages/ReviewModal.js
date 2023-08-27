@@ -22,11 +22,14 @@ const ReviewModal = ({ menu, setMenu, data, onLoad, onCheckReview }) => {
   };
 
   const onSave = async () => {
-    const res = await addReview({
-      "Review_Detail": form?.Review_Detail || null, 
-      "Review_Rating": rating,
-      "Product_Id": form?.Product_Id
-    })
+    let res = null;
+    if(rating >= 1 && rating <= 5){
+      res = await addReview({
+        "Review_Detail": form?.Review_Detail || null, 
+        "Review_Rating": rating,
+        "Product_Id": form?.Product_Id
+      })
+    }
 
     if(res?.message === 'success'){
         toast.success("🌟 Thank you for your review! We value your feedback.", {
