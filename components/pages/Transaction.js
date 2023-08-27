@@ -18,6 +18,24 @@ export const Transaction = ({ status }) => {
     const onLoad = async () => {
         const res = await getSalesBySaleStatus(status)
         setData(res?.data || [])
+        if(res?.message === 'success'){   
+            let address = null;
+            res?.data?.forEach((item, index) => {
+                let add = item?.Delivery_Address?.split('%');
+                address = {
+                    Fullname: add[0] || '',
+                    Address: add[1] || '',
+                    District: add[2] || '',
+                    Province: add[3] || '',
+                    Zipcode: add[4] || '',
+                    Country: add[5] || '',
+                    Phone: add[6] || ''
+                }
+                res.data[index] = { ...item, Address: address };
+            });
+            
+            setData(res?.data || [])
+        }
     }
 
     const onUpdate = async (sale, status) => {
@@ -40,7 +58,8 @@ export const Transaction = ({ status }) => {
                         <div>{sale.Sale_Status || ''}</div>
                     </div>
                     <div className='w-full flex flex-col md:flex-row md:items-end justify-between pb-2'>
-                        <div>Address: {sale.Delivery_Address || '-'}</div>
+                        <div>Address:{sale?.Address.Fullname || '-'} {sale?.Address.District || '-'} {sale?.Address?.Province || ''} {sale?.Address?.Zipcode || ''} {sale?.Address?.Country || ''} {sale?.Address?.Phone || ''}</div>
+                       
                         <div>Tracking Number: {sale.Sale_Tracking_Number || '-'}</div>
                     </div>
                     <div>
