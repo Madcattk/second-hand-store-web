@@ -131,6 +131,8 @@ export const Order = ({ form, onChange, onLoad }) => {
                 </div>
                 {form?.Promotion_Id &&
                     <>
+                        <div className='w-full r'>Subtotal ฿{form?.Sale_Total_Price?.toFixed(2)} Baht</div>
+                        <div className='w-full border-b border-gray'></div> 
                         <div className='w-full r'>{form?.Promotion_Name || ''} ฿{((parseFloat(form?.Sale_Total_Price) * (form?.Promotion_Discount / 100)) || 0).toFixed(2) || '0.00'} Baht</div>
                         <div className='w-full border-b border-gray'></div> 
                     </>
@@ -213,6 +215,8 @@ export const Review = ({ form, onChange, onLoad }) => {
                 </div>
                 {form?.Promotion_Id &&
                     <>
+                        <div className='w-full r'>Subtotal ฿{form?.Sale_Total_Price?.toFixed(2)} Baht</div>
+                        <div className='w-full border-b border-gray'></div> 
                         <div className='w-full r'>{form?.Promotion_Name || ''} ฿{((parseFloat(form?.Sale_Total_Price) * (form?.Promotion_Discount / 100)) || 0).toFixed(2) || '0.00'} Baht</div>
                         <div className='w-full border-b border-gray'></div> 
                     </>
