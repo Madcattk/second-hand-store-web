@@ -35,7 +35,7 @@ const App = () => {
                 </Space>
             </Row>
 
-            <Table dataSource={data} scroll={{x: 0}} rowKey="Product_Id">
+            <Table dataSource={data} /*scroll={{x: 250}}*/ rowKey="Product_Id">
                 <Column title="Product Id" dataIndex="Product_Id" key="Product_Id" />
                 <Column title="Product Name" dataIndex="Product_Name" key="Product_Name" />
                 <Column title="Product Price" dataIndex="Product_Price" key="Product_Price" />

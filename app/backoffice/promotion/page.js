@@ -41,7 +41,7 @@ const App = () => {
         <Table dataSource={data} rowKey="Promotion_Id">
             <Column title="Promotion Id" dataIndex="Promotion_Id" key="Promotion_Id" />
             <Column title="Promotion Name" dataIndex="Promotion_Name" key="Promotion_Name" />
-            <Column title="Promotion Start_Date" dataIndex="Promotion_Start_Date" key="Promotion_Start_Date" />
+            <Column title="Promotion Start Date" dataIndex="Promotion_Start_Date" key="Promotion_Start_Date" />
             <Column title="Promotion End Date" dataIndex="Promotion_End_Date" key="Promotion_End_Date" />
             <Column title="Promotion Discount" dataIndex="Promotion_Discount" key="Promotion_Discount" />
             <Column title="Promotion Price Condition" dataIndex="Promotion_Price_Condition" key="Promotion_Price_Condition" />

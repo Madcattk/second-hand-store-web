@@ -39,7 +39,7 @@ const App = () => {
                     </Button>
                 </Space>
             </Row>
-            <Table dataSource={data} scroll={{x: 0}} rowKey="Employee_Id">
+            <Table dataSource={data} rowKey="Employee_Id">
                 <Column title="Employee Id" dataIndex="Employee_Id" key="Employee_Id" />
                 <Column title="Employee Firstname" dataIndex="Employee_Firstname" key="Employee_Firstname" />
                 <Column title="Employee Lastname" dataIndex="Employee_Lastname" key="Employee_Lastname" />
