@@ -13,6 +13,7 @@ import { InputBox } from './inputs';
 import { getLatestProduct } from '@app/api/getAPI/product';
 import Footer from './pages/Footer';
 import { signIn } from '@auth/authMember';
+import { signIn as signInEmp } from '@auth/authEmployee';
 
 const NavMember = ({ children }) => {
     const dispatch = useDispatch()
@@ -29,7 +30,9 @@ const NavMember = ({ children }) => {
 
     useEffect(() => {
         if((!signIn()) && (url !== '/' && url !== '/login' && url !== '/register' && url !== `/member/product/${id}`&& url !== `/member/about/${id}`)) router.replace('/login')
+
         if(signIn() && (url === '/login' || url === '/register')) router.replace('/member/account')
+        else if(signInEmp() && (url === '/login' || url === '/register')) router.replace('/backoffice/account')
     },[url])
     
     useEffect(() => {
