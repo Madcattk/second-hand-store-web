@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -14,21 +14,27 @@ import {
 
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, useParams } from 'next/navigation';
 import { saveToLocalStorage, getFromLocalStorage } from '@lib/localStorage';
 import { useDispatch } from 'react-redux';
 import { clearAuth } from '@redux/authSlice';
 import { layouts } from 'chart.js';
+import { signIn } from '@auth/authEmployee';
 const { Header, Sider, Content } = Layout;
 
 const layoutBackOffice = ({ children }) => {
   const router = useRouter();
+  const url = useParams();
   const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
 } = theme.useToken();
 
+  useEffect(() => {
+    if(!signIn()) router.replace('/login');
+  },[url])
+  
 // if(getFromLocalStorage('auth') == null) {
 //     router.push('/login')
 // }
