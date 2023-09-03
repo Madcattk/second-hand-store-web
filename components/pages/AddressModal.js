@@ -13,25 +13,33 @@ const AddressModal = ({ menu, setMenu, add, address, setAdd, setAddress, data, o
   const onChange = (update) => setForm({ ...form, ...update })
   
   const onSave = async () => {
-    if(!(form?.Fullname && form?.Address && form?.District && form?.Province && form?.Zipcode &&form?.Country && form?.Phone)) {
-      return toast.error("❗️Please fill out all the fields", {
-        autoClose: 2000,
-      });
-    }
+    if (!(form?.Fullname && form?.Address && form?.District && form?.Province && form?.Zipcode && form?.Country && form?.Phone) ||
+        (form.Fullname.includes("%") ||
+        form.Address.includes("%") ||
+        form.District.includes("%") ||
+        form.Province.includes("%") ||
+        form.Zipcode.includes("%") ||
+        form.Country.includes("%") ||
+        form.Phone.includes("%"))
+      ) {
+        return toast.error("❗️Please fill out all the fields without using '%'", {
+          autoClose: 2000,
+        });
+      }
 
     let addr = (form?.Fullname || '') + '%' + (form?.Address || '') + '%' + (form?.District || '') + '%' + (form?.Province || '') + '%' + (form?.Zipcode || '') + '%' + (form?.Country || '') + '%' + (form?.Phone || '') + '%'
     
     let res = form?.Member_Id ? 
-    await editMemberAddressById({
-      'Member_Id': form?.Member_Id || '',
-      'Member_Address': address.Member_Address || '',
-      'New_Member_Address': addr || '',
-    })
+      await editMemberAddressById({
+        'Member_Id': form?.Member_Id || '',
+        'Member_Address': address.Member_Address || '',
+        'New_Member_Address': addr || '',
+      })
     :
-    await addMemberAddressById({
-      'Member_Id': data || '',
-      'Member_Address': addr || ''
-    });
+      await addMemberAddressById({
+        'Member_Id': data || '',
+        'Member_Address': addr || ''
+      });
 
     if(res?.message === 'success'){
       onLoad()
