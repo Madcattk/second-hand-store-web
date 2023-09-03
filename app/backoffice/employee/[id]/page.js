@@ -59,7 +59,7 @@ const App = () => {
       toast.success("Employee Edited.", {
         autoClose: 2000,
       });
-      router.push('/backoffice/employee');
+      router.push('/backoffice/account');
     }
   };
 
