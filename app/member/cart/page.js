@@ -133,8 +133,16 @@ const page = () => {
         if(form?.Selected_Address){
             address = form.Selected_Address.Member_Address;
         }else if(form?.New_Fullname || form?.New_Address || form?.New_District || form?.New_Province || form?.New_Zipcode || form?.New_Country || form?.New_Phone){
-            if(!(form?.New_Fullname && form?.New_Address && form?.New_District && form?.New_Province && form?.New_Zipcode && form?.New_Country && form?.New_Phone)){
-                return toast.error("🤍 Please fill out all new delivery address fields.", {
+            if(!(form?.New_Fullname && form?.New_Address && form?.New_District && form?.New_Province && form?.New_Zipcode && form?.New_Country && form?.New_Phone) ||
+                (form.New_Fullname.includes("%") ||
+                form.New_Address.includes("%") ||
+                form.New_District.includes("%") ||
+                form.New_Province.includes("%") ||
+                form.New_Zipcode.includes("%") ||
+                form.New_Country.includes("%") ||
+                form.New_Phone.includes("%"))
+            ){
+                return toast.error("🤍 Please fill out all new delivery address fields without '%'.", {
                     autoClose: 2000,
                 });
             }

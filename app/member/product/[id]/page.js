@@ -39,7 +39,7 @@ const page = () => {
     }
 
     const onAdd= (buy) => {
-        if(auth){
+        if(auth?.Member_Id){
             if(auth?.Product_Id){
                 if (!auth.Product_Id.includes(form?.Product_Id)) {
                     auth.Product_Id.push(form?.Product_Id);
