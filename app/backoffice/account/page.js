@@ -77,7 +77,7 @@ const App = () => {
                         <div>Birth Date: {DateFormat(data?.Employee_Birth_Date)}</div>
                     </div>
                 </div>
-                <button className='flex gap-5' onClick={() => router.push(`/backoffice/employee/${data.Employee_Id}`)} danger>Edit Profile</button>
+                <button className='flex gap-5' onClick={() => router.push(`/backoffice/employee/${data.Employee_Id}`)}>Edit Profile</button>
             </div>
             <div className='w-full grid grid-cols-8 my-3 shadow bg-white text-brown font-light border border-brown'></div>
 

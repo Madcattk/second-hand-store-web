@@ -16,13 +16,11 @@ const App = () => {
     const onLoad = async () => {
         const res = await getAllPromotions();
         if(res?.message === 'success'){
-            console.log(res.data);
             let data = [];
             res?.data?.forEach((item, index) => {
                 data.push({ ...item, Promotion_Start_Date: DateFormat(item.Promotion_Start_Date),
                     Promotion_End_Date: DateFormat(item.Promotion_End_Date)})
             })
-            console.log(data);
             setData(data || []);
         }
         
