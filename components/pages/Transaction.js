@@ -57,7 +57,7 @@ export const Transaction = ({ status }) => {
                         <div>Sale Date: {DateFormat(sale.Sale_Date || '-')}</div>
                         <div>{sale.Sale_Status || ''}</div>
                     </div>
-                    <div className='w-full flex flex-col md:flex-row md:items-end justify-between'>
+                    <div className='w-full flex flex-col items-start md:flex-row justify-between'>
                         <div>
                             <div>{sale?.Address.Fullname || '-'} </div>
                             <div>{sale?.Address.District || '-'} {sale?.Address?.Province || ''} {sale?.Address?.Zipcode || ''} {sale?.Address?.Country || ''} </div>

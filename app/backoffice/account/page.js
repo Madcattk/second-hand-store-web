@@ -83,7 +83,7 @@ const App = () => {
 
             <div className='font-extralight text-3xl pb-5 '>Address</div>
             <div className='flex flex-col gap-3'>
-                <div className='flex gap-2'>
+                <div className='flex gap-2 h-full items-end'>
                     <textarea
                         className='border'
                         name=""
@@ -93,10 +93,12 @@ const App = () => {
                         value={addAddress || ""}
                         onChange={(e) => setAddAddress(e.target.value)}
                     ></textarea>
-                    <button onClick={() => onAddAddress()}>Add New Address</button>
+                    <div>
+                        <button className='text-white w-44 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800' onClick={() => onAddAddress()}>Add New Address</button>
+                    </div>
                 </div>
                 {data?.Addresses?.map((item, index) => {
-                    return <div className='flex gap-2' key={"Employee-Address" + index}>
+                    return <div className='flex gap-2 h-full items-end' key={"Employee-Address" + index}>
                         <textarea
                             className='border'
                             name=""
@@ -106,7 +108,9 @@ const App = () => {
                             value={item?.New_Employee_Address || ""}
                             onChange={(e) => onChangeAddress(index, e.target.value)}
                         ></textarea>
-                        <button onClick={() => onEditAddress(index)}>Edit Address</button>
+                        <div>
+                            <button className='text-white w-44 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800' onClick={() => onEditAddress(index)}>Edit Address</button>
+                        </div>
                     </div>
                 })}
             </div>
