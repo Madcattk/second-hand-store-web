@@ -5,10 +5,14 @@ import { Pie } from 'react-chartjs-2';
 import { getBestSellerProductReport } from '@app/api/getAPI/sale';
 import { DateFormat } from '@components/formats';
 import { InputDate } from '@components/inputs';
+import html2pdf from 'html2pdf.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 
 export const Dashboard = () => {
     ChartJS.register(ArcElement, Tooltip, Legend);
     const [form, setForm] = useState([])
+    const [print, setPrint] = useState(true)
     const [date, setDate] = useState({
         Start_Date: DateFormat(getStartOfYear()),
         End_Date: DateFormat(Date.now())
@@ -29,6 +33,10 @@ export const Dashboard = () => {
     useEffect(() => {
         onLoad()
     },[date])
+
+    useEffect(() => {
+        if(!print) convertToPDF()
+    }, [print])
 
     const onLoad = async () => {
         if(!(date?.Start_Date && date?.End_Date)) { return }
@@ -97,10 +105,78 @@ export const Dashboard = () => {
         }
         return color;
     }
+    
+    const convertToPDF = () => {
+        const content = document.getElementById('pdf-content');
+    
+        // html2pdf().from(content).save();
+        html2pdf().from(content)
+            .set()
+            .toPdf()
+            .get('pdf')
+            .then((pdf) => downloadPdf(pdf));
+
+        const downloadPdf = (pdf) => {
+            let link = document.createElement('a');
+            link.target = '_blank';
+            link.href = pdf.output('bloburl');
+            link.download = 'second_hand_store_report_' + date?.Start_Date + '_' + date?.End_Date + '.pdf';
+            link.click();
+            link.remove();
+        }
+        setPrint(true)
+    };
     return (
         <div className='w-full flex flex-col items-center p-10 bg-[#F0F0F0] min-h-screen'>
             <div className='flex flex-col gap-5'>
-                <div className='font-bold text-brown'>Dashboard</div>
+                <div className='font-bold text-brown w-full flex flex-col md:flex-row md:justify-between gap-3'>
+                    <div>Dashboard</div>
+                    <button className='cursor-pointer p-2 shadow-md rounded-lg bg-white hover:bg-hover ' onClick={() => {setPrint(false)}}>Download PDF <FontAwesomeIcon icon={faFilePdf} size="lg" /></button>
+                </div>
+                <div className='flex_center w-full h-full'>
+                    <div id="pdf-content" className={`${print ? 'hidden' : ''} w-[210mm] text-[12px] bg-white px-5`}>
+                        <div className='w-full flex justify-center font-bold text-[16px] py-5'>Report for Date Range - {date?.Start_Date} to {date?.End_Date}</div>
+                        <div className='font-bold py-3'>Best Seller Product Report</div>
+                        <div className='w-full flex flex-col gap-1'>
+                            {form?.map((item, index) => {
+                                return <div className={`border-b border-hover w-full pb-3 text-brown`} key={"Best-Seller-Product"+index}>
+                                    <div className='pb-1 w-full font-bold'>{item?.Product_Type_Name || ''}</div>
+                                    <div className=''>Total sales: {item?.Count || '0'}</div>
+                                    <div className=''>Total price: <span className='font-bold text-red-500'>฿{item?.Total_Price.toFixed(2) || '0'}</span> Baht</div>
+                                </div>
+                            })}
+                        </div>
+                        <div className='font-bold py-4'>Summary Revenue</div>
+                        <table className='table text-brown'>
+                            <thead>
+                                <tr className='border-y border-hover bg-hover'>
+                                    <th className='w-2/12 l p-2'>Product Name</th>
+                                    <th className='w-2/12 l p-2'>Product Type Name</th>
+                                    <th className='w-2/12 c p-2'>Sale Date</th>
+                                    <th className='w-2/12 c p-2'>Sale Status</th>
+                                    <th className='w-2/12 r p-2'>Product Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {form?.map((item) => {
+                                    return item?.Product?.map((product, index) => {
+                                        total += product?.Product_Price;
+                                        return <tr className='items-center border-b border-hover' key={"Summary-Revenue"+index}>
+                                            <td className='l p-2'>{product?.Product_Name || '-'}</td>
+                                            <td className='l p-2'>{product?.Product_Type_Name || '-'}</td>
+                                            <td className='c p-2'>{DateFormat(product?.Sale_Date) || '-'}</td>
+                                            <td className='c p-2'>{product?.Sale_Status || '-'}</td>
+                                            <td className='r p-2'>฿{product?.Product_Price.toFixed(2) || '0.00'}</td>
+                                        </tr>
+                                    })
+                                })}
+                            </tbody>
+                        </table>
+                        <div className='w-full bg-hover text-brown flex items-center justify-end py-2 mb-5 r font-bold'>
+                            Total Revenue: ฿{total.toFixed(2) || '0.00'} Baht
+                        </div>
+                    </div>
+                </div>
                 <div className='w-[450px] bg-white shadow-md rounded-md p-2'>
                     <div className='font-bold text-greyV1'>Select a time period here</div>
                     <div className='flex'>
