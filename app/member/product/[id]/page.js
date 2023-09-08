@@ -67,6 +67,7 @@ const page = () => {
             toast.error("❗️ You should register before buying our products.", {
                 autoClose: 2000,
             });
+            router.push('/login')
         }
     }
 

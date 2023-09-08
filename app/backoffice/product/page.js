@@ -62,7 +62,9 @@ const App = () => {
                     key="action"
                     render={(_, record) => (
                         <Space size="middle">
-                            <Button onClick={() => router.push(`/backoffice/product/${record.Product_Id}`)} danger>Edit</Button>
+                            { !record?.Sale_Id &&
+                                <Button onClick={() => router.push(`/backoffice/product/${record?.Product_Id}`)} danger>Edit</Button>
+                            }
                         </Space>
                     )}
                 />
