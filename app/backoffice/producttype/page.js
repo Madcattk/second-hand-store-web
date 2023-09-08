@@ -27,8 +27,8 @@ const App = () => {
                 </Space>
             </Row>
             <Table dataSource={data} rowKey="Product_Type_Id">
-                <Column title="Product Type Id" dataIndex="Product_Type_Id" key="Product_Type_Id" />
-                <Column title="Product Type Name" dataIndex="Product_Type_Name" key="Product_Type_Name" />
+                <Column title="Id" dataIndex="Product_Type_Id" key="Product_Type_Id" />
+                <Column title="Name" dataIndex="Product_Type_Name" key="Product_Type_Name" />
                 <Column
                     title="Action"
                     key="action"

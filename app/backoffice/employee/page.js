@@ -5,7 +5,7 @@ import { Modal } from 'antd';
 import { useRouter } from 'next/navigation';
 import { getAllEmployees } from '@app/api/getAPI/employee';
 import { DateFormat } from '@components/formats';
-import Image from 'next/image';
+import { Image } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 
@@ -40,14 +40,14 @@ const App = () => {
                 </Space>
             </Row>
             <Table dataSource={data} rowKey="Employee_Id">
-                <Column title="Employee Id" dataIndex="Employee_Id" key="Employee_Id" />
-                <Column title="Employee Firstname" dataIndex="Employee_Firstname" key="Employee_Firstname" />
-                <Column title="Employee Lastname" dataIndex="Employee_Lastname" key="Employee_Lastname" />
-                <Column title="Employee Email" dataIndex="Employee_Email" key="Employee_Email" />
-                <Column title="Employee Sex" dataIndex="Employee_Sex" key="Employee_Sex" />
-                <Column title="Employee Birth Date" dataIndex="Employee_Birth_Date" key="Employee_Birth_Date" />
+                <Column title="Id" dataIndex="Employee_Id" key="Employee_Id" />
+                <Column title="Firstname" dataIndex="Employee_Firstname" key="Employee_Firstname" />
+                <Column title="Lastname" dataIndex="Employee_Lastname" key="Employee_Lastname" />
+                <Column title="Email" dataIndex="Employee_Email" key="Employee_Email" />
+                <Column title="Sex" dataIndex="Employee_Sex" key="Employee_Sex" />
+                <Column title="Birth Date" dataIndex="Employee_Birth_Date" key="Employee_Birth_Date" />
                 <Column 
-                    title="Employee Image"  
+                    title="Image"  
                     key="Employee_Image"
                     render={(_, record) => (
                         <div>
@@ -55,7 +55,7 @@ const App = () => {
                         </div>
                     )}
                 /> 
-                <Column title="Employee Phone" dataIndex="Employee_Phone" key="Employee_Phone" /> 
+                <Column title="Phone" dataIndex="Employee_Phone" key="Employee_Phone" /> 
                  {/* <Column
                     title="Action"
                     key="action"

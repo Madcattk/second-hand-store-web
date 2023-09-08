@@ -35,9 +35,6 @@ const layoutBackOffice = ({ children }) => {
     if(!signIn()) router.replace('/login');
   },[url])
   
-// if(getFromLocalStorage('auth') == null) {
-//     router.push('/login')
-// }
 
   return (
     <Layout>
