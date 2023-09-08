@@ -28,8 +28,8 @@ const App = () => {
             </Row>
 
             <Table dataSource={data} rowKey="Size_Id">
-                <Column title="Size Id" dataIndex="Size_Id" key="Size_Id" />
-                <Column title="Size Name" dataIndex="Size_Name" key="Size_Name" />
+                <Column title="Id" dataIndex="Size_Id" key="Size_Id" />
+                <Column title="Name" dataIndex="Size_Name" key="Size_Name" />
                 <Column
                     title="Action"
                     key="action"

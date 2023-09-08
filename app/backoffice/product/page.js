@@ -4,7 +4,7 @@ import { Space, Table, Button, Row } from 'antd';
 import { useRouter } from 'next/navigation';
 import { getAllProducts } from '@app/api/getAPI/product';
 import { DateFormat } from '@components/formats';
-import Image from 'next/image';
+import { Image } from 'antd'
 
 const { Column } = Table;
 const App = () => {
@@ -36,12 +36,12 @@ const App = () => {
             </Row>
 
             <Table dataSource={data} /*scroll={{x: 250}}*/ rowKey="Product_Id">
-                <Column title="Product Id" dataIndex="Product_Id" key="Product_Id" />
+                <Column title="Id" dataIndex="Product_Id" key="Product_Id" />
                 <Column title="Product Name" dataIndex="Product_Name" key="Product_Name" />
-                <Column title="Product Price" dataIndex="Product_Price" key="Product_Price" />
-                <Column title="Product Description" dataIndex="Product_Description" key="Product_Description" />
+                <Column title="Price" dataIndex="Product_Price" key="Product_Price" />
+                <Column title="Description" dataIndex="Product_Description" key="Product_Description" />
                 <Column 
-                    title="Product Image"  
+                    title="Image"  
                     key="Product_Image"
                     render={(_, record) => (
                         <div>
@@ -49,12 +49,12 @@ const App = () => {
                         </div>
                     )}
                 /> 
-                <Column title="Product Sex" dataIndex="Product_Sex" key="Product_Sex" />
-                <Column title="Product Date" dataIndex="Product_Date" key="Product_Date" />
-                <Column title="Product Status" dataIndex="Product_Status" key="Product_Status" />
-                <Column title="Product Type Name" dataIndex="Product_Type_Name" key="Product_Type_Name" />
+                <Column title="Sex" dataIndex="Product_Sex" key="Product_Sex" />
+                <Column title="Date" dataIndex="Product_Date" key="Product_Date" />
+                <Column title="Status" dataIndex="Product_Status" key="Product_Status" />
+                <Column title="Type Name" dataIndex="Product_Type_Name" key="Product_Type_Name" />
                 <Column title="Size Name" dataIndex="Size_Name" key="Size_Name" />
-                <Column title="Product Size Detail" dataIndex="Product_Size_Detail" key="Product_Size_Detail" />
+                <Column title="Size Detail" dataIndex="Product_Size_Detail" key="Product_Size_Detail" />
                 <Column title="Sale Id" dataIndex="Sale_Id" key="Sale_Id" />
 
                 <Column
