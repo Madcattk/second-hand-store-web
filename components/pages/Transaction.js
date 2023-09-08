@@ -2,9 +2,9 @@
 import { getSalesBySaleStatus, updateSaleStatusById } from '@app/api/getAPI/sale'
 import { MetaSaleStatus } from '@components/Meta'
 import { getFromLocalStorage } from '@lib/localStorage'
-import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { DateFormat } from '@components/formats';
+import { Image } from 'antd'
 
 export const Transaction = ({ status }) => {
     const auth = getFromLocalStorage('auth')
@@ -73,8 +73,8 @@ export const Transaction = ({ status }) => {
                                         src={product?.Product_Image || "/assets/images/avatars/no-image.png"}
                                         priority={true}
                                         alt="Bank"
-                                        width={100} height={120}
-                                        className='w-[100px] h-[120px] object-cover' />
+                                        width={200} height={120}
+                                        className='w-[200px] h-[120px] object-cover' />
                                     <div className='w-full flex flex-col '>
                                         <div>Product ID: {product?.Product_Id}</div>
                                         <div>Product Name: {product?.Product_Name}</div>
@@ -100,7 +100,7 @@ export const Transaction = ({ status }) => {
                             priority={true}
                             alt="Bank"
                             width={100} height={120}
-                            className='w-[100px] h-[120px] object-cover pb-5' />
+                            className='w-[100px] h-[120px] object-cover' />
                     </div>
                     <div>Verified by Employee Id: {sale?.Employee_Id || '-'}</div>
                     {status === MetaSaleStatus[1].id &&
