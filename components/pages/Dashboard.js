@@ -135,8 +135,8 @@ export const Dashboard = () => {
                 </div>
                 <div className='flex_center w-full h-full'>
                     <div id="pdf-content" className={`${print ? 'hidden' : ''} w-[210mm] text-[12px] bg-white px-5`}>
-                        <div className='w-full flex justify-center font-bold text-[16px] py-5'>Report for the Period: {date?.Start_Date} to {date?.End_Date}</div>
-                        <div className='font-bold py-3'>Best Seller Product Report</div>
+                        <div className='w-full flex justify-center font-bold text-[14px] py-5'>Report for the period: {date?.Start_Date} to {date?.End_Date}</div>
+                        <div className='font-bold py-3 text-[13px]'>Best Seller Product Report</div>
                         <div className='w-full flex flex-col gap-1'>
                             {form?.map((item, index) => {
                                 return <div className={`border-b border-hover w-full pb-3 text-brown`} key={"Best-Seller-Product"+index}>
@@ -146,7 +146,7 @@ export const Dashboard = () => {
                                 </div>
                             })}
                         </div>
-                        <div className='font-bold py-4'>Summary Revenue</div>
+                        <div className='font-bold py-4 text-[13px]'>Summary Revenue</div>
                         <table className='table text-brown'>
                             <thead>
                                 <tr className='border-y border-hover bg-hover'>
