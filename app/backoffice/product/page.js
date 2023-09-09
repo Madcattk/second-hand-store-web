@@ -29,7 +29,7 @@ const App = () => {
         <>
             <Row justify="end">
                 <Space wrap>
-                    <Button onClick={() => router.push('/backoffice/product/addproduct')} type="primary" danger>
+                    <Button className='mr-3 mb-3' onClick={() => router.push('/backoffice/product/addproduct')} type="primary" danger>
                         Add Product
                     </Button>
                 </Space>
