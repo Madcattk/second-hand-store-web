@@ -128,7 +128,7 @@ const page = () => {
                                     <div className='w-full h-full relative overflow-hidden'>
                                         <Image src={item?.Product_Image || "/assets/images/avatars/no-image.png"} fill={true} alt='' priority={true} className='object-cover hover:scale-[1.01] transform transition-transform duration-200 relative'/>
                                     </div>
-                                    <div className='pt-1'>{item?.Product_Name}</div>
+                                    <div className='pt-2'>{item?.Product_Name}</div>
                                     <div>฿ {form?.Product_Price?.toFixed(2)} Baht</div>
                                 </div>
                             })}
