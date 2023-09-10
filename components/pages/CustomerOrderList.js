@@ -9,6 +9,7 @@ const CustomerOrderList = () => {
     const router = useRouter();
     const [auth, setAuth] = useState(null);
     const [form, setForm] = useState(null);
+    const [hover, setHover] = useState(null);
 
     useEffect(() => {
         setAuth(getFromLocalStorage('auth'))
@@ -45,21 +46,24 @@ const CustomerOrderList = () => {
     return (
         <>
             {form?.map((item, index) => (
-                <div onClick={() => router.push(`/member/order/${item?.Sale_Id}`)} className='cursor-pointer hover:scale-[1.004] transform transition-transform duration-200 w-full flex_center flex-col gap-3 px-5 py-3 border border-brown mb-5' key={"Customer-Order"+index}>
-                    <div className='w-full flex flex-col md:flex-row md:items-end justify-between font-light'>
-                        <span>ORDER NO: {item?.Sale_Id || ''}</span>
-                        <span className='text-sm'>Date: {DateFormat(item?.Sale_Date) || ''}</span>
-                        <span>{item?.Sale_Status || ''}</span>
-                    </div>
-                    <div className='w-full py-1 flex flex-col md:flex-row items-start justify-between font-light text-sm border-b border-b-gray border-t border-t-gray'>
-                        <div>
-                        <div>{item?.Address?.Fullname || ''}</div>
-                        <div>{item?.Address?.Address || ''} {item?.Address?.District || ''} {item?.Address?.Province || ''} {item?.Address?.Zipcode || ''} {item?.Address?.Country || ''}</div>
-                        <div>Phone: {item?.Address?.Phone || ''}</div>
+                <div onMouseOver={() => setHover(item?.Sale_Id)} onMouseLeave={() => setHover(null)} onClick={() => router.push(`/member/order/${item?.Sale_Id}`)} className='cursor-pointer w-full h-fit flex pl-3 border border-brown mb-5' key={"Customer-Order"+index}>
+                    <div className='w-full flex_center flex-col gap-3 py-3 pr-3'>
+                        <div className='w-full flex flex-col md:flex-row md:items-end justify-between font-light'>
+                            <span>ORDER NO: {item?.Sale_Id || ''}</span>
+                            <span className='text-sm'>Date: {DateFormat(item?.Sale_Date) || ''}</span>
+                            <span>{item?.Sale_Status || ''}</span>
                         </div>
-                        <div>Tracking Number: {item?.Sale_Tracking_Number || '-'}</div>
+                        <div className='w-full py-1 flex flex-col md:flex-row items-start justify-between font-light text-sm border-b border-b-gray border-t border-t-gray'>
+                            <div>
+                            <div>{item?.Address?.Fullname || ''}</div>
+                            <div>{item?.Address?.Address || ''} {item?.Address?.District || ''} {item?.Address?.Province || ''} {item?.Address?.Zipcode || ''} {item?.Address?.Country || ''}</div>
+                            <div>Phone: {item?.Address?.Phone || ''}</div>
+                            </div>
+                            <div>Tracking Number: {item?.Sale_Tracking_Number || '-'}</div>
+                        </div>
+                        <div className='w-full r'>Total ฿{item?.Discounted_Total_Price?.toFixed(2) || item?.Sale_Total_Price?.toFixed(2)} Baht</div>
                     </div>
-                    <div className='w-full r'>Total ฿{item?.Discounted_Total_Price?.toFixed(2) || item?.Sale_Total_Price?.toFixed(2)} Baht</div>
+                    <div className={`min-h-full flex ${hover === item?.Sale_Id ? 'bg-brown pr-2 transform transition-all duration-300' : ''}`}></div>
                 </div>
             ))}
         </>
