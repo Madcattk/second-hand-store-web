@@ -49,18 +49,21 @@ export const Transaction = ({ status }) => {
     }
 
     return (
-        <div className='flex flex-col gap-6'>
+        <div className='flex flex-col gap-10'>
             {data?.map((sale, saleIndex) => {
-                return <div className='border p-3' key={"Sale" + saleIndex}>
+                return <div className='border border-hover rounded-lg shadow-md p-3' key={"Sale" + saleIndex}>
                     <div className='w-full flex flex-col md:flex-row md:items-end justify-between border-b border-gray pb-2'>
-                        <div>Sale ID: {sale.Sale_Id || '-'}</div>
-                        <div>Sale Date: {DateFormat(sale.Sale_Date || '-')}</div>
-                        <div>{sale.Sale_Status || ''}</div>
+                        <div>Sale ID: {sale?.Sale_Id || '-'}</div>
+                        <div className='flex gap-1'>
+                            <span>Sale Date: {DateFormat(sale?.Sale_Date || '-')}</span>
+                            <span className='text-greyV1'>({sale?.Sale_Date ? `${Math.floor((Date.now() - new Date(sale.Sale_Date)) / (1000 * 60 * 60 * 24))} days ago` : '-'})</span>
+                        </div>
+                        <div>{sale?.Sale_Status || ''}</div>
                     </div>
                     <div className='w-full flex flex-col items-start md:flex-row justify-between'>
                         <div>
                             <div>{sale?.Address.Fullname || '-'} </div>
-                            <div>{sale?.Address.District || '-'} {sale?.Address?.Province || ''} {sale?.Address?.Zipcode || ''} {sale?.Address?.Country || ''} </div>
+                            <div>{sale?.Address.Address || '-'} {sale?.Address.District || '-'} {sale?.Address?.Province || ''} {sale?.Address?.Zipcode || ''} {sale?.Address?.Country || ''} </div>
                             <div>Phone: {sale?.Address?.Phone || ''}</div>
                         </div>
                         <div>Tracking Number: {sale.Sale_Tracking_Number || '-'}</div>
@@ -95,7 +98,7 @@ export const Transaction = ({ status }) => {
                     </div>
                     <div>
                         <div className='w-full border-b border-gray'></div>
-                        <div>Slip</div>
+                        <div>Payment Date: {DateFormat(sale?.Payment_Date) || '-'}</div>
                         <Image src={sale?.Payment_Slip || "/assets/images/avatars/no-image.png"}
                             priority={true}
                             alt="Bank"
@@ -104,16 +107,17 @@ export const Transaction = ({ status }) => {
                     </div>
                     <div>Verified by Employee Id: {sale?.Employee_Id || '-'}</div>
                     {status === MetaSaleStatus[1].id &&
-                        <div className='flex gap-3'>
+                        <div className='flex gap-3 py-2'>
                             <button className='px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={(() => onUpdate(sale, MetaSaleStatus[2].id))} >CONFIRM</button>
                             <button className='px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={(() => onUpdate(sale, MetaSaleStatus[3].id))}>INVALID</button>
                             <button className='px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={(() => onUpdate(sale, MetaSaleStatus[4].id))}>CANCEL</button>
                         </div>
                     }
                     {status === MetaSaleStatus[2].id &&
-                        <div className='flex gap-3'>
+                        <div className='flex gap-3 py-2'>
                             <input
-                                className='border'
+                                className='border border-gray rounded-md p-1 w-56 hover:outline-none focus:outline-none'
+                                placeholder='Tracking number'
                                 type="text"
                                 value={trackingNumbers[sale.Sale_Id] || ''}
                                 onChange={(e) => {
@@ -124,7 +128,7 @@ export const Transaction = ({ status }) => {
                                     setTrackingNumbers(updatedTrackingNumbers);
                                 }}
                             />
-                            <button className='px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={(() => onUpdate(sale, MetaSaleStatus[5].id))}>ADD TRACKING NUMBER</button>
+                            <button className='px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={(() => onUpdate(sale, MetaSaleStatus[5].id))}>Add Tracking Number</button>
                         </div>
                     }
                 </div>

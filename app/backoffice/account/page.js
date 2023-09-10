@@ -6,6 +6,9 @@ import { addEmployeeAddressById, editEmployeeAddressById, getEmployeeAddressesBy
 import { getFromLocalStorage } from '@lib/localStorage';
 import { useRouter } from 'next/navigation';
 import { DateFormat } from '@components/formats';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '@/styles/toastStyles.css';
 
 const App = () => {
     const router = useRouter()
@@ -48,6 +51,16 @@ const App = () => {
 
     const onEditAddress = async (index) => {
         const res = await editEmployeeAddressById(data?.Addresses?.[index])
+        if(res?.message === 'success'){
+            toast.success("🤍 Edited address", {
+                autoClose: 3000,
+            });
+        }
+        else {
+            toast.error("❗️ Couldn't edit address", {
+                autoClose: 3000,
+            });
+        }
     }
 
     const onAddAddress = async () => {
@@ -85,7 +98,8 @@ const App = () => {
             <div className='flex flex-col gap-3'>
                 <div className='flex gap-2 h-full items-end'>
                     <textarea
-                        className='border'
+                        className='border border-gray rounded-lg p-2 hover:outline-none focus:outline-none'
+                        placeholder='New address'
                         name=""
                         id=""
                         cols="40"
@@ -100,7 +114,8 @@ const App = () => {
                 {data?.Addresses?.map((item, index) => {
                     return <div className='flex gap-2 h-full items-end' key={"Employee-Address" + index}>
                         <textarea
-                            className='border'
+                            className='border border-gray rounded-lg p-2 hover:outline-none focus:outline-none'
+                            placeholder='Edit address'
                             name=""
                             id=""
                             cols="40"
