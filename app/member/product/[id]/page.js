@@ -122,14 +122,20 @@ const page = () => {
                     </div>
                     <div className='w-full py-5 mb-20 px-4 lg:px-0'>
                         <div className='text-2xl py-5'>You may also like</div>
-                        <div className='grid grid-cols-4 gap-2 lg:h-[280px] md:h-[230px] sm:h-[180px] h-[145px] text-sm md:text-base'>
+                        <div className='grid grid-cols-4 gap-2 lg:h-[250px] md:h-[210px] sm:h-[180px] h-[145px] text-sm md:text-base'>
                             {form?.Forecast?.map((item, index) => {
                                 return <div onClick={() => router.push(`/member/product/${item?.Product_Id}`)} key={"Image-Footer"+index} className='items-center c font-light col-span-1 h-full cursor-pointer'>
                                     <div className='w-full h-full relative overflow-hidden'>
                                         <Image src={item?.Product_Image || "/assets/images/avatars/no-image.png"} fill={true} alt='' priority={true} className='object-cover hover:scale-[1.01] transform transition-transform duration-200 relative'/>
                                     </div>
-                                    <div className='pt-2 c'>{item?.Product_Name}</div>
-                                    <div className='c'>฿ {form?.Product_Price?.toFixed(2)} Baht</div>
+                                    <div className='pt-2 c w-full flex flex-col items-center'>
+                                        <span className='max-w-[180px]'>
+                                            {item?.Product_Name && item.Product_Name.length > 17
+                                            ? item.Product_Name.substring(0, 17) + '...'
+                                            : item.Product_Name}
+                                        </span>
+                                        <span className='c max-w-[180px]'>฿ {form?.Product_Price?.toFixed(2)} Baht</span>
+                                    </div>
                                 </div>
                             })}
                         </div>
