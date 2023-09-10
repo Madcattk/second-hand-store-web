@@ -136,7 +136,7 @@ const page = () => {
                     </div>
                     {form?.Review_Rating &&
                         <div className='w-full flex justify-center md:justify-start px-4 lg:px-0'>
-                            <div className='mb-10 shadow md:w-[400px] w-[300px] p-5 border border-hover flex flex-col gap-3'>
+                            <div className='mb-10 shadow md:w-[400px] w-[300px] p-2 border border-hover flex flex-col gap-3'>
                                 <div className='flex gap-2'>
                                     <div className='flex gap-1'>
                                         {[1, 2, 3, 4, 5].map((index) => (
@@ -152,7 +152,7 @@ const page = () => {
                                     <span className='font-semibold text-lg'>{parseInt(form?.Review_Rating || 0).toFixed(1)}</span>
                                 </div>
                                 {form?.Review_Detail &&
-                                    <div className='w-full font-light'>
+                                    <div className='w-full font-light text-sm'>
                                         <span className='font-semibold'>{form?.Member_Username ? form?.Member_Username?.[0] + "****" + form?.Member_Username?.slice(-1) : ""}:</span>
                                         <span className='pl-2'>{form?.Review_Detail}</span>
                                     </div>
