@@ -63,7 +63,7 @@ const CustomerOrderList = () => {
                         </div>
                         <div className='w-full r'>Total ฿{item?.Discounted_Total_Price?.toFixed(2) || item?.Sale_Total_Price?.toFixed(2)} Baht</div>
                     </div>
-                    <div className={`min-h-full flex ${hover === item?.Sale_Id ? 'bg-brown pr-2 transform transition-all duration-300' : ''}`}></div>
+                    <div className={`min-h-full flex ${hover === item?.Sale_Id ? 'bg-brown pr-2' : ''} transform transition-all duration-300`}></div>
                 </div>
             ))}
         </>
