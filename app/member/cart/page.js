@@ -193,6 +193,7 @@ const page = () => {
             saveToLocalStorage('auth', auth);
             onLoadAuth();
             onLoad();
+            router.push('/')
         }
         else{
             toast.error("❗️Something's wrong, please, try again.", {
