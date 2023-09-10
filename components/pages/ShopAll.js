@@ -60,7 +60,7 @@ const ShopAll = () => {
                             />
                             </div>
                         </div>   
-                        <div className='p-2 flex_center flex-col font-light'>
+                        <div className='p-2 flex_center flex-col font-light c'>
                             {item.Product_Status === MetaProductStatus?.[0]?.id ?
                                 <>
                                     <a>{item?.Product_Name || ''}</a>
