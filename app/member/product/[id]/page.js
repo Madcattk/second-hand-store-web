@@ -120,9 +120,9 @@ const page = () => {
                             }
                         </div>
                     </div>
-                    <div className='w-full py-5 mb-20 px-2 lg:px-0'>
+                    <div className='w-full py-5 mb-20 px-4 lg:px-0'>
                         <div className='text-2xl py-5'>You may also like</div>
-                        <div className='grid grid-cols-4 gap-2 md:h-[250px] sm:h-[200px] h-[150px] text-sm md:text-base'>
+                        <div className='grid grid-cols-4 gap-2 md:h-[250px] sm:h-[195px] h-[145px] text-sm md:text-base'>
                             {form?.Forecast?.map((item, index) => {
                                 return <div onClick={() => router.push(`/member/product/${item?.Product_Id}`)} key={"Image-Footer"+index} className='items-center c font-light col-span-1 h-full cursor-pointer'>
                                     <div className='w-full h-full relative overflow-hidden'>
@@ -135,7 +135,7 @@ const page = () => {
                         </div>
                     </div>
                     {form?.Review_Rating &&
-                        <div className='w-full flex justify-center md:justify-start'>
+                        <div className='w-full flex justify-center md:justify-start px-4 lg:px-0'>
                             <div className='mb-10 shadow md:w-[400px] w-[300px] p-5 border border-hover flex flex-col gap-3'>
                                 <div className='flex gap-2'>
                                     <div className='flex gap-1'>
