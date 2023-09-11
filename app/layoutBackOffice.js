@@ -24,7 +24,7 @@ const { Header, Sider, Content } = Layout;
 
 const layoutBackOffice = ({ children }) => {
   const router = useRouter();
-  const url = useParams();
+  const url = usePathname();
   const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
   const {
