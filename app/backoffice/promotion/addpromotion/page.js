@@ -104,7 +104,6 @@ const App = () => {
                 wrapperCol={{
                     ...layout.wrapperCol,
                     offset: 8,
-
                 }}
             >
                 <Button htmlType="submit" type="primary" danger>

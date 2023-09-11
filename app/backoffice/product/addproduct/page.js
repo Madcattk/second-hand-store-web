@@ -119,16 +119,11 @@ const App = () => {
         </Form.Item>
         <Form.Item
           name={['form', 'Product_Description']}
-          label="Product Description"
-          rules={[
-            {
-              type: 'Product_Description',
-            },
-          ]}
-        >
+          label="Product Description">
           <Input />
         </Form.Item>
-        <Form.Item label="Product Sex" name={['form', 'Product_Sex']} rules={[
+        <Form.Item label="Product Sex" name={['form', 'Product_Sex']} 
+        rules={[
           {
             required: true,
           },
@@ -149,7 +144,8 @@ const App = () => {
         >
           <DatePicker />
         </Form.Item>
-        <Form.Item label="Product Status" name={['form', 'Product_Status']} rules={[
+        <Form.Item label="Product Status" name={['form', 'Product_Status']} 
+        rules={[
           {
             required: true,
           },
@@ -161,7 +157,8 @@ const App = () => {
             })}
           </Select>
         </Form.Item>
-        <Form.Item label="Product Type" name={['form', 'Product_Type_Id']} rules={[
+        <Form.Item label="Product Type" name={['form', 'Product_Type_Id']} 
+        rules={[
           {
             required: true,
           },
@@ -173,8 +170,7 @@ const App = () => {
             })}
           </Select>
         </Form.Item>
-        <Form.Item label="Size" name={['form', 'Size_Id']}
-        >
+        <Form.Item label="Size" name={['form', 'Size_Id']}>
           <Select>
             {meta?.Sizes?.map((item, index) => {
               return <Select.Option key={"Product-Type" + index} value={item.id}>{item.name}</Select.Option>
@@ -182,25 +178,13 @@ const App = () => {
           </Select>
         </Form.Item>
         <Form.Item
-          name={['form', 'Product_Size_Detail']}
-          label="Product Size Detail"
-          rules={[
-            {
-              type: 'Product_Size_Detail',
-            },
-          ]}
-        >
+          name={['form', 'Product_Size_Detail']} 
+          label="Product Size Detail">
           <Input />
         </Form.Item>
         <Form.Item
           name={['form', 'Sale_Id']}
-          label="Sale Id"
-          rules={[
-            {
-              type: 'Sale_Id',
-            },
-          ]}
-        >
+          label="Sale Id">
           <Input disabled />
         </Form.Item>
         <div className='w-full flex justify-center'>

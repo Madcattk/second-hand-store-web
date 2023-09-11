@@ -97,13 +97,7 @@ const App = () => {
         >
           <Form.Item
             name="Product_Id"
-            label="Product Id"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
+            label="Product Id">
             <Input disabled />
           </Form.Item>
           <Form.Item
@@ -113,7 +107,6 @@ const App = () => {
               {
                 required: true,
               },
-
             ]}
           >
             <Input />
@@ -131,13 +124,7 @@ const App = () => {
           </Form.Item>
           <Form.Item
             name="Product_Description"
-            label="Product Description"
-            rules={[
-              {
-                type: 'Product_Description',
-              },
-            ]}
-          >
+            label="Product Description">
             <Input />
           </Form.Item>
           <Form.Item label="Product Sex" name={'Product_Sex'}
@@ -162,7 +149,7 @@ const App = () => {
           >
             <DatePicker />
           </Form.Item>
-          <Form.Item label="Product Status	" name={'Product_Status'}
+          <Form.Item label="Product Status" name={'Product_Status'}
             rules={[
               {
                 required: true,
@@ -175,7 +162,8 @@ const App = () => {
               })}
             </Select>
           </Form.Item>
-          <Form.Item label="Product Type" name={'Product_Type_Id'} rules={[
+          <Form.Item label="Product Type" name={'Product_Type_Id'} 
+          rules={[
             {
               required: true,
             },
@@ -187,8 +175,7 @@ const App = () => {
               })}
             </Select>
           </Form.Item>
-          <Form.Item label="Size" name={'Size_Id'}
-          >
+          <Form.Item label="Size" name={'Size_Id'}>
             <Select>
               {meta?.Sizes?.map((item, index) => {
                 return <Select.Option key={"Product-Type" + index} value={item.id}>{item.name}</Select.Option>
@@ -197,14 +184,12 @@ const App = () => {
           </Form.Item>
           <Form.Item
             name="Product_Size_Detail"
-            label="Product Size Detail"
-          >
+            label="Product Size Detail">
             <Input />
           </Form.Item>
           <Form.Item
             name="Sale_Id"
-            label="Sale_Id"
-          >
+            label="Sale_Id">
             <Input disabled />
           </Form.Item>
           <div className='w-full flex justify-center'>

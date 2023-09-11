@@ -23,7 +23,7 @@ const layout = {
 const validateMessages = {
   required: '${label} is required!',
   types: {
-    email: '${label} is not a valid email!',
+    email: '${label} (e.g. example@example.com)',
   },
 };
 /* eslint-enable no-template-curly-in-string */
@@ -80,14 +80,8 @@ const App = () => {
         >
           <Form.Item
             name="Employee_Id"
-            label="Employee Id"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-              <Input disabled/>
+            label="Employee Id">
+            <Input disabled />
           </Form.Item>
           <Form.Item
             name="Employee_Firstname"
@@ -116,6 +110,7 @@ const App = () => {
             label="Employee Email"
             rules={[
               {
+                type: 'email',
                 required: true,
               },
             ]}
@@ -133,7 +128,6 @@ const App = () => {
           >
             <Input.Password />
           </Form.Item>
-
           <Form.Item label="Employee Sex" name={['form', 'Employee_Sex']}
             rules={[
               {
@@ -147,17 +141,15 @@ const App = () => {
               })}
             </Select>
           </Form.Item>
-
           <Form.Item label="Employee Birth Date" name={['form', 'Employee_Birth_Date']}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
           >
             <DatePicker />
           </Form.Item>
-
           <Form.Item
             name="Employee_Phone"
             label="Employee Phone"
@@ -169,16 +161,13 @@ const App = () => {
           >
             <Input />
           </Form.Item>
-
           <div className='w-full flex justify-center'>
             <WhiteInputFile onChange={(Employee_Image) => onChange({ Employee_Image })} value={data?.Employee_Image || ''} placeholder='Profile Picture' classBox='w-[50%]' />
           </div>
-
           <Form.Item
             wrapperCol={{
               ...layout.wrapperCol,
               offset: 8,
-
             }}
           >
             <Button htmlType="submit" type="primary" danger>

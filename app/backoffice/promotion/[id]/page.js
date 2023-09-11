@@ -70,13 +70,7 @@ const App = () => {
         >
           <Form.Item
             name="Promotion_Id"
-            label="Promotion Id"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
+            label="Promotion Id">
              <Input disabled/>
           </Form.Item>
           <Form.Item
@@ -90,7 +84,6 @@ const App = () => {
           >
             <Input />
           </Form.Item>
-
           <Form.Item label="Promotion Start Date" name={['form', 'Promotion_Start_Date']}
           rules={[
             {
@@ -131,12 +124,10 @@ const App = () => {
           >
             <Input />
           </Form.Item>
-
           <Form.Item
             wrapperCol={{
               ...layout.wrapperCol,
               offset: 8,
-
             }}
           >
             <Button htmlType="submit" type="primary" danger>

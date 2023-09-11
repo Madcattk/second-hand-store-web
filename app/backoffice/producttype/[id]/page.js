@@ -65,13 +65,7 @@ const App = () => {
         >
           <Form.Item
             name="Product_Type_Id"
-            label="Product Type Id"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
+            label="Product Type Id">
             <Input disabled />
           </Form.Item>
           <Form.Item
@@ -89,7 +83,6 @@ const App = () => {
             wrapperCol={{
               ...layout.wrapperCol,
               offset: 8,
-
             }}
           >
             <Button htmlType="submit" type="primary" danger>

@@ -64,13 +64,7 @@ const App = () => {
                 >
                     <Form.Item
                         name="Size_Id"
-                        label="Size Id"
-                        rules={[
-                            {
-                                required: true,
-                            },
-                        ]}
-                    >
+                        label="Size Id">
                         <Input disabled />
                     </Form.Item>
                     <Form.Item
