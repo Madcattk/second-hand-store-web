@@ -30,8 +30,13 @@ export async function POST(request) {
         let id = [Product_Id]
 
         for (let i = 0; i < data.length; i++) {
-            id.push(data?.[i]?.Product_Id);
-        }
+            const productId = data?.[i]?.Product_Id;
+        
+            // Check if the productId is not already in the 'id' array
+            if (productId !== undefined && !id.includes(productId)) {
+                id.push(productId);
+            }
+        }        
         
         if(data?.length < 4){
             query = `
@@ -49,6 +54,15 @@ export async function POST(request) {
             `;
             let [result2] = await conn.execute(query, values);
             data?.push(...result2)
+
+            for (let i = 0; i < data.length; i++) {
+                const productId = data?.[i]?.Product_Id;
+            
+                // Check if the productId is not already in the 'id' array
+                if (productId !== undefined && !id.includes(productId)) {
+                    id.push(productId);
+                }
+            }     
         }
 
         if(data?.length < 4){
@@ -67,6 +81,15 @@ export async function POST(request) {
             `;
             let [result3] = await conn.execute(query, values);
             data?.push(...result3)
+
+            for (let i = 0; i < data.length; i++) {
+                const productId = data?.[i]?.Product_Id;
+            
+                // Check if the productId is not already in the 'id' array
+                if (productId !== undefined && !id.includes(productId)) {
+                    id.push(productId);
+                }
+            }     
         }
 
         if(data?.length < 4){
@@ -85,7 +108,7 @@ export async function POST(request) {
             let [result4] = await conn.execute(query, values);
             data?.push(...result4)
         }
-        
+        console.log(id);
         conn.end();
         return NextResponse.json({ data , message: "success" }, { status: 201 });
     } catch (error) {        
