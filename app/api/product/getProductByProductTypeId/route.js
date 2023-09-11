@@ -50,6 +50,41 @@ export async function POST(request) {
             let [result2] = await conn.execute(query, values);
             data?.push(...result2)
         }
+
+        if(data?.length < 4){
+            query = `
+            SELECT p.*, s.Size_Name, pt.Product_Type_Name, r.Review_Id, r.Review_Detail, r.Review_Rating, m.Member_Username
+            FROM Product p
+            LEFT JOIN Size s ON p.Size_Id = s.Size_Id
+            JOIN Product_Type pt ON p.Product_Type_Id = pt.Product_Type_Id
+            LEFT JOIN Review r ON p.Product_Id = r.Product_Id
+            LEFT JOIN Sale ss ON p.Sale_Id = ss.Sale_Id
+            LEFT JOIN Member m ON ss.Member_Id = m.Member_Id
+            WHERE p.Product_Status = '${MetaProductStatus[0].id}'
+                    AND p.Product_Id NOT IN (${id.join(', ')})
+                    AND (${likeClause})
+            LIMIT ${4 - data?.length};
+            `;
+            let [result3] = await conn.execute(query, values);
+            data?.push(...result3)
+        }
+
+        if(data?.length < 4){
+            query = `
+            SELECT p.*, s.Size_Name, pt.Product_Type_Name, r.Review_Id, r.Review_Detail, r.Review_Rating, m.Member_Username
+            FROM Product p
+            LEFT JOIN Size s ON p.Size_Id = s.Size_Id
+            JOIN Product_Type pt ON p.Product_Type_Id = pt.Product_Type_Id
+            LEFT JOIN Review r ON p.Product_Id = r.Product_Id
+            LEFT JOIN Sale ss ON p.Sale_Id = ss.Sale_Id
+            LEFT JOIN Member m ON ss.Member_Id = m.Member_Id
+            WHERE p.Product_Status = '${MetaProductStatus[0].id}'
+                    AND p.Product_Id NOT IN (${id.join(', ')})
+            LIMIT ${4 - data?.length};
+            `;
+            let [result4] = await conn.execute(query, values);
+            data?.push(...result4)
+        }
         
         conn.end();
         return NextResponse.json({ data , message: "success" }, { status: 201 });
