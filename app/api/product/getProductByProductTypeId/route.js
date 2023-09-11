@@ -108,7 +108,7 @@ export async function POST(request) {
             let [result4] = await conn.execute(query, values);
             data?.push(...result4)
         }
-        console.log(id);
+        
         conn.end();
         return NextResponse.json({ data , message: "success" }, { status: 201 });
     } catch (error) {        
