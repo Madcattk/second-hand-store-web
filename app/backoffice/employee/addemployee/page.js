@@ -23,7 +23,7 @@ const layout = {
 const validateMessages = {
   required: '${label} is required!',
   types: {
-    email: '${label} is not a valid! (e.g. example@example.com)',
+    email: '${label} (e.g. example@example.com)',
   },
 };
 /* eslint-enable no-template-curly-in-string */
@@ -83,6 +83,7 @@ const App = () => {
           rules={[
             {
               type: 'email',
+              required: true,
             },
           ]}
         >
