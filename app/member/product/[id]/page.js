@@ -35,7 +35,8 @@ const page = () => {
         if(res?.message === 'success' && res?.data?.[0]){
             const resForecast = await getProductByProductTypeId({
                 'Product_Id': res?.data?.[0]?.Product_Id,
-                'Product_Type_Id': res?.data?.[0]?.Product_Type_Id
+                'Product_Type_Id': res?.data?.[0]?.Product_Type_Id,
+                'Product_Name': res?.data?.[0]?.Product_Name
             })
             if(res?.message === 'success' && res?.data){
                 setForm({...res?.data?.[0], Forecast: resForecast?.data})
