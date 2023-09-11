@@ -68,9 +68,13 @@ export const InputFile = ({ value = "", onChange, classBox = "", placeholder = "
 
     const onSaveFile = async (e) => {
         let file = e.target.files[0];
-        const base64 = await convertToBase64(file);
-        // setImage(base64)
-        onChange(base64)
+        try {
+            const base64 = await convertToBase64(file);
+            // setImage(base64)
+            onChange(base64)      
+        } catch (error) {
+            
+        }
     }
 
     const convertToBase64 = (file) => {
@@ -121,9 +125,13 @@ export const WhiteInputFile = ({ value = "", onChange, classBox = "", placeholde
 
     const onSaveFile = async (e) => {
         let file = e.target.files[0];
-        const base64 = await convertToBase64(file);
-        // setImage(base64)
-        onChange(base64)
+        try {
+            const base64 = await convertToBase64(file);
+            // setImage(base64)
+            onChange(base64)
+        } catch (error) {
+            
+        }
     }
 
     const convertToBase64 = (file) => {
