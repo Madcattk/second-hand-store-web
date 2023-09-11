@@ -10,7 +10,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
 
-
 const layout = {
   labelCol: {
     span: 8,
@@ -24,7 +23,7 @@ const layout = {
 const validateMessages = {
   required: '${label} is required!',
   types: {
-    email: '${label} is not a valid email!',
+    email: '${label} is not a valid! (e.g. example@example.com)',
   },
 };
 /* eslint-enable no-template-curly-in-string */
@@ -34,6 +33,7 @@ const App = () => {
   const [image, setImage] = useState(null);
   const onChange = (update) => setImage(update)
   const onFinish = async (values) => {
+    
     values.form = { ...values.form, Employee_Image: image?.image || null , Employee_Birth_Date: DateFormat( values?.form?.Employee_Birth_Date )}
     const res = await addEmployee(values.form);
     if (res?.message === 'success') {
@@ -82,7 +82,7 @@ const App = () => {
           label="Employee Email"
           rules={[
             {
-              required: true,
+              type: 'email',
             },
           ]}
         >
