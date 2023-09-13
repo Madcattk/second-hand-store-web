@@ -53,7 +53,8 @@ export const InputDate = ({ value = "", onChange, classBox = "",classInput = "",
                 value={value}
                 onChange={(e) => onChange ? onChange(e.target.value) : {}}
                 placeholder={placeholder}
-                onClick={(e) => e.target.type = 'date'}
+                onMouseOver={(e) => e.target.type = 'date'}
+                onMouseLeave={(e) => e.target.type = 'text'}
             />
         </div>
     );
