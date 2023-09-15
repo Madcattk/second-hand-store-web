@@ -60,6 +60,7 @@ const App = () => {
                     style={{
                         maxWidth: 600,
                     }}
+                    validateMessages={validateMessages}
                     initialValues={data}
                 >
                     <Form.Item
