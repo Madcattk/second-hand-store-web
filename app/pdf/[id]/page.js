@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Page, Text, View, Document, StyleSheet, PDFViewer, Font } from '@react-pdf/renderer';
 import { DateFormat } from '@components/formats';
 import { signIn } from '@auth/authMember';
+import { signIn as signInEmp } from '@auth/authEmployee';
 import Loading from '@components/pages/Loading';
 import { getSaleById } from '@app/api/getAPI/sale';
 import { getFromLocalStorage } from '@lib/localStorage';
@@ -65,7 +66,7 @@ const page = () => {
     });
 
     useEffect(() => {
-        if(signIn()) {
+        if(signIn() || signInEmp()) {
             onLoad()
             setLoading(false)
         }
@@ -90,7 +91,7 @@ const page = () => {
             }
             const updatedData = { ...res.data, Address: address };
             res.data = updatedData;
-            if(res?.data?.Member_Id === auth?.Member_Id){
+            if(res?.data?.Member_Id === auth?.Member_Id || auth?.Employee_Id){
                 setLoading(false)
                 setForm(res?.data || []);
             } else {

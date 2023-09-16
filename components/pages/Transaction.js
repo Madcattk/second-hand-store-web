@@ -5,6 +5,8 @@ import { getFromLocalStorage } from '@lib/localStorage'
 import React, { useEffect, useState } from 'react'
 import { DateFormat } from '@components/formats';
 import { Image } from 'antd'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
 
 export const Transaction = ({ status }) => {
     const auth = getFromLocalStorage('auth')
@@ -59,7 +61,12 @@ export const Transaction = ({ status }) => {
                             <span>Sale Date: {DateFormat(sale?.Sale_Date || '-')}</span>
                             <span className='text-greyV1'>({sale?.Sale_Date ? `${Math.floor((Date.now() - new Date(sale.Sale_Date)) / (1000 * 60 * 60 * 24))} days ago` : '-'})</span>
                         </div>
-                        <div>{sale?.Sale_Status || ''}</div>
+                        <div className='flex gap-1'>
+                            <span>{sale?.Sale_Status || ''}</span>
+                            {(sale?.Sale_Status === MetaSaleStatus?.[2]?.id || sale?.Sale_Status === MetaSaleStatus?.[5]?.id || sale?.Sale_Status === MetaSaleStatus?.[6]?.id) &&
+                                <a href={`/pdf/${sale?.Sale_Id}`} target='_blank' rel="noopener noreferrer" className='text-sm font-light'><FontAwesomeIcon icon={faDownload} size="lg" /></a>
+                            }
+                        </div>
                     </div>
                     <div className='w-full flex flex-col items-start md:flex-row justify-between'>
                         <div>
