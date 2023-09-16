@@ -250,9 +250,9 @@ const page = () => {
                                     <div className='w-full r font-semibold'>
                                         {form?.Promotion_Data?.Promotion_Name || 'Select discount'} ฿{((parseFloat(form?.Sale_Total_Price) * (form?.Promotion_Data?.Promotion_Discount / 100)) || 0).toFixed(2) || '0.00'} Baht
                                     </div>
+                                    <div className='w-full border-b border-gray'></div>
                                 </>
                             }
-                            <div className='w-full border-b border-gray'></div>
                             <div className='w-full r font-semibold'>Total ฿{(parseFloat(form?.Sale_Total_Price)-(parseFloat(form?.Sale_Total_Price) * (form?.Promotion_Data?.Promotion_Discount / 100)) || parseFloat(form?.Sale_Total_Price)).toFixed(2) || '0.00'} Baht</div>
                             <div className='w-full border-b border-gray'></div>
                         </div>
