@@ -61,7 +61,7 @@ export async function editSizeById(size) {
 export async function deleteSizeById(Size_Id) {
     try {
         const response = await fetch(`http://localhost:3000/api/size/deleteSizeById`, {
-            method: 'POST',
+            method: 'DELETE',
             headers: {
             'Content-Type': 'application/json',
             },

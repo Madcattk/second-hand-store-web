@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { Space, Table, Button, Row } from 'antd';
 import { Modal } from 'antd';
 import { useRouter } from 'next/navigation';
-import { getAllEmployees } from '@app/api/getAPI/employee';
+import { deleteEmployeeById, getAllEmployees } from '@app/api/getAPI/employee';
 import { DateFormat } from '@components/formats';
 import { Image } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
+import Swal from 'sweetalert2';
 
 
 const { Column } = Table;
@@ -30,7 +31,31 @@ const App = () => {
             setData(data || []);
         }
     };
-    
+
+    const onDelete = async (id) => {
+        Swal.fire({
+            title: 'Do you want to delete this?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#2F58CD',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then( async (result) => {
+            if (result.isConfirmed) {
+                const res = await deleteEmployeeById(id);
+                onLoad()
+                if (res?.message !== 'success') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: `Couldn't delete!`,
+                        text: 'This data has been used already.',
+                        confirmButtonColor: '#2F58CD'
+                    })
+                }
+            }
+        })
+    };
+
     return (
         <>
             <Row justify="end">
@@ -57,15 +82,6 @@ const App = () => {
                     )}
                 /> 
                 <Column title="Phone" dataIndex="Employee_Phone" key="Employee_Phone" /> 
-                 {/* <Column
-                    title="Action"
-                    key="action"
-                    render={(_, record) => (
-                        <Space size="middle">
-                            <Button onClick={() => router.push(`/backoffice/employee/${record.Employee_Id}`)} danger>Edit</Button>
-                        </Space>
-                    )}
-                /> */}
                 <Column
                     title="Address"
                     dataIndex="Employee_Id"
@@ -74,6 +90,15 @@ const App = () => {
                         <a onClick={() => setHoveredRowId(index)}>
                             <FontAwesomeIcon icon={faAddressBook} size='2xl'/>        
                         </a>
+                    )}
+                />
+                <Column
+                    title="Action"
+                    key="action"
+                    render={(_, record) => (
+                        <Space size="middle">
+                            <Button onClick={() => onDelete(record.Employee_Id)} danger>Delete</Button>
+                        </Space>
                     )}
                 />
             </Table>

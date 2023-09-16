@@ -60,7 +60,7 @@ export async function addProductTypes(product_type) {
 export async function deleteProductTypeById(Product_Type_Id) {
     try {
         const response = await fetch(`http://localhost:3000/api/product_type/deleteProductTypeById`, {
-            method: 'POST',
+            method: 'DELETE',
             headers: {
             'Content-Type': 'application/json',
             },

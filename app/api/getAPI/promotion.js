@@ -81,7 +81,7 @@ export async function editPromotionById(promotion) {
 export async function deletePromotionById(Promotion_Id) {
     try {
         const response = await fetch(`http://localhost:3000/api/promotion/deletePromotionById`, {
-            method: 'POST',
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnection from "@/lib/db";
 
-export async function POST(request) {
+export async function DELETE(request) {
     const { Size_Id } = await request.json();
     try {       
         const conn = await dbConnection();

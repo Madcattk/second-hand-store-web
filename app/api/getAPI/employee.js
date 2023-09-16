@@ -180,7 +180,7 @@ export async function getAllEmployees() {
 export async function deleteEmployeeById(Employee_Id) {
     try {
         const response = await fetch(`http://localhost:3000/api/employee/deleteEmployeeById`, {
-            method: 'POST',
+            method: 'DELETE',
             headers: {
             'Content-Type': 'application/json',
             },
