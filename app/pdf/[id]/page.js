@@ -116,7 +116,10 @@ const page = () => {
                             <View style={{ display: 'flex', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 16, paddingBottom: 10, fontFamily: 'ThaiFontBold' }}>Second Hand Store</Text>
                             </View>
-                            <Text style={{ fontSize: 14, fontFamily: 'ThaiFontBold' }}>Order Receipt No: {form?.Sale_Id || ''}</Text>
+                            <View style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={{ fontSize: 14, fontFamily: 'ThaiFontBold' }}>Order Receipt No: {form?.Sale_Id || ''}</Text>
+                                <Text style={{ fontSize: 14, fontFamily: 'ThaiFontBold' }}>Date: {DateFormat(form?.Sale_Date)}</Text>
+                            </View>
                             <View style={styles.borderSection}>
                                 <Text style={styles.text}>{form?.Address?.Fullname || ''}</Text>
                                 <Text style={styles.text}>{form?.Address?.Address || ''} {form?.Address?.District || ''} {form?.Address?.Province || ''} {form?.Address?.Zipcode || ''} {form?.Address?.Country || ''}</Text>
