@@ -82,7 +82,6 @@ export const Transaction = ({ status }) => {
                                 <div className='w-full flex gap-4'>
                                     <Image
                                         src={product?.Product_Image || "/assets/images/avatars/no-image.png"}
-                                        priority={true}
                                         alt="Bank"
                                         width={200} height={120}
                                         className='w-[200px] h-[120px] object-cover' />
@@ -108,7 +107,6 @@ export const Transaction = ({ status }) => {
                         <div className='w-full border-b border-gray'></div>
                         <div>Payment Date: {DateFormat(sale?.Payment_Date) || '-'}</div>
                         <Image src={sale?.Payment_Slip || "/assets/images/avatars/no-image.png"}
-                            priority={true}
                             alt="Bank"
                             width={100} height={120}
                             className='w-[100px] h-[120px] object-cover' />
