@@ -41,7 +41,7 @@ export const Transaction = ({ status }) => {
     }
 
     const onUpdate = async (sale, status) => {
-        if(!trackingNumbers?.[sale?.Sale_Id]) {return }
+        if((!trackingNumbers?.[sale?.Sale_Id]) && status === MetaSaleStatus[5].id) {return }
         const res = await updateSaleStatusById({
             Sale_Id: sale.Sale_Id,
             Sale_Status: status,
