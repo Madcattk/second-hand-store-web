@@ -77,7 +77,6 @@ const App = () => {
                     )}
                 />
             </Table>
-            
             <Modal
                 open={hoveredRowId !== -1 ? true : false}
                 onCancel={() => setHoveredRowId(-1)}

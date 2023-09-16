@@ -16,11 +16,11 @@ const App = () => {
     }, []);
 
     const onLoad = async () => {
-        const res = await getAllProducts({Limit: false});
-        if(res?.message === 'success'){
+        const res = await getAllProducts({ Limit: false });
+        if (res?.message === 'success') {
             let data = [];
             res?.data?.forEach((item, index) => {
-                data.push({ ...item, Product_Date: DateFormat(item.Product_Date)})
+                data.push({ ...item, Product_Date: DateFormat(item.Product_Date) })
             })
             setData(data || []);
         }
@@ -28,11 +28,10 @@ const App = () => {
 
     const onDelete = async (id) => {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Do you want to delete this?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#2F58CD',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Delete'
         }).then(async (result) => {
@@ -43,7 +42,8 @@ const App = () => {
                     Swal.fire({
                         icon: 'error',
                         title: `Couldn't delete!`,
-                        text: 'This data has been used already.'
+                        text: 'This data has been used already.',
+                        confirmButtonColor: '#2F58CD'
                     })
                 }
             }
@@ -65,15 +65,15 @@ const App = () => {
                 <Column title="Product Name" dataIndex="Product_Name" key="Product_Name" />
                 <Column title="Price" dataIndex="Product_Price" key="Product_Price" />
                 <Column title="Description" dataIndex="Product_Description" key="Product_Description" />
-                <Column 
-                    title="Image"  
+                <Column
+                    title="Image"
                     key="Product_Image"
                     render={(_, record) => (
                         <div>
-                            <Image className='w-[80px] h-[100px]' src={record?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100}/>
+                            <Image className='w-[80px] h-[100px]' src={record?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100} />
                         </div>
                     )}
-                /> 
+                />
                 <Column title="Sex" dataIndex="Product_Sex" key="Product_Sex" />
                 <Column title="Date" dataIndex="Product_Date" key="Product_Date" />
                 <Column title="Status" dataIndex="Product_Status" key="Product_Status" />
@@ -87,10 +87,12 @@ const App = () => {
                     key="action"
                     render={(_, record) => (
                         <Space size="middle">
-                            { !record?.Sale_Id &&
-                                <Button onClick={() => router.push(`/backoffice/product/${record?.Product_Id}`)} danger>Edit</Button>
-                            }
-                             <Button onClick={() => onDelete(record.Product_Id)} danger>Delete</Button>
+                            {!record?.Sale_Id && (
+                                <>
+                                    <Button onClick={() => router.push(`/backoffice/product/${record.Product_Id}`)} danger>Edit</Button>
+                                    <Button onClick={() => onDelete(record.Product_Id)} danger>Delete</Button>
+                                </>
+                            )}
                         </Space>
                     )}
                 />

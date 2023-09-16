@@ -26,6 +26,7 @@ const validateMessages = {
   required: '${label} is required!',
 };
 /* eslint-enable no-template-curly-in-string */
+
 const App = () => {
   const { id } = useParams();
   const router = useRouter();

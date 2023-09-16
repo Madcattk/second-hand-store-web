@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Card } from 'antd';
 import { Image } from 'antd';
 import { addEmployeeAddressById, editEmployeeAddressById, getEmployeeAddressesById, getEmployeeById } from '@app/api/getAPI/employee';
 import { getFromLocalStorage } from '@lib/localStorage';
@@ -93,7 +92,6 @@ const App = () => {
                 <button className='flex gap-5' onClick={() => router.push(`/backoffice/employee/${data.Employee_Id}`)}>Edit Profile</button>
             </div>
             <div className='w-full grid grid-cols-8 my-3 shadow bg-white text-brown font-light border border-brown'></div>
-
             <div className='font-extralight text-3xl pb-5 '>Address</div>
             <div className='flex flex-col gap-3'>
                 <div className='flex gap-2 h-full items-end'>

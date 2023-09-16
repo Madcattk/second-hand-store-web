@@ -57,6 +57,7 @@ export async function addEmployee(employee) {
             console.error(error);
         }
 };
+
 export async function editEmployeeById(employee) {
     try {
         const response = await fetch(`http://localhost:3000/api/employee/editEmployeeById`, {
@@ -76,6 +77,7 @@ export async function editEmployeeById(employee) {
             console.error(error);
         }
 };
+
 export async function getEmployeeAddressesById(Employee_Id) {
     try {
         const response = await fetch(`http://localhost:3000/api/employee/getEmployeeAddressesById`, {
@@ -95,6 +97,7 @@ export async function getEmployeeAddressesById(Employee_Id) {
             console.error(error);
         }
 }
+
 export async function deleteEmployeeAddressesById(Employee_Id, Employee_Address) {
     try {
         const response = await fetch(`http://localhost:3000/api/employee/deleteEmployeeAddressById`, {
@@ -114,6 +117,7 @@ export async function deleteEmployeeAddressesById(Employee_Id, Employee_Address)
             console.error(error);
         }
 };
+
 export async function addEmployeeAddressById(employeeAddress) {
     try {
         const response = await fetch(`http://localhost:3000/api/employee/addEmployeeAddressById`, {
@@ -133,6 +137,7 @@ export async function addEmployeeAddressById(employeeAddress) {
             console.error(error);
         }
 };
+
 export async function editEmployeeAddressById(employeeAddress) {
     try {
         const response = await fetch(`http://localhost:3000/api/employee/editEmployeeAddressById`, {
@@ -152,6 +157,7 @@ export async function editEmployeeAddressById(employeeAddress) {
             console.error(error);
         }
 };
+
 export async function getAllEmployees() {
     try {
         const response = await fetch(`http://localhost:3000/api/employee/getAllEmployees`, {
@@ -159,6 +165,26 @@ export async function getAllEmployees() {
             headers: {
             'Content-Type': 'application/json',
             }
+        });
+        if (response.ok) {
+            return await response.json();
+        } else {
+            const errorData = await response.json();
+            console.error(errorData);
+        }
+        } catch (error) {
+            console.error(error);
+        }
+};
+
+export async function deleteEmployeeById(Employee_Id) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/employee/deleteEmployeeById`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({Employee_Id}),
         });
         if (response.ok) {
             return await response.json();

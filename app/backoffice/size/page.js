@@ -5,7 +5,6 @@ import { deleteSizeById, getAllSizes } from '@app/api/getAPI/size';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 
-
 const { Column } = Table;
 const App = () => {
     const router = useRouter();

@@ -30,11 +30,10 @@ const App = () => {
 
     const onDelete = async (id) => {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Do you want to delete this?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#2F58CD',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Delete'
         }).then(async (result) => {
@@ -45,7 +44,8 @@ const App = () => {
                     Swal.fire({
                         icon: 'error',
                         title: `Couldn't delete!`,
-                        text: 'This data has been used already.'
+                        text: 'This data has been used already.',
+                        confirmButtonColor: '#2F58CD'
                     })
                 }
             }
