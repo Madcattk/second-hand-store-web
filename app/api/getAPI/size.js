@@ -57,6 +57,27 @@ export async function editSizeById(size) {
             console.error(error);
         }
 };
+
+export async function deleteSizeById(Size_Id) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/size/deleteSizeById`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({Size_Id}),
+        });
+        if (response.ok) {
+            return await response.json();
+        } else {
+            const errorData = await response.json();
+            console.error(errorData);
+        }
+        } catch (error) {
+            console.error(error);
+        }
+};
+
 export async function getAllSizes() {
     try {
         const response = await fetch(`http://localhost:3000/api/size/getAllSizes`, {
