@@ -25,6 +25,7 @@ const { Header, Sider, Content } = Layout;
 const layoutBackOffice = ({ children }) => {
   const router = useRouter();
   const url = usePathname();
+  const { id } = useParams()
   const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -140,6 +141,18 @@ const layoutBackOffice = ({ children }) => {
                 height: 64,
               }}
             />
+            { url === `/backoffice/pdf/${id}` &&
+              <Button
+                type="text"
+                icon={<div className='bg-[#1890ff] hover:bg-[#4dabf7] text-white p-5 rounded-lg'>Dashboard</div>}
+                onClick={() => router.push('/backoffice/dashboard')}
+                style={{
+                  fontSize: '16px',
+                  width: '150px',
+                  height: 64,
+                }}
+              />
+            }
           </Header>
           <Content
             style={{
