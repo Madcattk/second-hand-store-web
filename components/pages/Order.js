@@ -12,7 +12,8 @@ import { MetaProductStatus, MetaSaleStatus } from '@components/Meta';
 import { updateSaleStatusById } from '@app/api/getAPI/sale';
 import ReviewModal from './ReviewModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleLeft } from '@fortawesome/free-solid-svg-icons'; 
+import { faCircleLeft, faDownload } from '@fortawesome/free-solid-svg-icons'; 
+import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 
 export const Order = ({ form, onChange, onLoad }) => {
     const router = useRouter();
@@ -95,7 +96,12 @@ export const Order = ({ form, onChange, onLoad }) => {
                 <div className='w-full flex flex-col md:flex-row md:items-end justify-between font-light'>
                     <span><FontAwesomeIcon icon={faCircleLeft} className='cursor-pointer' onClick={() => router.back()}/> ORDER NO: {form?.Sale_Id || ''}</span>
                     <span className='text-sm'>Date: {DateFormat(form?.Sale_Date) || ''}</span>
-                    <span>{form?.Sale_Status || ''}</span>
+                    <span className='flex gap-1'>
+                        <span>{form?.Sale_Status || ''}</span>
+                        {(form?.Sale_Status === MetaSaleStatus?.[2]?.id || form?.Sale_Status === MetaSaleStatus?.[5]?.id || form?.Sale_Status === MetaSaleStatus?.[6]?.id) &&
+                            <a href={`/pdf/${form?.Sale_Id}`} target='_blank' rel="noopener noreferrer" className='text-sm font-light'><FontAwesomeIcon icon={faDownload} size="lg" /></a>
+                        }
+                    </span>
                 </div>
                 <div className='w-full py-1 flex flex-col md:flex-row items-start justify-between font-light text-sm border-b border-b-gray border-t border-t-gray'>
                     <div>
@@ -173,7 +179,10 @@ export const Review = ({ form, onChange, onLoad }) => {
                 <div className='w-full flex flex-col md:flex-row md:items-end justify-between font-light'>
                     <span><FontAwesomeIcon icon={faCircleLeft} className='cursor-pointer' onClick={() => router.back()}/> ORDER NO: {form?.Sale_Id || ''}</span>
                     <span className='text-sm'>Date: {DateFormat(form?.Sale_Date) || ''}</span>
-                    <span>{form?.Sale_Status || ''}</span>
+                    <span className='flex gap-1'>
+                        <span>{form?.Sale_Status || ''}</span>
+                        <a href={`/pdf/${form?.Sale_Id}`} target='_blank' rel="noopener noreferrer" className='text-sm font-light'><FontAwesomeIcon icon={faDownload} size="lg" /></a>
+                    </span>
                 </div>
                 <div className='w-full py-1 flex flex-col md:flex-row items-start justify-between font-light text-sm border-b border-b-gray border-t border-t-gray'>
                     <div>

@@ -6,6 +6,7 @@ import { getSaleById } from '@app/api/getAPI/sale';
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage';
 import { useRouter } from 'next/navigation';
 import Loading from '@components/pages/Loading';
+import { MetaSaleStatus } from '@components/Meta';
 
 const page = () => {
     const router = useRouter();
@@ -33,8 +34,8 @@ const page = () => {
                 Phone: add[6] || '',
                 Member_Address: res?.data?.Delivery_Address || ''
             }
-                const updatedData = { ...res.data, Address: address };
-                res.data = updatedData;
+            const updatedData = { ...res.data, Address: address };
+            res.data = updatedData;
             setForm(res?.data || []);
             setLoading(false)
         } else {
@@ -47,7 +48,7 @@ const page = () => {
     return (
         <Loading loading={loading}>
             <div className='flex_center'>
-                {form?.Sale_Status === 'Received' ?
+                {form?.Sale_Status === MetaSaleStatus?.[6]?.id ?
                     <Review form={form} onChange={onChange} onLoad={onLoad} />
                 :
                     <Order form={form} onChange={onChange} onLoad={onLoad} />
