@@ -8,6 +8,7 @@ import { signIn as signInEmp } from '@auth/authEmployee';
 import Loading from '@components/pages/Loading';
 import { getSaleById } from '@app/api/getAPI/sale';
 import { getFromLocalStorage } from '@lib/localStorage';
+import { MetaSaleStatus } from '@components/Meta';
 
 const page = () => {
     const router = useRouter();
@@ -91,7 +92,10 @@ const page = () => {
             }
             const updatedData = { ...res.data, Address: address };
             res.data = updatedData;
-            if(res?.data?.Member_Id === auth?.Member_Id || auth?.Employee_Id){
+            if((res?.data?.Member_Id === auth?.Member_Id || auth?.Employee_Id) && 
+            (res?.data?.Sale_Status === MetaSaleStatus?.[2]?.id || 
+            res?.data?.Sale_Status === MetaSaleStatus?.[5]?.id || 
+            res?.data?.Sale_Status === MetaSaleStatus?.[6]?.id)){
                 setLoading(false)
                 setForm(res?.data || []);
             } else {
