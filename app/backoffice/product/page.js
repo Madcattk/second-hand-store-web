@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import { Space, Table, Button, Row } from 'antd';
 import { useRouter } from 'next/navigation';
-import { getAllProducts } from '@app/api/getAPI/product';
+import { getAllProducts, deleteProductById } from '@app/api/getAPI/product';
 import { DateFormat } from '@components/formats';
 import { Image } from 'antd'
+import Swal from 'sweetalert2';
 
 const { Column } = Table;
 const App = () => {
@@ -23,6 +24,30 @@ const App = () => {
             })
             setData(data || []);
         }
+    };
+
+    const onDelete = async (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const res = await deleteProductById(id);
+                onLoad()
+                if (res?.message !== 'success') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: `Couldn't delete!`,
+                        text: 'This data has been used already.'
+                    })
+                }
+            }
+        })
     };
 
     return (
@@ -65,6 +90,7 @@ const App = () => {
                             { !record?.Sale_Id &&
                                 <Button onClick={() => router.push(`/backoffice/product/${record?.Product_Id}`)} danger>Edit</Button>
                             }
+                             <Button onClick={() => onDelete(record.Product_Id)} danger>Delete</Button>
                         </Space>
                     )}
                 />

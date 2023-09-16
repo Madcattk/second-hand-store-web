@@ -177,7 +177,6 @@ export async function addProduct(product) {
         }
 };
 
-
 export async function editProductById(product) {
 
     try {
@@ -197,4 +196,24 @@ export async function editProductById(product) {
         } catch (error) {
             console.error(error);
         }
+};
+
+export async function deleteProductById(Product_Id) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/product/deleteProductById`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({Product_Id}),
+        });
+        if (response.ok) {
+            return await response.json();
+        } else {
+            const errorData = await response.json();
+            console.error(errorData);
+        }
+    } catch (error) {
+        console.error(error);
+    }
 };

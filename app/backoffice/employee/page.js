@@ -9,6 +9,7 @@ import { Image } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 
+
 const { Column } = Table;
 const App = () => {
     const router = useRouter();

@@ -1,8 +1,9 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { Space, Table, Button, Row } from 'antd';
-import { getAllProductTypes } from '@app/api/getAPI/product-type';
+import { getAllProductTypes, deleteProductTypeById } from '@app/api/getAPI/product-type';
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
 
 const { Column } = Table;
 const App = () => {
@@ -15,6 +16,30 @@ const App = () => {
     const onLoad = async () => {
         const res = await getAllProductTypes();
         setData(res?.data || []);
+    };
+
+    const onDelete = async (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then( async (result) => {
+            if (result.isConfirmed) {
+                const res = await deleteProductTypeById(id);
+                onLoad()
+                if (res?.message !== 'success') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: `Couldn't delete!`,
+                        text: 'This data has been used already.'
+                    })
+                }
+            }
+        })
     };
 
     return (
@@ -35,6 +60,7 @@ const App = () => {
                     render={(_, record) => (
                         <Space size="middle">
                             <Button onClick={() => router.push(`/backoffice/producttype/${record.Product_Type_Id}`)} danger>Edit</Button>
+                            <Button onClick={() => onDelete(record.Product_Type_Id)} danger>Delete</Button>
                         </Space>
                     )}
                 />
