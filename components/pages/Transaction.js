@@ -39,6 +39,7 @@ export const Transaction = ({ status }) => {
     }
 
     const onUpdate = async (sale, status) => {
+        if(!trackingNumbers?.[sale?.Sale_Id]) {return }
         const res = await updateSaleStatusById({
             Sale_Id: sale.Sale_Id,
             Sale_Status: status,
@@ -49,9 +50,9 @@ export const Transaction = ({ status }) => {
     }
 
     return (
-        <div className='flex flex-col gap-10'>
+        <div className='flex flex-col gap-6'>
             {data?.map((sale, saleIndex) => {
-                return <div className='border border-hover rounded-lg shadow-md p-3' key={"Sale" + saleIndex}>
+                return <div className='border border-gray rounded-lg shadow-md p-3' key={"Sale" + saleIndex}>
                     <div className='w-full flex flex-col md:flex-row md:items-end justify-between border-b border-gray pb-2'>
                         <div>Sale ID: {sale?.Sale_Id || '-'}</div>
                         <div className='flex gap-1'>
@@ -108,9 +109,9 @@ export const Transaction = ({ status }) => {
                     <div>Verified by Employee Id: {sale?.Employee_Id || '-'}</div>
                     {status === MetaSaleStatus[1].id &&
                         <div className='flex gap-3 py-2'>
-                            <button className='px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={(() => onUpdate(sale, MetaSaleStatus[2].id))} >CONFIRM</button>
-                            <button className='px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={(() => onUpdate(sale, MetaSaleStatus[3].id))}>INVALID</button>
-                            <button className='px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={(() => onUpdate(sale, MetaSaleStatus[4].id))}>CANCEL</button>
+                            <button className='text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none' onClick={(() => onUpdate(sale, MetaSaleStatus[2].id))} >CONFIRM</button>
+                            <button className='text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none' onClick={(() => onUpdate(sale, MetaSaleStatus[3].id))}>INVALID</button>
+                            <button className='text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none' onClick={(() => onUpdate(sale, MetaSaleStatus[4].id))}>CANCEL</button>
                         </div>
                     }
                     {status === MetaSaleStatus[2].id &&
@@ -128,7 +129,7 @@ export const Transaction = ({ status }) => {
                                     setTrackingNumbers(updatedTrackingNumbers);
                                 }}
                             />
-                            <button className='px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' onClick={(() => onUpdate(sale, MetaSaleStatus[5].id))}>Add Tracking Number</button>
+                            <button className='text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none' onClick={(() => onUpdate(sale, MetaSaleStatus[5].id))}>Add Tracking Number</button>
                         </div>
                     }
                 </div>

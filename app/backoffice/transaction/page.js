@@ -36,7 +36,7 @@ const App = () => {
     <>
       <div className='p-5 w-full'>
         <div className='w-full flex flex-col items-end justify-end mr-2 gap-1'>
-          <button className='text-white w-18 bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none' onClick={onCutLot}>Cancel Overdue Order</button>
+          <button className='text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none' onClick={onCutLot}>Cancel Overdue Order</button>
           <label className='text-xs text-greyV1'>Cancel Due Payments (over 3 days) and Invalid Orders (over 6 days)</label>
         </div>
         <Tabs defaultActiveKey="1" items={items} onChange={onChange} />

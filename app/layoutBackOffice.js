@@ -144,12 +144,14 @@ const layoutBackOffice = ({ children }) => {
             { url === `/backoffice/pdf/${id}` &&
               <Button
                 type="text"
-                icon={<div className='bg-[#1890ff] hover:bg-[#4dabf7] text-white p-5 rounded-lg'>Dashboard</div>}
+                icon={<div className='text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none'>Dashboard</div>}
                 onClick={() => router.push('/backoffice/dashboard')}
                 style={{
                   fontSize: '16px',
-                  width: '150px',
-                  height: 64,
+                  width: 0,
+                  height: 0,
+                  padding: 0,
+                  margin: 0,
                 }}
               />
             }
