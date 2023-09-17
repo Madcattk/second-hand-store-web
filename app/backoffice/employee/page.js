@@ -7,8 +7,8 @@ import { deleteEmployeeById, getAllEmployees } from '@app/api/getAPI/employee';
 import { DateFormat } from '@components/formats';
 import { Image } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 import Swal from 'sweetalert2';
+import { faHouse } from '@fortawesome/free-solid-svg-icons';
 
 
 const { Column } = Table;
@@ -88,7 +88,7 @@ const App = () => {
                     key="click"
                     render={(_, record, index) => (
                         <a onClick={() => setHoveredRowId(index)}>
-                            <FontAwesomeIcon icon={faAddressBook} size='2xl'/>        
+                            <FontAwesomeIcon icon={faHouse} size='2xl'/>        
                         </a>
                     )}
                 />

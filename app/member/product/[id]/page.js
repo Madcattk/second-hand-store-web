@@ -153,7 +153,7 @@ const page = () => {
                                             <FontAwesomeIcon
                                                 icon={index <= parseInt(form?.Review_Rating) ? solidStar : regularStar}
                                                 size="lg"
-                                                style={{color: "#edc845",}}
+                                                className='text-[#edc845]'
                                             />
                                             </div>
                                         ))}

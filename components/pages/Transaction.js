@@ -59,7 +59,7 @@ export const Transaction = ({ status }) => {
                         <div>Sale ID: {sale?.Sale_Id || '-'}</div>
                         <div className='flex gap-1'>
                             <span>Sale Date: {DateFormat(sale?.Sale_Date || '-')}</span>
-                            <span className='text-greyV1'>({sale?.Sale_Date ? `${Math.floor((Date.now() - new Date(sale.Sale_Date)) / (1000 * 60 * 60 * 24))} days ago` : '-'})</span>
+                            <span className='text-greyV1'>({sale?.Sale_Date && (Math.floor((Date.now() - new Date(sale.Sale_Date)) / (1000 * 60 * 60 * 24))) != 0 ? `${Math.floor((Date.now() - new Date(sale.Sale_Date)) / (1000 * 60 * 60 * 24))} days ago` : 'Today'})</span>
                         </div>
                         <div className='flex gap-1'>
                             <span>{sale?.Sale_Status || ''}</span>

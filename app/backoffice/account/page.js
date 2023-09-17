@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { Image } from 'antd';
-import { addEmployeeAddressById, editEmployeeAddressById, getEmployeeAddressesById, getEmployeeById } from '@app/api/getAPI/employee';
+import { addEmployeeAddressById, deleteEmployeeAddressesById, editEmployeeAddressById, getEmployeeAddressesById, getEmployeeById } from '@app/api/getAPI/employee';
 import { getFromLocalStorage } from '@lib/localStorage';
 import { useRouter } from 'next/navigation';
 import { DateFormat } from '@components/formats';
@@ -71,6 +71,22 @@ const App = () => {
         setAddAddress(null)
     }
 
+    const onDeleteAddress = async (index) => {
+        const res = await deleteEmployeeAddressesById(data?.Addresses?.[index]?.Employee_Id, 
+            data?.Addresses?.[index]?.Employee_Address)
+        if(res?.message === 'success'){
+            toast.success("🤍 Edited address", {
+                autoClose: 3000,
+            });
+        }
+        else {
+            toast.error("❗️ Couldn't edit address", {
+                autoClose: 3000,
+            });
+        }
+        onLoad()
+    }
+    
     return (
         <div className='px-5'>
             <div className='flex justify-between'>
@@ -121,8 +137,9 @@ const App = () => {
                             value={item?.New_Employee_Address || ""}
                             onChange={(e) => onChangeAddress(index, e.target.value)}
                         ></textarea>
-                        <div>
+                        <div className='flex flex-col gap-1'>
                             <button className='text-white w-40 bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none' onClick={() => onEditAddress(index)}>Edit Address</button>
+                            <button className='text-white w-40 bg-red-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none' onClick={() => onDeleteAddress(index)}>Delete</button>
                         </div>
                     </div>
                 })}

@@ -72,6 +72,7 @@ const ReviewModal = ({ menu, setMenu, data, onLoad, onCheckReview }) => {
                       <FontAwesomeIcon
                         icon={index <= rating ? solidStar : regularStar}
                         size="lg"
+                        className='text-[#edc845]'
                       />
                     </div>
                   ))}
