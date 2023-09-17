@@ -75,7 +75,7 @@ const App = () => {
         const res = await deleteEmployeeAddressesById(data?.Addresses?.[index]?.Employee_Id, 
             data?.Addresses?.[index]?.Employee_Address)
         if(res?.message === 'success'){
-            toast.success("🤍 Edited address", {
+            toast.success("🤍 Deleted address", {
                 autoClose: 3000,
             });
         }
