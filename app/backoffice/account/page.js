@@ -80,7 +80,7 @@ const App = () => {
             });
         }
         else {
-            toast.error("❗️ Couldn't edit address", {
+            toast.error("❗️ Couldn't delete address", {
                 autoClose: 3000,
             });
         }
