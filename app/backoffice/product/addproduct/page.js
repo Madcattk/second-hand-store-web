@@ -45,6 +45,7 @@ const App = () => {
         name: item?.Size_Name
       }
     })
+
     const resProductType = await getAllProductTypes();
     const productTypes = resProductType?.data?.map((item, index) => {
       return {
@@ -59,6 +60,11 @@ const App = () => {
   }
 
   const onFinish = async (values) => {
+    if (!image?.image) {
+      return toast.error("❗️Please include a picture of the product.", {
+        autoClose: 2000,
+      });
+    }
     values.form = {
       ...values.form,
       Product_Image: image?.image || null,
@@ -122,12 +128,12 @@ const App = () => {
           label="Product Description">
           <Input />
         </Form.Item>
-        <Form.Item label="Product Sex" name={['form', 'Product_Sex']} 
-        rules={[
-          {
-            required: true,
-          },
-        ]}
+        <Form.Item label="Product Sex" name={['form', 'Product_Sex']}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
           <Select>
             {MetaProductSex.map((item, index) => {
@@ -144,12 +150,12 @@ const App = () => {
         >
           <DatePicker />
         </Form.Item>
-        <Form.Item label="Product Status" name={['form', 'Product_Status']} 
-        rules={[
-          {
-            required: true,
-          },
-        ]}
+        <Form.Item label="Product Status" name={['form', 'Product_Status']}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
           <Select>
             {MetaProductStatus.map((item, index) => {
@@ -157,12 +163,12 @@ const App = () => {
             })}
           </Select>
         </Form.Item>
-        <Form.Item label="Product Type" name={['form', 'Product_Type_Id']} 
-        rules={[
-          {
-            required: true,
-          },
-        ]}
+        <Form.Item label="Product Type" name={['form', 'Product_Type_Id']}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
         >
           <Select>
             {meta?.Product_Types?.map((item, index) => {
@@ -178,7 +184,7 @@ const App = () => {
           </Select>
         </Form.Item>
         <Form.Item
-          name={['form', 'Product_Size_Detail']} 
+          name={['form', 'Product_Size_Detail']}
           label="Product Size Detail">
           <Input />
         </Form.Item>
