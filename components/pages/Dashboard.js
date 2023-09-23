@@ -154,7 +154,7 @@ export const Dashboard = () => {
                                     <th className='lg:w-full w-[100px] r px-2'>Product Price</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className='h-[450px]'>
                                 {form?.map((item) => {
                                     return item?.Product?.map((product, index) => {
                                         total += product?.Product_Price;
