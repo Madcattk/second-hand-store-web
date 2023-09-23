@@ -44,7 +44,10 @@ const App = () => {
 
     return (
         <>
-            <Row justify="end">
+            <Row justify="space-between">
+            <Space wrap>
+                    <div className='ml-3 mb-3 font-semibold'>Size amount: {data?.length || '-'}</div>
+                </Space>
                 <Space wrap>
                     <Button className='mr-3 mb-3' onClick={() => router.push('/backoffice/size/addsize')} type="primary" danger>
                         Add Size

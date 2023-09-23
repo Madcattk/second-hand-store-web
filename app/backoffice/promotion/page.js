@@ -54,7 +54,10 @@ const App = () => {
     
     return (
         <>
-            <Row justify="end">
+            <Row justify="space-between">
+            <Space wrap>
+                    <div className='ml-3 mb-3 font-semibold'>Promotion amount: {data?.length || '-'}</div>
+                </Space>
                 <Space wrap>
                     <Button className='mr-3 mb-3' onClick={() => router.push('/backoffice/promotion/addpromotion')} type="primary" danger>
                         Add Promotion
