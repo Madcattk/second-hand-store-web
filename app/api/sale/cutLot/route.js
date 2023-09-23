@@ -18,14 +18,18 @@ export async function PUT(request) {
 
         const [selectResult] = await conn.execute(selectQuery, [MetaSaleStatus[4].id]);
         const updatedSaleIds = selectResult.map((row) => row.Sale_Id);
-
-        const updateProductStatus = `UPDATE Product SET 
+        
+        let data = []
+        if(updatedSaleIds?.length > 0){
+            const updateProductStatus = `UPDATE Product SET 
             Product_Status = ?,
             Sale_Id = NULL
             WHERE Sale_Id IN (${updatedSaleIds.join(",")})`;
-        const [productResult] = await conn.execute(updateProductStatus, [MetaProductStatus[0].id]);
+            const [productResult] = await conn.execute(updateProductStatus, [MetaProductStatus[0].id]);
+            data = productResult
+        }
         conn.end();
-        return NextResponse.json({ data: updatedSaleIds, message: "success" }, { status: 201 });
+        return NextResponse.json({ data, message: "success" }, { status: 201 });
     } catch (error) {        
         return NextResponse.json({ error, message: "error" }, { status: 500 });
     }
