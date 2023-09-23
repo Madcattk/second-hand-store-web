@@ -52,7 +52,7 @@ const App = () => {
                 </Space>
             </Row>
             <Table dataSource={data} rowKey="Product_Type_Id">
-                <Column title="Id" dataIndex="Product_Type_Id" key="Product_Type_Id" />
+                <Column title="ID" dataIndex="Product_Type_Id" key="Product_Type_Id" />
                 <Column title="Name" dataIndex="Product_Type_Name" key="Product_Type_Name" />
                 <Column
                     title="Action"

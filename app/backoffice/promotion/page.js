@@ -51,7 +51,7 @@ const App = () => {
             }
         })
     };
-
+    
     return (
         <>
             <Row justify="end">
@@ -63,12 +63,24 @@ const App = () => {
             </Row>
 
             <Table dataSource={data} rowKey="Promotion_Id">
-                <Column title="Id" dataIndex="Promotion_Id" key="Promotion_Id" />
+                <Column title="ID" dataIndex="Promotion_Id" key="Promotion_Id" />
                 <Column title="Name" dataIndex="Promotion_Name" key="Promotion_Name" />
                 <Column title="Start Date" dataIndex="Promotion_Start_Date" key="Promotion_Start_Date" />
                 <Column title="End Date" dataIndex="Promotion_End_Date" key="Promotion_End_Date" />
                 <Column title="Discount" dataIndex="Promotion_Discount" key="Promotion_Discount" />
                 <Column title="Price Condition" dataIndex="Promotion_Price_Condition" key="Promotion_Price_Condition" />
+                <Column
+                    title="Status"
+                    key="status"
+                    render={(_, record) => (
+                        <Space 
+                            size="middle" 
+                            className={`${new Date() >= new Date(record?.Promotion_Start_Date) && new Date() <= new Date(record?.Promotion_End_Date) ? 'text-green-500' : 'text-red-500'}`}
+                        >
+                            {(new Date() >= new Date(record?.Promotion_Start_Date) && new Date() <= new Date(record?.Promotion_End_Date)) ? 'Available' : 'Unavailable'}
+                        </Space>
+                    )}
+                />
                 <Column
                     title="Action"
                     key="action"

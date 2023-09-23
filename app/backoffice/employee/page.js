@@ -58,7 +58,10 @@ const App = () => {
 
     return (
         <>
-            <Row justify="end">
+            <Row justify="space-between">
+                <Space wrap>
+                    <div className='ml-3 mb-3 font-semibold'>Employee amount: {data?.length || '-'}</div>
+                </Space>
                 <Space wrap>
                     <Button className='mr-3 mb-3' onClick={() => router.push('/backoffice/employee/addemployee')} type="primary" danger>
                         Add Employee
@@ -66,12 +69,12 @@ const App = () => {
                 </Space>
             </Row>
             <Table dataSource={data} rowKey="Employee_Id">
-                <Column title="Id" dataIndex="Employee_Id" key="Employee_Id" />
-                <Column title="Firstname" dataIndex="Employee_Firstname" key="Employee_Firstname" />
-                <Column title="Lastname" dataIndex="Employee_Lastname" key="Employee_Lastname" />
-                <Column title="Email" dataIndex="Employee_Email" key="Employee_Email" />
-                <Column title="Sex" dataIndex="Employee_Sex" key="Employee_Sex" />
-                <Column title="Birth Date" dataIndex="Employee_Birth_Date" key="Employee_Birth_Date" />
+                {/* <Column
+                    title="No"
+                    key="index"
+                    render={(_, __, index) => index + 1}
+                /> */}
+                <Column title="ID" dataIndex="Employee_Id" key="Employee_Id" />
                 <Column 
                     title="Image"  
                     key="Employee_Image"
@@ -81,15 +84,22 @@ const App = () => {
                         </div>
                     )}
                 /> 
+                <Column title="Firstname" dataIndex="Employee_Firstname" key="Employee_Firstname" />
+                <Column title="Lastname" dataIndex="Employee_Lastname" key="Employee_Lastname" />
+                <Column title="Email" dataIndex="Employee_Email" key="Employee_Email" />
+                <Column title="Sex" dataIndex="Employee_Sex" key="Employee_Sex" />
+                <Column title="Birth Date" dataIndex="Employee_Birth_Date" key="Employee_Birth_Date" />
                 <Column title="Phone" dataIndex="Employee_Phone" key="Employee_Phone" /> 
                 <Column
                     title="Address"
                     dataIndex="Employee_Id"
                     key="click"
                     render={(_, record, index) => (
-                        <a onClick={() => setHoveredRowId(index)}>
-                            <FontAwesomeIcon icon={faHouse} size='2xl'/>        
-                        </a>
+                        <Space size="middle">
+                            <a onClick={() => setHoveredRowId(index)}>
+                                <FontAwesomeIcon icon={faHouse} size='2xl'/>        
+                            </a>
+                        </Space>
                     )}
                 />
                 <Column

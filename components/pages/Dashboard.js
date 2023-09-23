@@ -110,7 +110,7 @@ export const Dashboard = () => {
             <div className='flex flex-col gap-5'>
                 <div className='font-bold text-brown w-full flex flex-col md:flex-row md:justify-between gap-3'>
                     <div>Dashboard</div>
-                    <button className='cursor-pointer p-2 shadow-md rounded-lg bg-white hover:bg-hover ' onClick={() => router.push(`/backoffice/pdf/${date?.Start_Date}%${date?.End_Date}`)}>Download PDF <FontAwesomeIcon icon={faFilePdf} size="lg" /></button>
+                    <button className='text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-3 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none' onClick={() => router.push(`/backoffice/pdf/${date?.Start_Date}%${date?.End_Date}`)}>Download PDF <FontAwesomeIcon icon={faFilePdf} size="lg" /></button>
                 </div>
                 <div className='w-[450px] bg-white shadow-md rounded-md p-2'>
                     <div className='font-bold text-greyV1'>Select a time period here</div>
@@ -146,7 +146,7 @@ export const Dashboard = () => {
                     <div className='lg:w-full w-[450px] px-10 h-[450px] overflow-auto'>
                         <table className='table text-brown'>
                             <thead>
-                                <tr className='h-[5vh] border-y border-hover bg-gray z-10 sticky top-0'>
+                                <tr className='h-[5vh] border-y border-hover bg-hover z-10 sticky top-0'>
                                     <th className='lg:min-w-[200px] w-[200px] l px-2'>Product Name</th>
                                     <th className='lg:min-w-[170px] w-[170px] l px-2'>Product Type Name</th>
                                     <th className='lg:min-w-[170px] w-[170px] c px-2'>Sale Date</th>
@@ -158,7 +158,7 @@ export const Dashboard = () => {
                                 {form?.map((item) => {
                                     return item?.Product?.map((product, index) => {
                                         total += product?.Product_Price;
-                                        return <tr className='h-[5vh] border-y border-hover hover:bg-hover' key={"Summary-Revenue"+index}>
+                                        return <tr className='h-[5vh] border-y border-hover hover:bg-[#FAFAFA]' key={"Summary-Revenue"+index}>
                                             <td className='l px-2'>{product?.Product_Name || '-'}</td>
                                             <td className='l px-2'>{product?.Product_Type_Name || '-'}</td>
                                             <td className='c px-2'>{DateFormat(product?.Sale_Date) || '-'}</td>
@@ -171,7 +171,7 @@ export const Dashboard = () => {
                         </table>
                     </div>
                     <div className='w-full rounded-b-md font-bold bg-white pb-10 px-10 z-10 absolute bottom-0'>
-                        <div className='w-full h-[5vh] bg-gray text-brown flex items-center justify-end px-2 r'>
+                        <div className='w-full h-[5vh] bg-hover text-brown flex items-center justify-end px-2 r'>
                             Total Revenue: ฿{total.toFixed(2) || '0.00'} Baht
                         </div>
                     </div>

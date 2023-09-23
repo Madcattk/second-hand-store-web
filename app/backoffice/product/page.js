@@ -6,6 +6,7 @@ import { getAllProducts, deleteProductById } from '@app/api/getAPI/product';
 import { DateFormat } from '@components/formats';
 import { Image } from 'antd'
 import Swal from 'sweetalert2';
+import { MetaProductStatus } from '@components/Meta';
 
 const { Column } = Table;
 const App = () => {
@@ -52,7 +53,10 @@ const App = () => {
 
     return (
         <>
-            <Row justify="end">
+            <Row justify="space-between">
+                <Space wrap>
+                    <div className='ml-3 mb-3 font-semibold'>Product amount: {data?.length || '-'}</div>
+                </Space>
                 <Space wrap>
                     <Button className='mr-3 mb-3' onClick={() => router.push('/backoffice/product/addproduct')} type="primary" danger>
                         Add Product
@@ -61,10 +65,7 @@ const App = () => {
             </Row>
 
             <Table dataSource={data} /*scroll={{x: 250}}*/ rowKey="Product_Id">
-                <Column title="Id" dataIndex="Product_Id" key="Product_Id" />
-                <Column title="Product Name" dataIndex="Product_Name" key="Product_Name" />
-                <Column title="Price" dataIndex="Product_Price" key="Product_Price" />
-                <Column title="Description" dataIndex="Product_Description" key="Product_Description" />
+                <Column title="ID" dataIndex="Product_Id" key="Product_Id" />
                 <Column
                     title="Image"
                     key="Product_Image"
@@ -74,12 +75,26 @@ const App = () => {
                         </div>
                     )}
                 />
+                <Column title="Product Name" dataIndex="Product_Name" key="Product_Name" />
+                <Column title="Price" dataIndex="Product_Price" key="Product_Price" />
+                <Column title="Description" dataIndex="Product_Description" key="Product_Description" />
                 <Column title="Sex" dataIndex="Product_Sex" key="Product_Sex" />
-                <Column title="Date" dataIndex="Product_Date" key="Product_Date" />
-                <Column title="Status" dataIndex="Product_Status" key="Product_Status" />
                 <Column title="Type Name" dataIndex="Product_Type_Name" key="Product_Type_Name" />
                 <Column title="Size Name" dataIndex="Size_Name" key="Size_Name" />
                 <Column title="Size Detail" dataIndex="Product_Size_Detail" key="Product_Size_Detail" />
+                <Column title="Date" dataIndex="Product_Date" key="Product_Date" />\
+                <Column
+                    title="Status"
+                    key="Product_Status"
+                    render={(_, record) => (
+                        <Space 
+                            size="middle" 
+                            className={`${record?.Product_Status === MetaProductStatus?.[0]?.id ? 'text-green-500' : 'text-red-500'}`}
+                        >
+                            {record?.Product_Status}
+                        </Space>
+                    )}
+                />
                 <Column title="Sale Id" dataIndex="Sale_Id" key="Sale_Id" />
 
                 <Column
