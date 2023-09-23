@@ -72,14 +72,42 @@ const App = () => {
                 <Column
                     title="Status"
                     key="status"
-                    render={(_, record) => (
-                        <Space 
-                            size="middle" 
-                            className={`${new Date() >= new Date(record?.Promotion_Start_Date) && new Date() <= new Date(record?.Promotion_End_Date) ? 'text-green-500' : 'text-red-500'}`}
+                    render={(_, record) => {
+                        const currentDate = new Date();
+                        const startDate = new Date(record?.Promotion_Start_Date);
+                        const endDate = new Date(record?.Promotion_End_Date);
+
+                        const currentDateWithoutTime = new Date(
+                            currentDate.getFullYear(),
+                            currentDate.getMonth(),
+                            currentDate.getDate()
+                        );
+
+                        const startDateWithoutTime = new Date(
+                            startDate.getFullYear(),
+                            startDate.getMonth(),
+                            startDate.getDate()
+                        );
+
+                        const endDateWithoutTime = new Date(
+                            endDate.getFullYear(),
+                            endDate.getMonth(),
+                            endDate.getDate()
+                        );
+
+                        const isCurrentDateInRange =
+                        currentDateWithoutTime >= startDateWithoutTime &&
+                        currentDateWithoutTime <= endDateWithoutTime;
+
+                        return (
+                        <Space
+                            size="middle"
+                            className={`${isCurrentDateInRange ? 'text-green-500' : 'text-red-500'}`}
                         >
-                            {(new Date() >= new Date(record?.Promotion_Start_Date) && new Date() <= new Date(record?.Promotion_End_Date)) ? 'Available' : 'Unavailable'}
+                            {isCurrentDateInRange ? 'Available' : 'Unavailable'}
                         </Space>
-                    )}
+                        );
+                    }}
                 />
                 <Column
                     title="Action"
