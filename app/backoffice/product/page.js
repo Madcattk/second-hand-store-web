@@ -21,7 +21,7 @@ const App = () => {
         if (res?.message === 'success') {
             let data = [];
             res?.data?.forEach((item, index) => {
-                data.push({ ...item, Product_Date: DateFormat(item.Product_Date) })
+                data.push({ ...item, Product_Date: DateFormat(item.Product_Date), Product_Price: item.Product_Price.toFixed(2) })
             })
             setData(data || []);
         }
@@ -53,39 +53,36 @@ const App = () => {
 
     return (
         <>
-            <Row justify="space-between">
+            <div className='w-full sticky top-0 z-50 h-16 py-1 px-3 bg-white flex justify-between items-center'>
                 <Space wrap>
-                    <div className='ml-3 mb-3 font-semibold'>Product amount: {data?.length || '-'}</div>
+                    <div className='font-semibold'>Product amount: {data?.length || '-'}</div>
                 </Space>
                 <Space wrap>
-                    <Button className='mr-3 mb-3' onClick={() => router.push('/backoffice/product/addproduct')} type="primary" danger>
+                    <Button onClick={() => router.push('/backoffice/product/addproduct')} type="primary" danger>
                         Add Product
                     </Button>
                 </Space>
-            </Row>
+            </div>
 
-            <Table dataSource={data} /*scroll={{x: 250}}*/ rowKey="Product_Id">
-                <Column title="ID" dataIndex="Product_Id" key="Product_Id" />
+            <Table dataSource={data} scroll={{x: 1500}} rowKey="Product_Id" sticky={{offsetHeader: 64,}}>
+                <Column title="ID" dataIndex="Product_Id" key="Product_Id" fixed='left' width={60} />
                 <Column
                     title="Image"
                     key="Product_Image"
+                    fixed='left'
+                    width={120}
                     render={(_, record) => (
                         <div>
                             <Image className='w-[80px] h-[100px]' src={record?.Product_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100} />
                         </div>
                     )}
                 />
-                <Column title="Product Name" dataIndex="Product_Name" key="Product_Name" />
-                <Column title="Price" dataIndex="Product_Price" key="Product_Price" />
-                <Column title="Description" dataIndex="Product_Description" key="Product_Description" />
-                <Column title="Sex" dataIndex="Product_Sex" key="Product_Sex" />
-                <Column title="Type Name" dataIndex="Product_Type_Name" key="Product_Type_Name" />
-                <Column title="Size Name" dataIndex="Size_Name" key="Size_Name" />
-                <Column title="Size Detail" dataIndex="Product_Size_Detail" key="Product_Size_Detail" />
-                <Column title="Date" dataIndex="Product_Date" key="Product_Date" />\
+                <Column title="Product Name" dataIndex="Product_Name" key="Product_Name" width={150} />
+                <Column title="Price" dataIndex="Product_Price" key="Product_Price" width={120}/>
                 <Column
                     title="Status"
                     key="Product_Status"
+                    width={120}
                     render={(_, record) => (
                         <Space 
                             size="middle" 
@@ -95,11 +92,18 @@ const App = () => {
                         </Space>
                     )}
                 />
-                <Column title="Sale Id" dataIndex="Sale_Id" key="Sale_Id" />
-
+                <Column title="Description" dataIndex="Product_Description" key="Product_Description" width={500} />
+                <Column title="Sex" dataIndex="Product_Sex" key="Product_Sex" width={120} />
+                <Column title="Type Name" dataIndex="Product_Type_Name" key="Product_Type_Name" width={120} />
+                <Column title="Size Name" dataIndex="Size_Name" key="Size_Name" width={120} />
+                <Column title="Size Detail" dataIndex="Product_Size_Detail" key="Product_Size_Detail" width={150} />
+                <Column title="Date" dataIndex="Product_Date" key="Product_Date" width={120} />
+                <Column title="Sale Id" dataIndex="Sale_Id" key="Sale_Id" width={100} />
                 <Column
                     title="Action"
                     key="action"
+                    fixed="right"
+                    width={180}
                     render={(_, record) => (
                         <Space size="middle">
                             {!record?.Sale_Id && (

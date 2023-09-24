@@ -112,7 +112,8 @@ const layoutBackOffice = ({ children }) => {
       <Layout>
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className="demo-logo-vertical" />
-          <Menu
+          <Menu 
+              className='sticky top-0'
               onClick={({ item }) => {
                   // console.log(item.props.path)
                   router.push(item.props.path)

@@ -21,7 +21,9 @@ const App = () => {
             res?.data?.forEach((item, index) => {
                 data.push({
                     ...item, Promotion_Start_Date: DateFormat(item.Promotion_Start_Date),
-                    Promotion_End_Date: DateFormat(item.Promotion_End_Date)
+                    Promotion_End_Date: DateFormat(item.Promotion_End_Date),
+                    Promotion_Discount: item.Promotion_Discount + "%",
+                    Promotion_Price_Condition: item.Promotion_Price_Condition.toFixed(2),
                 })
             })
             setData(data || []);
@@ -68,10 +70,6 @@ const App = () => {
             <Table dataSource={data} rowKey="Promotion_Id">
                 <Column title="ID" dataIndex="Promotion_Id" key="Promotion_Id" />
                 <Column title="Name" dataIndex="Promotion_Name" key="Promotion_Name" />
-                <Column title="Start Date" dataIndex="Promotion_Start_Date" key="Promotion_Start_Date" />
-                <Column title="End Date" dataIndex="Promotion_End_Date" key="Promotion_End_Date" />
-                <Column title="Discount" dataIndex="Promotion_Discount" key="Promotion_Discount" />
-                <Column title="Price Condition" dataIndex="Promotion_Price_Condition" key="Promotion_Price_Condition" />
                 <Column
                     title="Status"
                     key="status"
@@ -112,6 +110,10 @@ const App = () => {
                         );
                     }}
                 />
+                <Column title="Discount" dataIndex="Promotion_Discount" key="Promotion_Discount" />
+                <Column title="Price Condition" dataIndex="Promotion_Price_Condition" key="Promotion_Price_Condition" />
+                <Column title="Start Date" dataIndex="Promotion_Start_Date" key="Promotion_Start_Date" />
+                <Column title="End Date" dataIndex="Promotion_End_Date" key="Promotion_End_Date" />
                 <Column
                     title="Action"
                     key="action"
