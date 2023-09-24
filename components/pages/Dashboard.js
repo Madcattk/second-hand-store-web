@@ -143,7 +143,7 @@ export const Dashboard = () => {
                 </div>
                 <div className='relative w-full bg-white shadow-md rounded-md'>
                     <div className='rounded-t-md font-bold text-greyV1 px-10 py-5 z-10 sticky bg-white top-0'>Summary Revenue</div>
-                    <div className='lg:w-full w-[450px] px-10 h-[450px] overflow-auto'>
+                    <div className='lg:w-full w-[450px] px-10 pb-[10vh] h-[450px] overflow-auto'>
                         <table className='table text-brown'>
                             <thead>
                                 <tr className='h-[5vh] border-y border-hover bg-hover z-10 sticky top-0'>
@@ -154,7 +154,7 @@ export const Dashboard = () => {
                                     <th className='lg:w-full w-[100px] r px-2'>Product Price</th>
                                 </tr>
                             </thead>
-                            <tbody className='h-[450px]'>
+                            <tbody>
                                 {form?.map((item) => {
                                     return item?.Product?.map((product, index) => {
                                         total += product?.Product_Price;
