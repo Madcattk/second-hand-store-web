@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Space, Table, Button, Row } from 'antd';
+import { Space, Table, Button, Row, Switch } from 'antd';
 import { getAllProductTypes, deleteProductTypeById } from '@app/api/getAPI/product-type';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 const { Column } = Table;
 const App = () => {
     const router = useRouter();
+    const [hideID, setHideID] = useState(true);
     const [data, setData] = useState([]);
     useEffect(() => {
         onLoad();
@@ -44,18 +45,32 @@ const App = () => {
 
     return (
         <div className='relative w-full'>
-          <div className='w-full sticky top-0 z-50 h-16 py-1 px-3 bg-white flex justify-between items-center'>
-            <Space wrap>
-                    <div className='font-semibold '>Product Type amount: {data?.length || '-'}</div>
+            <div className='w-full sticky top-0 z-50 h-16 py-1 px-3 bg-white flex justify-between items-center'>
+                <Space wrap>
+                    <div className='font-semibold'>Product Type amount: {data?.length || '-'}</div>
                 </Space>
                 <Space wrap>
-                    <Button className='mr-3 mb-3' onClick={() => router.push('/backoffice/producttype/addproducttype')} type="primary" danger>
+                    <Switch
+                        checked={hideID}
+                        onChange={() => setHideID(!hideID)}
+                        checkedChildren="Hide ID"
+                        unCheckedChildren="Hide ID"
+                        className='bg-greyV1'
+                    />
+                    <Button onClick={() => router.push('/backoffice/producttype/addproducttype')} type="primary" danger>
                         Add Product Type
                     </Button>
                 </Space>
             </div>
             <Table dataSource={data} scroll={{x: 1500}} rowKey="Product_Type_Id" sticky={{offsetHeader:64,}} >
-                <Column title="ID" dataIndex="Product_Type_Id" key="Product_Type_Id" />
+                <Column
+                    title="No"
+                    key="index"
+                    fixed='left'
+                    width={60}
+                    render={(_, record) => data.indexOf(record) + 1}
+                />
+                {!hideID && <Column title="ID" dataIndex="Product_Type_Id" key="Product_Type_Id" />}
                 <Column title="Name" dataIndex="Product_Type_Name" key="Product_Type_Name" />
                 <Column
                     title="Action"

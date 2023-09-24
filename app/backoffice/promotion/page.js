@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Space, Table, Button, Row } from 'antd';
+import { Space, Table, Button, Row, Switch } from 'antd';
 import { getAllPromotions, deletePromotionById } from '@app/api/getAPI/promotion';
 import { useRouter } from 'next/navigation';
 import { DateFormat } from '@components/formats';
@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 const { Column } = Table;
 const App = () => {
     const router = useRouter();
+    const [hideID, setHideID] = useState(true);
     const [data, setData] = useState([]);
     useEffect(() => {
         onLoad();
@@ -58,17 +59,31 @@ const App = () => {
         <div className='relative w-full'>
             <div className='w-full sticky top-0 z-50 h-16 py-1 px-3 bg-white flex justify-between items-center'>
                 <Space wrap>
-                    <div className='ml-3 mb-3 font-semibold'>Promotion amount: {data?.length || '-'}</div>
+                    <div className='font-semibold'>Promotion amount: {data?.length || '-'}</div>
                 </Space>
                 <Space wrap>
-                    <Button className='mr-3 mb-3' onClick={() => router.push('/backoffice/promotion/addpromotion')} type="primary" danger>
+                    <Switch
+                        checked={hideID}
+                        onChange={() => setHideID(!hideID)}
+                        checkedChildren="Hide ID"
+                        unCheckedChildren="Hide ID"
+                        className='bg-greyV1'
+                    />
+                    <Button onClick={() => router.push('/backoffice/promotion/addpromotion')} type="primary" danger>
                         Add Promotion
                     </Button>
                 </Space>
             </div>
 
             <Table dataSource={data} scroll={{x: 1500}} rowKey="Promotion_Id" sticky={{offsetHeader:64,}} >
-                <Column title="ID" dataIndex="Promotion_Id" key="Promotion_Id" fixed='left' width={60} />
+                <Column
+                    title="No"
+                    key="index"
+                    fixed='left'
+                    width={60}
+                    render={(_, record) => data.indexOf(record) + 1}
+                />
+                {!hideID && <Column title="ID" dataIndex="Promotion_Id" key="Promotion_Id" fixed='left' width={60} />}
                 <Column title="Name" dataIndex="Promotion_Name" key="Promotion_Name" fixed='left' width={150} />
                 <Column
                     title="Status"
@@ -119,7 +134,7 @@ const App = () => {
                     title="Action"
                     key="action"
                     fixed="right"
-                    width={150}
+                    width={110}
                     render={(_, record) => (
                         <Space size="middle">
                             <Button onClick={() => router.push(`/backoffice/promotion/${record.Promotion_Id}`)} danger>Edit</Button>

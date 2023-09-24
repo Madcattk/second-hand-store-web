@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Space, Table, Button, Row } from 'antd';
+import { Space, Table, Button, Row, Switch } from 'antd';
 import { Modal } from 'antd';
 import { useRouter } from 'next/navigation';
 import { deleteEmployeeById, getAllEmployees } from '@app/api/getAPI/employee';
@@ -15,6 +15,7 @@ const { Column } = Table;
 const App = () => {
     const router = useRouter();
     const [data, setData] = useState([]);
+    const [hideID, setHideID] = useState(true);
     const [hoveredRowId, setHoveredRowId] = useState(-1);
 
     useEffect(() => {
@@ -60,16 +61,29 @@ const App = () => {
         <div className='relative w-full'>
             <div className='w-full sticky top-0 z-50 h-16 py-1 px-3 bg-white flex justify-between items-center'>
                 <Space wrap>
-                    <div className='font-semibold py-2'>Employee amount: {data?.length || '-'}</div>
+                    <div className='font-semibold'>Employee amount: {data?.length || '-'}</div>
                 </Space>
-                <Space wrap>
-                    <Button className='mr-3 mb-3' onClick={() => router.push('/backoffice/employee/addemployee')} type="primary" danger>
+                <Space wrap> 
+                    <Switch
+                        checked={hideID}
+                        onChange={() => setHideID(!hideID)}
+                        checkedChildren="Hide ID"
+                        unCheckedChildren="Hide ID"
+                        className='bg-greyV1'
+                    />
+                    <Button onClick={() => router.push('/backoffice/employee/addemployee')} type="primary" danger>
                         Add Employee
                     </Button>
                 </Space>
             </div>
             <Table dataSource={data} scroll={{x: 1500}} rowKey="Employee_Id" sticky={{offsetHeader:64,}} >
-                <Column title="ID" dataIndex="Employee_Id" key="Employee_Id" fixed='left' width={60} />
+                <Column
+                    title="No"
+                    key="index"
+                    fixed='left'
+                    width={60}
+                    render={(_, record) => data.indexOf(record) + 1}
+                />
                 <Column
                     title="Image"
                     key="Employee_Image"
@@ -81,6 +95,7 @@ const App = () => {
                         </div>
                     )}
                 />
+                {!hideID && <Column title="ID" dataIndex="Employee_Id" key="Employee_Id" width={60} />}
                 <Column title="Firstname" dataIndex="Employee_Firstname" key="Employee_Firstname" width={120} />
                 <Column title="Lastname" dataIndex="Employee_Lastname" key="Employee_Lastname" width={120} />
                 <Column title="Email" dataIndex="Employee_Email" key="Employee_Email" width={200} />
@@ -104,7 +119,7 @@ const App = () => {
                     title="Action"
                     key="action"
                     fixed="right"
-                    width={180}
+                    width={85}
                     render={(_, record) => (
                         <Space size="middle">
                             <Button onClick={() => onDelete(record.Employee_Id)} danger>Delete</Button>

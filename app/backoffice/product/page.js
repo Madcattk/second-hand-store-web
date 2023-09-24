@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Space, Table, Button, Row, Tooltip } from 'antd';
+import { Space, Table, Button, Row, Tooltip, Switch } from 'antd';
 import { getAllProducts, deleteProductById, getProductsBySearch } from '@app/api/getAPI/product';
 import { DateFormat } from '@components/formats';
 import { Image } from 'antd'
@@ -15,7 +15,7 @@ import { faArrowsRotate, faCircleChevronUp } from '@fortawesome/free-solid-svg-i
 const { Option } = Select;
 const { Column } = Table;
 
-const AdvancedSearchForm = ({data, setData, router, expand, setExpand, onLoadOldData}) => {
+const AdvancedSearchForm = ({data, setData, router, expand, setExpand, onLoadOldData, hideID, setHideID}) => {
     const { token } = theme.useToken();
     const [form] = Form.useForm();
     const [meta, setMeta] = useState({})
@@ -114,11 +114,17 @@ const AdvancedSearchForm = ({data, setData, router, expand, setExpand, onLoadOld
             <Row gutter={24}>{getFields()}</Row>
             <Row justify="space-between">
                 <Space wrap>
-                    <div className='font-semibold py-2'>Product amount: {data?.length || '-'}</div>
-                    <FontAwesomeIcon icon={faArrowsRotate} className='cursor-pointer hover:bg-hover p-2 rounded' onClick={() => {onLoadOldData(); form.resetFields();}}/>
+                    <div className='font-semibold'>Product amount: {data?.length || '-'}</div>
                 </Space>
 
                 <Space wrap>
+                    <Switch
+                        checked={hideID}
+                        onChange={() => setHideID(!hideID)}
+                        checkedChildren="Hide ID"
+                        unCheckedChildren="Hide ID"
+                        className='bg-greyV1'
+                    />
                     <Button onClick={() => router.push('/backoffice/product/addproduct')} type="primary" danger htmlType='button'>
                             Add Product
                     </Button>
@@ -129,7 +135,8 @@ const AdvancedSearchForm = ({data, setData, router, expand, setExpand, onLoadOld
                         </Button>
                         <Button
                             onClick={() => {
-                            form.resetFields();
+                                onLoadOldData();
+                                form.resetFields();
                             }}
                         >
                             Clear
@@ -147,6 +154,7 @@ const AdvancedSearchForm = ({data, setData, router, expand, setExpand, onLoadOld
 
 const App = () => {
     const { token } = theme.useToken();
+    const [hideID, setHideID] = useState(true);
     const [expand, setExpand] = useState(true);
     const router = useRouter();
     const [data, setData] = useState([]);
@@ -191,9 +199,15 @@ const App = () => {
 
     return (
         <div className='w-full ralative'>
-            <AdvancedSearchForm data={data} setData={setData} router={router} expand={expand} setExpand={setExpand} onLoadOldData={onLoad}/>
-            <Table dataSource={data} scroll={{x: 1500}} rowKey="Product_Id" sticky={{offsetHeader: expand ? 140 : 85,}} >
-                <Column title="ID" dataIndex="Product_Id" key="Product_Id" fixed='left' width={60} />
+            <AdvancedSearchForm data={data} setData={setData} router={router} expand={expand} setExpand={setExpand} onLoadOldData={onLoad} hideID={hideID} setHideID={setHideID}/>
+            <Table dataSource={data} scroll={{x: 1500}} rowKey="Product_Id" sticky={{offsetHeader: expand ? 135 : 80,}} >
+                <Column
+                    title="No"
+                    key="index"
+                    fixed='left'
+                    width={60}
+                    render={(_, record) => data.indexOf(record) + 1}
+                />
                 <Column
                     title="Image"
                     key="Product_Image"
@@ -205,6 +219,7 @@ const App = () => {
                         </div>
                     )}
                 />
+                {!hideID && <Column title="ID" dataIndex="Product_Id" key="Product_Id" width={60} />}
                 <Column title="Product Name" dataIndex="Product_Name" key="Product_Name" width={150} />
                 <Column title="Price" dataIndex="Product_Price" key="Product_Price" width={120}/>
                 <Column
