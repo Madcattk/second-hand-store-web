@@ -9,26 +9,32 @@ export async function POST(request) {
         let values = [];
         if(searchType){
             query = `
-                SELECT *
-                FROM Product
-                WHERE Product_Type_Id = '${searchType}' 
+                SELECT p.*, s.Size_Name, pt.Product_Type_Name
+                FROM Product p
+                LEFT JOIN Size s ON p.Size_Id = s.Size_Id
+                JOIN Product_Type pt ON p.Product_Type_Id = pt.Product_Type_Id
+                WHERE pt.Product_Type_Id = '${searchType}' 
                 ORDER BY Product_Status;
             `;
         }
         else if(searchInput){
             query = `
-                SELECT *
-                FROM Product
-                WHERE LOWER(Product_Name) LIKE LOWER(?)
+                SELECT p.*, s.Size_Name, pt.Product_Type_Name
+                FROM Product p
+                LEFT JOIN Size s ON p.Size_Id = s.Size_Id
+                JOIN Product_Type pt ON p.Product_Type_Id = pt.Product_Type_Id
+                WHERE LOWER(p.Product_Name) LIKE LOWER(?)
                 ORDER BY Product_Status;
             `;
             values = [`%${searchInput.toLowerCase()}%`]
         }
         else if(searchSex){
             query = `
-                SELECT *
-                FROM Product
-                WHERE Product_Sex = '${searchSex}' 
+                SELECT p.*, s.Size_Name, pt.Product_Type_Name
+                FROM Product p
+                LEFT JOIN Size s ON p.Size_Id = s.Size_Id
+                JOIN Product_Type pt ON p.Product_Type_Id = pt.Product_Type_Id
+                WHERE p.Product_Sex = '${searchSex}' 
                 ORDER BY Product_Status;
             `;
         }
