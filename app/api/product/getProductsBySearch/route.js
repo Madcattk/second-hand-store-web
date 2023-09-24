@@ -13,7 +13,7 @@ export async function POST(request) {
                 FROM Product p
                 LEFT JOIN Size s ON p.Size_Id = s.Size_Id
                 JOIN Product_Type pt ON p.Product_Type_Id = pt.Product_Type_Id
-                WHERE pt.Product_Type_Id = '${searchType}' 
+                WHERE p.Product_Type_Id = '${searchType}' 
                 ORDER BY Product_Status;
             `;
         }
