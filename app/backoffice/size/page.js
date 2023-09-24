@@ -26,7 +26,7 @@ const App = () => {
             confirmButtonColor: '#2F58CD',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Delete'
-        }).then( async (result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 const res = await deleteSizeById(id);
                 onLoad()
@@ -43,9 +43,9 @@ const App = () => {
     };
 
     return (
-        <>
-            <Row justify="space-between">
-            <Space wrap>
+        <div className='relative w-full'>
+            <div className='w-full sticky top-0 z-50 h-16 py-1 px-3 bg-white flex justify-between items-center'>
+                <Space wrap>
                     <div className='ml-3 mb-3 font-semibold'>Size amount: {data?.length || '-'}</div>
                 </Space>
                 <Space wrap>
@@ -53,9 +53,8 @@ const App = () => {
                         Add Size
                     </Button>
                 </Space>
-            </Row>
-
-            <Table dataSource={data} rowKey="Size_Id">
+            </div>
+            <Table dataSource={data} scroll={{x: 1500}} rowKey="Size_Id" sticky={{offsetHeader:64,}} >
                 <Column title="ID" dataIndex="Size_Id" key="Size_Id" />
                 <Column title="Name" dataIndex="Size_Name" key="Size_Name" />
                 <Column
@@ -69,7 +68,7 @@ const App = () => {
                     )}
                 />
             </Table>
-        </>
+        </div>
     );
 }
 

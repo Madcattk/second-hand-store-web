@@ -53,11 +53,11 @@ const App = () => {
             }
         })
     };
-    
+
     return (
-        <>
-            <Row justify="space-between">
-            <Space wrap>
+        <div className='relative w-full'>
+            <div className='w-full sticky top-0 z-50 h-16 py-1 px-3 bg-white flex justify-between items-center'>
+                <Space wrap>
                     <div className='ml-3 mb-3 font-semibold'>Promotion amount: {data?.length || '-'}</div>
                 </Space>
                 <Space wrap>
@@ -65,13 +65,14 @@ const App = () => {
                         Add Promotion
                     </Button>
                 </Space>
-            </Row>
+            </div>
 
-            <Table dataSource={data} rowKey="Promotion_Id">
-                <Column title="ID" dataIndex="Promotion_Id" key="Promotion_Id" />
-                <Column title="Name" dataIndex="Promotion_Name" key="Promotion_Name" />
+            <Table dataSource={data} scroll={{x: 1500}} rowKey="Promotion_Id" sticky={{offsetHeader:64,}} >
+                <Column title="ID" dataIndex="Promotion_Id" key="Promotion_Id" fixed='left' width={60} />
+                <Column title="Name" dataIndex="Promotion_Name" key="Promotion_Name" fixed='left' width={150} />
                 <Column
                     title="Status"
+                    width={120}
                     key="status"
                     render={(_, record) => {
                         const currentDate = new Date();
@@ -97,26 +98,28 @@ const App = () => {
                         );
 
                         const isCurrentDateInRange =
-                        currentDateWithoutTime >= startDateWithoutTime &&
-                        currentDateWithoutTime <= endDateWithoutTime;
+                            currentDateWithoutTime >= startDateWithoutTime &&
+                            currentDateWithoutTime <= endDateWithoutTime;
 
                         return (
-                        <Space
-                            size="middle"
-                            className={`${isCurrentDateInRange ? 'text-green-500' : 'text-red-500'}`}
-                        >
-                            {isCurrentDateInRange ? 'Available' : 'Unavailable'}
-                        </Space>
+                            <Space
+                                size="middle"
+                                className={`${isCurrentDateInRange ? 'text-green-500' : 'text-red-500'}`}
+                            >
+                                {isCurrentDateInRange ? 'Available' : 'Unavailable'}
+                            </Space>
                         );
                     }}
                 />
-                <Column title="Discount" dataIndex="Promotion_Discount" key="Promotion_Discount" />
-                <Column title="Price Condition" dataIndex="Promotion_Price_Condition" key="Promotion_Price_Condition" />
-                <Column title="Start Date" dataIndex="Promotion_Start_Date" key="Promotion_Start_Date" />
-                <Column title="End Date" dataIndex="Promotion_End_Date" key="Promotion_End_Date" />
+                <Column title="Discount" dataIndex="Promotion_Discount" key="Promotion_Discount" width={120} />
+                <Column title="Price Condition" dataIndex="Promotion_Price_Condition" key="Promotion_Price_Condition" width={120} />
+                <Column title="Start Date" dataIndex="Promotion_Start_Date" key="Promotion_Start_Date" width={120} />
+                <Column title="End Date" dataIndex="Promotion_End_Date" key="Promotion_End_Date" width={120} />
                 <Column
                     title="Action"
                     key="action"
+                    fixed="right"
+                    width={150}
                     render={(_, record) => (
                         <Space size="middle">
                             <Button onClick={() => router.push(`/backoffice/promotion/${record.Promotion_Id}`)} danger>Edit</Button>
@@ -125,7 +128,7 @@ const App = () => {
                     )}
                 />
             </Table>
-        </>
+        </div>
     );
 }
 

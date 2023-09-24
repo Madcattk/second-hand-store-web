@@ -43,18 +43,18 @@ const App = () => {
     };
 
     return (
-        <>
-            <Row justify="space-between">
+        <div className='relative w-full'>
+          <div className='w-full sticky top-0 z-50 h-16 py-1 px-3 bg-white flex justify-between items-center'>
             <Space wrap>
-                    <div className='ml-3 mb-3 font-semibold'>Product Type amount: {data?.length || '-'}</div>
+                    <div className='font-semibold '>Product Type amount: {data?.length || '-'}</div>
                 </Space>
                 <Space wrap>
                     <Button className='mr-3 mb-3' onClick={() => router.push('/backoffice/producttype/addproducttype')} type="primary" danger>
                         Add Product Type
                     </Button>
                 </Space>
-            </Row>
-            <Table dataSource={data} rowKey="Product_Type_Id">
+            </div>
+            <Table dataSource={data} scroll={{x: 1500}} rowKey="Product_Type_Id" sticky={{offsetHeader:64,}} >
                 <Column title="ID" dataIndex="Product_Type_Id" key="Product_Type_Id" />
                 <Column title="Name" dataIndex="Product_Type_Name" key="Product_Type_Name" />
                 <Column
@@ -68,7 +68,7 @@ const App = () => {
                     )}
                 />
             </Table>
-        </>
+        </div>
     );
 }
 
