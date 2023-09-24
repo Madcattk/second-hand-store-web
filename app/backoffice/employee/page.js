@@ -88,7 +88,7 @@ const App = () => {
                     title="Image"
                     key="Employee_Image"
                     fixed='left'
-                    width={120} 
+                    width={100} 
                     render={(_, record) => (
                         <div>
                             <Image className='w-[80px] h-[100px]' src={record?.Employee_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100} />
