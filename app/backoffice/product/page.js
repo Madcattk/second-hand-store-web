@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Space, Table, Button, Row } from 'antd';
+import { Space, Table, Button, Row, Tooltip } from 'antd';
 import { getAllProducts, deleteProductById, getProductsBySearch } from '@app/api/getAPI/product';
 import { DateFormat } from '@components/formats';
 import { Image } from 'antd'
@@ -11,7 +11,7 @@ import { DownOutlined } from '@ant-design/icons';
 import { getAllProductTypes } from '@app/api/getAPI/product-type';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsRotate, faCircleChevronUp } from '@fortawesome/free-solid-svg-icons';
 const { Option } = Select;
 const { Column } = Table;
 
@@ -72,7 +72,7 @@ const AdvancedSearchForm = ({data, setData, router, expand, setExpand, onLoadOld
                     label={`Search Input`}
                     onChange={() => onChange('Search_Input')}
                 >
-                    <Input placeholder="placeholder" />
+                    <Input placeholder="Product Name" />
                 </Form.Item>
             )}
             </Col>,
@@ -136,16 +136,9 @@ const AdvancedSearchForm = ({data, setData, router, expand, setExpand, onLoadOld
                         </Button>
                     </>
                     }
-                    <a
-                        style={{
-                        fontSize: 12,
-                        }}
-                        onClick={() => {
+                    <FontAwesomeIcon onClick={() => {
                         setExpand(!expand);
-                        }}
-                    >
-                        <DownOutlined rotate={expand ? 180 : 0} /> Collapse
-                    </a>
+                    }} icon={faCircleChevronUp} rotation={expand ? 180 : 0} className='text-gray cursor-pointer' size='xl' />
                 </Space>
             </Row>
         </Form>
