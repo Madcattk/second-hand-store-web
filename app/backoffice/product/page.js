@@ -83,9 +83,9 @@ const AdvancedSearchForm = ({data, setData, router, expand, setExpand, onLoadOld
 
     const onChange = (fieldName) => {
         if(fieldName === "Product_Type") {
-            form.resetFields(["Product_Sex", "Search_Input"])
+            form.resetFields(["Search_Input"])
         } else if (fieldName === "Product_Sex") {
-            form.resetFields(["Product_Type", "Search_Input"])
+            form.resetFields(["Search_Input"])
         }else if (fieldName === "Search_Input") {
             form.resetFields(["Product_Type", "Product_Sex"])
         }

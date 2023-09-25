@@ -81,7 +81,7 @@ const NavMember = ({ children }) => {
                         </div>
                     </div>
                     <div className="group relative">
-                        <button className="menu-hover border-none bg-white text-base font-light pr-8">FILTER</button>
+                        <button className="menu-hover border-none bg-white text-base font-light pr-8">GENDER</button>
                         <div className="absolute left-0 pt-2 bg-white z-50 invisible group-hover:visible">
                         {MetaProductSex?.map((item, index) => {
                                 return <a key={"Product_Type"+index} onClick={() => {

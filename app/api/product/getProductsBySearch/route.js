@@ -7,7 +7,17 @@ export async function POST(request) {
         const conn = await dbConnection();
         let query = '';
         let values = [];
-        if(searchType){
+        if(searchType && searchSex){
+            query = `
+                SELECT p.*, s.Size_Name, pt.Product_Type_Name
+                FROM Product p
+                LEFT JOIN Size s ON p.Size_Id = s.Size_Id
+                JOIN Product_Type pt ON p.Product_Type_Id = pt.Product_Type_Id
+                WHERE p.Product_Type_Id = '${searchType}' AND p.Product_Sex = '${searchSex}'
+                ORDER BY Product_Status;
+            `;
+        }
+        else if(searchType && !searchSex){
             query = `
                 SELECT p.*, s.Size_Name, pt.Product_Type_Name
                 FROM Product p
@@ -28,7 +38,7 @@ export async function POST(request) {
             `;
             values = [`%${searchInput.toLowerCase()}%`]
         }
-        else if(searchSex){
+        else if(searchSex && !searchType){
             query = `
                 SELECT p.*, s.Size_Name, pt.Product_Type_Name
                 FROM Product p
