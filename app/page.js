@@ -30,7 +30,7 @@ export default function Home() {
       dispatch(inputSearch({
         'searchInput': searchValue?.searchInput || '',
         'searchType': searchValue?.searchType || '',
-        'searchSex': form?.searchSex || ''
+        'searchSex': form?.searchSex || searchValue?.searchSex
       }))
   },[form?.searchSex])
 
