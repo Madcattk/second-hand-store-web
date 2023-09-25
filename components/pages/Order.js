@@ -17,7 +17,7 @@ import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 
 export const Order = ({ form, onChange, onLoad }) => {
     const router = useRouter();
-
+    let indexText = 0;
     const onUpLoadSlip = async () => {
         if(!form?.Payment){
             const res = await addPayment({
@@ -91,7 +91,52 @@ export const Order = ({ form, onChange, onLoad }) => {
     }
 
     return (
-        <div className='w-full flex_center'>
+        <div className='w-full flex_center flex-col gap-5'>
+            <ol className="flex flex-col md:flex-row font-light px-5 items-center xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 text-sm text-center text-greyV1 dark:text-greyV1 sm:text-base">
+                {MetaSaleStatus?.map((item, index) => {
+                    const indexSale = MetaSaleStatus?.findIndex((item) => item?.id === form?.Sale_Status);
+                    if(index !== 3 && index !== 4){
+                        indexText += 1
+                        if (index <= indexSale && index !== MetaSaleStatus.length-1) {
+                            return  <li className="flex md:w-full items-center text-brown dark:text-brown sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-brown after:border-1 after:hidden sm:after:inline-block after:mx-2 xl:after:mx-3 dark:after:border-brown">
+                                        <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-1 after:text-greyV1 dark:after:text-greyV1">
+                                            {index === 2 && (indexSale === 3 || indexSale ===4) ?
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="mr-2.5" height="1em" viewBox="0 0 512 512">
+                                                    <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>
+                                                </svg>
+                                            :
+                                                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                                </svg>
+                                            }
+                                            {index === 0 ? 'Pending' : index === 2 && indexSale === 3 ? MetaSaleStatus?.[3]?.name : index === 2 && indexSale === 4 ? MetaSaleStatus?.[4]?.name : item?.name}
+                                        </span>
+                                    </li>
+                            } else if (index <= indexSale && index === MetaSaleStatus.length-1) {
+                            return   <li className="flex items-center text-brown dark:text-brown">
+                                        <span className="flex items-center">
+                                            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                            </svg>
+                                            {index === 0 ? 'Pending' : item?.name}
+                                        </span>
+                                    </li>
+                            }else if (index === MetaSaleStatus.length-1) {
+                            return   <li className="flex items-center">
+                                        <span className="mr-2">{indexText}</span>
+                                        {index === 0 ? 'Pending' : item?.name}
+                                    </li>
+                            }else {
+                            return  <li className="flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-greyV1 after:border-1 after:hidden sm:after:inline-block after:mx-2 xl:after:mx-3 dark:after:border-greyV1">
+                                        <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-1 after:text-greyV1 dark:after:text-greyV1">
+                                            <span className="mr-2">{indexText}</span>
+                                            {index === 0 ? 'Pending' : item?.name}
+                                        </span>
+                                    </li>
+                        }
+                    }
+                })}
+            </ol>
             <div className='xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 flex_center flex-col gap-3 px-5 py-3 border border-brown mb-5'>
                 <div className='w-full flex flex-col md:flex-row md:items-end justify-between font-light'>
                     <span><FontAwesomeIcon icon={faCircleLeft} className='cursor-pointer' onClick={() => router.back()}/> ORDER NO: {form?.Sale_Id || ''}</span>
@@ -166,6 +211,7 @@ export const Order = ({ form, onChange, onLoad }) => {
 
 export const Review = ({ form, onChange, onLoad }) => {
     const router = useRouter();
+    let indexText = 0;
     const [menu, setMenu] = useState(false);
     const [data, setData] = useState(null);
 
@@ -174,7 +220,52 @@ export const Review = ({ form, onChange, onLoad }) => {
         setData(data)
     }
     return (
-        <div className='w-full flex_center relative'>
+        <div className='w-full flex_center relative flex-col gap-5'>
+            <ol className="flex flex-col md:flex-row font-light px-5 items-center xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 text-sm text-center text-greyV1 dark:text-greyV1 sm:text-base">
+                {MetaSaleStatus?.map((item, index) => {
+                    const indexSale = MetaSaleStatus?.findIndex((item) => item?.id === form?.Sale_Status);
+                    if(index !== 3 && index !== 4){
+                        indexText += 1
+                        if (index <= indexSale && index !== MetaSaleStatus.length-1) {
+                            return  <li className="flex md:w-full items-center text-brown dark:text-brown sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-brown after:border-1 after:hidden sm:after:inline-block after:mx-2 xl:after:mx-3 dark:after:border-brown">
+                                        <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-1 after:text-greyV1 dark:after:text-greyV1">
+                                            {index === 2 && (indexSale === 3 || indexSale ===4) ?
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="mr-2.5" height="1em" viewBox="0 0 512 512">
+                                                    <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>
+                                                </svg>
+                                            :
+                                                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                                </svg>
+                                            }
+                                            {index === 0 ? 'Pending' : index === 2 && indexSale === 3 ? MetaSaleStatus?.[3]?.name : index === 2 && indexSale === 4 ? MetaSaleStatus?.[4]?.name : item?.name}
+                                        </span>
+                                    </li>
+                            } else if (index <= indexSale && index === MetaSaleStatus.length-1) {
+                            return   <li className="flex items-center text-brown dark:text-brown">
+                                        <span className="flex items-center">
+                                            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                            </svg>
+                                            {index === 0 ? 'Pending' : item?.name}
+                                        </span>
+                                    </li>
+                            }else if (index === MetaSaleStatus.length-1) {
+                            return   <li className="flex items-center">
+                                        <span className="mr-2">{indexText}</span>
+                                        {index === 0 ? 'Pending' : item?.name}
+                                    </li>
+                            }else {
+                            return  <li className="flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-greyV1 after:border-1 after:hidden sm:after:inline-block after:mx-2 xl:after:mx-3 dark:after:border-greyV1">
+                                        <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-1 after:text-greyV1 dark:after:text-greyV1">
+                                            <span className="mr-2">{indexText}</span>
+                                            {index === 0 ? 'Pending' : item?.name}
+                                        </span>
+                                    </li>
+                        }
+                    }
+                })}
+            </ol>
             <div className='xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 flex_center flex-col gap-3 px-5 py-3 border border-brown mb-5'>
                 <div className='w-full flex flex-col md:flex-row md:items-end justify-between font-light'>
                     <span><FontAwesomeIcon icon={faCircleLeft} className='cursor-pointer' onClick={() => router.back()}/> ORDER NO: {form?.Sale_Id || ''}</span>

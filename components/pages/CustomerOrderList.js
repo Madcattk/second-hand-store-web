@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { getMemberOrdersById } from '@app/api/getAPI/sale';
 import { getFromLocalStorage, saveToLocalStorage } from '@lib/localStorage';
 import { DateFormat } from '@components/formats';
+import Image from 'next/image' 
 
 const CustomerOrderList = () => {
     const router = useRouter();
@@ -54,12 +55,26 @@ const CustomerOrderList = () => {
                             <span>{item?.Sale_Status || ''}</span>
                         </div>
                         <div className='w-full py-1 flex flex-col md:flex-row items-start justify-between font-light text-sm border-b border-b-gray border-t border-t-gray'>
-                            <div>
-                            <div>{item?.Address?.Fullname || ''}</div>
-                            <div>{item?.Address?.Address || ''} {item?.Address?.District || ''} {item?.Address?.Province || ''} {item?.Address?.Zipcode || ''} {item?.Address?.Country || ''}</div>
-                            <div>Phone: {item?.Address?.Phone || ''}</div>
+                            <div className='lg:w-[250px]'>
+                                <div>{item?.Address?.Fullname || ''}</div>
+                                <div>{item?.Address?.Address || ''} {item?.Address?.District || ''} {item?.Address?.Province || ''} {item?.Address?.Zipcode || ''} {item?.Address?.Country || ''}</div>
+                                <div>Phone: {item?.Address?.Phone || ''}</div>
                             </div>
-                            <div>Tracking Number: {item?.Sale_Tracking_Number || '-'}</div>
+                            <div className="relative w-[100px] hidden lg:flex">
+                                {item?.Product_Images?.map((image, indexImg) => {
+                                    if(indexImg <= 2) {
+                                    return <div className={`absolute top-0 ${indexImg === 0 ? 'left-0 z-20' : 'left-10 z-10'} w-14`} key={"Product-Image"+indexImg}>
+                                            <Image className='w-14 h-14 object-cover rounded-full' src={image?.Product_Image || "/assets/images/avatars/more.png"} alt="..." width={56} height={56}/>
+                                        </div>
+                                    }
+                                })}
+                                {item?.Product_Images?.length > 2 &&
+                                    <div className="absolute top-0 left-20 w-14">
+                                        <Image className='w-14 h-14 object-cover rounded-full' src="/assets/images/avatars/more.png" alt="..." width={56} height={56}/>
+                                    </div>
+                                }
+                            </div>
+                            <div className='lg:w-[250px] md:text-right text-left'>Tracking Number: {item?.Sale_Tracking_Number || '-'}</div>
                         </div>
                         <div className='w-full r'>Total ฿{item?.Discounted_Total_Price?.toFixed(2) || item?.Sale_Total_Price?.toFixed(2)} Baht</div>
                     </div>
