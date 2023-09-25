@@ -98,7 +98,7 @@ export const Order = ({ form, onChange, onLoad }) => {
                     if(index !== 3 && index !== 4){
                         indexText += 1
                         if (index <= indexSale && index !== MetaSaleStatus.length-1) {
-                            return  <li className="flex md:w-full items-center text-brown dark:text-brown sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-brown after:border-1 after:hidden sm:after:inline-block after:mx-2 xl:after:mx-3 dark:after:border-brown">
+                            return  <li key={"Progress"+index} className="flex md:w-full items-center text-brown dark:text-brown sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-brown after:border-1 after:hidden sm:after:inline-block after:mx-2 xl:after:mx-3 dark:after:border-brown">
                                         <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-1 after:text-greyV1 dark:after:text-greyV1">
                                             {index === 2 && (indexSale === 3 || indexSale ===4) ?
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2.5" height="1em" viewBox="0 0 512 512">
@@ -113,7 +113,7 @@ export const Order = ({ form, onChange, onLoad }) => {
                                         </span>
                                     </li>
                             } else if (index <= indexSale && index === MetaSaleStatus.length-1) {
-                            return   <li className="flex items-center text-brown dark:text-brown">
+                            return   <li key={"Progress"+index} className="flex items-center text-brown dark:text-brown">
                                         <span className="flex items-center">
                                             <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
@@ -122,12 +122,12 @@ export const Order = ({ form, onChange, onLoad }) => {
                                         </span>
                                     </li>
                             }else if (index === MetaSaleStatus.length-1) {
-                            return   <li className="flex items-center">
+                            return   <li key={"Progress"+index} className="flex items-center">
                                         <span className="mr-2">{indexText}</span>
                                         {index === 0 ? 'Pending' : item?.name}
                                     </li>
                             }else {
-                            return  <li className="flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-greyV1 after:border-1 after:hidden sm:after:inline-block after:mx-2 xl:after:mx-3 dark:after:border-greyV1">
+                            return  <li key={"Progress"+index} className="flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-greyV1 after:border-1 after:hidden sm:after:inline-block after:mx-2 xl:after:mx-3 dark:after:border-greyV1">
                                         <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-1 after:text-greyV1 dark:after:text-greyV1">
                                             <span className="mr-2">{indexText}</span>
                                             {index === 0 ? 'Pending' : item?.name}
@@ -227,7 +227,7 @@ export const Review = ({ form, onChange, onLoad }) => {
                     if(index !== 3 && index !== 4){
                         indexText += 1
                         if (index <= indexSale && index !== MetaSaleStatus.length-1) {
-                            return  <li className="flex md:w-full items-center text-brown dark:text-brown sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-brown after:border-1 after:hidden sm:after:inline-block after:mx-2 xl:after:mx-3 dark:after:border-brown">
+                            return  <li key={"Progress"+index} className="flex md:w-full items-center text-brown dark:text-brown sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-brown after:border-1 after:hidden sm:after:inline-block after:mx-2 xl:after:mx-3 dark:after:border-brown">
                                         <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-1 after:text-greyV1 dark:after:text-greyV1">
                                             {index === 2 && (indexSale === 3 || indexSale ===4) ?
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2.5" height="1em" viewBox="0 0 512 512">
@@ -242,7 +242,7 @@ export const Review = ({ form, onChange, onLoad }) => {
                                         </span>
                                     </li>
                             } else if (index <= indexSale && index === MetaSaleStatus.length-1) {
-                            return   <li className="flex items-center text-brown dark:text-brown">
+                            return   <li key={"Progress"+index} className="flex items-center text-brown dark:text-brown">
                                         <span className="flex items-center">
                                             <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
@@ -251,12 +251,12 @@ export const Review = ({ form, onChange, onLoad }) => {
                                         </span>
                                     </li>
                             }else if (index === MetaSaleStatus.length-1) {
-                            return   <li className="flex items-center">
+                            return   <li key={"Progress"+index} className="flex items-center">
                                         <span className="mr-2">{indexText}</span>
                                         {index === 0 ? 'Pending' : item?.name}
                                     </li>
                             }else {
-                            return  <li className="flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-greyV1 after:border-1 after:hidden sm:after:inline-block after:mx-2 xl:after:mx-3 dark:after:border-greyV1">
+                            return  <li key={"Progress"+index} className="flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-greyV1 after:border-1 after:hidden sm:after:inline-block after:mx-2 xl:after:mx-3 dark:after:border-greyV1">
                                         <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-1 after:text-greyV1 dark:after:text-greyV1">
                                             <span className="mr-2">{indexText}</span>
                                             {index === 0 ? 'Pending' : item?.name}
