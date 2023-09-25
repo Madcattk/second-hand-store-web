@@ -12,10 +12,6 @@ const ShopAll = () => {
     const router = useRouter();
     const [form, setForm] = useState([])
     const [limit, setLimit] = useState(true)
-    
-    useEffect(() => {
-        onLoad()
-    },[])
 
     useEffect(() => {
         if(searchValue?.searchInput || searchValue?.searchType || searchValue?.searchSex){
