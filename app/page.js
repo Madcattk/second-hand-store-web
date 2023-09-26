@@ -30,7 +30,7 @@ export default function Home() {
       dispatch(inputSearch({
         'searchInput': searchValue?.searchInput || '',
         'searchType': searchValue?.searchType || '',
-        'searchSex': form?.searchSex || searchValue?.searchSex
+        'searchSex': form?.searchSex === 'All' ? '' : form?.searchSex ?  form?.searchSex : searchValue?.searchSex
       }))
   },[form?.searchSex])
 
@@ -39,8 +39,8 @@ export default function Home() {
     if(res?.message === 'success'){
       setTopic(res?.data?.[0] || null)
     }
-}
-  
+  }
+
   return (
     <div className='flex flex-col items-center w-full'>
       <DesktopGallery/>
@@ -50,7 +50,7 @@ export default function Home() {
             <span className='flex gap-3'>
                 Filter:
                 <select value={form?.searchSex} onChange={(e) => setForm({...form, searchSex: e.target.value})} className='outline-none border-none cursor-pointer px-1'>
-                  <option value={''}>All</option>
+                  <option value={'All'}>All</option>
                   {MetaProductSex?.map((item, index) => {
                     return <option key={"Product-Sex"+index} value={item.id}>{item.name}</option>
                   })}
