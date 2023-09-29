@@ -165,7 +165,7 @@ export const Dashboard = () => {
                                 {form?.Summary?.map((item, index) => {
                                     total += item?.Discounted_Total_Price ? item?.Discounted_Total_Price : item?.Sale_Total_Price;
                                     return <React.Fragment key={"Summary-Revenue"+index}>
-                                        <tr className='h-[5vh] border-y border-hover bg-[#F5F5F5]'>
+                                        <tr className='h-[5vh] border-y border-hover bg-[#F5F5F5] hover:bg-hover'>
                                             <td className='l px-2'>{item?.Sale_Id || '-'}</td>
                                             <td className='c px-2'>{DateFormat(item?.Sale_Date) || '-'}</td>
                                             <td className='c px-2'>{item?.Sale_Status || '-'}</td>
