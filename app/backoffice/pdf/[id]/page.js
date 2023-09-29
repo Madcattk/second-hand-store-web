@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { getBestSellerProductReport } from '@app/api/getAPI/sale';
+import { getBestSellerProductReport, getSummaryRevenue } from '@app/api/getAPI/sale';
 import { DateFormat } from '@components/formats';
 import { useParams } from 'next/navigation';
 import { Page, Text, View, Document, StyleSheet, PDFViewer, Font } from '@react-pdf/renderer';
@@ -72,8 +72,12 @@ const page = () => {
             "Start_Date": date?.Start_Date,
             "End_Date": date?.End_Date
         }) 
-        if(resBestSellerProduct.message == 'success'){
-            setForm(resBestSellerProduct?.data || [])
+        const resSummaryRevenue = await getSummaryRevenue({
+            "Start_Date": date?.Start_Date,
+            "End_Date": date?.End_Date
+        }) 
+        if(resBestSellerProduct.message == 'success' && resSummaryRevenue.message == 'success'){
+            setForm({Best_Seller: resBestSellerProduct?.data || [], Summary: resSummaryRevenue?.data || []})
         }
     }
 
@@ -96,7 +100,7 @@ const page = () => {
                             <Text style={{ fontSize: 16, paddingBottom: 10, fontFamily: 'ThaiFontBold' }}>Report for the period: {date?.Start_Date} to {date?.End_Date}</Text>
                         </View>
                         <Text style={{ fontSize: 16, paddingBottom: 10, paddingTop: 10, fontFamily: 'ThaiFontBold'  }}>Best Seller Product Report</Text>
-                        {form?.map((item, index) => {
+                        {form?.Best_Seller?.map((item, index) => {
                             return  <View key={'Best-Seller'+index} style={{ marginBottom: 5}}>
                             <Text style={{ fontSize: 15, paddingBottom: 5, fontFamily: 'ThaiFontBold' }}>{item?.Product_Type_Name || ''}</Text>
                             <Text style={{fontSize: 16, fontFamily: 'ThaiFont'}}>Sales: {item?.Count || '0'}</Text>
@@ -116,10 +120,7 @@ const page = () => {
                         <View style={styles.table}>
                             <View style={styles.tableRowTH}>
                                 <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'left',}}>
-                                    <Text style={{ fontSize: 15, fontFamily: 'ThaiFontBold' }}>Product Name</Text>
-                                </View>
-                                <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'left',}}>
-                                    <Text style={{ fontSize: 15, fontFamily: 'ThaiFontBold' }}>Product Type Name</Text>
+                                    <Text style={{ fontSize: 15, fontFamily: 'ThaiFontBold' }}>Sale ID</Text>
                                 </View>
                                 <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'center',}}>
                                     <Text style={{ fontSize: 15, fontFamily: 'ThaiFontBold' }}>Sale Date</Text>
@@ -128,30 +129,61 @@ const page = () => {
                                     <Text style={{ fontSize: 15, fontFamily: 'ThaiFontBold' }}>Sale Status</Text>
                                 </View>
                                 <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'right',}}>
-                                    <Text style={{ fontSize: 15, fontFamily: 'ThaiFontBold' }}>Product Price</Text>
+                                    <Text style={{ fontSize: 15, fontFamily: 'ThaiFontBold' }}>Subtotal</Text>
+                                </View>
+                                <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'right',}}>
+                                    <Text style={{ fontSize: 15, fontFamily: 'ThaiFontBold' }}>Discount</Text>
+                                </View>
+                                <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'right',}}>
+                                    <Text style={{ fontSize: 15, fontFamily: 'ThaiFontBold' }}>Total</Text>
                                 </View>
                             </View>
-                            {form?.map((item) => {
-                                return item?.Product?.map((product, index) => {
-                                    total += product?.Product_Price;
-                                return <View key={'summary'+index} style={styles.tableRow}>
+                            {form?.Summary?.map((item, index) => {
+                                total += item?.Discounted_Total_Price ? item?.Discounted_Total_Price : item?.Sale_Total_Price;
+                                return <React.Fragment key={'summary'+index}>
+                                    <View style={styles.tableRowTH}>
+                                    <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'left',}}>
+                                        <Text style={{ fontSize: 16, fontFamily: 'ThaiFont', }}>{item?.Sale_Id || '-'}</Text>
+                                    </View>
+                                    <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'center',}}>
+                                        <Text style={{ fontSize: 16, fontFamily: 'ThaiFont', }}>{DateFormat(item?.Sale_Date) || '-'}</Text>
+                                    </View>
+                                    <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'center',}}>
+                                        <Text style={{ fontSize: 16, fontFamily: 'ThaiFont', }}>{item?.Sale_Status || '-'}</Text>
+                                    </View>
+                                    <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'right',}}>
+                                        <Text style={{ fontSize: 16, fontFamily: 'ThaiFont', }}>{item?.Sale_Total_Price.toFixed(2) || '0.00'}</Text>
+                                    </View>
+                                    <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'right',}}>
+                                        <Text style={{ fontSize: 16, fontFamily: 'ThaiFont', }}>{item?.Promotion_Discount || '0'}%</Text>
+                                    </View>
+                                    <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'right',}}>
+                                        <Text style={{ fontSize: 16, fontFamily: 'ThaiFont', }}>{item?.Discounted_Total_Price ? item?.Discounted_Total_Price.toFixed(2) : item?.Sale_Total_Price.toFixed(2) || '0.00'}</Text>
+                                    </View>
+                                </View>
+                                {item?.Product?.map((product, pIndex) => {
+                                return <View key={'product'+pIndex} style={styles.tableRow}>
                                     <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'left',}}>
                                         <Text style={{ fontSize: 16, fontFamily: 'ThaiFont', }}>{product?.Product_Name || '-'}</Text>
                                     </View>
-                                    <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'left',}}>
+                                    <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'center',}}>
                                         <Text style={{ fontSize: 16, fontFamily: 'ThaiFont', }}>{product?.Product_Type_Name || '-'}</Text>
                                     </View>
                                     <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'center',}}>
-                                        <Text style={{ fontSize: 16, fontFamily: 'ThaiFont', }}>{DateFormat(product?.Sale_Date) || '-'}</Text>
-                                    </View>
-                                    <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'center',}}>
-                                        <Text style={{ fontSize: 16, fontFamily: 'ThaiFont', }}>{product?.Sale_Status || '-'}</Text>
-                                    </View>
-                                    <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'right',}}>
                                         <Text style={{ fontSize: 16, fontFamily: 'ThaiFont', }}>{product?.Product_Price.toFixed(2) || '0.00'}</Text>
                                     </View>
+                                    <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'right',}}>
+                                        <Text style={{ fontSize: 16, fontFamily: 'ThaiFont', }}></Text>
+                                    </View>
+                                    <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'right',}}>
+                                        <Text style={{ fontSize: 16, fontFamily: 'ThaiFont', }}></Text>
+                                    </View>
+                                    <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'right',}}>
+                                        <Text style={{ fontSize: 16, fontFamily: 'ThaiFont', }}></Text>
+                                    </View>
                                 </View>
-                                })
+                                })}
+                                </React.Fragment>
                             })}
                             <View style={styles.tableRowTH}>
                                 <View style={{ borderWidth: 0, padding: 7, flex: 1, textAlign: 'left',}}>
