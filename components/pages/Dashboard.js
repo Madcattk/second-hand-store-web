@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import { getBestSellerProductReport } from '@app/api/getAPI/sale';
+import { getBestSellerProductReport, getSummaryRevenue } from '@app/api/getAPI/sale';
 import { DateFormat } from '@components/formats';
 import { InputDate } from '@components/inputs';
 import html2pdf from 'html2pdf.js';
@@ -44,8 +44,14 @@ export const Dashboard = () => {
             "Start_Date": DateFormat(date?.Start_Date),
             "End_Date": DateFormat(date?.End_Date)
         }) 
-        if(resBestSellerProduct.message == 'success'){
-            setForm(resBestSellerProduct?.data || [])
+
+        const resSummaryRevenue = await getSummaryRevenue({
+            "Start_Date": DateFormat(date?.Start_Date),
+            "End_Date": DateFormat(date?.End_Date)
+        }) 
+
+        if(resBestSellerProduct.message == 'success' && resSummaryRevenue.message == 'success'){
+            setForm({Best_Seller: resBestSellerProduct?.data || [], Summary: resSummaryRevenue?.data || []})
             let labels = [];
             let _data = [];
             for (const index in resBestSellerProduct?.data) {
@@ -131,7 +137,7 @@ export const Dashboard = () => {
                     <div className='relative bg-white overflow-y-auto h-[500px] xl:w-[620px] sm:w-[450px] w-full pb-10 shadow-md rounded-md flex flex-col gap-3'>
                         <div className='font-bold text-greyV1 px-10 py-5 z-10 sticky bg-white top-0'>Best Seller Product Report</div>
                         <div className='w-full px-10 flex flex-col gap-3'>
-                            {form?.map((item, index) => {
+                            {form?.Best_Seller?.map((item, index) => {
                                 return <div className={`border-b border-b-hover w-full px-3  p-3 text-brown`} key={"Best-Seller-Product"+index}>
                                     <div className='pb-3 w-full font-bold text-lg'>{item?.Product_Type_Name || ''}</div>
                                     <div className='font-medium'>Total sales: {item?.Count || '0'}</div>
@@ -143,29 +149,41 @@ export const Dashboard = () => {
                 </div>
                 <div className='relative w-full bg-white shadow-md rounded-md'>
                     <div className='rounded-t-md font-bold text-greyV1 px-10 py-5 z-10 sticky bg-white top-0'>Summary Revenue</div>
-                    <div className='lg:w-full w-[450px] px-10 pb-[10vh] h-[450px] overflow-auto'>
+                    <div className='lg:w-full w-[450px] px-10 pb-[10vh] h-[600px] overflow-auto'>
                         <table className='table text-brown'>
                             <thead>
                                 <tr className='h-[5vh] border-y border-hover bg-hover z-10 sticky top-0'>
-                                    <th className='lg:min-w-[200px] w-[200px] l px-2'>Product Name</th>
-                                    <th className='lg:min-w-[170px] w-[170px] l px-2'>Product Type Name</th>
+                                    <th className='lg:min-w-[170px] w-[170px] l px-2'>Sale ID</th>
                                     <th className='lg:min-w-[170px] w-[170px] c px-2'>Sale Date</th>
                                     <th className='lg:min-w-[170px] w-[170px] c px-2'>Sale Status</th>
-                                    <th className='lg:w-full w-[100px] r px-2'>Product Price</th>
+                                    <th className='lg:w-full w-[170px] r px-2'>Subtotal</th>
+                                    <th className='lg:min-w-[170px] w-[170px] r px-2'>Discount</th>
+                                    <th className='lg:w-full w-[100px] r px-2'>Total</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {form?.map((item) => {
-                                    return item?.Product?.map((product, index) => {
-                                        total += product?.Product_Price;
-                                        return <tr className='h-[5vh] border-y border-hover hover:bg-[#FAFAFA]' key={"Summary-Revenue"+index}>
-                                            <td className='l px-2'>{product?.Product_Name || '-'}</td>
-                                            <td className='l px-2'>{product?.Product_Type_Name || '-'}</td>
-                                            <td className='c px-2'>{DateFormat(product?.Sale_Date) || '-'}</td>
-                                            <td className='c px-2'>{product?.Sale_Status || '-'}</td>
-                                            <td className='r px-2'>฿{product?.Product_Price.toFixed(2) || '0.00'}</td>
+                                {form?.Summary?.map((item, index) => {
+                                    total += item?.Discounted_Total_Price ? item?.Discounted_Total_Price : item?.Sale_Total_Price;
+                                    return <React.Fragment key={"Summary-Revenue"+index}>
+                                        <tr className='h-[5vh] border-y border-hover bg-[#F5F5F5] hover:bg-hover'>
+                                            <td className='l px-2'>{item?.Sale_Id || '-'}</td>
+                                            <td className='c px-2'>{DateFormat(item?.Sale_Date) || '-'}</td>
+                                            <td className='c px-2'>{item?.Sale_Status || '-'}</td>
+                                            <td className='r px-2'>฿{item?.Sale_Total_Price.toFixed(2) || '0.00'}</td>
+                                            <td className='r px-2'>{item?.Promotion_Discount || '0'}%</td>
+                                            <td className='r px-2'>฿{item?.Discounted_Total_Price ? item?.Discounted_Total_Price.toFixed(2) : item?.Sale_Total_Price.toFixed(2) || '0.00'}</td>
                                         </tr>
-                                    })
+                                        {item?.Product?.map((item, pIndex) => {
+                                            return  <tr className='h-[5vh] border-y border-hover hover:bg-[#FAFAFA]' key={"Summary-Product"+pIndex}>
+                                                <td className='l px-2'>{item?.Product_Name || '-'}</td>
+                                                <td className='c px-2'>{item?.Product_Type_Name || '-'}</td>
+                                                <td className='c px-2'>฿{item?.Product_Price.toFixed(2) || '0.00'}</td>
+                                                <td className='l px-2'></td>
+                                                <td className='l px-2'></td>
+                                                <td className='l px-2'></td>
+                                            </tr>
+                                        })}
+                                    </React.Fragment>
                                 })}
                             </tbody>
                         </table>
