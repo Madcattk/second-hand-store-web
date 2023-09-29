@@ -14,6 +14,7 @@ const RootLayout = ({ children }) => {
   const pathname = usePathname()
   const isBackOffice = /backoffice*/.test(pathname)
   const isPDF = /pdf*/.test(pathname)
+  
   return (
     <html lang="en">
       <body>
