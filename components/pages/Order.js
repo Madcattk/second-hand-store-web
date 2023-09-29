@@ -192,8 +192,22 @@ export const Order = ({ form, onChange, onLoad }) => {
                 {(form?.Sale_Status === MetaSaleStatus?.[0]?.id ||  form?.Sale_Status === MetaSaleStatus?.[3]?.id) &&
                     <>
                         <div className='w-full border-b border-gray'></div>
-                        <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} buttonText='Upload Slip' placeholder='Profile Picture' classBox='w-full'/>
-                        <label htmlFor="Payment_Slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
+                        <div className='flex md:flex-row flex-col w-full md:gap-3 gap-0'>
+                            <div className='text-sm shadow border border-gray p-5 my-3 md:w-[30%] w-full'>
+                                <div className='w-full h-[90%]'>
+                                    <div className='py-3'>
+                                        <Image src={"/assets/images/payment/scb.jpeg"} alt="Bank" width={60} height={20}/>
+                                    </div>
+                                    <span className=''>
+                                        Siam Commercial Bank PCL. <br />
+                                        Account Number: 345-455-3453 <br />
+                                        Account Name: Second Hand store <br />
+                                    </span>
+                                </div>
+                                <div className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</div>
+                            </div>
+                            <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} buttonText='Upload Slip' placeholder='Profile Picture' classBox='w-full md:w-[70%] w-full'/>
+                        </div>
                         <div className='w-full flex justify-end'><ButtonText onClick={() => onUpLoadSlip()} placeholder='UPLOAD' classBox='w-72'/></div>
                     </>
                 }

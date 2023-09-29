@@ -35,16 +35,6 @@ const page = () => {
                         <div className='text-3xl font-bold pb-10'>Payment</div>
                         <div className='flex flex-col gap-10'>
                             <p>To make payment as convenient as possible, we offer a simple "Upload Slip" option. Here's how it works:</p>
-                            <div className='font-bold border border-brown p-5 relative'>
-                                <span className='absolute bg-white left-5'>
-                                    <Image src={"/assets/images/payment/scb.jpeg"} alt="Bank" width={50} height={10}/>
-                                </span>
-                                <span className='pl-14'>
-                                    Siam Commercial Bank PCL. <br />
-                                    Account Number: 345-455-3453 <br />
-                                    Account Name: Second Hand store <br />
-                                </span>
-                            </div>
                             <ul className='list-decimal pl-5'>
                                 <li>Select your items: Browse our wide selection of pre-loved treasures and add your chosen items to the cart.</li>
                                 <li>Checkout: During the checkout process, choose the "Upload Slip" payment option.</li>

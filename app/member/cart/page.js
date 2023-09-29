@@ -4,7 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 import { ButtonText, InputBox, InputFile, InputSelect } from '@components/inputs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faCircleLeft } from '@fortawesome/free-solid-svg-icons'; 
+import { faXmark, faCircleLeft, faCircleCheck } from '@fortawesome/free-solid-svg-icons'; 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
@@ -19,6 +19,7 @@ import { DateFormat } from '@components/formats'
 import { Result } from 'postcss'
 import { addPayment } from '@app/api/getAPI/payment'
 import Loading from '@components/pages/Loading'
+import { faAddressCard, faCreditCard } from '@fortawesome/free-regular-svg-icons'
 
 const page = () => {
     const [newDeliveryAddress, setNewDeliveryAddress] = useState(false)
@@ -26,6 +27,7 @@ const page = () => {
     const [auth, setAuth] = useState(null)
     const [loading, setLoading] = useState(true)
     const [form, setForm] = useState({})
+    const [isContinue, setIsContinue] = useState(false)
     const [payment, setPayment] = useState({})
     const [meta, setMeta] = useState({Promotion: null, Delevery_Address: null})
     
@@ -176,6 +178,10 @@ const page = () => {
                 toast.success("🤍 We've received your order.", {
                     autoClose: 2000,
                 });
+            } else {
+                return toast.error("❗️Something's wrong, please, try again.", {
+                    autoClose: 2000,
+                });
             }
 
             if(form?.Payment_Slip){
@@ -187,13 +193,15 @@ const page = () => {
                     toast.success("🤍 We've received your Slip.", {
                         autoClose: 2000,
                     });
+                } else {
+                    return toast.error("❗️Something's wrong, please, try again.", {
+                        autoClose: 2000,
+                    });
                 }
             }
             auth.Product_Id = null;
             saveToLocalStorage('auth', auth);
-            onLoadAuth();
-            onLoad();
-            router.push('/member/account')
+            router.push(`/member/order/${res?.data?.insertId}`)
         }
         else{
             toast.error("❗️Something's wrong, please, try again.", {
@@ -201,28 +209,42 @@ const page = () => {
             });
         }
     }
+
     const onChange = (update) => setForm({ ...form, ...update })
 
     return (
         <Loading loading={loading}>
             <div className='flex flex-col items-center w-full mb-10'>
+                {(auth?.Product_Id && auth?.Product_Id?.length > 0) &&
+                    <div className='xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 flex_center pb-4'>
+                        <div className='md:w-[620px] sm:w-96 w-72 shadow grid grid-cols-2 rounded-full bg-greyV2'>
+                            <div className={`${!isContinue ? 'bg-hover' : '' } transition-all duration-300 gap-3 flex_center p-3 rounded-full`}> 
+                                <FontAwesomeIcon icon={isContinue ? faCircleCheck : faAddressCard} size='xl' />
+                                <span>Address</span>
+                            </div>
+                            <div className={`${isContinue ? 'bg-hover' : '' } transition-all duration-300 gap-3 flex_center p-3 rounded-full`}>
+                                <FontAwesomeIcon icon={form?.Payment_Slip && isContinue ? faCircleCheck : faCreditCard} size='xl' />
+                                <span>Payment</span>
+                            </div>
+                        </div>
+                    </div>
+                }
                 <div className='min-h-[600px] xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 shadow-md grid lg:grid-cols-3 grid-cols-1'>
                     {(auth?.Product_Id && auth?.Product_Id?.length > 0) ?
                     <>
                         <div className='lg:col-span-2 col-span-1 p-10 flex flex-col gap-3 border-gray lg:border-r lg:border-b-0 border-r-0 border-b'>
                             <div className='flex gap-2 items-center'>
-                                <FontAwesomeIcon onClick={() => router.back()} icon={faCircleLeft} size='lg' className='cursor-pointer'/>
+                                <FontAwesomeIcon onClick={() => {
+                                    if(isContinue) setIsContinue(false)
+                                    else router.back()
+                                }} icon={faCircleLeft} size='lg' className='cursor-pointer'/>
                                 <div className='text-3xl'>Summary</div>
                             </div>
                             <div className='w-full flex justify-between text-[10px] font-light'>
                                 <span>PRODUCT</span>
                                 <span>PRICE</span>
                             </div>
-                            <div className={`
-                            ${(newDeliveryAddress && meta?.Promotion?.length > 0) ? 'h-[840px] ' :
-                            ((!newDeliveryAddress) && meta?.Promotion?.length > 0) ? 'h-[645px] ' :
-                            (newDeliveryAddress && (!meta?.Promotion?.length > 0)) ? 'h-[935px] ' : 'h-[740px] '}
-                            border-y border-brown py-2 w-full overflow-auto`}>
+                            <div className={`${meta?.Promotion?.length > 0 ? 'h-[380px]' : 'h-[485px]'} border-y border-brown py-2 w-full overflow-auto`}>
                                 {form?.Product?.map((item, index, array) => {
                                     return <React.Fragment key={"Customer-Order"+index}>
                                         <div className='w-full grid grid-cols-1 md:grid-cols-3'>
@@ -256,50 +278,83 @@ const page = () => {
                             <div className='w-full r font-semibold'>Total ฿{(parseFloat(form?.Sale_Total_Price)-(parseFloat(form?.Sale_Total_Price) * (form?.Promotion_Data?.Promotion_Discount / 100)) || parseFloat(form?.Sale_Total_Price)).toFixed(2) || '0.00'} Baht</div>
                             <div className='w-full border-b border-gray'></div>
                         </div>
-                        <div className='p-10 col-span-1 flex flex-col gap-3 bg-greyV2'>
-                            <div className='py-2 text-xl font-light'>Shipping Address</div>
-                            <div className='w-full flex flex-col gap-3 max-h-[255px] overflow-y-auto'>
-                                {form?.Address?.map((item,index) => (
-                                    <label className={`${form?.Color_Address === index ? 'bg-brown text-white' : ''} cursor-pointer p-3 border border-brown w-full font-light`} key={"Customer-Address" + index}>
-                                        <input type="radio" name="selectedAddress" onClick={handleAddressSelection} value={index} className="hidden"/>
-                                        <div>{item?.Fullname || ''}</div>
-                                        <div>{item?.Address || ''} {item?.District || ''} {item?.Province || ''} {item?.Zipcode || ''} {item?.Country || ''}</div>
-                                        <div>Phone: {item?.Phone || '-'}</div>
-                                    </label>
-                                ))}
-                            </div>
-                            {!newDeliveryAddress && <div onClick={() => {setNewDeliveryAddress(true); setForm({...form, Selected_Address: null, Color_Address: null})}} className='cursor-pointer p-3 border border-brown w-full font-light'>Add New Address</div>}
-                            {newDeliveryAddress &&
-                                <div className='w-full'>
-                                    <InputBox  onChange={(New_Fullname) => onChange({ New_Fullname })} value={form?.New_Fullname || ''} placeholder='Fullname' classBox='w-full' classInput='bg-greyV2'/>
-                                    <InputBox onChange={(New_Address) => onChange({ New_Address })} value={form?.New_Address || ''} placeholder='Address' classBox='w-full' classInput='bg-greyV2'/>
-                                    <div className='flex w-full'>
-                                        <InputBox onChange={(New_District) => onChange({ New_District })} value={form?.New_District || ''} placeholder='District' classBox='w-full border-r border-brown' classInput='bg-greyV2'/>
-                                        <InputBox onChange={(New_Province) => onChange({ New_Province })} value={form?.New_Province || ''} placeholder='Province' classBox='w-full' classInput='bg-greyV2'/>
-                                    </div>
-                                    <div className='flex w-full'>
-                                        <InputBox number={true} onChange={(New_Zipcode) => onChange({ New_Zipcode })} value={form?.New_Zipcode || ''} placeholder='Zip code' classBox='w-full border-r border-brown' classInput='bg-greyV2'/>
-                                        <InputBox onChange={(New_Country) => onChange({ New_Country })} value={form?.New_Country || ''} placeholder='Country' classBox='w-full' classInput='bg-greyV2'/>
-                                    </div>
-                                    <div className='flex w-full'>
-                                        <InputBox number={true} onChange={(New_Phone) => onChange({ New_Phone })} value={form?.New_Phone || ''} placeholder='Phone' classBox='w-full' classInput='bg-greyV2'/>
-                                    </div>
+                        {isContinue ?
+                            <div className='p-10 col-span-1 flex flex-col gap-3 bg-greyV2'>
+                                <div className='py-2 text-xl font-light'>Payment Detail</div>
+                                <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} buttonText='Upload Slip' placeholder='Profile Picture' classBox='w-full h-full'/>
+                                <div className='text-sm border border-brown p-5 relative'>
+                                    <span className='absolute bg-white left-5'>
+                                    <Image src={"/assets/images/payment/scb.jpeg"} alt="Bank" width={50} height={10}/>
+                                    </span>
+                                    <span className='pl-14'>
+                                        Siam Commercial Bank PCL. <br />
+                                        Account Number: 345-455-3453 <br />
+                                        Account Name: Second Hand store <br />
+                                    </span>
                                 </div>
-                            }
-                            <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} buttonText='Upload Slip' placeholder='Profile Picture' classBox='w-full'/>
-                            <div className='text-sm border border-brown p-5 relative'>
-                                <span className='absolute bg-white left-5'>
-                                <Image src={"/assets/images/payment/scb.jpeg"} alt="Bank" width={50} height={10}/>
-                                </span>
-                                <span className='pl-14'>
-                                    Siam Commercial Bank PCL. <br />
-                                    Account Number: 345-455-3453 <br />
-                                    Account Name: Second Hand store <br />
-                                </span>
+                                <label htmlFor="order_slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
+                                <ButtonText onClick={() => onSave()} placeholder='PLACE ORDER' classBox='w-full'/>
                             </div>
-                            <label htmlFor="order_slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
-                            <ButtonText onClick={() => onSave()} placeholder='CHECK OUT' classBox='w-full'/>
-                        </div>
+                        :
+                            <div className='p-10 col-span-1 flex flex-col gap-3 bg-greyV2'>
+                                <div className='py-2 text-xl font-light'>Shipping Address</div>
+                                <div className='h-full w-full flex flex-col gap-3'>
+                                    <div className='w-full flex flex-col gap-3 max-h-[260px] overflow-y-auto'>
+                                        {form?.Address?.map((item,index) => (
+                                            <label className={`${form?.Color_Address === index ? 'bg-brown text-white' : ''} transition-all duration-200 cursor-pointer p-3 border border-brown w-full font-light`} key={"Customer-Address" + index}>
+                                                <input type="radio" name="selectedAddress" onClick={handleAddressSelection} value={index} className="hidden"/>
+                                                <div>{item?.Fullname || ''}</div>
+                                                <div>{item?.Address || ''} {item?.District || ''} {item?.Province || ''} {item?.Zipcode || ''} {item?.Country || ''}</div>
+                                                <div>Phone: {item?.Phone || '-'}</div>
+                                            </label>
+                                        ))}
+                                    </div>
+                                    {!newDeliveryAddress && <div onClick={() => {setNewDeliveryAddress(true); setForm({...form, Selected_Address: null, Color_Address: null})}} className='cursor-pointer p-3 border border-brown w-full font-light'>Add New Address</div>}
+                                    {newDeliveryAddress &&
+                                        <div className='w-full'>
+                                            <InputBox  onChange={(New_Fullname) => onChange({ New_Fullname })} value={form?.New_Fullname || ''} placeholder='Fullname' classBox='w-full' classInput='bg-greyV2'/>
+                                            <InputBox onChange={(New_Address) => onChange({ New_Address })} value={form?.New_Address || ''} placeholder='Address' classBox='w-full' classInput='bg-greyV2'/>
+                                            <div className='flex w-full'>
+                                                <InputBox onChange={(New_District) => onChange({ New_District })} value={form?.New_District || ''} placeholder='District' classBox='w-full border-r border-brown' classInput='bg-greyV2'/>
+                                                <InputBox onChange={(New_Province) => onChange({ New_Province })} value={form?.New_Province || ''} placeholder='Province' classBox='w-full' classInput='bg-greyV2'/>
+                                            </div>
+                                            <div className='flex w-full'>
+                                                <InputBox number={true} onChange={(New_Zipcode) => onChange({ New_Zipcode })} value={form?.New_Zipcode || ''} placeholder='Zip code' classBox='w-full border-r border-brown' classInput='bg-greyV2'/>
+                                                <InputBox onChange={(New_Country) => onChange({ New_Country })} value={form?.New_Country || ''} placeholder='Country' classBox='w-full' classInput='bg-greyV2'/>
+                                            </div>
+                                            <div className='flex w-full'>
+                                                <InputBox number={true} onChange={(New_Phone) => onChange({ New_Phone })} value={form?.New_Phone || ''} placeholder='Phone' classBox='w-full' classInput='bg-greyV2'/>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <ButtonText onClick={() => {
+                                    if(form?.Selected_Address){
+                                        setIsContinue(true)
+                                    }else if(form?.New_Fullname || form?.New_Address || form?.New_District || form?.New_Province || form?.New_Zipcode || form?.New_Country || form?.New_Phone){
+                                        if(!(form?.New_Fullname && form?.New_Address && form?.New_District && form?.New_Province && form?.New_Zipcode && form?.New_Country && form?.New_Phone) ||
+                                            (form.New_Fullname.includes("%") ||
+                                            form.New_Address.includes("%") ||
+                                            form.New_District.includes("%") ||
+                                            form.New_Province.includes("%") ||
+                                            form.New_Zipcode.includes("%") ||
+                                            form.New_Country.includes("%") ||
+                                            form.New_Phone.includes("%"))
+                                        ){
+                                            return toast.error("🤍 Please fill out all new delivery address fields without '%'.", {
+                                                autoClose: 2000,
+                                            });
+                                        }
+                                        setIsContinue(true)
+                                    }
+                                    else{
+                                        return toast.error("🤍 Please select your delivery address.", {
+                                            autoClose: 2000,
+                                        });
+                                    }
+                                }} placeholder='CONTINUE' classBox='w-full'/>
+                            </div>
+                        }
                     </>
                     :
                     <div onClick={() => router.push('/')} className='px-10 text-2xl flex_center text-center font-bold cursor-pointer lg:col-span-3 col-span-1'>
@@ -313,3 +368,4 @@ const page = () => {
 }
 
 export default page
+
