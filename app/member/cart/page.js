@@ -299,7 +299,7 @@ const page = () => {
                             <div className='p-10 col-span-1 flex flex-col gap-3 bg-greyV2'>
                                 <div className='py-2 text-xl font-light'>Shipping Address</div>
                                 <div className='h-full w-full flex flex-col gap-3'>
-                                    <div className='w-full flex flex-col gap-3 max-h-[260px] overflow-y-auto'>
+                                    <div className='w-full flex flex-col gap-3 max-h-[230px] overflow-y-auto'>
                                         {form?.Address?.map((item,index) => (
                                             <label className={`${form?.Color_Address === index ? 'bg-brown text-white' : ''} transition-all duration-200 cursor-pointer p-3 border border-brown w-full font-light`} key={"Customer-Address" + index}>
                                                 <input type="radio" name="selectedAddress" onClick={handleAddressSelection} value={index} className="hidden"/>
