@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { Button, Form, Input, Select, DatePicker } from 'antd';
+import { Button, Form, Input, Select, DatePicker, message } from 'antd';
 import { WhiteInputFile } from '@components/inputs';
 import { useRouter } from 'next/navigation';
 import { addEmployee } from '@app/api/getAPI/employee';
@@ -41,6 +41,8 @@ const App = () => {
         autoClose: 2000,
       });
       router.push('/backoffice/employee');
+    } else {
+      message.error(res?.message);
     }
   };
 
@@ -96,6 +98,10 @@ const App = () => {
             {
               required: true,
             },
+            {
+              min: 8,
+              message: "Employee Password must be minimum 8 characters."
+            }
           ]}
         >
           <Input.Password />

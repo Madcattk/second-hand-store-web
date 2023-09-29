@@ -18,7 +18,7 @@ export async function POST(request) {
 
         if (existingEmployee.length > 0) {
             conn.end();
-            return NextResponse.json({ message: "duplicated" }, { status: 201 });
+            return NextResponse.json({ message: "Email duplicated!" }, { status: 201 });
         }
         const query = `INSERT INTO Employee 
             (Employee_Firstname, 
