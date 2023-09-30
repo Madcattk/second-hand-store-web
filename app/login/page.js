@@ -52,7 +52,7 @@ const page = () => {
       if(res?.message === 'success' && res?.data?.[0]){
         let authData = res?.data?.[0] || null
         saveToLocalStorage('auth', authData);
-        router.push('/backoffice');  
+        router.push('/backoffice/transaction');  
         //dispatch(inputAuth(authData))
       } else {
         toast.error("❗️Email or password is invalid.", {
