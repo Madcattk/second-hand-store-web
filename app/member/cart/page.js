@@ -28,7 +28,7 @@ const page = () => {
     const [loading, setLoading] = useState(true)
     const [form, setForm] = useState({})
     const [isContinue, setIsContinue] = useState(false)
-    const [payment, setPayment] = useState({})
+    const [address, setAddress] = useState('')
     const [meta, setMeta] = useState({Promotion: null, Delevery_Address: null})
     
     useEffect(() => {
@@ -63,6 +63,7 @@ const page = () => {
             New_Country: '',
             New_Phone: '',
         });
+        setAddress(form?.Address?.[event.target.value]?.Member_Address)
     };
     const onLoad = async () => {
         if(!auth?.Product_Id?.length > 0 && auth?.Member_Id !== null) {
@@ -131,31 +132,6 @@ const page = () => {
 
     const onSave = async () => {
         let sale = null;
-        let address = null;
-        if(form?.Selected_Address){
-            address = form.Selected_Address.Member_Address;
-        }else if(form?.New_Fullname || form?.New_Address || form?.New_District || form?.New_Province || form?.New_Zipcode || form?.New_Country || form?.New_Phone){
-            if(!(form?.New_Fullname && form?.New_Address && form?.New_District && form?.New_Province && form?.New_Zipcode && form?.New_Country && form?.New_Phone) ||
-                (form.New_Fullname.includes("%") ||
-                form.New_Address.includes("%") ||
-                form.New_District.includes("%") ||
-                form.New_Province.includes("%") ||
-                form.New_Zipcode.includes("%") ||
-                form.New_Country.includes("%") ||
-                form.New_Phone.includes("%"))
-            ){
-                return toast.error("🤍 Please fill out all new delivery address fields without '%'.", {
-                    autoClose: 2000,
-                });
-            }
-            address = form?.New_Fullname + "%" + form?.New_Address + "%" + form?.New_District + "%" + form?.New_Province + "%" + form?.New_Zipcode + "%" + form?.New_Country + "%" + form?.New_Phone + "%";
-        }
-        else{
-            return toast.error("🤍 Please select your delivery address.", {
-                autoClose: 2000,
-            });
-        }
-        
         sale = {
             Delivery_Address: address,
             Sale_Date: DateFormat(new Date),
@@ -211,7 +187,7 @@ const page = () => {
     }
 
     const onChange = (update) => setForm({ ...form, ...update })
-
+    
     return (
         <Loading loading={loading}>
             <div className='flex flex-col items-center w-full mb-10'>
@@ -219,11 +195,11 @@ const page = () => {
                     <div className='xl:w-[1120px] lg:w-[820px] md:w-[620px] sm:w-96 w-72 flex_center pb-4'>
                         <div className='md:w-[620px] sm:w-96 w-72 shadow grid grid-cols-2 rounded-full bg-greyV2'>
                             <div className={`${!isContinue ? 'bg-hover' : '' } transition-all duration-300 gap-3 flex_center p-3 rounded-full`}> 
-                                <FontAwesomeIcon icon={isContinue ? faCircleCheck : faAddressCard} size='xl' />
+                                <FontAwesomeIcon icon={address ? faCircleCheck : faAddressCard} size='xl' />
                                 <span>Address</span>
                             </div>
                             <div className={`${isContinue ? 'bg-hover' : '' } transition-all duration-300 gap-3 flex_center p-3 rounded-full`}>
-                                <FontAwesomeIcon icon={form?.Payment_Slip && isContinue ? faCircleCheck : faCreditCard} size='xl' />
+                                <FontAwesomeIcon icon={form?.Payment_Slip ? faCircleCheck : faCreditCard} size='xl' />
                                 <span>Payment</span>
                             </div>
                         </div>
@@ -309,7 +285,7 @@ const page = () => {
                                             </label>
                                         ))}
                                     </div>
-                                    {!newDeliveryAddress && <div onClick={() => {setNewDeliveryAddress(true); setForm({...form, Selected_Address: null, Color_Address: null})}} className='cursor-pointer p-3 border border-brown w-full font-light'>Add New Address</div>}
+                                    {!newDeliveryAddress && <div onClick={() => {setNewDeliveryAddress(true); setForm({...form, Selected_Address: null, Color_Address: null}); setAddress('')}} className='cursor-pointer p-3 border border-brown w-full font-light'>Add New Address</div>}
                                     {newDeliveryAddress &&
                                         <div className='w-full'>
                                             <InputBox  onChange={(New_Fullname) => onChange({ New_Fullname })} value={form?.New_Fullname || ''} placeholder='Fullname' classBox='w-full' classInput='bg-greyV2'/>
@@ -345,6 +321,7 @@ const page = () => {
                                                 autoClose: 2000,
                                             });
                                         }
+                                        setAddress(form?.New_Fullname + "%" + form?.New_Address + "%" + form?.New_District + "%" + form?.New_Province + "%" + form?.New_Zipcode + "%" + form?.New_Country + "%" + form?.New_Phone + "%")
                                         setIsContinue(true)
                                     }
                                     else{

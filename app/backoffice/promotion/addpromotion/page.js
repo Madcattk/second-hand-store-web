@@ -87,7 +87,7 @@ const App = () => {
                     },
                 ]}
             >
-                <Input />
+                <Input addonAfter="%"/>
             </Form.Item>
             <Form.Item
                 name={['form', 'Promotion_Price_Condition']}
