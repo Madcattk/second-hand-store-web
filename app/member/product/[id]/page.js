@@ -136,7 +136,7 @@ const page = () => {
                                                 ? item.Product_Name.substring(0, 17) + '...'
                                                 : item.Product_Name}
                                             </span>
-                                            <span className='c max-w-[180px]'>฿ {form?.Product_Price?.toFixed(2)} Baht</span>
+                                            <span className='c max-w-[180px]'>฿ {item?.Product_Price?.toFixed(2)} Baht</span>
                                         </div>
                                     </div>
                                 })}
