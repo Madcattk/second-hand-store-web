@@ -94,7 +94,7 @@ const App = () => {
           >
             <DatePicker />
           </Form.Item>
-          <Form.Item label="Promotion_End_Date" name={['form', 'Promotion_End_Date']}
+          <Form.Item label="Promotion End Date" name={['form', 'Promotion_End_Date']}
           rules={[
             {
               required: true,
