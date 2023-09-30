@@ -55,7 +55,11 @@ const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress 
                     autoClose: 2000,
                 });
             }
-            else{
+            else if(res?.message === 'duplicated'){
+                toast.error("❗️This email has already been used.", {
+                    autoClose: 2000,
+                });
+            }else{
                 toast.error("❗️Couldn't edit profile", {
                     autoClose: 2000,
                 });

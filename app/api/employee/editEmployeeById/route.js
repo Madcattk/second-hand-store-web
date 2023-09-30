@@ -16,6 +16,12 @@ export async function PUT(request) {
         
     try {       
         const conn = await dbConnection();
+        const [existingEmployee] = await conn.execute('SELECT * FROM Employee WHERE Employee_Email = ? AND Employee_Id != ?', [Employee_Email, Employee_Id]);
+
+        if (existingEmployee.length > 0) {
+            conn.end();
+            return NextResponse.json({ message: "Email duplicated!" }, { status: 201 });
+        }
         const query = `UPDATE Employee SET 
             Employee_Firstname = ?, 
             Employee_Lastname = ?, 
