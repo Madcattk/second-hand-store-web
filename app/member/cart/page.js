@@ -135,7 +135,7 @@ const page = () => {
         sale = {
             Delivery_Address: address,
             Sale_Date: DateFormat(new Date),
-            Sale_Status: form?.Payment_Slip ? MetaSaleStatus?.[1]?.id : MetaSaleStatus?.[0]?.id,
+            Sale_Status: MetaSaleStatus?.[0]?.id,
             Sale_Tracking_Number: null,
             Member_Id: auth?.Member_Id || null,
             Sale_Total_Price: form?.Sale_Total_Price || 0,
@@ -160,21 +160,6 @@ const page = () => {
                 });
             }
 
-            if(form?.Payment_Slip){
-                const payment = await addPayment({
-                    "Sale_Id": res?.data?.insertId || null, 
-                    "Payment_Slip": form?.Payment_Slip
-                })
-                if(payment?.message === 'success'){
-                    toast.success("🤍 We've received your Slip.", {
-                        autoClose: 2000,
-                    });
-                } else {
-                    return toast.error("❗️Something's wrong, please, try again.", {
-                        autoClose: 2000,
-                    });
-                }
-            }
             auth.Product_Id = null;
             saveToLocalStorage('auth', auth);
             router.push(`/member/order/${res?.data?.insertId}`)
@@ -199,7 +184,7 @@ const page = () => {
                                 <span>Address</span>
                             </div>
                             <div className={`${isContinue ? 'bg-hover' : '' } transition-all duration-300 gap-3 flex_center p-3 rounded-full`}>
-                                <FontAwesomeIcon icon={form?.Payment_Slip ? faCircleCheck : faCreditCard} size='xl' />
+                                <FontAwesomeIcon icon={isContinue ? faCircleCheck : faCreditCard} size='xl' />
                                 <span>Payment</span>
                             </div>
                         </div>
@@ -220,7 +205,7 @@ const page = () => {
                                 <span>PRODUCT</span>
                                 <span>PRICE</span>
                             </div>
-                            <div className={`${meta?.Promotion?.length > 0 ? 'h-[380px]' : 'h-[485px]'} border-y border-brown py-2 w-full overflow-auto`}>
+                            <div className={`${meta?.Promotion?.length > 0 ? 'h-[380px]' : 'h-[487px]'} border-y border-brown py-2 w-full overflow-auto`}>
                                 {form?.Product?.map((item, index, array) => {
                                     return <React.Fragment key={"Customer-Order"+index}>
                                         <div className='w-full grid grid-cols-1 md:grid-cols-3'>
@@ -256,19 +241,20 @@ const page = () => {
                         </div>
                         {isContinue ?
                             <div className='p-10 col-span-1 flex flex-col gap-3 bg-greyV2'>
-                                <div className='py-2 text-xl font-light'>Payment Detail</div>
-                                <InputFile onChange={(Payment_Slip) => onChange({ Payment_Slip })} value={form?.Payment_Slip || ''} buttonText='Upload Slip' placeholder='Profile Picture' classBox='w-full h-full'/>
-                                <div className='text-sm border border-brown p-5 relative'>
-                                    <span className='absolute bg-white left-5'>
-                                    <Image src={"/assets/images/payment/scb.jpeg"} alt="Bank" width={50} height={10}/>
-                                    </span>
-                                    <span className='pl-14'>
-                                        Siam Commercial Bank PCL. <br />
-                                        Account Number: 345-455-3453 <br />
-                                        Account Name: Second Hand store <br />
-                                    </span>
+                                <div className='w-full h-full'>
+                                    <div className='pt-2 pb-5 text-xl font-light'>Payment Method</div>
+                                    <div className='text-sm border border-gray shadow p-5 relative'>
+                                        <span className='absolute bg-white left-5'>
+                                        <Image src={"/assets/images/payment/scb.jpeg"} alt="Bank" width={50} height={10}/>
+                                        </span>
+                                        <span className='pl-14'>
+                                            Siam Commercial Bank PCL. <br />
+                                            Account Number: 345-455-3453 <br />
+                                            Account Name: Second Hand store <br />
+                                        </span>
+                                    </div>
                                 </div>
-                                <label htmlFor="order_slip" className='w-full l text-xs text-greyV1'>Upload slip here. ( later within 3 days )</label>
+                                <label htmlFor="order_slip" className='w-full l text-sm text-greyV1'>Payment will be required after placing order. </label>
                                 <ButtonText onClick={() => onSave()} placeholder='PLACE ORDER' classBox='w-full'/>
                             </div>
                         :
@@ -329,7 +315,7 @@ const page = () => {
                                             autoClose: 2000,
                                         });
                                     }
-                                }} placeholder='CONTINUE' classBox='w-full'/>
+                                }} placeholder='NEXT' classBox='w-full'/>
                             </div>
                         }
                     </>
