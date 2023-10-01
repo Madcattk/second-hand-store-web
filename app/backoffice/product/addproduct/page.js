@@ -45,7 +45,6 @@ const App = () => {
         name: item?.Size_Name
       }
     })
-
     const resProductType = await getAllProductTypes();
     const productTypes = resProductType?.data?.map((item, index) => {
       return {

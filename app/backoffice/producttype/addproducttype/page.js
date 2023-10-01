@@ -21,9 +21,9 @@ const validateMessages = {
   required: '${label} is required!',
 };
 /* eslint-enable no-template-curly-in-string */
+
 const App = () => {
   const router = useRouter();
-
   const onFinish = async (form) => {
     const res = await addProductTypes(form?.form);
     if (res?.message === 'success') {
@@ -33,6 +33,7 @@ const App = () => {
     }
     router.push('/backoffice/producttype');
   };
+  
   return (
     <Form
       {...layout}

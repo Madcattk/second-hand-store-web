@@ -24,10 +24,10 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 const onFinish = (values) => {
-    console.log(DateFormat(values.form.startDate));
-    console.log(DateFormat(values.form.endDate));
-
+    DateFormat(values.form.startDate);
+    DateFormat(values.form.endDate);
 };
+
 const App = () => {
     const router = useRouter();
     const onFinish = async (form) => {
@@ -39,6 +39,7 @@ const App = () => {
         }
         router.push('/backoffice/promotion');
     };
+    
     return (
         <Form
             {...layout}

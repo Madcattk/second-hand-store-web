@@ -24,7 +24,6 @@ const validateMessages = {
 
 const App = () => {
   const router = useRouter();
-
   const onFinish = async (form) => {
     const res = await addSize(form?.form);
     if (res?.message === 'success') {
@@ -34,6 +33,7 @@ const App = () => {
     }
     router.push('/backoffice/size');
   };
+  
   return (
     <Form
       {...layout}

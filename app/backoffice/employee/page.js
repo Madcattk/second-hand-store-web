@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from 'sweetalert2';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 
-
 const { Column } = Table;
 const App = () => {
     const router = useRouter();

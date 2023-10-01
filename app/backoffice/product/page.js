@@ -109,6 +109,7 @@ const AdvancedSearchForm = ({data, setData, router, expand, setExpand, onLoadOld
             setData(data || []);
         }
     };
+    
     return (
         <Form className='sticky top-0 z-50 bg-white' form={form} name="advanced_search" style={formStyle} onFinish={onFinish}>
             <Row gutter={24}>{getFields()}</Row>
