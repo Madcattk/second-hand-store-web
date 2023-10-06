@@ -6,6 +6,7 @@ import { editPromotionById, getPromotionById } from '@app/api/getAPI/promotion';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
+import dayjs from 'dayjs';
 
 const layout = {
   labelCol: {
@@ -15,6 +16,8 @@ const layout = {
     span: 16,
   },
 };
+
+
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -32,18 +35,35 @@ const App = () => {
     onLoad();
   }, []);
 
+  const dateFormat = 'YYYY/MM/DD';
+
   const onLoad = async () => {
     const res = await getPromotionById(id);
-    setData(res?.data?.[0] || {});
+    console.log(res?.data?.[0].Promotion_Start_Date)
+    console.log(dayjs(res?.data?.[0].Promotion_Start_Date).format(dateFormat))
+    const formateData =  {
+      ...res?.data?.[0],
+      Promotion_Start_Date: dayjs(res?.data?.[0].Promotion_Start_Date).format(dateFormat),
+      Promotion_End_Date: dayjs(res?.data?.[0].Promotion_End_Date).format(dateFormat)
+    }
+    console.log(formateData)
+    setData(formateData || {});
     setLoading(false); // Set loading to false after data is fetched
   };
+
+  // const formateData =  {
+  //   ...res?.data?.[0],
+  //   Promotion_Start_Date: "2023/03/01",
+  // }
+  // console.log(formateData)
+  // setData(formateData || {});
 
   const onFinish = async ({ form, ...restValues }) => {
     const updatedValues = {
       ...restValues,
       Promotion_Start_Date: form?.Promotion_Start_Date,
       Promotion_End_Date: form?.Promotion_End_Date,
-      
+
     };
     const res = await editPromotionById(updatedValues);
     if (res?.message === 'success') {
@@ -53,7 +73,7 @@ const App = () => {
       router.push('/backoffice/promotion');
     }
   };
-  
+
   return (
     <>
       {loading ? (
@@ -72,7 +92,7 @@ const App = () => {
           <Form.Item
             name="Promotion_Id"
             label="Promotion Id">
-             <Input disabled/>
+            <Input disabled />
           </Form.Item>
           <Form.Item
             name="Promotion_Name"
@@ -85,24 +105,24 @@ const App = () => {
           >
             <Input />
           </Form.Item>
-          <Form.Item label="Promotion Start Date" name={['form', 'Promotion_Start_Date']}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          <Form.Item label="Promotion Start Date" name="Promotion_Start_Date"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
           >
-            <DatePicker />
+            <DatePicker format={dateFormat} />
           </Form.Item>
-          <Form.Item label="Promotion End Date" name={['form', 'Promotion_End_Date']}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          {/* <Form.Item label="Promotion End Date" name={['form', 'Promotion_End_Date']}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
           >
-            <DatePicker />
-          </Form.Item>
+              <DatePicker defaultValue={dayjs('2015/01/01', dateFormat)} format={dateFormat} />
+          </Form.Item> */}
           <Form.Item
             name="Promotion_Discount"
             label="Promotion Discount"
@@ -132,8 +152,8 @@ const App = () => {
             }}
           >
             <Button htmlType="submit" type="primary" danger>
-            Submit
-          </Button>
+              Submit
+            </Button>
           </Form.Item>
         </Form>
       )}
