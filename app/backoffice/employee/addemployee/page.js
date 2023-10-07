@@ -34,7 +34,7 @@ const App = () => {
   const onChange = (update) => setImage(update)
   const onFinish = async (values) => {
 
-    values.form = { ...values.form, Employee_Image: image?.image || null , Employee_Birth_Date: DateFormat( values?.form?.Employee_Birth_Date )}
+    values.form = { ...values.form, Employee_Image: image?.image || null, Employee_Birth_Date: DateFormat(values?.form?.Employee_Birth_Date) }
     const res = await addEmployee(values.form);
     if (res?.message === 'success') {
       toast.success("Employee Added.", {
@@ -107,27 +107,27 @@ const App = () => {
           <Input.Password />
         </Form.Item>
         <Form.Item label="Employee Sex" name={['form', 'Employee_Sex']}
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Select>
-              {MetaSex.map((item, index) => {
-                return <Select.Option key={"Sex" + index} value={item.id}>{item.name}</Select.Option>
-              })}
-            </Select>
-          </Form.Item>
-          <Form.Item label="Employee Birth Date" name={['form', 'Employee_Birth_Date']}
           rules={[
             {
               required: true,
             },
           ]}
-          >
-            <DatePicker />
-          </Form.Item>
+        >
+          <Select>
+            {MetaSex.map((item, index) => {
+              return <Select.Option key={"Sex" + index} value={item.id}>{item.name}</Select.Option>
+            })}
+          </Select>
+        </Form.Item>
+        <Form.Item label="Employee Birth Date" name={['form', 'Employee_Birth_Date']}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <DatePicker />
+        </Form.Item>
         <Form.Item
           name={['form', 'Employee_Phone']}
           label="Employee Phone"
@@ -148,9 +148,7 @@ const App = () => {
             offset: 8,
           }}
         >
-          <Button htmlType="submit" type="primary" danger>
-            Submit
-          </Button>
+          <Button htmlType="submit" type="primary" danger> Submit </Button>
         </Form.Item>
       </Form>
     </>

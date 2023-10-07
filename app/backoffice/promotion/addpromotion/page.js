@@ -39,7 +39,7 @@ const App = () => {
         }
         router.push('/backoffice/promotion');
     };
-    
+
     return (
         <Form
             {...layout}
@@ -88,7 +88,7 @@ const App = () => {
                     },
                 ]}
             >
-                <Input addonAfter="%"/>
+                <Input addonAfter="%" />
             </Form.Item>
             <Form.Item
                 name={['form', 'Promotion_Price_Condition']}
@@ -107,9 +107,7 @@ const App = () => {
                     offset: 8,
                 }}
             >
-                <Button htmlType="submit" type="primary" danger>
-                    Submit
-                </Button>
+                <Button htmlType="submit" type="primary" danger> Submit </Button>
             </Form.Item>
         </Form>
     )

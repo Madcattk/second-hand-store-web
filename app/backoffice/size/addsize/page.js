@@ -33,7 +33,7 @@ const App = () => {
     }
     router.push('/backoffice/size');
   };
-  
+
   return (
     <Form
       {...layout}
@@ -62,9 +62,7 @@ const App = () => {
 
         }}
       >
-        <Button htmlType="submit" type="primary" danger>
-          Submit
-        </Button>
+        <Button htmlType="submit" type="primary" danger> Submit </Button>
       </Form.Item>
     </Form>
   )

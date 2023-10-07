@@ -85,9 +85,7 @@ const App = () => {
               offset: 8,
             }}
           >
-            <Button htmlType="submit" type="primary" danger>
-              Submit
-            </Button>
+              <Button htmlType="submit" type="primary" danger> Submit </Button>
           </Form.Item>
         </Form>
       )}
