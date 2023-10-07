@@ -58,8 +58,7 @@ const App = () => {
         validateMessages={validateMessages}
       >
         <Form.Item
-          name={['form', 'Employee_Firstname']}
-          label="Employee Firstname"
+          label="Employee Firstname" name={['form', 'Employee_Firstname']}
           rules={[
             {
               required: true,
@@ -69,8 +68,7 @@ const App = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name={['form', 'Employee_Lastname']}
-          label="Employee Lastname"
+          label="Employee Lastname" name={['form', 'Employee_Lastname']}
           rules={[
             {
               required: true,
@@ -80,8 +78,7 @@ const App = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name={['form', 'Employee_Email']}
-          label="Employee Email"
+          label="Employee Email" name={['form', 'Employee_Email']}
           rules={[
             {
               type: 'email',
@@ -92,8 +89,7 @@ const App = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name={['form', 'Employee_Password']}
-          label="Employee Password"
+          label="Employee Password" name={['form', 'Employee_Password']}
           rules={[
             {
               required: true,
@@ -106,7 +102,8 @@ const App = () => {
         >
           <Input.Password />
         </Form.Item>
-        <Form.Item label="Employee Sex" name={['form', 'Employee_Sex']}
+        <Form.Item
+          label="Employee Sex" name={['form', 'Employee_Sex']}
           rules={[
             {
               required: true,
@@ -119,7 +116,8 @@ const App = () => {
             })}
           </Select>
         </Form.Item>
-        <Form.Item label="Employee Birth Date" name={['form', 'Employee_Birth_Date']}
+        <Form.Item
+          label="Employee Birth Date" name={['form', 'Employee_Birth_Date']}
           rules={[
             {
               required: true,
@@ -129,8 +127,7 @@ const App = () => {
           <DatePicker />
         </Form.Item>
         <Form.Item
-          name={['form', 'Employee_Phone']}
-          label="Employee Phone"
+          label="Employee Phone" name={['form', 'Employee_Phone']}
           rules={[
             {
               required: true,

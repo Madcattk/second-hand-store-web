@@ -1,7 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Select, DatePicker } from 'antd';
-import { DateFormat } from '@components/formats';
 import { useParams, useRouter } from 'next/navigation';
 import { editProductById, getProductById } from '@app/api/getAPI/product';
 import { MetaProductSex, MetaProductStatus, MetaSex } from '@components/Meta';
@@ -11,7 +10,7 @@ import '@/styles/toastStyles.css';
 import { WhiteInputFile } from '@components/inputs';
 import { getAllSizes } from '@app/api/getAPI/size';
 import { getAllProductTypes } from '@app/api/getAPI/product-type';
-
+import dayjs from 'dayjs';
 const layout = {
   labelCol: {
     span: 8,
@@ -41,8 +40,12 @@ const App = () => {
   const onChange = (update) => setData({ ...data, ...update })
   const onLoad = async () => {
     const res = await getProductById(id);
-    res.data[0].Product_Date = DateFormat(res.data[0].Product_Date);
-    setData(res?.data?.[0] || {});
+    const formateData = {
+      ...res?.data?.[0],
+      Product_Date: dayjs(res?.data?.[0].Product_Date)
+    }
+    setData(formateData);
+
     const resSize = await getAllSizes();
     const sizes = resSize?.data?.map((item, index) => {
       return {
@@ -64,11 +67,12 @@ const App = () => {
     setLoading(false); // Set loading to false after data is fetched
   };
 
+  const DATE_FORMAT = "YYYY-MM-DD"
   const onFinish = async ({ form, ...restValues }) => {
     const updatedValues = {
       ...restValues,
       Product_Image: data?.Product_Image || null,
-      Product_Date: DateFormat(form?.Product_Date)
+      Product_Date: dayjs(restValues?.Product_Date).format(DATE_FORMAT)
     };
 
     const res = await editProductById(updatedValues);
@@ -97,13 +101,11 @@ const App = () => {
           initialValues={data}
         >
           <Form.Item
-            name="Product_Id"
-            label="Product Id">
+            label="Product Id" name="Product_Id">
             <Input disabled />
           </Form.Item>
           <Form.Item
-            name="Product_Name"
-            label="Product Name"
+            label="Product Name" name="Product_Name"
             rules={[
               {
                 required: true,
@@ -113,8 +115,7 @@ const App = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="Product_Price"
-            label="Product Price"
+            label="Product Price" name="Product_Price"
             rules={[
               {
                 required: true,
@@ -124,11 +125,11 @@ const App = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="Product_Description"
-            label="Product Description">
+            label="Product Description" name="Product_Description">
             <Input />
           </Form.Item>
-          <Form.Item label="Product Sex" name={'Product_Sex'}
+          <Form.Item
+            label="Product Sex" name={'Product_Sex'}
             rules={[
               {
                 required: true,
@@ -141,7 +142,8 @@ const App = () => {
               })}
             </Select>
           </Form.Item>
-          <Form.Item label="Product Date" name={['form', 'Product_Date']}
+          <Form.Item
+            label="Product Date" name="Product_Date"
             rules={[
               {
                 required: true,
@@ -150,7 +152,8 @@ const App = () => {
           >
             <DatePicker />
           </Form.Item>
-          <Form.Item label="Product Status" name={'Product_Status'}
+          <Form.Item
+            label="Product Status" name={'Product_Status'}
             rules={[
               {
                 required: true,
@@ -163,12 +166,13 @@ const App = () => {
               })}
             </Select>
           </Form.Item>
-          <Form.Item label="Product Type" name={'Product_Type_Id'} 
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          <Form.Item
+            label="Product Type" name={'Product_Type_Id'}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
           >
             <Select>
               {meta?.Product_Types?.map((item, index) => {
@@ -176,7 +180,8 @@ const App = () => {
               })}
             </Select>
           </Form.Item>
-          <Form.Item label="Size" name={'Size_Id'}>
+          <Form.Item
+            label="Size" name={'Size_Id'}>
             <Select>
               {meta?.Sizes?.map((item, index) => {
                 return <Select.Option key={"Product-Type" + index} value={item.id}>{item.name}</Select.Option>
@@ -184,13 +189,11 @@ const App = () => {
             </Select>
           </Form.Item>
           <Form.Item
-            name="Product_Size_Detail"
-            label="Product Size Detail">
+            label="Product Size Detail" name="Product_Size_Detail">
             <Input />
           </Form.Item>
           <Form.Item
-            name="Sale_Id"
-            label="Sale_Id">
+            label="Sale_Id" name="Sale_Id">
             <Input disabled />
           </Form.Item>
           <div className='w-full flex justify-center'>

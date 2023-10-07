@@ -5,10 +5,10 @@ import { useParams, useRouter } from 'next/navigation';
 import { editEmployeeById, getEmployeeById } from '@app/api/getAPI/employee';
 import { WhiteInputFile } from '@components/inputs';
 import { MetaSex } from '@components/Meta';
-import { DateFormat } from '@components/formats';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
+import dayjs from 'dayjs';
 
 const layout = {
   labelCol: {
@@ -41,17 +41,20 @@ const App = () => {
   const onChange = (update) => setData({ ...data, ...update })
   const onLoad = async () => {
     const res = await getEmployeeById(id);
-    res.data[0].Employee_Birth_Date = DateFormat(res.data[0].Employee_Birth_Date);
-    setData(res?.data?.[0] || {});
+    const formateData = {
+      ...res?.data?.[0],
+      Employee_Birth_Date: dayjs(res?.data?.[0].Employee_Birth_Date)
+    }
+    setData(formateData);
     setLoading(false); // Set loading to false after data is fetched
   };
 
+  const DATE_FORMAT = "YYYY-MM-DD"
   const onFinish = async ({ form, ...restValues }) => {
     const updatedValues = {
       ...restValues,
       Employee_Image: data?.Employee_Image || null,
-      Employee_Birth_Date: DateFormat(form?.Employee_Birth_Date),
-      Employee_Sex: form?.Employee_Sex
+      Employee_Birth_Date: dayjs(restValues?.Employee_Birth_Date).format(DATE_FORMAT),
     };
 
     const res = await editEmployeeById(updatedValues);
@@ -81,13 +84,11 @@ const App = () => {
           initialValues={data}
         >
           <Form.Item
-            name="Employee_Id"
-            label="Employee Id">
+            label="Employee Id" name="Employee_Id">
             <Input disabled />
           </Form.Item>
           <Form.Item
-            name="Employee_Firstname"
-            label="Employee Firstname	"
+            label="Employee Firstname" name="Employee_Firstname"
             rules={[
               {
                 required: true,
@@ -97,8 +98,7 @@ const App = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="Employee_Lastname"
-            label="Employee Lastname"
+            label="Employee Lastname" name="Employee_Lastname"
             rules={[
               {
                 required: true,
@@ -108,8 +108,7 @@ const App = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="Employee_Email"
-            label="Employee Email"
+            label="Employee Email" name="Employee_Email"
             rules={[
               {
                 type: 'email',
@@ -120,8 +119,7 @@ const App = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="Employee_Password"
-            label="Employee Password"
+            label="Employee Password" name="Employee_Password"
             rules={[
               {
                 required: true,
@@ -134,7 +132,7 @@ const App = () => {
           >
             <Input.Password />
           </Form.Item>
-          <Form.Item label="Employee Sex" name={['form', 'Employee_Sex']}
+          <Form.Item label="Employee Sex" name="Employee_Sex"
             rules={[
               {
                 required: true,
@@ -147,7 +145,7 @@ const App = () => {
               })}
             </Select>
           </Form.Item>
-          <Form.Item label="Employee Birth Date" name={['form', 'Employee_Birth_Date']}
+          <Form.Item label="Employee Birth Date" name="Employee_Birth_Date"
             rules={[
               {
                 required: true,

@@ -45,8 +45,7 @@ const App = () => {
       validateMessages={validateMessages}
     >
       <Form.Item
-        name={['form', 'Size_Name']}
-        label="Size Name"
+        label="Size Name" name={['form', 'Size_Name']}
         rules={[
           {
             required: true,

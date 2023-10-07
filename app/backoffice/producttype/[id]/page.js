@@ -64,13 +64,11 @@ const App = () => {
           initialValues={data}
         >
           <Form.Item
-            name="Product_Type_Id"
-            label="Product Type Id">
+            label="Product Type Id" name="Product_Type_Id">
             <Input disabled />
           </Form.Item>
           <Form.Item
-            name="Product_Type_Name"
-            label="Product Type Name"
+            label="Product Type Name" name="Product_Type_Name"
             rules={[
               {
                 required: true,
@@ -85,7 +83,7 @@ const App = () => {
               offset: 8,
             }}
           >
-              <Button htmlType="submit" type="primary" danger> Submit </Button>
+            <Button htmlType="submit" type="primary" danger> Submit </Button>
           </Form.Item>
         </Form>
       )}

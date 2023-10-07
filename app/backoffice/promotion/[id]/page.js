@@ -44,11 +44,14 @@ const App = () => {
         setLoading(false); // Set loading to false after data is fetched
     };
 
-    const onFinish = async ({...restValues }) => {
+    const DATE_FORMAT = "YYYY-MM-DD"
+    const onFinish = async ({ ...restValues }) => {
         const updatedValues = {
             ...restValues,
+            Promotion_Start_Date: dayjs(restValues?.Promotion_Start_Date).format(DATE_FORMAT),
+            Promotion_End_Date: dayjs(restValues?.Promotion_End_Date).format(DATE_FORMAT)
         };
-        
+
         const res = await editPromotionById(updatedValues);
         if (res?.message === 'success') {
             toast.success("Promotion Edited.", {
@@ -74,13 +77,11 @@ const App = () => {
                     initialValues={data}
                 >
                     <Form.Item
-                        name="Promotion_Id"
-                        label="Promotion Id">
+                        label="Promotion Id" name="Promotion_Id">
                         <Input disabled />
                     </Form.Item>
                     <Form.Item
-                        name="Promotion_Name"
-                        label="Promotion Name"
+                        label="Promotion Name" name="Promotion_Name"
                         rules={[
                             {
                                 required: true,
@@ -89,16 +90,8 @@ const App = () => {
                     >
                         <Input />
                     </Form.Item>
-                    <Form.Item label="Promotion Start Date" name="Promotion_Start_Date"
-                        rules={[
-                            {
-                                required: true,
-                            },
-                        ]}
-                    >
-                        <DatePicker />
-                    </Form.Item>
-                    <Form.Item label="Promotion End Date" name="Promotion_End_Date"
+                    <Form.Item
+                        label="Promotion Start Date" name="Promotion_Start_Date"
                         rules={[
                             {
                                 required: true,
@@ -108,8 +101,17 @@ const App = () => {
                         <DatePicker />
                     </Form.Item>
                     <Form.Item
-                        name="Promotion_Discount"
-                        label="Promotion Discount"
+                        label="Promotion End Date" name="Promotion_End_Date"
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                    >
+                        <DatePicker />
+                    </Form.Item>
+                    <Form.Item
+                        label="Promotion Discount" name="Promotion_Discount"
                         rules={[
                             {
                                 required: true,
@@ -119,8 +121,7 @@ const App = () => {
                         <Input addonAfter="%" />
                     </Form.Item>
                     <Form.Item
-                        name="Promotion_Price_Condition"
-                        label="Promotion Price Condition"
+                        label="Promotion Price Condition" name="Promotion_Price_Condition"
                         rules={[
                             {
                                 required: true,

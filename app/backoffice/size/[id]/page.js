@@ -64,13 +64,11 @@ const App = () => {
                     initialValues={data}
                 >
                     <Form.Item
-                        name="Size_Id"
-                        label="Size Id">
+                        label="Size Id" name="Size_Id">
                         <Input disabled />
                     </Form.Item>
                     <Form.Item
-                        name="Size_Name"
-                        label="Size Name"
+                        label="Size Name" name="Size_Name"
                         rules={[
                             {
                                 required: true,
