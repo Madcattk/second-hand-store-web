@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, DatePicker, } from 'antd';
+import { Button, Form, Input, DatePicker } from 'antd';
 import { useParams, useRouter } from 'next/navigation';
 import { editPromotionById, getPromotionById } from '@app/api/getAPI/promotion';
 import { toast } from 'react-toastify';
@@ -48,6 +48,7 @@ const App = () => {
         const updatedValues = {
             ...restValues,
         };
+        
         const res = await editPromotionById(updatedValues);
         if (res?.message === 'success') {
             toast.success("Promotion Edited.", {

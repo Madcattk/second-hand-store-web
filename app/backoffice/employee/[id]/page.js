@@ -9,7 +9,6 @@ import { DateFormat } from '@components/formats';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
-import dayjs from 'dayjs';
 
 const layout = {
   labelCol: {
@@ -42,11 +41,8 @@ const App = () => {
   const onChange = (update) => setData({ ...data, ...update })
   const onLoad = async () => {
     const res = await getEmployeeById(id);
-    const formateData = {
-      ...res?.data?.[0],
-      Employee_Birth_Date: dayjs(res?.data?.[0].Employee_Birth_Date)
-    }
-    setData(formateData);
+    res.data[0].Employee_Birth_Date = DateFormat(res.data[0].Employee_Birth_Date);
+    setData(res?.data?.[0] || {});
     setLoading(false); // Set loading to false after data is fetched
   };
 
@@ -54,6 +50,7 @@ const App = () => {
     const updatedValues = {
       ...restValues,
       Employee_Image: data?.Employee_Image || null,
+      Employee_Birth_Date: DateFormat(form?.Employee_Birth_Date),
       Employee_Sex: form?.Employee_Sex
     };
 
@@ -137,7 +134,7 @@ const App = () => {
           >
             <Input.Password />
           </Form.Item>
-          <Form.Item label="Employee Sex" name="Employee_Sex"
+          <Form.Item label="Employee Sex" name={['form', 'Employee_Sex']}
             rules={[
               {
                 required: true,
@@ -150,7 +147,7 @@ const App = () => {
               })}
             </Select>
           </Form.Item>
-          <Form.Item label="Employee Birth Date" name="Employee_Birth_Date"
+          <Form.Item label="Employee Birth Date" name={['form', 'Employee_Birth_Date']}
             rules={[
               {
                 required: true,
@@ -179,7 +176,9 @@ const App = () => {
               offset: 8,
             }}
           >
-              <Button htmlType="submit" type="primary" danger> Submit </Button>
+            <Button htmlType="submit" type="primary" danger>
+              Submit
+            </Button>
           </Form.Item>
         </Form>
       )}
