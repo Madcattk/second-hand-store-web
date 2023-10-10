@@ -30,7 +30,7 @@ const ImageFooter = () => {
                     </div>
                     <div className='w-full grid grid-cols-6 xl:h-[32vh] lg:h-[25vh] md:h-[20vh] sm:h-[15vh] h-[10vh]'>
                         {form?.map((item, index) => {
-                            return <div onClick={() => window.open(`/member/product/${item?.Product_Id}`, '_blank')} key={"Image-Footer"+index} className='col-span-1 relative h-full cursor-pointer bg-black'>
+                            return <div onClick={() => router.push(`/member/product/${item?.Product_Id}`)} key={"Image-Footer"+index} className='col-span-1 relative h-full cursor-pointer bg-black'>
                                 <Image src={item?.Product_Image || "/assets/images/avatars/no-image.png"} fill={true} alt='' priority={true} className='object-cover transition-opacity duration-300 hover:opacity-70'/>
                             </div>
                         })}

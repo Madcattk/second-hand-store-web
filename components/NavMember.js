@@ -57,7 +57,7 @@ const NavMember = ({ children }) => {
     
     const onLatestItem = async() => {
         const res = await getLatestProduct();
-        if(res?.data?.[0]?.Product_Id) window.open(`/member/product/${res?.data?.[0]?.Product_Id}`, '_blank');
+        if(res?.data?.[0]?.Product_Id) router.push(`/member/product/${res?.data?.[0]?.Product_Id}`);
     }
 
     const onChange = (update) => setForm({ ...update, searchType: '', searchSex: '' })
