@@ -201,7 +201,10 @@ const App = () => {
             offset: 8,
           }}
         >
-          <Button htmlType="submit" type="primary" danger> Submit </Button>
+         <div className="flex space-x-4">
+            <Button htmlType="submit" type="primary" danger>Submit</Button>
+            <Button onClick={() => router.push('/backoffice/product')} type="primary" danger>Back</Button>
+          </div>
         </Form.Item>
       </Form>
     </>
