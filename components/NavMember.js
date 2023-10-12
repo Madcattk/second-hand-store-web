@@ -100,11 +100,11 @@ const NavMember = ({ children }) => {
                         <a onClick={() => router.push('/login')} className="block px-1 py-2 cursor-pointer hover:bg-hover"><FontAwesomeIcon icon={faUser} /></a>
                     </div>
                 </div>
-                <div className="w-72 xl:w-[780px] lg:w-[480px] md:w-[280px] transform-none text-center text-2xl font-bold cursor-pointer">       
+                <div className="w-72 xl:w-[780px] lg:w-[480px] md:w-[280px] transform-none text-center text-2xl font-bold">       
                     <a onClick={() => {
                         setForm({searchInput: '', searchType: '', searchSex: ''});
                         router.push('/');
-                    }} className="no-underline text-brown">Second Hand Store</a>
+                    }} className="no-underline text-brown cursor-pointer">Second Hand Store</a>
                 </div>
                 <div className="hidden md:flex md:justify-end">
                     <a onClick={() => setSearch(!search)} className="block px-6 py-2 cursor-pointer">
