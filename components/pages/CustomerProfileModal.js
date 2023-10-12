@@ -92,7 +92,7 @@ const CustomerProfileModal = ({ onLoad, menu, setMenu, data, setAdd, setAddress 
                 </div>
                 <InputBox onChange={(Member_Username) => onChange({ Member_Username })} value={form?.Member_Username || ''} placeholder='Username' classBox='w-full'/>
                 <InputDate onChange={(Member_Birth_Date) => onChange({ Member_Birth_Date })} value={DateFormat(form?.Member_Birth_Date || '')} placeholder='Birth Date' classBox='w-full'/>
-                <InputFile onChange={(Member_Image) => onChange({ Member_Image })} value={form?.Member_Image || ''} placeholder='Profile Picture' classBox='w-full'/>
+                <InputFile onChange={(Member_Image) => onChange({ Member_Image })} value={form?.Member_Image || ''} placeholder='Profile Picture' classBox='w-full' buttonText='UPLOAD PHOTO'/>
                 <InputSelect onChange={(Member_Sex) => onChange({ Member_Sex })} value={form?.Member_Sex || ''} options={MetaSex} placeholder='Gender' classBox='w-full'/>
                 <div className='flex w-full'>
                     <InputBox onChange={(Member_Email) => onChange({ Member_Email })} value={form?.Member_Email || ''} placeholder='Email' classBox='w-full border-r border-brown'/>

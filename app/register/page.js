@@ -90,7 +90,7 @@ const page = () => {
           {/* {!(form?.status === 'true' || form?.status === true) && <InputBox onChange={(Member_Username) => onChange({ Member_Username })} value={form?.Member_Username || ''} placeholder='Username' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>} */}
           <InputBox onChange={(Member_Username) => onChange({ Member_Username })} value={form?.Member_Username || ''} placeholder='Username' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
           <InputDate onChange={(birth_date) => onChange({ birth_date })} value={form?.birth_date || ''} placeholder='Birth Date' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
-          <InputFile onChange={(image) => onChange({ image })} value={form?.image || ''} placeholder='Profile Picture' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
+          <InputFile onChange={(image) => onChange({ image })} value={form?.image || ''} placeholder='Profile Picture' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72' buttonText='UPLOAD PHOTO'/>
           <InputSelect onChange={(sex) => onChange({ sex })} value={form?.sex || ''} options={MetaSex} placeholder='Gender' classBox='lg:w-[500px] md:w-[450px] sm:w-96 w-72'/>
           <div className='flex lg:w-[500px] md:w-[450px] sm:w-96 w-72'>
             <InputBox onChange={(email) => onChange({ email })} value={form?.email || ''} placeholder='Email' classBox='w-full border-r border-brown'/>
