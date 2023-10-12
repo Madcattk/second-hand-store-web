@@ -82,8 +82,8 @@ const page = () => {
                     </div>    
                     <div className='border-b border-b-gray mt-5'/><div/>
                     <div className='w-full grid grid-cols-8 my-3 shadow bg-white text-brown font-light border border-brown'>
-                        <div onClick={() => setMenu(0)} className={`${(menu === 0 || menu === 3) ? 'bg-brown text-white' : ''} md:col-span-1 col-span-4 w-full c py-2 cursor-pointer`}>Profile</div>
-                        <div onClick={() => setMenu(1)} className={`${menu === 1 ? 'bg-brown text-white' : ''} md:col-span-1 col-span-4 w-full c py-2 cursor-pointer`}>Order</div>
+                        <div onClick={() => setMenu(0)} className={`${(menu === 0 || menu === 3) ? 'bg-brown text-white transition-all duration-300' : ''} md:col-span-1 col-span-4 w-full c py-2 cursor-pointer`}>Profile</div>
+                        <div onClick={() => setMenu(1)} className={`${menu === 1 ? 'bg-brown text-white transition-all duration-300' : ''} md:col-span-1 col-span-4 w-full c py-2 cursor-pointer`}>Order</div>
                     </div>
                     {menu === 1 && <CustomerOrderList/>}                    
                     {(menu === 0 || menu === 3) && <CustomerProfileModal menu={menu} setMenu={setMenu} data={form} setAdd={setAdd} setAddress={setAddress} onLoad={onLoad}/>}                    
