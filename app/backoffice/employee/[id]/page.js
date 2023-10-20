@@ -54,7 +54,7 @@ const App = () => {
     const updatedValues = {
       ...restValues,
       Employee_Image: data?.Employee_Image || null,
-      Employee_Birth_Date: dayjs(restValues?.Employee_Birth_Date).format(DATE_FORMAT),
+      Employee_Birth_Date: dayjs(restValues?.Employee_Birth_Date).format(DATE_FORMAT)
     };
 
     const res = await editEmployeeById(updatedValues);
