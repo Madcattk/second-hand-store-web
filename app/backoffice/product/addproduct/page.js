@@ -101,8 +101,7 @@ const App = () => {
         }}
       >
         <Form.Item
-          name={['form', 'Product_Name']}
-          label="Product Name"
+          label="Product Name" name={['form', 'Product_Name']}
           rules={[
             {
               required: true,
@@ -112,8 +111,7 @@ const App = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name={['form', 'Product_Price']}
-          label="Product Price"
+          label="Product Price" name={['form', 'Product_Price']}
           rules={[
             {
               required: true,
@@ -123,11 +121,12 @@ const App = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name={['form', 'Product_Description']}
-          label="Product Description">
+          label="Product Description" name={['form', 'Product_Description']}
+        >
           <Input />
         </Form.Item>
-        <Form.Item label="Product Sex" name={['form', 'Product_Sex']}
+        <Form.Item
+          label="Product Sex" name={['form', 'Product_Sex']}
           rules={[
             {
               required: true,
@@ -140,7 +139,8 @@ const App = () => {
             })}
           </Select>
         </Form.Item>
-        <Form.Item label="Product Date" name={['form', 'Product_Date']}
+        <Form.Item
+          label="Product Date" name={['form', 'Product_Date']}
           rules={[
             {
               required: true,
@@ -149,7 +149,8 @@ const App = () => {
         >
           <DatePicker />
         </Form.Item>
-        <Form.Item label="Product Status" name={['form', 'Product_Status']}
+        <Form.Item
+          label="Product Status" name={['form', 'Product_Status']}
           rules={[
             {
               required: true,
@@ -162,7 +163,8 @@ const App = () => {
             })}
           </Select>
         </Form.Item>
-        <Form.Item label="Product Type" name={['form', 'Product_Type_Id']}
+        <Form.Item
+          label="Product Type" name={['form', 'Product_Type_Id']}
           rules={[
             {
               required: true,
@@ -175,7 +177,8 @@ const App = () => {
             })}
           </Select>
         </Form.Item>
-        <Form.Item label="Size" name={['form', 'Size_Id']}>
+        <Form.Item
+          label="Size" name={['form', 'Size_Id']}>
           <Select>
             {meta?.Sizes?.map((item, index) => {
               return <Select.Option key={"Product-Type" + index} value={item.id}>{item.name}</Select.Option>
@@ -183,13 +186,13 @@ const App = () => {
           </Select>
         </Form.Item>
         <Form.Item
-          name={['form', 'Product_Size_Detail']}
-          label="Product Size Detail">
+          label="Product Size Detail" name={['form', 'Product_Size_Detail']}
+        >
           <Input />
         </Form.Item>
         <Form.Item
-          name={['form', 'Sale_Id']}
-          label="Sale Id">
+          label="Sale Id" name={['form', 'Sale_Id']}
+        >
           <Input disabled />
         </Form.Item>
         <div className='w-full flex justify-center'>
@@ -201,7 +204,7 @@ const App = () => {
             offset: 8,
           }}
         >
-         <div className="flex space-x-4">
+          <div className="flex space-x-4">
             <Button htmlType="submit" type="primary" danger>Submit</Button>
             <Button onClick={() => router.push('/backoffice/product')} type="primary" danger>Back</Button>
           </div>

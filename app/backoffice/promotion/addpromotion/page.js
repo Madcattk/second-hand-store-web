@@ -51,8 +51,7 @@ const App = () => {
             validateMessages={validateMessages}
         >
             <Form.Item
-                name={['form', 'Promotion_Name']}
-                label="Promotion Name"
+                label="Promotion Name" name={['form', 'Promotion_Name']}
                 rules={[
                     {
                         required: true,
@@ -61,16 +60,8 @@ const App = () => {
             >
                 <Input />
             </Form.Item>
-            <Form.Item label="Promotion Start Date Date" name={['form', 'Promotion_Start_Date']}
-                rules={[
-                    {
-                        required: true,
-                    },
-                ]}
-            >
-                <DatePicker />
-            </Form.Item>
-            <Form.Item label="Promotion End Date" name={['form', 'Promotion_End_Date']}
+            <Form.Item
+                label="Promotion Start Date Date" name={['form', 'Promotion_Start_Date']}
                 rules={[
                     {
                         required: true,
@@ -80,8 +71,17 @@ const App = () => {
                 <DatePicker />
             </Form.Item>
             <Form.Item
-                name={['form', 'Promotion_Discount']}
-                label="Promotion Discount"
+                label="Promotion End Date" name={['form', 'Promotion_End_Date']}
+                rules={[
+                    {
+                        required: true,
+                    },
+                ]}
+            >
+                <DatePicker />
+            </Form.Item>
+            <Form.Item
+                label="Promotion Discount" name={['form', 'Promotion_Discount']}
                 rules={[
                     {
                         required: true,
@@ -91,8 +91,7 @@ const App = () => {
                 <Input addonAfter="%" />
             </Form.Item>
             <Form.Item
-                name={['form', 'Promotion_Price_Condition']}
-                label="Promotion Price Condition"
+                label="Promotion Price Condition" name={['form', 'Promotion_Price_Condition']}
                 rules={[
                     {
                         required: true,

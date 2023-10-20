@@ -129,7 +129,7 @@ const App = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            label="Product Sex" name={'Product_Sex'}
+            label="Product Sex" name="Product_Sex"
             rules={[
               {
                 required: true,
@@ -153,7 +153,7 @@ const App = () => {
             <DatePicker />
           </Form.Item>
           <Form.Item
-            label="Product Status" name={'Product_Status'}
+            label="Product Status" name="Product_Status"
             rules={[
               {
                 required: true,
@@ -167,7 +167,7 @@ const App = () => {
             </Select>
           </Form.Item>
           <Form.Item
-            label="Product Type" name={'Product_Type_Id'}
+            label="Product Type" name="Product_Type_Id"
             rules={[
               {
                 required: true,
@@ -206,9 +206,9 @@ const App = () => {
             }}
           >
             <div className="flex space-x-4">
-            <Button htmlType="submit" type="primary" danger>Submit</Button>
-            <Button onClick={() => router.push('/backoffice/product')} type="primary" danger>Back</Button>
-          </div>
+              <Button htmlType="submit" type="primary" danger>Submit</Button>
+              <Button onClick={() => router.push('/backoffice/product')} type="primary" danger>Back</Button>
+            </div>
           </Form.Item>
         </Form>
       )}

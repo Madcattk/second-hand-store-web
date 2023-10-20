@@ -132,7 +132,8 @@ const App = () => {
           >
             <Input.Password />
           </Form.Item>
-          <Form.Item label="Employee Sex" name="Employee_Sex"
+          <Form.Item
+            label="Employee Sex" name="Employee_Sex"
             rules={[
               {
                 required: true,
@@ -145,7 +146,8 @@ const App = () => {
               })}
             </Select>
           </Form.Item>
-          <Form.Item label="Employee Birth Date" name="Employee_Birth_Date"
+          <Form.Item
+            label="Employee Birth Date" name="Employee_Birth_Date"
             rules={[
               {
                 required: true,
@@ -155,8 +157,7 @@ const App = () => {
             <DatePicker />
           </Form.Item>
           <Form.Item
-            name="Employee_Phone"
-            label="Employee Phone"
+            label="Employee Phone" name="Employee_Phone"
             rules={[
               {
                 required: true,
