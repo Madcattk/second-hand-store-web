@@ -22,7 +22,7 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const App = () => {
+const page = () => {
   const router = useRouter();
   const onFinish = async (form) => {
     const res = await addProductTypes(form?.form);
@@ -60,13 +60,13 @@ const App = () => {
           offset: 8,
         }}
       >
-       <div className="flex space-x-4">
-            <Button htmlType="submit" type="primary" danger>Submit</Button>
-            <Button onClick={() => router.push('/backoffice/producttype')} type="primary" danger>Back</Button>
-          </div>
+        <div className="flex space-x-4">
+          <Button htmlType="submit" type="primary" danger>Submit</Button>
+          <Button onClick={() => router.push('/backoffice/producttype')} type="primary" danger>Back</Button>
+        </div>
       </Form.Item>
     </Form>
   )
 }
 
-export default App;
+export default page;

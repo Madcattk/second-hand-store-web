@@ -22,7 +22,7 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const App = () => {
+const page = () => {
     const { id } = useParams();
     const router = useRouter();
     const [data, setData] = useState({});
@@ -94,4 +94,4 @@ const App = () => {
     );
 }
 
-export default App;
+export default page;

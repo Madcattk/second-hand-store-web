@@ -27,7 +27,7 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const App = () => {
+const page = () => {
   const router = useRouter();
   const [image, setImage] = useState(null);
   const [meta, setMeta] = useState({})
@@ -214,4 +214,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default page;

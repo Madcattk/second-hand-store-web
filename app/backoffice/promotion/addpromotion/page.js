@@ -28,7 +28,7 @@ const onFinish = (values) => {
     DateFormat(values.form.endDate);
 };
 
-const App = () => {
+const page = () => {
     const router = useRouter();
     const onFinish = async (form) => {
         const res = await addPromotion(form?.form);
@@ -115,4 +115,4 @@ const App = () => {
     )
 }
 
-export default App;
+export default page;

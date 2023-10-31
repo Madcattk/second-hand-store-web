@@ -22,7 +22,7 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const App = () => {
+const page = () => {
   const router = useRouter();
   const onFinish = async (form) => {
     const res = await addSize(form?.form);
@@ -70,4 +70,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default page;

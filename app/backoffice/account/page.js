@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
 
-const App = () => {
+const page = () => {
     const router = useRouter()
     const [data, setData] = useState(null)
     const [addAddress, setAddAddress] = useState(null)
@@ -148,4 +148,4 @@ const App = () => {
     )
 };
 
-export default App;
+export default page;

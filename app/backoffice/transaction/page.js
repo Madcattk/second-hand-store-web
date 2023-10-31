@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/toastStyles.css';
 
-const App = () => {
+const page = () => {
   const [tab, setTab] = useState(MetaSaleStatus?.[0]?.id);
   const items = MetaSaleStatus.map((status, index) => ({
     key: status.id,
@@ -45,4 +45,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default page;

@@ -22,7 +22,7 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const App = () => {
+const page = () => {
   const { id } = useParams();
   const router = useRouter();
   const [data, setData] = useState({});
@@ -84,9 +84,9 @@ const App = () => {
             }}
           >
             <div className="flex space-x-4">
-            <Button htmlType="submit" type="primary" danger>Submit</Button>
-            <Button onClick={() => router.push('/backoffice/producttype')} type="primary" danger>Back</Button>
-          </div>
+              <Button htmlType="submit" type="primary" danger>Submit</Button>
+              <Button onClick={() => router.push('/backoffice/producttype')} type="primary" danger>Back</Button>
+            </div>
           </Form.Item>
         </Form>
       )}
@@ -94,4 +94,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default page;

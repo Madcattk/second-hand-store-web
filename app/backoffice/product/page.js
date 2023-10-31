@@ -153,7 +153,7 @@ const AdvancedSearchForm = ({data, setData, router, expand, setExpand, onLoadOld
     );
 };
 
-const App = () => {
+const page = () => {
     const { token } = theme.useToken();
     const [hideID, setHideID] = useState(true);
     const [expand, setExpand] = useState(true);
@@ -264,4 +264,4 @@ const App = () => {
     );
 }
 
-export default App;
+export default page;

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 
 const { Column } = Table;
-const App = () => {
+const page = () => {
     const router = useRouter();
     const [hideID, setHideID] = useState(true);
     const [data, setData] = useState([]);
@@ -87,4 +87,4 @@ const App = () => {
     );
 }
 
-export default App;
+export default page;
