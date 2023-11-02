@@ -236,11 +236,11 @@ const page = () => {
                         </Space>
                     )}
                 />
-                <Column title="Description" dataIndex="Product_Description" key="Product_Description" width={500} />
+                <Column title="Description" dataIndex="Product_Description" key="Product_Description" width={250} />
                 <Column title="Sex" dataIndex="Product_Sex" key="Product_Sex" width={120} />
                 <Column title="Type Name" dataIndex="Product_Type_Name" key="Product_Type_Name" width={120} />
                 <Column title="Size Name" dataIndex="Size_Name" key="Size_Name" width={120} />
-                <Column title="Size Detail" dataIndex="Product_Size_Detail" key="Product_Size_Detail" width={150} />
+                <Column title="Size Detail" dataIndex="Product_Size_Detail" key="Product_Size_Detail" width={120} />
                 <Column title="Date" dataIndex="Product_Date" key="Product_Date" width={120} />
                 <Column title="Sale Id" dataIndex="Sale_Id" key="Sale_Id" width={100} />
                 <Column
