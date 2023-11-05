@@ -21,7 +21,7 @@ const page = () => {
     
     const onLoad = async () => {
         const res = await getSaleById(id)
-        if(res?.message === 'success' && res?.data?.Product?.length > 0){   
+        if(res?.message === 'success' && res?.data?.Product?.length > 0 && res?.data?.Member_Id === auth?.Member_Id){   
             let address = null;
             let add = res?.data?.Delivery_Address?.split('%');
             address = {
@@ -37,10 +37,8 @@ const page = () => {
             }
             const updatedData = { ...res.data, Address: address };
             res.data = updatedData;
-            if(res?.data?.Member_Id === auth?.Member_Id) {
-                setForm(res?.data || [])
-                setLoading(false)
-            } else router.back()
+            setForm(res?.data || [])
+            setLoading(false)
         } else {
             router.push('/member/account');
         }
