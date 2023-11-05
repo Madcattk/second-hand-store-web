@@ -10,12 +10,13 @@ import { MetaSaleStatus } from '@components/Meta';
 
 const page = () => {
     const router = useRouter();
+    const auth = getFromLocalStorage('auth');
     const { id } = useParams();
     const [form, setForm] = useState(null);
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        if(getFromLocalStorage('auth')) onLoad();
+        if(auth) onLoad();
     },[])
     
     const onLoad = async () => {
@@ -36,7 +37,6 @@ const page = () => {
             }
             const updatedData = { ...res.data, Address: address };
             res.data = updatedData;
-            let auth = getFromLocalStorage('auth')
             if(res?.data?.Member_Id === auth?.Member_Id) {
                 setForm(res?.data || [])
                 setLoading(false)
