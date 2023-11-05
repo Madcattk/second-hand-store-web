@@ -37,7 +37,7 @@ const page = () => {
             const updatedData = { ...res.data, Address: address };
             res.data = updatedData;
             let auth = getFromLocalStorage('auth')
-            if(res?.data?.Member_Id === auth?.Member_Id || auth?.Employee_Id) {
+            if(res?.data?.Member_Id === auth?.Member_Id) {
                 setForm(res?.data || [])
                 setLoading(false)
             } else router.back()
