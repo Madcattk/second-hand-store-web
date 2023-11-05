@@ -26,70 +26,70 @@ const page = () => {
 
   useEffect(() => {
     if (auth === null) setLoading(false)
-  },[])
+  }, [])
 
-  const onSave = async () => {  
-    if(!(form?.email && form?.password)) {
+  const onSave = async () => {
+    if (!(form?.email && form?.password)) {
       return toast.error("❗️Please fill out the fields.", {
-          autoClose: 2000,
+        autoClose: 2000,
       });
     }
     form.status = form?.status === 'true' ? true : form?.status === true ? true : false;
 
-    if(!form?.status){
+    if (!form?.status) {
       const res = await loginMember(form?.email, form?.password);
-      if(res?.message === 'success' && res?.data?.[0]){
+      if (res?.message === 'success' && res?.data?.[0]) {
         let authData = res?.data?.[0] || null
         saveToLocalStorage('auth', authData);
-        router.push('/member/account');  
+        router.push('/member/account');
       } else {
         toast.error("❗️Email or password is invalid.", {
-            autoClose: 2000,
+          autoClose: 2000,
         });
       }
     } else {
       const res = await loginEmployee(form?.email, form?.password);
-      if(res?.message === 'success' && res?.data?.[0]){
+      if (res?.message === 'success' && res?.data?.[0]) {
         let authData = res?.data?.[0] || null
         saveToLocalStorage('auth', authData);
-        router.push('/backoffice');  
+        router.push('/backoffice/account');
         //dispatch(inputAuth(authData))
       } else {
         toast.error("❗️Email or password is invalid.", {
-            autoClose: 2000,
+          autoClose: 2000,
         });
       }
     }
   }
-  
+
   return (
     <Loading loading={loading}>
       <div className='w-full h-fit lg:grid lg:grid-cols-2 lg:px-0 md:px-44'>
         <div className='lg:border-r lg:border-r-brown flex items-center flex-col'>
           <div className='pb-14'>
             <div className='font-extralight text-3xl pb-16'>Sign In</div>
-            <InputBox onChange={(email) => onChange({ email })} value={form?.email} placeholder='Email' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72'/>
+            <InputBox onChange={(email) => onChange({ email })} value={form?.email} placeholder='Email' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72' />
             <div className='relative'>
-              { password ? 
+              {password ?
                 <div className='absolute right-0 top-1/2 transform -translate-y-1/2'>
                   <FontAwesomeIcon onClick={() => setPassword(!password)} className='cursor-pointer' icon={faEyeSlash} />
                 </div>
-              :
+                :
                 <div className='absolute right-0 top-1/2 transform -translate-y-1/2'>
                   <FontAwesomeIcon onClick={() => setPassword(!password)} className='cursor-pointer' icon={faEye} />
                 </div>
               }
-              <InputBox password={password} onChange={(password) => onChange({ password })} value={form?.password} placeholder='Password' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72' classInput='pr-6'/>
+              <InputBox password={password} onChange={(password) => onChange({ password })} value={form?.password} placeholder='Password' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72' classInput='pr-6' />
             </div>
-            <InputSelect onChange={(status) => onChange({ status })} options={[{id: false, name: 'Login as a customer'}, {id: true, name: 'Admin'}]} value={form?.status || false} classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72 pb-14'/>
-            <ButtonText onClick={() => onSave()} placeholder='SIGN IN' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72 pb-2'/>
+            <InputSelect onChange={(status) => onChange({ status })} options={[{ id: false, name: 'Login as a customer' }, { id: true, name: 'Admin' }]} value={form?.status || false} classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72 pb-14' />
+            <ButtonText onClick={() => onSave()} placeholder='SIGN IN' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72 pb-2' />
           </div>
-          <hr className='show lg:hidden lg:w-[400px] md:w-[450px] sm:w-96 w-72 border-1 border-brown'/>
+          <hr className='show lg:hidden lg:w-[400px] md:w-[450px] sm:w-96 w-72 border-1 border-brown' />
         </div>
         <div className='flex items-center flex-col lg:pt-5 pt-10'>
           <div>
             <div className='font-extralight text-3xl pb-5'>New Account</div>
-              <ButtonText onClick={() => router.push('/register')} placeholder='CREATE ACCOUNT' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72'/>
+            <ButtonText onClick={() => router.push('/register')} placeholder='CREATE ACCOUNT' classBox='lg:w-[400px] md:w-[450px] sm:w-96 w-72' />
           </div>
         </div>
       </div>
