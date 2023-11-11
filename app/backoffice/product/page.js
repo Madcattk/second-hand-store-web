@@ -204,14 +204,12 @@ const page = () => {
             <Table dataSource={data} scroll={{x: 1500}} rowKey="Product_Id" sticky={{offsetHeader: expand ? 135 : 80,}} >
                 <Column
                     title="No"
-                    key="index"
                     fixed='left'
                     width={60}
                     render={(_, record) => data.indexOf(record) + 1}
                 />
                 <Column
                     title="Image"
-                    key="Product_Image"
                     fixed='left'
                     width={120}
                     render={(_, record) => (
@@ -220,12 +218,11 @@ const page = () => {
                         </div>
                     )}
                 />
-                {!hideID && <Column title="ID" dataIndex="Product_Id" key="Product_Id" width={60} />}
-                <Column title="Product Name" dataIndex="Product_Name" key="Product_Name" width={150} />
-                <Column title="Price" dataIndex="Product_Price" key="Product_Price" width={120}/>
+                {!hideID && <Column title="ID" dataIndex="Product_Id" width={60} />}
+                <Column title="Product Name" dataIndex="Product_Name" width={150} />
+                <Column title="Price" dataIndex="Product_Price"  width={120}/>
                 <Column
                     title="Status"
-                    key="Product_Status"
                     width={120}
                     render={(_, record) => (
                         <Space 
@@ -236,16 +233,15 @@ const page = () => {
                         </Space>
                     )}
                 />
-                <Column title="Description" dataIndex="Product_Description" key="Product_Description" width={250} />
-                <Column title="Sex" dataIndex="Product_Sex" key="Product_Sex" width={120} />
-                <Column title="Type Name" dataIndex="Product_Type_Name" key="Product_Type_Name" width={120} />
-                <Column title="Size Name" dataIndex="Size_Name" key="Size_Name" width={120} />
-                <Column title="Size Detail" dataIndex="Product_Size_Detail" key="Product_Size_Detail" width={120} />
-                <Column title="Date" dataIndex="Product_Date" key="Product_Date" width={120} />
-                <Column title="Sale Id" dataIndex="Sale_Id" key="Sale_Id" width={100} />
+                <Column title="Description" dataIndex="Product_Description" width={250} />
+                <Column title="Sex" dataIndex="Product_Sex" width={120} />
+                <Column title="Type Name" dataIndex="Product_Type_Name" width={120} />
+                <Column title="Size Name" dataIndex="Size_Name"  width={120} />
+                <Column title="Size Detail" dataIndex="Product_Size_Detail" width={120} />
+                <Column title="Date" dataIndex="Product_Date" width={120} />
+                <Column title="Sale Id" dataIndex="Sale_Id" width={100} />
                 <Column
                     title="Action"
-                    key="action"
                     fixed="right"
                     width={180}
                     render={(_, record) => (

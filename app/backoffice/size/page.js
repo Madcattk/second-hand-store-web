@@ -65,13 +65,12 @@ const page = () => {
             <Table dataSource={data} scroll={{x: 1500}} rowKey="Size_Id" sticky={{offsetHeader:64,}} >
                 <Column
                     title="No"
-                    key="index"
                     fixed='left'
                     width={60}
                     render={(_, record) => data.indexOf(record) + 1}
                 />
-                {!hideID && <Column title="ID" dataIndex="Size_Id" key="Size_Id" />}
-                <Column title="Name" dataIndex="Size_Name" key="Size_Name" />
+                {!hideID && <Column title="ID" dataIndex="Size_Id"/>}
+                <Column title="Name" dataIndex="Size_Name"/>
                 <Column
                     title="Action"
                     key="action"

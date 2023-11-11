@@ -78,17 +78,15 @@ const page = () => {
             <Table dataSource={data} scroll={{x: 1500}} rowKey="Promotion_Id" sticky={{offsetHeader:64,}} >
                 <Column
                     title="No"
-                    key="index"
                     fixed='left'
                     width={60}
                     render={(_, record) => data.indexOf(record) + 1}
                 />
-                {!hideID && <Column title="ID" dataIndex="Promotion_Id" key="Promotion_Id" fixed='left' width={60} />}
-                <Column title="Name" dataIndex="Promotion_Name" key="Promotion_Name" fixed='left' width={150} />
+                {!hideID && <Column title="ID" dataIndex="Promotion_Id" fixed='left' width={60} />}
+                <Column title="Name" dataIndex="Promotion_Name" fixed='left' width={150} />
                 <Column
                     title="Status"
                     width={120}
-                    key="status"
                     render={(_, record) => {
                         const currentDate = new Date();
                         const startDate = new Date(record?.Promotion_Start_Date);
@@ -126,13 +124,12 @@ const page = () => {
                         );
                     }}
                 />
-                <Column title="Discount" dataIndex="Promotion_Discount" key="Promotion_Discount" width={120} />
-                <Column title="Price Condition" dataIndex="Promotion_Price_Condition" key="Promotion_Price_Condition" width={120} />
-                <Column title="Start Date" dataIndex="Promotion_Start_Date" key="Promotion_Start_Date" width={120} />
-                <Column title="End Date" dataIndex="Promotion_End_Date" key="Promotion_End_Date" width={120} />
+                <Column title="Discount" dataIndex="Promotion_Discount" width={120} />
+                <Column title="Price Condition" dataIndex="Promotion_Price_Condition" width={120} />
+                <Column title="Start Date" dataIndex="Promotion_Start_Date" width={120} />
+                <Column title="End Date" dataIndex="Promotion_End_Date" width={120} />
                 <Column
                     title="Action"
-                    key="action"
                     fixed="right"
                     width={110}
                     render={(_, record) => (

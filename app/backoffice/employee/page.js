@@ -62,7 +62,7 @@ const App = () => {
                 <Space wrap>
                     <div className='font-semibold'>Employee amount: {data?.length || '-'}</div>
                 </Space>
-                <Space wrap> 
+                <Space wrap>
                     <Switch
                         checked={hideID}
                         onChange={() => setHideID(!hideID)}
@@ -75,37 +75,34 @@ const App = () => {
                     </Button>
                 </Space>
             </div>
-            <Table dataSource={data} scroll={{x: 1500}} rowKey="Employee_Id" sticky={{offsetHeader:64,}} >
+            <Table dataSource={data} scroll={{ x: 1500 }} rowKey="Employee_Id" sticky={{ offsetHeader: 64, }} >
                 <Column
                     title="No"
-                    key="index"
                     fixed='left'
                     width={60}
                     render={(_, record) => data.indexOf(record) + 1}
                 />
                 <Column
                     title="Image"
-                    key="Employee_Image"
                     fixed='left'
-                    width={100} 
+                    width={100}
                     render={(_, record) => (
                         <div>
                             <Image className='w-[80px] h-[100px]' src={record?.Employee_Image || "/assets/images/avatars/no-image.png"} alt="Product" width={80} height={100} />
                         </div>
                     )}
                 />
-                {!hideID && <Column title="ID" dataIndex="Employee_Id" key="Employee_Id" width={60} />}
-                <Column title="Firstname" dataIndex="Employee_Firstname" key="Employee_Firstname" width={120} />
-                <Column title="Lastname" dataIndex="Employee_Lastname" key="Employee_Lastname" width={120} />
-                <Column title="Email" dataIndex="Employee_Email" key="Employee_Email" width={200} />
-                <Column title="Sex" dataIndex="Employee_Sex" key="Employee_Sex" width={120} />
-                <Column title="Birth Date" dataIndex="Employee_Birth_Date" key="Employee_Birth_Date" width={120} />
-                <Column title="Phone" dataIndex="Employee_Phone" key="Employee_Phone" width={120} />
+                {!hideID && <Column title="ID" dataIndex="Employee_Id" width={60} />}
+                <Column title="Firstname" dataIndex="Employee_Firstname" width={120} />
+                <Column title="Lastname" dataIndex="Employee_Lastname" width={120} />
+                <Column title="Email" dataIndex="Employee_Email" width={200} />
+                <Column title="Sex" dataIndex="Employee_Sex" width={120} />
+                <Column title="Birth Date" dataIndex="Employee_Birth_Date" width={120} />
+                <Column title="Phone" dataIndex="Employee_Phone" width={120} />
                 <Column
                     title="Address"
                     dataIndex="Employee_Id"
                     width={120}
-                    key="click"
                     render={(_, record, index) => (
                         <Space size="middle">
                             <a onClick={() => setHoveredRowId(index)}>
@@ -116,7 +113,6 @@ const App = () => {
                 />
                 <Column
                     title="Action"
-                    key="action"
                     fixed="right"
                     width={85}
                     render={(_, record) => (

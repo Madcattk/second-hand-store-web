@@ -65,16 +65,14 @@ const page = () => {
             <Table dataSource={data} scroll={{x: 1500}} rowKey="Product_Type_Id" sticky={{offsetHeader:64,}} >
                 <Column
                     title="No"
-                    key="index"
                     fixed='left'
                     width={60}
                     render={(_, record) => data.indexOf(record) + 1}
                 />
-                {!hideID && <Column title="ID" dataIndex="Product_Type_Id" key="Product_Type_Id" />}
-                <Column title="Name" dataIndex="Product_Type_Name" key="Product_Type_Name" />
+                {!hideID && <Column title="ID" dataIndex="Product_Type_Id"/>}
+                <Column title="Name" dataIndex="Product_Type_Name"/>
                 <Column
                     title="Action"
-                    key="action"
                     render={(_, record) => (
                         <Space size="middle">
                             <Button onClick={() => router.push(`/backoffice/producttype/${record.Product_Type_Id}`)} danger>Edit</Button>
